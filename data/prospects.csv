@@ -1,0 +1,44 @@
+scenario_id,company_name,company_domain,entered_gbv_usd,ZI_company_size_est,current_tier ,navan_travel_activity_30d_post_signup 
+P-001,Gradient Labs,gradient-labs.ai,"$28,000",21,Tier 3,
+P-002,Attio,attio.com,"$47,000",24,Tier 3,6 travelers; 21 bookings in the first 30 days after signup; bookings +80% in days 16–30 versus days 1–15.
+P-003,Basecamp Research,basecamp-research.com,"$120,000",,Tier 2,
+P-004,Callosum,callosum.com,"$42,000",,Tier 3,1 traveler; 4 bookings in the first 30 days after signup; bookings were flat in days 16–30 versus days 1–15.
+P-005,FintechOS,fintechos.com,"$240,000",310,Tier 2,
+P-006,Healf,healf.com,"$31,000",,Tier 3,
+P-007,IMU Biosciences,imubiosciences.com,"$48,000",155,Tier 2,19 travelers; 57 bookings in the first 30 days after signup; bookings +62% in days 16–30 versus days 1–15.
+P-008,Modo Energy,modoenergy.com,"$18,000",,Tier 3,
+P-009,NexGen Cloud,nexgencloud.com,"$460,000",280,Tier 2,83 travelers; 318 bookings in the first 30 days after signup; bookings +12% in days 16–30 versus days 1–15.
+P-010,Qargo,qargo.com,"$76,000",220,Tier 2,
+P-011,Quantum Motion,quantummotion.com,"$42,000",,Tier 3,
+P-012,Recraft,recraft.ai,"$168,000",,Tier 2,
+P-013,Shellworks,shellworks.com,"$24,000",,Tier 3,
+P-014,Valarian,valarian.com,"$510,000",175,Tier 1,38 travelers; 132 bookings in the first 30 days after signup; bookings +51% in days 16–30 versus days 1–15.
+P-015,Metaview,metaview.ai,"$45,000",,Tier 3,5 travelers; 19 bookings in the first 30 days after signup; bookings −22% in days 16–30 versus days 1–15.
+P-016,Axle Energy,axle.energy,"$46,000",,Tier 3,
+P-017,Gaussion,gaussion.com,"$48,000",,Tier 3,
+P-018,Greyparrot,greyparrot.ai,"$395,000",42,Tier 2,42 travelers; 151 bookings in the first 30 days after signup; bookings +58% in days 16–30 versus days 1–15.
+P-019,CloudNC,cloudnc.com,"$44,000",125,Tier 3,
+P-020,HIVED,hived.space,"$325,000",286,Tier 2,
+P-021,Balfour Beatty,balfourbeatty.com,"$620,000",26000,Tier 1,135 travelers; 240 bookings in the first 30 days after signup; bookings +24% in days 16–30 versus days 1–15.
+P-022,Ageas Retail,ageas.co.uk,"$140,000",,Tier 2,
+P-023,Dalkia Facilities,dalkia.co.uk,"$475,000",2900,Tier 2,
+P-024,Drinks Wholesale Group,drinkswholesalegroup.com,"$35,000",,Tier 3,
+P-025,Bionical Solutions,bionical.com,"$82,000",85,Tier 3,9 travelers; 24 bookings in the first 30 days after signup; bookings −35% in days 16–30 versus days 1–15.
+P-026,Retail Merchant Services,retailmerchantservices.co.uk,"$18,000",,Tier 3,
+P-027,Kellan Group,kellangroup.com,"$42,000",,Tier 3,
+P-028,Puttshack,puttshack.com,"$290,000",1100,Tier 2,44 travelers; 140 bookings in the first 30 days after signup; bookings +42% in days 16–30 versus days 1–15.
+P-029,A.G. Barr,agbarr.co.uk,"$250,000",,Tier 2,
+P-030,Focusrite,focusriteplc.com,"$85,000",580,Tier 2,
+P-031,Thomas Brown Engineering Ltd,thomas-brown-engineering.co.uk,"$12,000",18,Tier 3,
+P-032,Castlebroom Engineering Limited,castlebroom.co.uk,"$22,000",,Tier 3,
+P-033,Moorside Manufacturing Ltd,moorsideengineering.com,"$7,500",11,Tier 3,
+P-034,Ashley Engineering (Accrington) LLP,ashleyengineering.co.uk,"$30,000",,Tier 3,
+P-035,Ackerman Engineering Ltd,ackermanengineering.co.uk,"$18,000",35,Tier 3,
+P-036,Metsol Engineering,metsolengineering.co.uk,"$14,000",10,Tier 3,
+P-037,Creiform Ltd,creiform.com,"$8,500",,Tier 3,
+P-038,RevoNA Bio,revona.bio,"$32,000",6,Tier 3,
+P-039,J.E.M. Precision Engineering Ltd,jemprecisionengineeringltd.co.uk,"$5,000",4,Tier 3,
+P-040,Precision Engineers (Pontefract) Ltd,precisioneng.co.uk,"$24,000",,Tier 3,
+P-041,Anthropic,anthropic.com,"$850,000",1200,Tier 1,
+P-042,Instinct,instinct.com,"$35,000",,Tier 3,
+P-043,Port,port.io,"$200,000",300,Tier 2,
