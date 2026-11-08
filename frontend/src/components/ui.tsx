@@ -1,5 +1,7 @@
 import { useEffect, useState, type ReactNode } from 'react'
 import type { Attention } from '../api'
+import { g } from '../glossary'
+import { Hint } from './Section'
 
 export const FIELD_LABELS: Record<string, string> = {
   industry_business_model: 'Industry & business model',
@@ -41,30 +43,55 @@ export const TRIGGER_LABELS: Record<string, string> = {
 }
 
 export function TierBadge({ tier, provisional, title }: { tier: number | null | undefined; provisional?: boolean | null; title?: string }) {
-  if (tier == null) return <span className="tier" title="No tier could be calculated">—</span>
+  if (tier == null) return <span className="tier">—</span>
+  const text = title ?? [g(`tier${tier}`), provisional ? g('provisional') : ''].filter(Boolean).join(' ')
   return (
-    <span className={`tier t${tier}${provisional ? ' prov' : ''}`} title={title ?? (provisional ? 'Provisional: employee count unknown' : undefined)}>
-      T{tier}
-      {provisional ? '?' : ''}
-    </span>
+    <Hint text={text}>
+      <span className={`tier t${tier}${provisional ? ' prov' : ''}`}>
+        T{tier}
+        {provisional ? '?' : ''}
+      </span>
+    </Hint>
   )
 }
 
 export function AttentionBadge({ attention, label }: { attention: Attention; label?: string }) {
   const text = label ?? (attention === 'review_now' ? 'Review Now' : attention === 'review_suggested' ? 'Review Suggested' : attention === 'monitor' ? 'Monitor' : 'No action')
-  return <span className={`badge att-${attention ?? 'none'}`}>{text}</span>
+  return (
+    <Hint text={g(attention ?? 'no_action')}>
+      <span className={`badge att-${attention ?? 'none'}`}>{text}</span>
+    </Hint>
+  )
 }
 
-export function FlagChip({ label, severity }: { label: string; severity?: string }) {
-  return <span className={`badge flag${severity ? ` sev-${severity}` : ''}`}>{label}</span>
+const FLAG_KEY: Record<string, string> = {
+  'Tier Mismatch': 'tier_mismatch', 'Data Conflict': 'data_conflict', 'Travel Potential': 'travel_potential',
+  'Growth Opportunity': 'growth_opportunity', 'Insufficient Evidence': 'insufficient_evidence',
 }
 
-export function StatusChip({ status }: { status: string }) {
-  return <span className={`badge st-${status}`}>{STATUS_LABELS[status] ?? status}</span>
+export function FlagChip({ label, severity, explain }: { label: string; severity?: string; explain?: string }) {
+  const text = explain ?? [g(FLAG_KEY[label]), severity ? g(severity) : ''].filter(Boolean).join(' ')
+  return (
+    <Hint text={text}>
+      <span className={`badge flag${severity ? ` sev-${severity}` : ''}`}>{label}</span>
+    </Hint>
+  )
+}
+
+export function StatusChip({ status, explain }: { status: string; explain?: string }) {
+  return (
+    <Hint text={explain ?? g(status)}>
+      <span className={`badge st-${status}`}>{STATUS_LABELS[status] ?? status}</span>
+    </Hint>
+  )
 }
 
 export function ReliabilityChip({ reliability }: { reliability: string }) {
-  return <span className={`badge rel rel-${reliability}`}>{RELIABILITY_LABELS[reliability] ?? reliability}</span>
+  return (
+    <Hint text={g(reliability)}>
+      <span className={`badge rel rel-${reliability}`}>{RELIABILITY_LABELS[reliability] ?? reliability}</span>
+    </Hint>
+  )
 }
 
 /** Only rendered for genuine comparable values. Never infers a change. */

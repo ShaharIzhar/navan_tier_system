@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { api, type ProspectRow } from '../api'
 import ProspectTable from '../components/ProspectTable'
 import { ErrorBox, Spinner, useAsync } from '../components/ui'
+import { Info } from '../components/Section'
+import { g } from '../glossary'
 
 const TABS: { key: NonNullable<ProspectRow['attention']>; label: string; help: string }[] = [
   { key: 'review_now', label: 'Review Now', help: 'Important, reasonably supported cases. A tier proposal or a conflict that decides tier eligibility.' },
@@ -23,19 +25,21 @@ export default function ReviewQueue() {
       <div className="page-head">
         <div>
           <h1>Review queue</h1>
-          <p>Companies that need a look, ordered by impact, evidence strength and actionability.</p>
+          <p className="small">
+            Companies that need a look, most important first. <Info text={g('priority')} />
+          </p>
         </div>
       </div>
       <ErrorBox error={error} />
-      <div className="tabs" role="tablist">
+      <div className="tabs" role="tablist" style={{ alignItems: 'center' }}>
         {TABS.map((t) => (
           <button key={t.key} role="tab" aria-selected={tab === t.key} className={`tab${tab === t.key ? ' active' : ''}`} onClick={() => setTab(t.key)}>
             {t.label}
             <span className="count">{data ? count(t.key) : '…'}</span>
           </button>
         ))}
+        <span style={{ marginLeft: 6 }}><Info text={current.help} /></span>
       </div>
-      <p className="muted small" style={{ marginBottom: 10 }}>{current.help}</p>
       <div className="card">
         {loading && !data ? (
           <div className="empty"><Spinner /></div>

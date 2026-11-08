@@ -2,6 +2,7 @@ import { NavLink, Route, Routes } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { api, type Meta } from './api'
 import { useReviewer } from './components/ui'
+import { Info } from './components/Section'
 import ReviewQueue from './pages/ReviewQueue'
 import Companies from './pages/Companies'
 import CompanyDetail from './pages/CompanyDetail'
@@ -40,9 +41,9 @@ export default function App() {
       </nav>
       <main className="main">
         {meta && !meta.provider.configured && (
-          <div className="callout warn banner small">
-            Live research is unavailable: no <code>ANTHROPIC_API_KEY</code> on the server. Rules, manual enrichment, reviews and
-            Day 30 reassessment still work. No research results are simulated.
+          <div className="callout warn banner small row">
+            Live research is off (no API key).
+            <Info text="Everything else works: rules, manual values, reviews, Day 30. No research results are simulated." />
           </div>
         )}
         <Routes>

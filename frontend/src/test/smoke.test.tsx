@@ -119,6 +119,6 @@ describe('Tier review', () => {
     await waitFor(() => expect(calls.some((c) => c.url === '/api/proposals/9/decision')).toBe(true))
     const body = JSON.parse(String(calls.find((c) => c.url === '/api/proposals/9/decision')!.init!.body))
     expect(body).toEqual({ action: 'reject', reviewer: 'Sam', comment: 'Synthetic source only' })
-    expect(within(document.body).getByText(/Standard-rule correction/)).toBeInTheDocument()
+    expect(within(document.body).getByText('Standard-rule correction')).toBeInTheDocument()
   })
 })

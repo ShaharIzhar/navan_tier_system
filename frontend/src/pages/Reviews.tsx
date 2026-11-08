@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { api } from '../api'
 import { ErrorBox, Spinner, TierBadge, useAsync, when } from '../components/ui'
+import { Hint, Info } from '../components/Section'
+import { g } from '../glossary'
 
 const FILTERS = [
   { key: 'unresolved', label: 'Unresolved' },
@@ -23,7 +25,7 @@ export default function Reviews() {
       <div className="page-head">
         <div>
           <h1>Tier reviews</h1>
-          <p>Proposed tier changes. Nothing changes until a person approves.</p>
+          <p className="small">Proposed tier changes. Nothing changes until a person approves. <Info text={`${g('standard_rule_correction')} ${g('evidence_override')}`} /></p>
         </div>
       </div>
       <ErrorBox error={error} />
@@ -58,12 +60,14 @@ export default function Reviews() {
                   <td className="muted">#{p.id}</td>
                   <td className="company-cell">
                     <strong>{p.company_name}</strong>
-                    <span>{p.title}</span>
+
                   </td>
                   <td>
                     <TierBadge tier={p.from_tier} /> → <TierBadge tier={p.proposed_tier} />
                   </td>
-                  <td>{p.proposal_type === 'standard_rule_correction' ? 'Standard-rule correction' : 'Evidence-based override'}</td>
+                  <td>
+                    <Hint text={g(p.proposal_type)}>{p.proposal_type === 'standard_rule_correction' ? 'Rule correction' : 'Override'}</Hint>
+                  </td>
                   <td>{p.stage === 'day30' ? 'Day 30' : 'Day 0'}</td>
                   <td>
                     <span className={`status-pill${p.status === 'open' ? ' awaiting' : ''}`}>{p.status_label}</span>

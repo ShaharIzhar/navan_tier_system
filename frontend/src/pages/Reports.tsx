@@ -1,29 +1,40 @@
 import { Link } from 'react-router-dom'
 import { api } from '../api'
+import { Info, Section } from '../components/Section'
 import { ErrorBox, FIELD_LABELS, Spinner, StatusChip, useAsync } from '../components/ui'
+import { g } from '../glossary'
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-function Stat({ v, l }: { v: string | number; l: string }) {
+const ATT_LABEL: Record<string, string> = { review_now: 'Review Now', review_suggested: 'Review Suggested', monitor: 'Monitor', none: 'No action' }
+const ATT_COLOR: Record<string, string> = { review_now: 'var(--red)', review_suggested: 'var(--amber)', monitor: 'var(--slate)', none: 'var(--border-strong)' }
+const STATUS_COLOR: Record<string, string> = {
+  found: 'var(--green)', not_found: 'var(--border-strong)', conflicting: 'var(--red)', stale: 'var(--amber)',
+  not_searched: 'var(--surface-2)', not_applicable: 'var(--surface-2)',
+}
+
+function Kpi({ v, l, info }: { v: string | number; l: string; info?: string }) {
   return (
-    <div className="card stat">
+    <div className="card kpi">
       <div className="v">{v}</div>
-      <div className="l">{l}</div>
+      <div className="l">{l} {info && <Info text={info} />}</div>
     </div>
   )
 }
 
-function Counts({ data, empty = 'None yet' }: { data: Record<string, number>; empty?: string }) {
-  const entries = Object.entries(data ?? {})
+function Counts({ data, labels, empty = 'None yet' }: { data: Record<string, number>; labels?: Record<string, string>; empty?: string }) {
+  const entries = Object.entries(data ?? {}).sort((a, b) => b[1] - a[1])
   if (!entries.length) return <p className="muted small">{empty}</p>
+  const max = Math.max(...entries.map(([, v]) => v))
   return (
-    <table>
-      <tbody>
-        {entries.map(([k, v]) => (
-          <tr key={k}><td>{k.replace(/_/g, ' ')}</td><td className="num">{v}</td></tr>
-        ))}
-      </tbody>
-    </table>
+    <div className="stack" style={{ gap: 8 }}>
+      {entries.map(([k, v]) => (
+        <div key={k}>
+          <div className="spread small"><span>{labels?.[k] ?? k.replace(/_/g, ' ')}</span><strong>{v}</strong></div>
+          <div className="bar"><span style={{ width: `${(v / max) * 100}%`, background: 'var(--accent)' }} /></div>
+        </div>
+      ))}
+    </div>
   )
 }
 
@@ -33,149 +44,170 @@ export default function Reports() {
   if (error || !r) return <ErrorBox error={error} />
   const checks: any[] = r.scenario_checks
   const passed = checks.filter((c) => c.passed).length
+  const attTotal = Object.values(r.attention as Record<string, number>).reduce((a, b) => a + b, 0)
 
   return (
     <>
       <div className="page-head">
         <div>
-          <h1>Reports & evaluation</h1>
-          <p>What the prototype can show today, and what needs verified outcomes before it means anything.</p>
+          <h1>Reports</h1>
+          <p className="small">
+            What the prototype shows today. <Info text="The dataset is fictional and has no verified outcomes, so no accuracy number is reported. These views show rule behaviour, research quality, cost, and candidates for error analysis." />
+          </p>
         </div>
       </div>
 
-      <div className="grid-3" style={{ gridTemplateColumns: 'repeat(5, 1fr)', marginBottom: 16 }}>
-        <Stat v={r.totals.prospects} l="prospects imported" />
-        <Stat v={r.totals.researched} l="with public research" />
-        <Stat v={r.totals.research_failed} l="failed research runs" />
-        <Stat v={r.totals.day30_received} l="Day 30 summaries received" />
-        <Stat v={`$${r.research_cost.total_usd.toFixed(3)}`} l="approx. research cost" />
+      <div className="kpis">
+        <Kpi v={r.totals.prospects} l="companies" />
+        <Kpi v={r.totals.researched} l="researched" info="Companies with at least one successful public-research run." />
+        <Kpi v={r.totals.research_failed} l="failed runs" info="Research runs that failed (timeout, API error, malformed output). Shown, never hidden." />
+        <Kpi v={r.totals.day30_received} l="Day 30 received" info={g('day30')} />
+        <Kpi v={`$${r.research_cost.total_usd.toFixed(2)}`} l="research cost" info={g('cost')} />
       </div>
 
-      <div className="grid-3" style={{ marginBottom: 16 }}>
-        <div className="card">
-          <div className="card-head"><h2>Attention</h2></div>
-          <Counts data={Object.fromEntries(Object.entries(r.attention).map(([k, v]) => [({ review_now: 'Review Now', review_suggested: 'Review Suggested', monitor: 'Monitor', none: 'No action' } as any)[k] ?? k, v as number]))} />
-        </div>
-        <div className="card">
-          <div className="card-head"><h2>Reason flags (latest)</h2></div>
-          <Counts data={r.flags} />
-        </div>
-        <div className="card">
-          <div className="card-head"><h2>Reviews</h2></div>
-          <Counts data={r.proposals} empty="No proposals yet" />
-          <div className="card-pad small muted">
-            Decisions: {Object.entries(r.decisions).map(([k, v]) => `${k.replace('_', ' ')} ${v}`).join(' · ') || 'none'}
+      <div className="stack">
+        <Section id="rep-overview" title="Overview" info="Where companies sit right now (latest assessment).">
+          <div className="grid-3">
+            <div>
+              <h3 className="row" style={{ marginBottom: 8 }}>Attention <Info text={`${g('review_now')} ${g('review_suggested')} ${g('monitor')}`} /></h3>
+              <div className="bar" style={{ height: 10, marginBottom: 8 }}>
+                {Object.entries(r.attention as Record<string, number>).map(([k, v]) => (
+                  <span key={k} title={`${ATT_LABEL[k] ?? k}: ${v}`} style={{ width: `${(v / attTotal) * 100}%`, background: ATT_COLOR[k] }} />
+                ))}
+              </div>
+              <Counts data={r.attention} labels={ATT_LABEL} />
+            </div>
+            <div>
+              <h3 className="row" style={{ marginBottom: 8 }}>Reason flags <Info text="A company can have several flags." /></h3>
+              <Counts data={r.flags} />
+            </div>
+            <div>
+              <h3 className="row" style={{ marginBottom: 8 }}>Tier proposals <Info text="Superseded = the latest evidence no longer supports it." /></h3>
+              <Counts data={r.proposals} empty="No proposals yet" />
+              {r.tier_changes.length > 0 && (
+                <p className="small muted" style={{ marginTop: 8 }}>{r.tier_changes.length} tier change(s) approved</p>
+              )}
+            </div>
           </div>
-        </div>
-      </div>
+        </Section>
 
-      <div className="grid-2" style={{ marginBottom: 16 }}>
-        <div className="card">
-          <div className="card-head"><h2>Missing and conflicting research</h2><span className="card-sub">{r.totals.researched} researched companies</span></div>
-          <div className="card-pad small text-2">
-            Employee estimate missing in dataset: <strong>{r.missing_data.employee_estimate_missing}</strong> of {r.totals.prospects} · provisional baseline tiers: <strong>{r.missing_data.provisional_baseline}</strong>
+        <Section
+          id="rep-eval"
+          title="Evaluation signals"
+          info="Candidates to investigate, not accuracy figures."
+          summary={`${r.review_outcomes.rejected_proposals_candidate_false_positives.length} possible FP · ${r.retrospective_day30.filter((x: any) => x.label.startsWith('Possible miss')).length} possible FN · ${r.unsupported_recommendations.length} unsupported`}
+        >
+          <div className="grid-3">
+            <EvalList
+              title="Possible false positives"
+              info={g('false_positives')}
+              items={r.review_outcomes.rejected_proposals_candidate_false_positives.map((x: any) => ({ key: x.proposal_id, link: `/reviews/${x.proposal_id}`, label: `#${x.proposal_id} ${x.prospect_id}`, hint: x.title }))}
+            />
+            <EvalList
+              title="Possible false negatives"
+              info={g('false_negatives')}
+              items={r.retrospective_day30
+                .filter((x: any) => x.label.startsWith('Possible'))
+                .map((x: any) => ({ key: x.prospect_id, link: `/companies/${x.prospect_id}`, label: x.company_name, hint: x.label }))}
+              empty={r.retrospective_day30.length ? 'None' : 'No Day 30 data received yet'}
+            />
+            <EvalList
+              title="Unsupported recommendations"
+              info={g('unsupported')}
+              items={r.unsupported_recommendations.map((x: any) => ({ key: x.proposal_id, link: `/reviews/${x.proposal_id}`, label: `#${x.proposal_id} ${x.prospect_id}`, hint: x.reasons.join('; ') }))}
+            />
           </div>
+        </Section>
+
+        <Section
+          id="rep-coverage"
+          title="Research coverage"
+          info="For researched companies: how often each field was found, missing, conflicting or stale. Hover a bar segment for counts."
+          summary={`${r.missing_data.employee_estimate_missing} missing employee estimates · ${r.missing_data.provisional_baseline} provisional tiers`}
+          flush
+        >
           <table>
-            <thead><tr><th>Field</th><th>Status counts</th></tr></thead>
             <tbody>
-              {Object.entries(r.missing_data.coverage_by_field as Record<string, Record<string, number>>).map(([f, c]) => (
-                <tr key={f}>
-                  <td>{FIELD_LABELS[f] ?? f}</td>
-                  <td className="row">{Object.entries(c).map(([s, n]) => <span key={s} className="row" style={{ gap: 4 }}><StatusChip status={s} /> {n}</span>)}</td>
+              {Object.entries(r.missing_data.coverage_by_field as Record<string, Record<string, number>>).map(([f, c]) => {
+                const total = Object.values(c).reduce((a, b) => a + b, 0) || 1
+                return (
+                  <tr key={f}>
+                    <td style={{ width: 220 }}>{FIELD_LABELS[f] ?? f}</td>
+                    <td>
+                      <div className="bar" style={{ height: 10 }}>
+                        {Object.entries(c).map(([s, n]) => (
+                          <span key={s} title={`${s.replace('_', ' ')}: ${n}`} style={{ width: `${(n / total) * 100}%`, background: STATUS_COLOR[s] }} />
+                        ))}
+                      </div>
+                    </td>
+                    <td style={{ width: 300 }}>
+                      <div className="row">
+                        {Object.entries(c).map(([s, n]) => <span key={s} className="row small" style={{ gap: 3 }}><StatusChip status={s} />{n}</span>)}
+                      </div>
+                    </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </Section>
+
+        <Section
+          id="rep-cost"
+          title="Research usage"
+          info={g('cost')}
+          summary={`${r.research_cost.web_searches} searches · ${r.research_cost.llm_calls} AI calls · ${r.citation_validation.findings_dropped} citations removed`}
+          defaultOpen={false}
+        >
+          <dl className="kv">
+            <dt>Per researched company</dt><dd>{r.research_cost.per_researched_prospect_usd != null ? `$${r.research_cost.per_researched_prospect_usd.toFixed(3)}` : '—'}</dd>
+            <dt>Standard / deep</dt><dd>${r.research_cost.by_kind.standard.toFixed(3)} / ${r.research_cost.by_kind.deep.toFixed(3)}</dd>
+            <dt>Tokens in / out</dt><dd>{r.research_cost.input_tokens.toLocaleString()} / {r.research_cost.output_tokens.toLocaleString()}</dd>
+            <dt className="row">Citations removed <Info text={g('citation_validation')} align="left" /></dt><dd>{r.citation_validation.findings_dropped}</dd>
+          </dl>
+        </Section>
+
+        <Section
+          id="rep-checks"
+          title="Scenario checks"
+          info={g('scenario_checks')}
+          summary={<span className={`badge ${passed === checks.length ? 'st-found' : 'st-conflicting'}`}>{passed}/{checks.length} passing</span>}
+          defaultOpen={false}
+          flush
+        >
+          <table>
+            <tbody>
+              {checks.map((c, i) => (
+                <tr key={i}>
+                  <td>{c.name}</td>
+                  <td style={{ width: 90 }}>
+                    <span title={`expected ${c.expected}, got ${c.actual}`} className={`badge ${c.passed ? 'st-found' : 'st-conflicting'}`}>{c.passed ? 'Pass' : 'Fail'}</span>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
-        </div>
-        <div className="card">
-          <div className="card-head"><h2>Research usage</h2></div>
-          <dl className="kv card-pad">
-            <dt>Web searches</dt><dd>{r.research_cost.web_searches}</dd>
-            <dt>LLM calls</dt><dd>{r.research_cost.llm_calls}</dd>
-            <dt>Tokens in / out</dt><dd>{r.research_cost.input_tokens.toLocaleString()} / {r.research_cost.output_tokens.toLocaleString()}</dd>
-            <dt>Standard / deep</dt><dd>${r.research_cost.by_kind.standard.toFixed(3)} / ${r.research_cost.by_kind.deep.toFixed(3)}</dd>
-            <dt>Per researched company</dt><dd>{r.research_cost.per_researched_prospect_usd != null ? `$${r.research_cost.per_researched_prospect_usd.toFixed(3)}` : '—'}</dd>
-          </dl>
-          <div className="card-pad small muted" style={{ paddingTop: 0 }}>Costs are estimates from token and search counts at list prices. Manual reassessment costs nothing (0 AI calls).</div>
-          <div className="card-head" style={{ borderTop: '1px solid var(--border)' }}><h2>Citation validation</h2></div>
-          <div className="card-pad small">
-            {r.citation_validation.findings_dropped} finding(s) removed because their URL was not among the search results actually returned ({r.citation_validation.runs_with_drops} run(s)).
-          </div>
-        </div>
-      </div>
-
-      <div className="card" style={{ marginBottom: 16 }}>
-        <div className="card-head">
-          <h2>Evaluation signals</h2>
-          <span className="card-sub">Candidates for error analysis, not accuracy figures</span>
-        </div>
-        <div className="grid-3 card-pad">
-          <div>
-            <h3>Possible false positives</h3>
-            <p className="small muted" style={{ margin: '4px 0 8px' }}>Proposals a reviewer rejected. {r.review_outcomes.note}</p>
-            {r.review_outcomes.rejected_proposals_candidate_false_positives.length === 0 ? <p className="small muted">None yet.</p> : (
-              <ul className="reasons">
-                {r.review_outcomes.rejected_proposals_candidate_false_positives.map((x: any) => (
-                  <li key={x.proposal_id}><Link to={`/reviews/${x.proposal_id}`}>#{x.proposal_id}</Link> {x.prospect_id}: {x.title}</li>
-                ))}
-              </ul>
-            )}
-          </div>
-          <div>
-            <h3>Unsupported recommendations</h3>
-            <p className="small muted" style={{ margin: '4px 0 8px' }}>Proposals without cited evidence, or relying only on aggregator, synthetic or inferred evidence.</p>
-            {r.unsupported_recommendations.length === 0 ? <p className="small muted">None found.</p> : (
-              <ul className="reasons">
-                {r.unsupported_recommendations.map((x: any) => (
-                  <li key={x.proposal_id}><Link to={`/reviews/${x.proposal_id}`}>#{x.proposal_id}</Link> {x.prospect_id}: {x.reasons.join('; ')}</li>
-                ))}
-              </ul>
-            )}
-          </div>
-          <div>
-            <h3>Possible false negatives</h3>
-            <p className="small muted" style={{ margin: '4px 0 8px' }}>
-              Retrospective only: companies whose Day 30 activity was strong but had no Day 0 flag. Day 30 data is never used for the signup decision.
-            </p>
-            {r.retrospective_day30.length === 0 ? <p className="small muted">No Day 30 data received yet.</p> : (
-              <ul className="reasons">
-                {r.retrospective_day30.map((x: any) => (
-                  <li key={x.prospect_id}><Link to={`/companies/${x.prospect_id}`}>{x.company_name}</Link>: {x.label}</li>
-                ))}
-              </ul>
-            )}
-          </div>
-        </div>
-      </div>
-
-      <div className="card" style={{ marginBottom: 16 }}>
-        <div className="card-head">
-          <h2>Scenario checks</h2>
-          <span className="card-sub">{passed}/{checks.length} passing · prove the rules behave as specified, not predictive accuracy</span>
-        </div>
-        <table>
-          <thead><tr><th>Scenario</th><th>Expected</th><th>Actual</th><th>Result</th></tr></thead>
-          <tbody>
-            {checks.map((c, i) => (
-              <tr key={i}>
-                <td>{c.name}</td>
-                <td className="mono">{c.expected}</td>
-                <td className="mono">{c.actual}</td>
-                <td>{c.passed ? <span className="badge st-found">Pass</span> : <span className="badge st-conflicting">Fail</span>}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      <div className="card card-pad">
-        <h2>What these numbers can and cannot tell you</h2>
-        <ul className="reasons">
-          <li><strong>Can show now:</strong> rule correctness (scenario checks), research coverage and gaps, citation validation, cost per company, review outcomes, and whether every proposal cites evidence.</li>
-          <li><strong>Needs verified outcomes:</strong> precision and recall of flags, false-positive and false-negative rates, and business impact. The dataset is fictional and has no verified tier outcomes, so no accuracy figure is reported.</li>
-          <li><strong>Reviewer approval is not accuracy.</strong> Approvals show agreement, not that the recommendation was right. Measuring recall needs a labelled sample that includes companies the system did not flag.</li>
-        </ul>
+        </Section>
       </div>
     </>
+  )
+}
+
+function EvalList({ title, info, items, empty = 'None yet' }: { title: string; info: string; items: { key: string | number; link: string; label: string; hint: string }[]; empty?: string }) {
+  return (
+    <div>
+      <h3 className="row" style={{ marginBottom: 8 }}>{title} <Info text={info} /> <span className="badge att-none">{items.length}</span></h3>
+      {items.length === 0 ? (
+        <p className="small muted">{empty}</p>
+      ) : (
+        <ul className="reasons" style={{ marginTop: 0 }}>
+          {items.map((x) => (
+            <li key={x.key} className="small">
+              <Link to={x.link}>{x.label}</Link> <Info text={x.hint} />
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   )
 }

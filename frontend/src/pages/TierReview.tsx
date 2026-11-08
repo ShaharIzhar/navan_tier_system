@@ -2,12 +2,14 @@ import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { api } from '../api'
 import EvidenceList from '../components/EvidenceList'
+import { Hint, Info, Section } from '../components/Section'
 import { AttentionBadge, ErrorBox, FlagChip, Spinner, TierBadge, TRIGGER_LABELS, useAsync, useReviewer, when } from '../components/ui'
+import { g } from '../glossary'
 
 const ACTION_LABELS: Record<string, string> = {
   approve: 'approved',
   reject: 'rejected',
-  request_info: 'requested more information',
+  request_info: 'asked for more information',
   comment: 'commented',
 }
 
@@ -25,6 +27,7 @@ export default function TierReview() {
   const { proposal: p, prospect, current_assessment: cur } = data
   const unresolved = p.status === 'open' || p.status === 'needs_info'
   const isOverride = p.proposal_type === 'evidence_override'
+  const typeLabel = isOverride ? 'Evidence-based override' : 'Standard-rule correction'
 
   const act = async (action: string) => {
     setBusy(action)
@@ -41,7 +44,8 @@ export default function TierReview() {
   }
 
   const conflicts = (cur?.flags ?? []).filter((f) => f.type === 'data_conflict' || f.type === 'insufficient_evidence')
-  const missing = Object.entries(cur?.coverage ?? {}).filter(([, c]) => ['not_found', 'conflicting', 'stale', 'not_searched'].includes(c.status))
+  const missing = Object.entries(cur?.coverage ?? {}).filter(([, c]) => ['not_found', 'conflicting', 'stale'].includes(c.status))
+  const uncertaintyCount = p.uncertainties.length + conflicts.length + (missing.length ? 1 : 0)
 
   return (
     <>
@@ -50,10 +54,17 @@ export default function TierReview() {
       </div>
       <div className="page-head">
         <div>
-          <h1>{p.title} <span className="muted">#{p.id}</span></h1>
-          <p>
-            <span className={`status-pill${p.status === 'open' ? ' awaiting' : ''}`}>{p.status_label}</span> · opened {when(p.created_at)} from{' '}
-            {p.stage === 'day30' ? 'Day 30 activity' : 'signup-time evidence'} · {prospect.company_name} ({prospect.id})
+          <h1 className="row" style={{ gap: 10 }}>
+            {prospect.company_name}
+            <span className="tier-change"><TierBadge tier={p.from_tier} /> → <TierBadge tier={p.proposed_tier} /></span>
+          </h1>
+          <p className="row small" style={{ marginTop: 6 }}>
+            <span className={`status-pill${p.status === 'open' ? ' awaiting' : ''}`}>{p.status_label}</span>
+            <span className="muted">·</span>
+            <Hint text={g(p.proposal_type)}>
+              <span className={`badge ${isOverride ? 'att-review_suggested' : 'att-none'}`}>{typeLabel}</span>
+            </Hint>
+            <span className="muted">· from {p.stage === 'day30' ? 'Day 30 activity' : 'signup evidence'} · #{p.id}</span>
           </p>
         </div>
       </div>
@@ -61,95 +72,68 @@ export default function TierReview() {
 
       <div className="detail-layout">
         <div className="stack">
-          <div className="card card-pad stack">
-            <div className="grid-3">
-              <div>
-                <div className="small muted">Current applied tier</div>
-                <div className="tier-change" style={{ marginTop: 6 }}><TierBadge tier={p.from_tier} /></div>
+          <Section id="rv-why" title="Why" info="The reasons this proposal was created." summary={p.title}>
+            <ul className="reasons" style={{ marginTop: 0 }}>
+              {p.rationale.map((r, i) => <li key={i}>{r}</li>)}
+            </ul>
+            {cur && cur.flags.length > 0 && (
+              <div className="row" style={{ marginTop: 10 }}>
+                {cur.flags.map((f, i) => <FlagChip key={i} label={f.label} severity={f.severity} />)}
               </div>
-              <div>
-                <div className="small muted">Standard-rule baseline</div>
-                <div className="tier-change" style={{ marginTop: 6 }}>
-                  <TierBadge tier={cur?.baseline.tier} provisional={cur?.baseline.provisional} />
-                </div>
-              </div>
-              <div>
-                <div className="small muted">Proposed tier</div>
-                <div className="tier-change" style={{ marginTop: 6 }}><TierBadge tier={p.proposed_tier} /></div>
-              </div>
-            </div>
-            <div className={`callout ${isOverride ? 'warn' : 'action'} small`}>
-              {isOverride ? (
-                <><strong>Evidence-based override.</strong> The standard GBV/headcount rules do not give Tier {p.proposed_tier}. Approving overrides policy for this account and is recorded as such.</>
-              ) : (
-                <><strong>Standard-rule correction.</strong> Applying Navan's GBV/headcount rules to the values below gives Tier {p.proposed_tier}.{p.basis && (p.basis as Record<string, unknown>).employee_source === 'research' ? ' Approving also accepts the research headcount as the value used for the rules.' : ''}</>
-              )}
-            </div>
-          </div>
+            )}
+          </Section>
 
-          <div className="card">
-            <div className="card-head"><h2>Why this proposal exists</h2></div>
-            <div className="card-pad">
-              <ul className="reasons" style={{ marginTop: 0 }}>
-                {p.rationale.map((r, i) => <li key={i}>{r}</li>)}
-              </ul>
-              {cur && cur.flags.length > 0 && (
-                <div className="row" style={{ marginTop: 10 }}>
-                  {cur.flags.map((f, i) => <FlagChip key={i} label={f.label} severity={f.severity} />)}
-                </div>
-              )}
-            </div>
-          </div>
-
-          <div className="card">
-            <div className="card-head"><h2>Supporting evidence</h2><span className="card-sub">{data.evidence.length} item(s)</span></div>
+          <Section
+            id="rv-evidence"
+            title="Evidence"
+            info="Sources behind the proposal. Hover a source badge for how reliable it is."
+            summary={data.evidence.length ? `${data.evidence.length} item(s)` : p.stage === 'day30' ? 'Day 30 activity' : 'structured values'}
+            flush
+          >
             {data.evidence.length ? (
               <EvidenceList items={data.evidence} />
             ) : (
-              <div className="card-pad small muted">
-                {p.stage === 'day30'
-                  ? 'Based on the post-signup activity summary (structured Navan data, not a web source). See the company page for details.'
-                  : 'No cited evidence. Based on structured values shown above.'}
+              <div className="section-body small muted">
+                {p.stage === 'day30' ? 'Based on the Day 30 activity summary (Navan data, not a web source).' : 'Based on the structured values shown on the company page.'}
               </div>
             )}
-          </div>
+          </Section>
 
-          <div className="card">
-            <div className="card-head"><h2>Conflicts and uncertainty</h2></div>
-            <div className="card-pad stack">
-              {p.uncertainties.length === 0 && conflicts.length === 0 && missing.length === 0 && <p className="muted small">None recorded.</p>}
-              {p.uncertainties.length > 0 && (
-                <ul className="reasons" style={{ marginTop: 0 }}>
-                  {p.uncertainties.map((u, i) => <li key={i}>{u}</li>)}
-                </ul>
-              )}
+          <Section
+            id="rv-uncertainty"
+            title="Uncertainty"
+            info="What could make this proposal wrong."
+            summary={uncertaintyCount ? `${uncertaintyCount} item(s)` : 'none'}
+          >
+            {uncertaintyCount === 0 && <p className="muted small">None recorded.</p>}
+            <ul className="reasons" style={{ marginTop: 0 }}>
+              {p.uncertainties.map((u, i) => <li key={i}>{u}</li>)}
               {conflicts.map((f, i) => (
-                <div key={i} className="small"><FlagChip label={f.label} severity={f.severity} /> {f.reasons.join(' ')}</div>
-              ))}
-              {missing.length > 0 && (
-                <p className="small muted">Missing or disputed research fields: {missing.map(([k, c]) => `${k.replace(/_/g, ' ')} (${c.status.replace('_', ' ')})`).join(', ')}.</p>
-              )}
-            </div>
-          </div>
-
-          <div className="card">
-            <div className="card-head"><h2>Conversation</h2></div>
-            <ul className="timeline">
-              <li>
-                <strong className="small">system</strong> <span className="muted small">opened this proposal · {when(p.created_at)}</span>
-              </li>
-              {data.decisions.map((d) => (
-                <li key={d.id}>
-                  <strong className="small">{d.reviewer}</strong>{' '}
-                  <span className="muted small">{ACTION_LABELS[d.action] ?? d.action} · {when(d.created_at)}</span>
-                  {d.action === 'approve' && <span className="small"> · Tier {d.tier_before} → Tier {d.tier_after}</span>}
-                  {d.comment && <p style={{ marginTop: 4 }}>{d.comment}</p>}
+                <li key={`c${i}`}>
+                  <FlagChip label={f.label} severity={f.severity} explain={f.reasons.slice(1).join(' ') || undefined} /> {f.reasons[0]}
                 </li>
               ))}
+              {missing.length > 0 && <li className="muted">Gaps: {missing.map(([k]) => k.replace(/_/g, ' ')).join(', ')}</li>}
             </ul>
-            <div className="card-pad stack" style={{ borderTop: '1px solid var(--border)' }}>
-              {!reviewer && <div className="callout warn small">Enter your name under “Acting as” in the sidebar to review.</div>}
-              <textarea placeholder={unresolved ? 'Comment (required to reject or request info)' : 'Add a comment'} value={comment} onChange={(e) => setComment(e.target.value)} aria-label="Review comment" />
+          </Section>
+
+          <div className="card">
+            <div className="section-head"><h2>Decision</h2><Info text="Approve changes the tier inside the prototype. Reject keeps it. Request more information keeps the proposal open. A comment is required to reject or ask for info." /></div>
+            {data.decisions.length > 0 && (
+              <ul className="timeline">
+                {data.decisions.map((d) => (
+                  <li key={d.id}>
+                    <strong className="small">{d.reviewer}</strong>{' '}
+                    <span className="muted small">{ACTION_LABELS[d.action] ?? d.action} · {when(d.created_at)}</span>
+                    {d.action === 'approve' && <span className="small"> · T{d.tier_before} → T{d.tier_after}</span>}
+                    {d.comment && <p style={{ marginTop: 4 }}>{d.comment}</p>}
+                  </li>
+                ))}
+              </ul>
+            )}
+            <div className="section-body stack" style={{ borderTop: data.decisions.length ? '1px solid var(--border)' : undefined }}>
+              {!reviewer && <div className="callout warn small">Enter your name under “Acting as” in the sidebar.</div>}
+              <textarea placeholder={unresolved ? 'Comment' : 'Add a comment'} value={comment} onChange={(e) => setComment(e.target.value)} aria-label="Review comment" />
               <div className="row">
                 {unresolved && (
                   <>
@@ -168,8 +152,7 @@ export default function TierReview() {
               </div>
               {p.status === 'needs_info' && (
                 <p className="small muted">
-                  Waiting for more information. Add a value or run Deep Research on the <Link to={`/companies/${prospect.id}`}>company page</Link>; the
-                  proposal updates automatically.
+                  Waiting for more information. Add it on the <Link to={`/companies/${prospect.id}`}>company page</Link>.
                 </p>
               )}
             </div>
@@ -177,34 +160,32 @@ export default function TierReview() {
         </div>
 
         <div className="stack">
-          <div className="card card-pad stack">
-            <h2>Company</h2>
+          <div className="card card-pad">
             <dl className="kv">
-              <dt>Original tier</dt><dd><TierBadge tier={prospect.original_tier} /></dd>
-              <dt>Applied tier now</dt><dd><TierBadge tier={prospect.applied_tier} /></dd>
+              <dt className="row">Original <Info text={g('original_tier')} align="left" /></dt><dd><TierBadge tier={prospect.original_tier} /></dd>
+              <dt className="row">Applied now <Info text={g('applied_tier')} align="left" /></dt><dd><TierBadge tier={prospect.applied_tier} /></dd>
+              <dt className="row">Rules say <Info text={cur ? `${g('baseline_tier')} ${cur.baseline.basis}` : g('baseline_tier')} align="left" /></dt>
+              <dd><TierBadge tier={cur?.baseline.tier} provisional={cur?.baseline.provisional} /></dd>
               <dt>Reported GBV</dt><dd>{prospect.entered_gbv_usd != null ? `$${prospect.entered_gbv_usd.toLocaleString()}` : '—'}</dd>
               <dt>Employees used</dt><dd>{cur?.accepted_values.employees?.toLocaleString() ?? 'unknown'}</dd>
               <dt>Attention</dt><dd>{cur && <AttentionBadge attention={cur.attention} label={cur.attention_label} />}</dd>
             </dl>
-            <Link to={`/companies/${prospect.id}`}>Open company page →</Link>
+            <div style={{ marginTop: 10 }}><Link to={`/companies/${prospect.id}`}>Company page →</Link></div>
           </div>
-          <div className="card">
-            <div className="card-head"><h2>Previous assessments</h2></div>
+
+          <Section id="rv-history" title="Previous assessments" summary={`${data.history.length}`} defaultOpen={false} flush>
             <ul className="timeline">
               {data.history.map((h) => (
                 <li key={h.id}>
-                  <div className="spread">
-                    <strong className="small">#{h.id} {TRIGGER_LABELS[h.trigger] ?? h.trigger}</strong>
-                    <span className="small muted">{h.stage === 'day30' ? 'Day 30' : 'Day 0'}</span>
-                  </div>
-                  <div className="when">{when(h.created_at)} · baseline T{h.baseline_tier ?? '—'} · applied T{h.applied_tier ?? '—'}</div>
-                  {p.linked_assessment_ids.includes(h.id) && <div className="small muted">supports this proposal</div>}
+                  <strong className="small">{TRIGGER_LABELS[h.trigger] ?? h.trigger}</strong>
+                  {p.linked_assessment_ids.includes(h.id) && <span className="small muted"> · supports this</span>}
+                  <div className="when">{when(h.created_at)} · {h.stage === 'day30' ? 'Day 30' : 'Day 0'} · rules T{h.baseline_tier ?? '—'} · applied T{h.applied_tier ?? '—'}</div>
                 </li>
               ))}
             </ul>
-          </div>
-          <div className="card">
-            <div className="card-head"><h2>Audit history</h2></div>
+          </Section>
+
+          <Section id="rv-audit" title="Audit trail" summary={`${data.audit.length}`} defaultOpen={false} flush>
             <ul className="timeline" style={{ maxHeight: 320, overflow: 'auto' }}>
               {data.audit.map((e) => (
                 <li key={e.id}>
@@ -213,7 +194,7 @@ export default function TierReview() {
                 </li>
               ))}
             </ul>
-          </div>
+          </Section>
         </div>
       </div>
     </>

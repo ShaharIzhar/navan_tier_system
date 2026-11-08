@@ -65,20 +65,21 @@ def employee_conflict(s: Signals) -> Optional[dict]:
     resolved = s.accepted_employee is not None and s.accepted_employee.reliability == "manual_verified"
     if resolved:
         return _flag("data_conflict", "low",
-                     [f"Employee sources disagree ({desc}), but a verified manual value "
-                      f"({s.accepted_employee.value:,}) is now used for the tier rules."],
+                     [f"Resolved: a verified employee count ({s.accepted_employee.value:,}) is now used.",
+                      f"Sources: {desc}."],
                      evidence_ids, uncertainty)
     if crossing and gbv_decides:
         return _flag("data_conflict", "material",
-                     [f"Employee sources fall on both sides of the {config.TIER2_EMPLOYEES_MIN}-employee "
-                      f"Tier 2 threshold ({desc}). Reported GBV is below $100K, so this decides Tier 2 eligibility."],
+                     [f"Employee counts disagree across {config.TIER2_EMPLOYEES_MIN}, and that decides Tier 2 "
+                      "(reported GBV is under $100K).",
+                      f"Sources: {desc}."],
                      evidence_ids, uncertainty)
     if crossing:
         return _flag("data_conflict", "moderate",
-                     [f"Employee sources fall on both sides of {config.TIER2_EMPLOYEES_MIN} ({desc}). "
-                      "Reported GBV already sets the tier, so the tier does not change today."],
+                     [f"Employee counts disagree across {config.TIER2_EMPLOYEES_MIN}, but GBV already sets the tier.",
+                      f"Sources: {desc}."],
                      evidence_ids, uncertainty)
-    return _flag("data_conflict", "low", [f"Employee sources differ by more than 50% ({desc})."],
+    return _flag("data_conflict", "low", ["Employee counts differ by more than 50%.", f"Sources: {desc}."],
                  evidence_ids, uncertainty)
 
 
@@ -116,7 +117,7 @@ def build_day0_flags(
     if s.direct_travel and not bookable:
         flags.append(_flag(
             "travel_potential", "low",
-            [f"{len(local_only)} indicator(s) of local field travel (driving, home visits, mileage).",
+            ["Only local field travel found (driving, home visits, mileage).",
              *[f"“{e.claim}”" for e in local_only[:2]]],
             [e.id for e in local_only],
             ["Local field travel rarely creates bookable travel (flights, hotels, rail), which is what GBV measures."],
@@ -125,7 +126,7 @@ def build_day0_flags(
         hosts = independent_hosts(bookable)
         only_unverified_manual = all(e.reliability == "manual_unverified" for e in bookable)
         strong = len(hosts) >= 2 and not only_unverified_manual
-        reasons = [f"{len(bookable)} direct travel indicator(s) from {len(hosts)} independent source(s)."]
+        reasons = [f"Job ads or company pages mention work travel ({len(hosts)} independent source{'s' if len(hosts) != 1 else ''})."]
         reasons += [f"“{e.claim}”" for e in bookable[:3]]
         if local_only:
             reasons.append(f"{len(local_only)} further indicator(s) describe only local field travel and are not counted.")
@@ -163,7 +164,7 @@ def build_day0_flags(
     growth_fields = {e.field for e in s.growth if e.field in GROWTH_FIELDS}
     if len(growth_fields) >= config.GROWTH_MIN_INDEPENDENT_SIGNALS:
         near = near_threshold(s, baseline)
-        reasons = [f"Independent growth signals in: {', '.join(sorted(f.replace('_', ' ') for f in growth_fields))}."]
+        reasons = [f"Growth signals in {len(growth_fields)} areas: {', '.join(sorted(f.replace('_', ' ') for f in growth_fields))}."]
         reasons += [f"“{e.claim}”" for e in s.growth[:3]]
         if near:
             reasons.append(near)
