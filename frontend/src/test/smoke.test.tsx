@@ -77,7 +77,7 @@ describe('Company detail', () => {
     mockFetch({
       '/api/prospects/P-007': {
         prospect: row({}), assessment, history: [], proposals: [proposal], research_runs: [],
-        evidence: [{ id: 1, run_id: null, field: 'employee_count', claim: '[SYNTHETIC TEST] 90 employees', value_number: 90, signal_type: 'descriptive', observation: 'observed', source_title: null, source_url: null, publisher: 'Synthetic', published_date: null, retrieved_at: null, reliability: 'synthetic', origin: 'synthetic_test', is_stale: false, accepted_for_reassessment: false, entered_by: 't', note: null, superseded_by: null, created_at: '2026-11-08T10:00:00' }],
+        evidence: [{ id: 1, run_id: null, field: 'employee_count', claim: '[SYNTHETIC TEST] 90 employees', value_number: 90, signal_type: 'descriptive', observation: 'observed', travel_scope: null, source_title: null, source_url: null, publisher: 'Synthetic', published_date: null, retrieved_at: null, reliability: 'synthetic', origin: 'synthetic_test', is_stale: false, accepted_for_reassessment: false, entered_by: 't', note: null, superseded_by: null, created_at: '2026-11-08T10:00:00' }],
         day30: { received: false, exists: false }, day30_pending: false, audit: [],
       },
     })

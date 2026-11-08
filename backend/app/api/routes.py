@@ -50,7 +50,7 @@ def _assessment_dict(a: Optional[Assessment]) -> Optional[dict]:
 def _evidence_dict(e: Evidence) -> dict:
     return {
         "id": e.id, "run_id": e.run_id, "field": e.field, "claim": e.claim, "value_number": e.value_number,
-        "signal_type": e.signal_type, "observation": e.observation, "source_title": e.source_title,
+        "signal_type": e.signal_type, "observation": e.observation, "travel_scope": e.travel_scope, "source_title": e.source_title,
         "source_url": e.source_url, "publisher": e.publisher, "published_date": e.published_date,
         "retrieved_at": e.retrieved_at.isoformat() if e.retrieved_at else None, "reliability": e.reliability,
         "origin": e.origin, "is_stale": e.is_stale, "accepted_for_reassessment": e.accepted_for_reassessment,
@@ -437,13 +437,19 @@ def reports(session: Session = Depends(get_session)):
             continue
         day0 = latest_assessment(session, p.id, "day0")
         d0_flags = sorted({f["type"] for f in (day0.flags or [])}) if day0 else []
+        # Only opportunity claims can be "missed" or "unnecessary". Insufficient Evidence and
+        # Data Conflict describe data quality, not a prediction.
+        d0_opp = [f for f in d0_flags if f in ("travel_potential", "growth_opportunity", "tier_mismatch")]
+        researched = bool(day0 and (day0.accepted_values or {}).get("research_ran"))
         d30 = a.day30
-        if d30.get("material") and not d0_flags:
-            label = "Possible miss at Day 0 (activity strong, no Day 0 flag)"
+        if (day0.applied_tier if day0 else None) == 1:
+            label = "Already Tier 1 at signup; nothing to miss"
+        elif d30.get("material") and not d0_opp:
+            label = "Possible miss at Day 0 (strong activity, no opportunity flag)" + ("" if researched else "; not researched at Day 0")
         elif d30.get("material"):
-            label = "Day 0 flag consistent with activity"
-        elif d0_flags and (d30.get("weak") or d30.get("declining")):
-            label = "Possible unnecessary Day 0 flag (activity weak)"
+            label = "Day 0 opportunity flag consistent with activity"
+        elif d0_opp and (d30.get("weak") or d30.get("declining")):
+            label = "Possible unnecessary Day 0 flag (activity weak or declining)"
         else:
             label = "No clear signal either way"
         retro.append({"prospect_id": p.id, "company_name": p.company_name, "day0_flags": d0_flags,

@@ -216,9 +216,14 @@ def _store_evidence(session, prospect, run, output: ResearchOutput, kind, focus)
                                                   Evidence.superseded_by == None))  # noqa: E711
         old_rows = [e for e in old if e.run_id != run.id and _run_kind(session, e.run_id) == "standard"]
     else:
-        old_rows = []
+        # A new Deep Research pass supersedes earlier Deep Research evidence for the same fields.
+        # Standard-run evidence is kept as is.
+        old = session.exec(select(Evidence).where(Evidence.prospect_id == prospect.id,
+                                                  Evidence.origin == "ai_research",
+                                                  Evidence.superseded_by == None))  # noqa: E711
+        old_rows = [e for e in old if e.run_id != run.id and e.field in fields_in_scope
+                    and _run_kind(session, e.run_id) == "deep"]
 
-    first_new_id = None
     for fr in output.fields:
         if fr.field not in fields_in_scope:
             continue
@@ -235,13 +240,13 @@ def _store_evidence(session, prospect, run, output: ResearchOutput, kind, focus)
                 prospect_id=prospect.id, run_id=run.id, field=fr.field, claim=f.claim,
                 value_number=f.value_number if fr.field == "employee_count" else None,
                 signal_type=f.signal_type, observation=f.observation,
+                travel_scope=f.travel_scope if f.signal_type == "direct_travel" else None,
                 source_title=f.source_title, source_url=f.source_url, publisher=f.publisher,
                 published_date=f.published_date, reliability=classify_reliability(f.source_url, prospect.domain),
                 origin="ai_research", is_stale=stale, retrieved_at=cutoff,
             )
             session.add(e)
             session.flush()
-            first_new_id = first_new_id or e.id
         status = fr.status
         if status in ("found", "conflicting") and not stale_flags:
             status = "not_found"

@@ -1,0 +1,277 @@
+{
+  "case": "P-018-standard",
+  "prompt_version": "v3",
+  "model": "claude-haiku-5-5",
+  "started_at": "2026-11-08T16:45:12.652940+00:00",
+  "usage": {
+    "input_tokens": 49905,
+    "output_tokens": 10798,
+    "web_searches": 3,
+    "llm_calls": 1,
+    "approx_cost_usd": 0.04039
+  },
+  "stop_reason": "end_turn",
+  "search_errors": [],
+  "search_queries": [
+    "Greyparrot greyparrot.ai waste analytics company",
+    "Greyparrot careers travel client site field",
+    "Greyparrot Series B expansion hiring North America"
+  ],
+  "search_results": [
+    {
+      "url": "https://uk.linkedin.com/company/greyparrotai",
+      "title": "Greyparrot",
+      "page_age": "976 days ago"
+    },
+    {
+      "url": "https://www.crunchbase.com/organization/greyparrot-ai",
+      "title": "Greyparrot - Crunchbase Company Profile & Funding",
+      "page_age": "1005 days ago"
+    },
+    {
+      "url": "https://www.zoominfo.com/c/greyparrot/473651327",
+      "title": "Greyparrot - Overview, News & Similar companies",
+      "page_age": null
+    },
+    {
+      "url": "https://www.greyparrot.ai/resources/blog/websummit-2021",
+      "title": "Greyparrot launches AI waste analytics system at Web Summit 2021",
+      "page_age": "34 days ago"
+    },
+    {
+      "url": "https://www.greyparrot.ai/",
+      "title": "Unlock the power of AI waste analytics",
+      "page_age": "1009 days ago"
+    },
+    {
+      "url": "https://unreasonablegroup.com/ventures/greyparrot",
+      "title": "Greyparrot",
+      "page_age": "533 days ago"
+    },
+    {
+      "url": "https://finance.yahoo.com/technology/ai/articles/greyparrot-secures-27m-series-b-130500373.html",
+      "title": "Greyparrot Secures $27M Series B as AI Waste Intelligence Becomes Critical Infrastructure for the Circular Economy",
+      "page_age": "103 days ago"
+    },
+    {
+      "url": "https://finance.yahoo.com/news/greyparrot-launches-world-first-ai-070100476.html",
+      "title": "Greyparrot Launches World-First AI Platform to Unlock $100B in Waste Data on Brand Circularity",
+      "page_age": "502 days ago"
+    },
+    {
+      "url": "https://www.greyparrot.ai/-world-first-ai-platform-for-brand-circularity",
+      "title": "World-first AI platform launched to unlock waste data on circularity",
+      "page_age": "503 days ago"
+    },
+    {
+      "url": "https://theaiinsider.tech/2026/08/05/ai-waste-analytics-firm-greyparrot-secures-27m-to-expand-recycling-dataset/",
+      "title": "AI Waste Analytics Firm Greyparrot Secures $27M to Expand Recycling Dataset",
+      "page_age": "95 days ago"
+    },
+    {
+      "url": "https://careers.speedinvest.com/companies/greyparrot",
+      "title": "Greyparrot",
+      "page_age": null
+    },
+    {
+      "url": "https://wellfound.com/company/greyparrot-ai",
+      "title": "Greyparrot Careers - Insights and Opportunities",
+      "page_age": null
+    },
+    {
+      "url": "https://builtin.com/company/greyparrot-ai",
+      "title": "Greyparrot AI Careers, Perks + Culture",
+      "page_age": null
+    },
+    {
+      "url": "https://www.remoterocketship.com/company/greyparrot-ai/jobs/technical-operations-assistant-intern-london-hybrid",
+      "title": "Technical Operations Assistant (Intern) at Greyparrot",
+      "page_age": null
+    },
+    {
+      "url": "https://www.greyparrot.ai/hubfs/Careers/Technical%20Operations%20Engineer_final%20JD.docx.pdf?hsLang=en-gb",
+      "title": "Technical Operations and Support Engineer About us:",
+      "page_age": null
+    },
+    {
+      "url": "https://freehire.me/companies/greyparrot",
+      "title": "Greyparrot — 2 open jobs · freehire",
+      "page_age": null
+    },
+    {
+      "url": "https://www.climatetechlist.com/job/greyparrot-technical-operations-assistant-p4hdKRcRWT7kq0",
+      "title": "Technical Operations Assistant (Intern) — Greyparrot — London, England, United Kingdom",
+      "page_age": null
+    },
+    {
+      "url": "https://greyparrotai.recruitee.com/o/open-application",
+      "title": "Open Application - Greyparrot - Recruitee",
+      "page_age": null
+    },
+    {
+      "url": "https://meetfrank.com/jobs/greyparrot/technical-operations-assistant-intern",
+      "title": "Technical Operations Assistant (Intern) - Greyparrot - Hybrid Remote",
+      "page_age": null
+    },
+    {
+      "url": "https://tech.eu/2026/07/28/greyparrot-secures-27m-series-b-to-scale-ai-waste-intelligence-for-the-circular-economy/",
+      "title": "Greyparrot secures $27M Series B to scale AI waste intelligence for the circular economy - Tech.eu",
+      "page_age": "103 days ago"
+    },
+    {
+      "url": "https://www.recyclingtoday.com/news/greyparrot-raises-27-million-dollars-in-series-b-funding/",
+      "title": "Greyparrot raises $27M Series B funding - Recycling Today",
+      "page_age": "103 days ago"
+    },
+    {
+      "url": "https://www.saasrise.com/deals/greyparrot-raises-27m-to-bring-physical-ai-to-recycling-as-packaging-grows-more-complex-79e56f56-67ac-4006-8fd2-3d1549c46295",
+      "title": "Greyparrot secures $27M Series B to scale AI recycling",
+      "page_age": "103 days ago"
+    },
+    {
+      "url": "https://toflow.ai/spotlight/greyparrot",
+      "title": "What Funding Has Greyparrot Raised? Full History",
+      "page_age": "16 days ago"
+    },
+    {
+      "url": "https://justainews.com/companies/funding-news/greyparrot-raises-27m-series-b-for-ai-waste-intelligence/",
+      "title": "Greyparrot Raises $27M Series B for AI Waste Intelligence",
+      "page_age": "102 days ago"
+    },
+    {
+      "url": "https://www.tamradar.com/funding-rounds/greyparrot-series-b-27m",
+      "title": "Greyparrot Raises $27M Series B for Waste Intelligence Platform - TAMradar Funding Rounds Signals",
+      "page_age": "102 days ago"
+    },
+    {
+      "url": "https://www.wellfunded.news/articles/greyparrot-27m-series-b-ai-waste-intelligence-circular-economy",
+      "title": "Greyparrot Raises $27M Series B for AI Waste Intel",
+      "page_age": "103 days ago"
+    },
+    {
+      "url": "https://www.thesaasnews.com/news/greyparrot-raises-27m-series-b/",
+      "title": "Greyparrot Raises $27M Series B",
+      "page_age": "102 days ago"
+    },
+    {
+      "url": "https://greatbusiness.top/greyparrot-ai-recycling-funding.html",
+      "title": "Greyparrot raises millions for rapid expansion - Great Business",
+      "page_age": "84 days ago"
+    }
+  ],
+  "system_prompt": "You are a company research assistant for a B2B sales team at a business-travel platform. You research companies using web search and report what public sources say.\n\nRules:\n- Use only information from your web search results. Do not use prior knowledge.\n- Every finding must cite the URL of the search result it came from.\n- If you cannot find information for a field, mark it not_found. Do not guess.\n- If sources disagree, mark the field conflicting and describe the conflict.\n- Separate facts stated by a source (observed) from your own inferences (inferred).\n- Do not estimate travel spend or GBV.\n- Do not give confidence percentages.\n- Respond with a single JSON object and nothing else.\n- Several pages repeating the same figure or announcement are one source, not several.\n- Treat data aggregators (LinkedIn, ZoomInfo, PitchBook, Crunchbase, Tracxn, Dealroom and similar) as estimates.",
+  "user_prompt": "Research this company:\nCompany name: Greyparrot\nWebsite domain: greyparrot.ai\n\nCover these fields:\n- industry_business_model: Industry and business model\n- geographic_footprint: Locations and geographic footprint\n- employee_count: Employee count\n- hiring_trends: Hiring and workforce trends\n- travel_indicators: Direct travel-requirement indicators\n- funding_financial: Funding and financial developments\n- recent_expansion: Recent expansion\n- support_complexity: Support-complexity indicators\n\nSearch plan (you have a small number of searches; use them in this order):\n1. The company's own website and basic profile (what it does, where it operates, size).\n2. Travel requirements: search for the company's job postings or careers page together with words like \"travel\", \"client site\", \"on-site\", \"field\". This is the most important field for this research. Report what job ads or company pages actually say. If you find nothing, mark travel_indicators not_found.\n3. Recent funding, expansion and hiring news.\n\nsignal_type meanings:\n- direct_travel: a source explicitly states that employees travel for work (e.g. a job ad saying \"travel required\" or \"50% travel\", field engineers visiting customer sites, consultants based at client sites). Use this ONLY when the source states it. If you are guessing that a role probably involves travel, set observation to \"inferred\".\n- indirect_growth: growth signals (funding, new offices, hiring growth, international expansion)\n- descriptive: everything else\n\ntravel_scope (required for every direct_travel finding, null otherwise):\n- business_travel: travel that is usually booked: flights, hotels, rail, overnight stays, travel to other cities or countries, travel to customer sites in other regions, conferences.\n- local_field_travel: driving within a local area, home visits, a mileage or car allowance, \"on the road\" within a territory, daily site visits near home.\n- unclear: the source says travel is required but not what kind.\n\nEmployee count rules:\n- Put a number in value_number ONLY when the source states one exact headcount (e.g. \"53 employees\").\n- For a band or range (e.g. \"11-50\", \"51-200\", \"fewer than 25\"), set value_number to null and keep the band in the claim.\n- Include the \"as of\" date in published_date when the source gives one.\n\nConflict rules:\n- Report a conflict only when sources disagree about the same fact for the same period in a way that changes the conclusion (for example, one source says 40 staff and another says 400).\n- Different estimates from different databases, or figures from different dates, are normal. Describe them in the field summary, not as a conflict, and use status \"found\".\n\nReturn JSON in exactly this shape:\n{\n  \"company_identity_confirmed\": true,\n  \"identity_note\": \"How you confirmed the sources describe the company at this domain\",\n  \"fields\": [\n    {\n      \"field\": \"employee_count\",\n      \"status\": \"found | not_found | conflicting | not_applicable\",\n      \"summary\": \"One-sentence plain-English summary of what the sources say\",\n      \"findings\": [\n        {\n          \"claim\": \"Exact fact taken from the source\",\n          \"value_number\": 120,\n          \"signal_type\": \"direct_travel | indirect_growth | descriptive\",\n          \"observation\": \"observed | inferred\",\n          \"travel_scope\": \"business_travel | local_field_travel | unclear (direct_travel only, else null)\",\n          \"source_url\": \"URL returned by your web search\",\n          \"source_title\": \"Page title\",\n          \"publisher\": \"Site or organisation\",\n          \"published_date\": \"YYYY-MM-DD, YYYY-MM, YYYY, or null\"\n        }\n      ]\n    }\n  ],\n  \"conflicts\": [\n    {\n      \"field\": \"employee_count\",\n      \"description\": \"...\",\n      \"source_urls\": [\n        \"...\"\n      ]\n    }\n  ],\n  \"summary\": \"2-3 sentence summary for a salesperson\",\n  \"research_limitations\": [\n    \"What could not be found or verified\"\n  ]\n}",
+  "raw_text": "{\n  \"company_identity_confirmed\": true,\n  \"identity_note\": \"The greyparrot.ai homepage and its own blog and press pages describe an AI waste analytics company based in London. Independent pages (Crunchbase, ZoomInfo, Speedinvest careers, Recycling Today, Tech.eu, Yahoo Finance press release) use the same domain and describe the same product and Series B round.\",\n  \"fields\": [\n    {\n      \"field\": \"industry_business_model\",\n      \"status\": \"found\",\n      \"summary\": \"Greyparrot sells AI waste analytics and waste intelligence, using camera hardware at recycling plants, a cloud platform, and an API, mainly to waste operators, packaging producers, and brands.\",\n      \"findings\": [\n        {\n          \"claim\": \"The company's own site describes its hardware as units mounted over conveyor belts at materials recovery facilities, paired with a cloud dashboard portal for operations, engineering and commercial teams.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.greyparrot.ai/\",\n          \"source_title\": \"Unlock the power of AI waste analytics\",\n          \"publisher\": \"Greyparrot\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Greyparrot's Analyzer is an AI waste analytics system that uses computer vision to monitor waste streams in real time, and Greyparrot Sync is an API layer that connects that data to third-party machinery and software.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.crunchbase.com/organization/greyparrot-ai\",\n          \"source_title\": \"Greyparrot - Crunchbase Company Profile & Funding\",\n          \"publisher\": \"Crunchbase\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"The Deepnest platform, launched in June 2025, gives brands direct access to recyclable waste data derived from Analyzer systems.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.greyparrot.ai/-world-first-ai-platform-for-brand-circularity\",\n          \"source_title\": \"World-first AI platform launched to unlock waste data on circularity\",\n          \"publisher\": \"Greyparrot\",\n          \"published_date\": \"2025-06-24\"\n        },\n        {\n          \"claim\": \"Named customers and adopters include Biffa, Veolia, Amcor, Republic Services, FCC and Unilever.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.greyparrot.ai/\",\n          \"source_title\": \"Unlock the power of AI waste analytics\",\n          \"publisher\": \"Greyparrot\",\n          \"published_date\": null\n        }\n      ]\n    },\n    {\n      \"field\": \"geographic_footprint\",\n      \"status\": \"found\",\n      \"summary\": \"Greyparrot is headquartered in London, its Analyzer systems run at facilities in more than 20 countries, and North America is named as the top expansion priority.\",\n      \"findings\": [\n        {\n          \"claim\": \"A structured data block on the LinkedIn company page lists the registered address as 100 Drummond Road, London SE16 4DG, United Kingdom.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://uk.linkedin.com/company/greyparrotai\",\n          \"source_title\": \"Greyparrot\",\n          \"publisher\": \"LinkedIn\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Speedinvest's careers listing gives locations as London, South West England, Mile End (London) and Kingston Vale (London).\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://careers.speedinvest.com/companies/greyparrot\",\n          \"source_title\": \"Greyparrot\",\n          \"publisher\": \"Speedinvest Careers\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"The Analyzer systems process over 40 billion waste objects annually across more than 20 countries.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.greyparrot.ai/-world-first-ai-platform-for-brand-circularity\",\n          \"source_title\": \"World-first AI platform launched to unlock waste data on circularity\",\n          \"publisher\": \"Greyparrot\",\n          \"published_date\": \"2025-06-24\"\n        },\n        {\n          \"claim\": \"Per a Series B report, the company's AI platform runs across more than 65 recycling facilities in over 20 countries.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://justainews.com/companies/funding-news/greyparrot-raises-27m-series-b-for-ai-waste-intelligence/\",\n          \"source_title\": \"Greyparrot Raises $27M Series B for AI Waste Intelligence\",\n          \"publisher\": \"JustAInews\",\n          \"published_date\": \"2026-07-28\"\n        },\n        {\n          \"claim\": \"Recycling Today reports that North America remains the company's top geographic priority, with about 20 percent of the new capital going to geographic expansion.\",\n          \"value_number\": null,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.recyclingtoday.com/news/greyparrot-raises-27-million-dollars-in-series-b-funding/\",\n          \"source_title\": \"Greyparrot raises $27M Series B funding - Recycling Today\",\n          \"publisher\": \"Recycling Today\",\n          \"published_date\": \"2026-07\"\n        }\n      ]\n    },\n    {\n      \"field\": \"employee_count\",\n      \"status\": \"found\",\n      \"summary\": \"No company-stated headcount was found; aggregator estimates range from 11-50 to 51-200 employees, with LinkedIn structured data showing 48.\",\n      \"findings\": [\n        {\n          \"claim\": \"LinkedIn structured data for the company lists 48 employees.\",\n          \"value_number\": 48,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://uk.linkedin.com/company/greyparrotai\",\n          \"source_title\": \"Greyparrot\",\n          \"publisher\": \"LinkedIn\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Speedinvest's careers listing gives a company size band of 51 to 200 employees.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://careers.speedinvest.com/companies/greyparrot\",\n          \"source_title\": \"Greyparrot\",\n          \"publisher\": \"Speedinvest Careers\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Wellfound lists the company in an 11 to 50 employee band and describes it as an early-stage startup.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://wellfound.com/company/greyparrot-ai\",\n          \"source_title\": \"Greyparrot Careers - Insights and Opportunities\",\n          \"publisher\": \"Wellfound\",\n          \"published_date\": null\n        }\n      ]\n    },\n    {\n      \"field\": \"hiring_trends\",\n      \"status\": \"found\",\n      \"summary\": \"Open roles seen include London-based hybrid operations and sales roles, and the Series B is said to fund hiring across AI, data science, product, engineering and sales.\",\n      \"findings\": [\n        {\n          \"claim\": \"A Director of Sales role, reporting to the CEO, is based in London with regular travel to the US and periodic travel across EMEA.\",\n          \"value_number\": null,\n          \"signal_type\": \"direct_travel\",\n          \"observation\": \"observed\",\n          \"travel_scope\": \"business_travel\",\n          \"source_url\": \"https://freehire.me/companies/greyparrot\",\n          \"source_title\": \"Greyparrot — 2 open jobs · freehire\",\n          \"publisher\": \"freehire\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Built In lists a Senior Customer Programme Manager role as hybrid in London, and the company's Built In profile lists its typical time on-site as none.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://builtin.com/company/greyparrot-ai\",\n          \"source_title\": \"Greyparrot AI Careers, Perks + Culture\",\n          \"publisher\": \"Built In\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"The company says the new funding will support growth of its AI, data science, and product teams across North America and Europe.\",\n          \"value_number\": null,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://tech.eu/2026/07/28/greyparrot-secures-27m-series-b-to-scale-ai-waste-intelligence-for-the-circular-economy/\",\n          \"source_title\": \"Greyparrot secures $27M Series B to scale AI waste intelligence for the circular economy - Tech.eu\",\n          \"publisher\": \"Tech.eu\",\n          \"published_date\": \"2026-07-28\"\n        },\n        {\n          \"claim\": \"A press write-up says the funding will be used to hire additional engineering and sales talent.\",\n          \"value_number\": null,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.saasrise.com/deals/greyparrot-raises-27m-to-bring-physical-ai-to-recycling-as-packaging-grows-more-complex-79e56f56-67ac-4006-8fd2-3d1549c46295\",\n          \"source_title\": \"Greyparrot secures $27M Series B to scale AI recycling\",\n          \"publisher\": \"SaaSRise\",\n          \"published_date\": \"2026-07-28\"\n        }\n      ]\n    },\n    {\n      \"field\": \"travel_indicators\",\n      \"status\": \"found\",\n      \"summary\": \"Job postings explicitly state travel: a London sales director role with regular US and periodic EMEA travel, an operations engineer role that involves travelling to clients to install or update hardware, and an operations intern role that requires willingness to travel to field sites.\",\n      \"findings\": [\n        {\n          \"claim\": \"The Director of Sales posting says the role is based in London with regular travel to the US and periodic travel across EMEA.\",\n          \"value_number\": null,\n          \"signal_type\": \"direct_travel\",\n          \"observation\": \"observed\",\n          \"travel_scope\": \"business_travel\",\n          \"source_url\": \"https://freehire.me/companies/greyparrot\",\n          \"source_title\": \"Greyparrot — 2 open jobs · freehire\",\n          \"publisher\": \"freehire\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"The Technical Operations and Support Engineer job description lists travel to clients to install or update the company's hardware as a duty.\",\n          \"value_number\": null,\n          \"signal_type\": \"direct_travel\",\n          \"observation\": \"observed\",\n          \"travel_scope\": \"unclear\",\n          \"source_url\": \"https://www.greyparrot.ai/hubfs/Careers/Technical%20Operations%20Engineer_final%20JD.docx.pdf?hsLang=en-gb\",\n          \"source_title\": \"Technical Operations and Support Engineer About us:\",\n          \"publisher\": \"Greyparrot\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"The Technical Operations Assistant (Intern) posting asks for candidates willing and able to travel to field sites to carry out installations, repairs or assessments.\",\n          \"value_number\": null,\n          \"signal_type\": \"direct_travel\",\n          \"observation\": \"observed\",\n          \"travel_scope\": \"unclear\",\n          \"source_url\": \"https://www.remoterocketship.com/company/greyparrot-ai/jobs/technical-operations-assistant-intern-london-hybrid\",\n          \"source_title\": \"Technical Operations Assistant (Intern) at Greyparrot\",\n          \"publisher\": \"Remote Rocketship\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"The same intern role is described as visiting customer sites such as waste recycling facilities to diagnose and repair hardware.\",\n          \"value_number\": null,\n          \"signal_type\": \"direct_travel\",\n          \"observation\": \"observed\",\n          \"travel_scope\": \"local_field_travel\",\n          \"source_url\": \"https://www.remoterocketship.com/company/greyparrot-ai/jobs/technical-operations-assistant-intern-london-hybrid\",\n          \"source_title\": \"Technical Operations Assistant (Intern) at Greyparrot\",\n          \"publisher\": \"Remote Rocketship\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"A Meetfrank listing for the intern role says the role involves travel within the UK for key project milestones.\",\n          \"value_number\": null,\n          \"signal_type\": \"direct_travel\",\n          \"observation\": \"observed\",\n          \"travel_scope\": \"business_travel\",\n          \"source_url\": \"https://meetfrank.com/jobs/greyparrot/technical-operations-assistant-intern\",\n          \"source_title\": \"Technical Operations Assistant (Intern) - Greyparrot - Hybrid Remote\",\n          \"publisher\": \"Meetfrank\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"The intern role also involves dispatching hardware units to various field sites and installation work at heights.\",\n          \"value_number\": null,\n          \"signal_type\": \"direct_travel\",\n          \"observation\": \"observed\",\n          \"travel_scope\": \"local_field_travel\",\n          \"source_url\": \"https://www.climatetechlist.com/job/greyparrot-technical-operations-assistant-p4hdKRcRWT7kq0\",\n          \"source_title\": \"Technical Operations Assistant (Intern) — Greyparrot — London, England, United Kingdom\",\n          \"publisher\": \"ClimateTechList\",\n          \"published_date\": null\n        }\n      ]\n    },\n    {\n      \"field\": \"funding_financial\",\n      \"status\": \"found\",\n      \"summary\": \"Greyparrot closed a $27 million Series B in July 2026, bringing total funding to about $60 million; one outlet reports the same round as EUR 23.5 million.\",\n      \"findings\": [\n        {\n          \"claim\": \"Greyparrot raised $27 million in Series B funding, bringing its total funding to $60 million, led by technology investor Omar Mir.\",\n          \"value_number\": null,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://tech.eu/2026/07/28/greyparrot-secures-27m-series-b-to-scale-ai-waste-intelligence-for-the-circular-economy/\",\n          \"source_title\": \"Greyparrot secures $27M Series B to scale AI waste intelligence for the circular economy - Tech.eu\",\n          \"publisher\": \"Tech.eu\",\n          \"published_date\": \"2026-07-28\"\n        },\n        {\n          \"claim\": \"Existing investors Speedinvest, 360 Capital, Closed Loop Partners, Regeneration VC and Planet Fund participated in the round.\",\n          \"value_number\": null,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://justainews.com/companies/funding-news/greyparrot-raises-27m-series-b-for-ai-waste-intelligence/\",\n          \"source_title\": \"Greyparrot Raises $27M Series B for AI Waste Intelligence\",\n          \"publisher\": \"JustAInews\",\n          \"published_date\": \"2026-07-28\"\n        },\n        {\n          \"claim\": \"SaaSRise lists the round as closed on July 28, 2026, with Om Elite Assets Investment as lead investor.\",\n          \"value_number\": null,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.saasrise.com/deals/greyparrot-raises-27m-to-bring-physical-ai-to-recycling-as-packaging-grows-more-complex-79e56f56-67ac-4006-8fd2-3d1549c46295\",\n          \"source_title\": \"Greyparrot secures $27M Series B to scale AI recycling\",\n          \"publisher\": \"SaaSRise\",\n          \"published_date\": \"2026-07-28\"\n        },\n        {\n          \"claim\": \"Great Business reports the Series B as EUR 23.5 million led by Omar Mir.\",\n          \"value_number\": null,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://greatbusiness.top/greyparrot-ai-recycling-funding.html\",\n          \"source_title\": \"Greyparrot raises millions for rapid expansion - Great Business\",\n          \"publisher\": \"Great Business\",\n          \"published_date\": null\n        }\n      ]\n    },\n    {\n      \"field\": \"recent_expansion\",\n      \"status\": \"found\",\n      \"summary\": \"The Series B funds Analyzer network growth in North America and Europe, with a stated strong focus on the US, and the company cites a UK regulatory acceptance in early 2026.\",\n      \"findings\": [\n        {\n          \"claim\": \"The CEO says the company will expand its Analyzer network across facilities worldwide, with a strong focus on the US market.\",\n          \"value_number\": null,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.recyclingtoday.com/news/greyparrot-raises-27-million-dollars-in-series-b-funding/\",\n          \"source_title\": \"Greyparrot raises $27M Series B funding - Recycling Today\",\n          \"publisher\": \"Recycling Today\",\n          \"published_date\": \"2026-07\"\n        },\n        {\n          \"claim\": \"SaaSRise says the proceeds will go toward expanding hardware in US sorting facilities, hiring engineering and sales talent, and policy-focused data work.\",\n          \"value_number\": null,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.saasrise.com/deals/greyparrot-raises-27m-to-bring-physical-ai-to-recycling-as-packaging-grows-more-complex-79e56f56-67ac-4006-8fd2-3d1549c46295\",\n          \"source_title\": \"Greyparrot secures $27M Series B to scale AI recycling\",\n          \"publisher\": \"SaaSRise\",\n          \"published_date\": \"2026-07-28\"\n        },\n        {\n          \"claim\": \"WellFunded reports that the UK's Environment Agency accepted AI-generated waste composition data from Greyparrot for statutory compliance reporting in early 2026.\",\n          \"value_number\": null,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.wellfunded.news/articles/greyparrot-27m-series-b-ai-waste-intelligence-circular-economy\",\n          \"source_title\": \"Greyparrot Raises $27M Series B for AI Waste Intel\",\n          \"publisher\": \"WellFunded\",\n          \"published_date\": \"2026-07\"\n        },\n        {\n          \"claim\": \"The company's customers reportedly include WM, Circular Services, FCC, Veolia, Kenvue, Unilever and L'Oréal.\",\n          \"value_number\": null,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://theaiinsider.tech/2026/08/05/ai-waste-analytics-firm-greyparrot-secures-27m-to-expand-recycling-dataset/\",\n          \"source_title\": \"AI Waste Analytics Firm Greyparrot Secures $27M to Expand Recycling Dataset\",\n          \"publisher\": \"The AI Insider\",\n          \"published_date\": \"2026-08-05\"\n        }\n      ]\n    },\n    {\n      \"field\": \"support_complexity\",\n      \"status\": \"found\",\n      \"summary\": \"Greyparrot's product depends on physical hardware installed at customer facilities, which creates on-site installation, repair, and unit-logistics work for its operations staff.\",\n      \"findings\": [\n        {\n          \"claim\": \"Analyzer units are mounted above conveyor belts at materials recovery facilities, so hardware sits inside customer plants.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.greyparrot.ai/\",\n          \"source_title\": \"Unlock the power of AI waste analytics\",\n          \"publisher\": \"Greyparrot\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"The Technical Operations Assistant posting covers site assessment, installation coordination, and logistics for installation work.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.climatetechlist.com/job/greyparrot-technical-operations-assistant-p4hdKRcRWT7kq0\",\n          \"source_title\": \"Technical Operations Assistant (Intern) — Greyparrot — London, England, United Kingdom\",\n          \"publisher\": \"ClimateTechList\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"The same posting asks for tracking of unit locations and coordination of dispatch to field sites, with weekly movement reports.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.climatetechlist.com/job/greyparrot-technical-operations-assistant-p4hdKRcRWT7kq0\",\n          \"source_title\": \"Technical Operations Assistant (Intern) — Greyparrot — London, England, United Kingdom\",\n          \"publisher\": \"ClimateTechList\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"The Analyzer network spans more than 65 recycling facilities, and the company's own materials describe a rising number of deployments as the network expands.\",\n          \"value_number\": null,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://justainews.com/companies/funding-news/greyparrot-raises-27m-series-b-for-ai-waste-intelligence/\",\n          \"source_title\": \"Greyparrot Raises $27M Series B for AI Waste Intelligence\",\n          \"publisher\": \"JustAInews\",\n          \"published_date\": \"2026-07-28\"\n        }\n      ]\n    }\n  ],\n  \"conflicts\": [\n    {\n      \"field\": \"funding_financial\",\n      \"description\": \"Sources report the same July 2026 Series B with different currency amounts (USD 27 million in most sources, EUR 23.5 million in Great Business) and different named lead investors (Omar Mir in most sources, Om Elite Assets Investment in SaaSRise). The currency gap is consistent with a conversion, so the round size is treated as $27 million; the lead-investor naming difference is unresolved.\",\n      \"source_urls\": [\n        \"https://greatbusiness.top/greyparrot-ai-recycling-funding.html\",\n        \"https://www.saasrise.com/deals/greyparrot-raises-27m-to-bring-physical-ai-to-recycling-as-packaging-grows-more-complex-79e56f56-67ac-4006-8fd2-3d1549c46295\",\n        \"https://tech.eu/2026/07/28/greyparrot-secures-27m-series-b-to-scale-ai-waste-intelligence-for-the-circular-economy/\"\n      ]\n    }\n  ],\n  \"summary\": \"Greyparrot is a London-based AI waste analytics company with hardware deployed in recycling plants, and it closed a $27M Series B in July 2026 with a stated push into North America. Its job postings explicitly mention travel: a sales director role with regular US and EMEA travel, and operations roles that involve travelling to customer sites to install and repair hardware. Headcount is only estimated (LinkedIn 48; aggregator bands 11-50 and 51-200), so verify size directly before outreach.\",\n  \"research_limitations\": [\n    \"No company-stated headcount was found; the 48 figure is from a LinkedIn data block and is an aggregator estimate, and band figures come from aggregators.\",\n    \"Job postings are undated and some are from third-party job boards that may be out of date; the careers page on the company site was not directly retrieved beyond a PDF job description.\",\n    \"Travel scope for the operations roles is unclear from the postings (no specification of distance, frequency or whether overnight stays are required), so it was not classified as business travel except where the posting mentions travel within the UK or to the US and EMEA.\",\n    \"Funding figures and lead-investor names differ across secondary outlets; the primary press release was not retrieved directly.\",\n    \"Only three search rounds were used per the search plan, so the company's full job board, leadership, and any Companies House filings were not checked.\"\n  ]\n}",
+  "analysis": {
+    "parse_ok": true,
+    "raw_employee_values_before_guard": [
+      {
+        "value": 48.0,
+        "claim": "LinkedIn structured data for the company lists 48 employees."
+      },
+      {
+        "value": null,
+        "claim": "Speedinvest's careers listing gives a company size band of 51 to 200 employees."
+      },
+      {
+        "value": null,
+        "claim": "Wellfound lists the company in an 11 to 50 employee band and describes it as an early-stage startup."
+      }
+    ],
+    "band_guard_changes": [],
+    "field_statuses": {
+      "industry_business_model": "found",
+      "geographic_footprint": "found",
+      "employee_count": "found",
+      "hiring_trends": "found",
+      "travel_indicators": "found",
+      "funding_financial": "found",
+      "recent_expansion": "found",
+      "support_complexity": "found"
+    },
+    "findings_kept": 34,
+    "findings_dropped": [],
+    "employee_values": [
+      {
+        "value": 48.0,
+        "claim": "LinkedIn structured data for the company lists 48 employees.",
+        "url": "https://uk.linkedin.com/company/greyparrotai",
+        "reliability": "aggregator",
+        "date": null
+      },
+      {
+        "value": null,
+        "claim": "Speedinvest's careers listing gives a company size band of 51 to 200 employees.",
+        "url": "https://careers.speedinvest.com/companies/greyparrot",
+        "reliability": "secondary",
+        "date": null
+      },
+      {
+        "value": null,
+        "claim": "Wellfound lists the company in an 11 to 50 employee band and describes it as an early-stage startup.",
+        "url": "https://wellfound.com/company/greyparrot-ai",
+        "reliability": "secondary",
+        "date": null
+      }
+    ],
+    "travel_findings": [
+      {
+        "claim": "The Director of Sales posting says the role is based in London with regular travel to the US and periodic travel across EMEA.",
+        "signal_type": "direct_travel",
+        "observation": "observed",
+        "travel_scope": "business_travel",
+        "url": "https://freehire.me/companies/greyparrot"
+      },
+      {
+        "claim": "The Technical Operations and Support Engineer job description lists travel to clients to install or update the company's hardware as a duty.",
+        "signal_type": "direct_travel",
+        "observation": "observed",
+        "travel_scope": "unclear",
+        "url": "https://www.greyparrot.ai/hubfs/Careers/Technical%20Operations%20Engineer_final%20JD.docx.pdf?hsLang=en-gb"
+      },
+      {
+        "claim": "The Technical Operations Assistant (Intern) posting asks for candidates willing and able to travel to field sites to carry out installations, repairs or assessments.",
+        "signal_type": "direct_travel",
+        "observation": "observed",
+        "travel_scope": "unclear",
+        "url": "https://www.remoterocketship.com/company/greyparrot-ai/jobs/technical-operations-assistant-intern-london-hybrid"
+      },
+      {
+        "claim": "The same intern role is described as visiting customer sites such as waste recycling facilities to diagnose and repair hardware.",
+        "signal_type": "direct_travel",
+        "observation": "observed",
+        "travel_scope": "local_field_travel",
+        "url": "https://www.remoterocketship.com/company/greyparrot-ai/jobs/technical-operations-assistant-intern-london-hybrid"
+      },
+      {
+        "claim": "A Meetfrank listing for the intern role says the role involves travel within the UK for key project milestones.",
+        "signal_type": "direct_travel",
+        "observation": "observed",
+        "travel_scope": "business_travel",
+        "url": "https://meetfrank.com/jobs/greyparrot/technical-operations-assistant-intern"
+      },
+      {
+        "claim": "The intern role also involves dispatching hardware units to various field sites and installation work at heights.",
+        "signal_type": "direct_travel",
+        "observation": "observed",
+        "travel_scope": "local_field_travel",
+        "url": "https://www.climatetechlist.com/job/greyparrot-technical-operations-assistant-p4hdKRcRWT7kq0"
+      }
+    ],
+    "conflicts": [
+      {
+        "field": "funding_financial",
+        "description": "Sources report the same July 2026 Series B with different currency amounts (USD 27 million in most sources, EUR 23.5 million in Great Business) and different named lead investors (Omar Mir in most sources, Om Elite Assets Investment in SaaSRise). The currency gap is consistent with a conversion, so the round size is treated as $27 million; the lead-investor naming difference is unresolved.",
+        "source_urls": [
+          "https://greatbusiness.top/greyparrot-ai-recycling-funding.html",
+          "https://www.saasrise.com/deals/greyparrot-raises-27m-to-bring-physical-ai-to-recycling-as-packaging-grows-more-complex-79e56f56-67ac-4006-8fd2-3d1549c46295",
+          "https://tech.eu/2026/07/28/greyparrot-secures-27m-series-b-to-scale-ai-waste-intelligence-for-the-circular-economy/"
+        ]
+      }
+    ],
+    "identity": [
+      true,
+      "The greyparrot.ai homepage and its own blog and press pages describe an AI waste analytics company based in London. Independent pages (Crunchbase, ZoomInfo, Speedinvest careers, Recycling Today, Tech.eu, Yahoo Finance press release) use the same domain and describe the same product and Series B round."
+    ]
+  }
+}

@@ -82,6 +82,7 @@ class Evidence(SQLModel, table=True):
     value_number: Optional[float] = None
     signal_type: str = "descriptive"  # direct_travel | indirect_growth | descriptive
     observation: str = "observed"     # observed | inferred
+    travel_scope: Optional[str] = None  # business_travel | local_field_travel | unclear (direct_travel only)
     source_title: Optional[str] = None
     source_url: Optional[str] = None
     publisher: Optional[str] = None

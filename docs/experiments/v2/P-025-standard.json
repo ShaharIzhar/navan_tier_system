@@ -1,0 +1,296 @@
+{
+  "case": "P-025-standard",
+  "prompt_version": "v2",
+  "model": "claude-haiku-5-5",
+  "started_at": "2026-11-08T16:47:13.430401+00:00",
+  "usage": {
+    "input_tokens": 45488,
+    "output_tokens": 9906,
+    "web_searches": 3,
+    "llm_calls": 1,
+    "approx_cost_usd": 0.0395
+  },
+  "stop_reason": "end_turn",
+  "search_errors": [],
+  "search_queries": [
+    "Bionical Solutions bionical.com",
+    "Bionical Solutions careers travel client site on-site field",
+    "Bionical Solutions funding acquisition expansion news"
+  ],
+  "search_results": [
+    {
+      "url": "https://www.linkedin.com/company/bionical-limited",
+      "title": "Bionical Solutions",
+      "page_age": "1588 days ago"
+    },
+    {
+      "url": "https://www.crunchbase.com/organization/bionical",
+      "title": "Bionical - Crunchbase Company Profile & Funding",
+      "page_age": null
+    },
+    {
+      "url": "https://www.owler.com/company/bionical",
+      "title": "Bionical Solutions’s Competitors, Revenue, Number of Employees, Funding, Acquisitions & News - Owler Company Profile",
+      "page_age": null
+    },
+    {
+      "url": "https://www.zoominfo.com/c/bionical-ltd/366457381",
+      "title": "Bionical - Overview, News & Similar companies",
+      "page_age": "202 days ago"
+    },
+    {
+      "url": "https://pitchbook.com/profiles/company/125238-61",
+      "title": "Bionical Solutions 2026 Company Profile: Valuation, Funding & Investors",
+      "page_age": null
+    },
+    {
+      "url": "https://www.pharmiweb.com/company-directory/bionical",
+      "title": "Bionical - PharmiWeb.com",
+      "page_age": null
+    },
+    {
+      "url": "https://tracxn.com/d/companies/bionical/__DZOOb9YHiEzwDWPjmosmKGzB-0SEri7CtixJ1wzuIPo",
+      "title": "Bionical - 2026 Company Profile, Team, Funding & Competitors - Tracxn",
+      "page_age": "155 days ago"
+    },
+    {
+      "url": "https://www.bionicalsolutionsgroup.com/",
+      "title": "Home - Bionical Solutions Group",
+      "page_age": null
+    },
+    {
+      "url": "https://rocketreach.co/bionical-solutions-profile_b599e4f0f69fb0c3",
+      "title": "Bionical Solutions Information",
+      "page_age": null
+    },
+    {
+      "url": "https://www.ziprecruiter.com/Jobs/Bionical?version=next",
+      "title": "Bionical Jobs (NOW HIRING) Jan 2026",
+      "page_age": null
+    },
+    {
+      "url": "https://www.linkedin.com/company/bionical-limited/jobs",
+      "title": "Bionical Solutions: Jobs",
+      "page_age": null
+    },
+    {
+      "url": "https://www.jobs.nhs.uk/candidate/jobadvert/E0393-23-0047?page=1184",
+      "title": "Job Advert - Bionical Solutions Ltd",
+      "page_age": "1109 days ago"
+    },
+    {
+      "url": "https://www.ziprecruiter.com/Jobs/Bionical/--in-New-Jersey",
+      "title": "Bionical Jobs in New Jersey (NOW HIRING) Jan 2026",
+      "page_age": null
+    },
+    {
+      "url": "https://www.linkedin.com/jobs/bionical-solutions-jobs-worldwide",
+      "title": "5 Bionical Solutions jobs",
+      "page_age": null
+    },
+    {
+      "url": "https://employmenthero.com/uk/jobs/organisations/mkvbcffxn4/",
+      "title": "Bionical Solutions Limited Jobs & Careers",
+      "page_age": "395 days ago"
+    },
+    {
+      "url": "https://www.ziprecruiter.com/Jobs/Bionical/-in-Flemington,NJ",
+      "title": "Bionical Jobs in Flemington, NJ (NOW HIRING) Jul 26",
+      "page_age": null
+    },
+    {
+      "url": "https://www.jobs.nhs.uk/candidate/jobadvert/E0393-24-0010",
+      "title": "Community Nurse - Job Advert",
+      "page_age": "761 days ago"
+    },
+    {
+      "url": "https://uk.indeed.com/cmp/Bionical-Solutions/jobs",
+      "title": "Bionical Solutions jobs and careers",
+      "page_age": null
+    },
+    {
+      "url": "https://www.owler.com/company/bionical",
+      "title": "Bionical Solutions’s Competitors, Revenue, Number of Employees, Funding, Acquisitions & News - Owler Company Profile",
+      "page_age": null
+    },
+    {
+      "url": "https://www.cbinsights.com/investor/bionical",
+      "title": "Bionical Portfolio Investments, Bionical Funds, Bionical Exits",
+      "page_age": "864 days ago"
+    },
+    {
+      "url": "https://www.zoominfo.com/c/bionical-ltd/366457381",
+      "title": "Bionical - Overview, News & Similar companies",
+      "page_age": "202 days ago"
+    },
+    {
+      "url": "https://pitchbook.com/profiles/company/125238-61",
+      "title": "Bionical Solutions 2026 Company Profile: Valuation, Funding & Investors",
+      "page_age": null
+    },
+    {
+      "url": "https://www.crunchbase.com/organization/bionical",
+      "title": "Bionical - Crunchbase Company Profile & Funding",
+      "page_age": null
+    },
+    {
+      "url": "https://tracxn.com/d/companies/bionical/__DZOOb9YHiEzwDWPjmosmKGzB-0SEri7CtixJ1wzuIPo",
+      "title": "Bionical - 2026 Company Profile, Team, Funding & Competitors - Tracxn",
+      "page_age": "155 days ago"
+    },
+    {
+      "url": "https://tisegroup.com/umbraco/surface/proxyapi/newspdf?id=328601&name=Bionical+Solutions+Group+Ltd",
+      "title": "Bionical Solutions Group Limited Annual report and consolidated",
+      "page_age": "1408 days ago"
+    },
+    {
+      "url": "https://bionicalemas.com/press/kester-capital-backs-experienced-management-team-in-acquiring-emas-pharma/",
+      "title": "Kester Capital backs experienced management team in acquiring EMAS Pharma - Bionical Emas",
+      "page_age": "699 days ago"
+    },
+    {
+      "url": "https://www.linkedin.com/company/bionical-limited",
+      "title": "Bionical Solutions",
+      "page_age": "1588 days ago"
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Biomedical_Systems",
+      "title": "Biomedical Systems",
+      "page_age": null
+    }
+  ],
+  "system_prompt": "You are a company research assistant for a B2B sales team at a business-travel platform. You research companies using web search and report what public sources say.\n\nRules:\n- Use only information from your web search results. Do not use prior knowledge.\n- Every finding must cite the URL of the search result it came from.\n- If you cannot find information for a field, mark it not_found. Do not guess.\n- If sources disagree, mark the field conflicting and describe the conflict.\n- Separate facts stated by a source (observed) from your own inferences (inferred).\n- Do not estimate travel spend or GBV.\n- Do not give confidence percentages.\n- Respond with a single JSON object and nothing else.\n- Several pages repeating the same figure or announcement are one source, not several.\n- Treat data aggregators (LinkedIn, ZoomInfo, PitchBook, Crunchbase, Tracxn, Dealroom and similar) as estimates.",
+  "user_prompt": "Research this company:\nCompany name: Bionical Solutions\nWebsite domain: bionical.com\n\nCover these fields:\n- industry_business_model: Industry and business model\n- geographic_footprint: Locations and geographic footprint\n- employee_count: Employee count\n- hiring_trends: Hiring and workforce trends\n- travel_indicators: Direct travel-requirement indicators\n- funding_financial: Funding and financial developments\n- recent_expansion: Recent expansion\n- support_complexity: Support-complexity indicators\n\nSearch plan (you have a small number of searches; use them in this order):\n1. The company's own website and basic profile (what it does, where it operates, size).\n2. Travel requirements: search for the company's job postings or careers page together with words like \"travel\", \"client site\", \"on-site\", \"field\". This is the most important field for this research. Report what job ads or company pages actually say. If you find nothing, mark travel_indicators not_found.\n3. Recent funding, expansion and hiring news.\n\nsignal_type meanings:\n- direct_travel: a source explicitly states that employees travel for work (e.g. a job ad saying \"travel required\" or \"50% travel\", field engineers visiting customer sites, consultants based at client sites). Use this ONLY when the source states it. If you are guessing that a role probably involves travel, set observation to \"inferred\".\n- indirect_growth: growth signals (funding, new offices, hiring growth, international expansion)\n- descriptive: everything else\n\nEmployee count rules:\n- Put a number in value_number ONLY when the source states one exact headcount (e.g. \"53 employees\").\n- For a band or range (e.g. \"11-50\", \"51-200\", \"fewer than 25\"), set value_number to null and keep the band in the claim.\n- Include the \"as of\" date in published_date when the source gives one.\n\nConflict rules:\n- Report a conflict only when sources disagree about the same fact for the same period in a way that changes the conclusion (for example, one source says 40 staff and another says 400).\n- Different estimates from different databases, or figures from different dates, are normal. Describe them in the field summary, not as a conflict, and use status \"found\".\n\nReturn JSON in exactly this shape:\n{\n  \"company_identity_confirmed\": true,\n  \"identity_note\": \"How you confirmed the sources describe the company at this domain\",\n  \"fields\": [\n    {\n      \"field\": \"employee_count\",\n      \"status\": \"found | not_found | conflicting | not_applicable\",\n      \"summary\": \"One-sentence plain-English summary of what the sources say\",\n      \"findings\": [\n        {\n          \"claim\": \"Exact fact taken from the source\",\n          \"value_number\": 120,\n          \"signal_type\": \"direct_travel | indirect_growth | descriptive\",\n          \"observation\": \"observed | inferred\",\n          \"source_url\": \"URL returned by your web search\",\n          \"source_title\": \"Page title\",\n          \"publisher\": \"Site or organisation\",\n          \"published_date\": \"YYYY-MM-DD, YYYY-MM, YYYY, or null\"\n        }\n      ]\n    }\n  ],\n  \"conflicts\": [\n    {\n      \"field\": \"employee_count\",\n      \"description\": \"...\",\n      \"source_urls\": [\n        \"...\"\n      ]\n    }\n  ],\n  \"summary\": \"2-3 sentence summary for a salesperson\",\n  \"research_limitations\": [\n    \"What could not be found or verified\"\n  ]\n}",
+  "raw_text": "```json\n{\n  \"company_identity_confirmed\": true,\n  \"identity_note\": \"The bionical.com domain is linked from several profiles (LinkedIn, Crunchbase, PharmiWeb, Employment Hero, NHS job advert) that describe a UK-headquartered healthcare services firm called Bionical Solutions. Related but separate entities also appear: Bionical Solutions Group (bionicalsolutionsgroup.com, which lists a New Jersey office), Bionical Emas, and Bionical Health. Some aggregator profiles mix these up, so figures were checked against the group and parent-level sources where possible.\",\n  \"fields\": [\n    {\n      \"field\": \"industry_business_model\",\n      \"status\": \"found\",\n      \"summary\": \"Sources describe Bionical as an outsourced healthcare services provider offering clinical, commercial, digital and communications services to pharma, biotech and healthcare companies, with some sources also listing NHS-facing community nursing.\",\n      \"findings\": [\n        {\n          \"claim\": \"Bionical provides clinical, commercial and communications services to pharmaceutical, biotech and public health companies in the global healthcare industry, and describes itself as an integrated outsourced specialist.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://www.crunchbase.com/organization/bionical\",\n          \"source_title\": \"Bionical - Crunchbase Company Profile & Funding\",\n          \"publisher\": \"Crunchbase\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Services include clinical trial comparator supply, clinical educator services, contract sales, recruitment, and digital and educational platforms.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://tracxn.com/d/companies/bionical/__DZOOb9YHiEzwDWPjmosmKGzB-0SEri7CtixJ1wzuIPo\",\n          \"source_title\": \"Bionical - 2026 Company Profile, Team, Funding & Competitors - Tracxn\",\n          \"publisher\": \"Tracxn\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Bionical provides clinical, commercial and digital services to life sciences companies in the UK and US, delivering through a blend of human interaction and technology.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://www.pharmiweb.com/company-directory/bionical\",\n          \"source_title\": \"Bionical - PharmiWeb.com\",\n          \"publisher\": \"PharmiWeb.com\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Bionical Solutions is described as a UK home healthcare provider with a nurse-led service model.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://www.jobs.nhs.uk/candidate/jobadvert/E0393-24-0010\",\n          \"source_title\": \"Community Nurse - Job Advert\",\n          \"publisher\": \"NHS Jobs\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Bionical Group Holdings Limited is listed as a former name, and the company is classed as privately held and private-equity backed.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://pitchbook.com/profiles/company/125238-61\",\n          \"source_title\": \"Bionical Solutions 2026 Company Profile: Valuation, Funding & Investors\",\n          \"publisher\": \"PitchBook\",\n          \"published_date\": \"2026\"\n        }\n      ]\n    },\n    {\n      \"field\": \"geographic_footprint\",\n      \"status\": \"found\",\n      \"summary\": \"The headquarters is listed as Willington, Derbyshire, UK, with a US operation in Flemington, New Jersey, and job listings also appear in London, Luton, Leeds and other UK towns and in Paulsboro, NJ.\",\n      \"findings\": [\n        {\n          \"claim\": \"Bionical is located in Willington, Derbyshire, United Kingdom.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://www.crunchbase.com/organization/bionical\",\n          \"source_title\": \"Bionical - Crunchbase Company Profile & Funding\",\n          \"publisher\": \"Crunchbase\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Bionical Solutions, LLC has a contact office at 200 Route 31 North in Flemington, NJ, alongside a US contact email.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://www.bionicalsolutionsgroup.com/\",\n          \"source_title\": \"Home - Bionical Solutions Group\",\n          \"publisher\": \"Bionical Solutions Group\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Bionical Solutions Group states that Bionical LLC and Patient-ly are part of Bionical Group.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://www.bionicalsolutionsgroup.com/\",\n          \"source_title\": \"Home - Bionical Solutions Group\",\n          \"publisher\": \"Bionical Solutions Group\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Owler describes the firm as based in Flemington, New Jersey, with a New York metropolitan area location.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://www.owler.com/company/bionical\",\n          \"source_title\": \"Bionical Solutions’s Competitors, Revenue, Number of Employees, Funding, Acquisitions & News - Owler Company Profile\",\n          \"publisher\": \"Owler\",\n          \"published_date\": \"2019\"\n        },\n        {\n          \"claim\": \"Open roles are listed in Paulsboro, NJ, London, and Luton, England.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://www.linkedin.com/jobs/bionical-solutions-jobs-worldwide\",\n          \"source_title\": \"5 Bionical Solutions jobs\",\n          \"publisher\": \"LinkedIn\",\n          \"published_date\": null\n        }\n      ]\n    },\n    {\n      \"field\": \"employee_count\",\n      \"status\": \"found\",\n      \"summary\": \"No authoritative headcount was found. Aggregator estimates range from about 90 to 501-1,000, and the LinkedIn page shows 288 employees, so the company's size is uncertain and should be treated as a rough estimate.\",\n      \"findings\": [\n        {\n          \"claim\": \"PitchBook states that Bionical Solutions has 90 total employees.\",\n          \"value_number\": 90,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://pitchbook.com/profiles/company/125238-61\",\n          \"source_title\": \"Bionical Solutions 2026 Company Profile: Valuation, Funding & Investors\",\n          \"publisher\": \"PitchBook\",\n          \"published_date\": \"2026\"\n        },\n        {\n          \"claim\": \"RocketReach reports 152 people employed at Bionical Solutions.\",\n          \"value_number\": 152,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://rocketreach.co/bionical-solutions-profile_b599e4f0f69fb0c3\",\n          \"source_title\": \"Bionical Solutions Information\",\n          \"publisher\": \"RocketReach\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Tracxn reports 184 employees as of May 26, with no year given.\",\n          \"value_number\": 184,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://tracxn.com/d/companies/bionical/__DZOOb9YHiEzwDWPjmosmKGzB-0SEri7CtixJ1wzuIPo\",\n          \"source_title\": \"Bionical - 2026 Company Profile, Team, Funding & Competitors - Tracxn\",\n          \"publisher\": \"Tracxn\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"The LinkedIn company page shows 288 employees.\",\n          \"value_number\": 288,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://www.linkedin.com/company/bionical-limited/jobs\",\n          \"source_title\": \"Bionical Solutions: Jobs\",\n          \"publisher\": \"LinkedIn\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Owler gives an estimated employee band of 100-250.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://www.owler.com/company/bionical\",\n          \"source_title\": \"Bionical Solutions’s Competitors, Revenue, Number of Employees, Funding, Acquisitions & News - Owler Company Profile\",\n          \"publisher\": \"Owler\",\n          \"published_date\": \"2019\"\n        },\n        {\n          \"claim\": \"ZoomInfo gives an employee band of 501-1,000.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://www.zoominfo.com/c/bionical-ltd/366457381\",\n          \"source_title\": \"Bionical - Overview, News & Similar companies\",\n          \"publisher\": \"ZoomInfo\",\n          \"published_date\": null\n        }\n      ]\n    },\n    {\n      \"field\": \"hiring_trends\",\n      \"status\": \"found\",\n      \"summary\": \"Job boards show active hiring across UK clinical roles and US and UK corporate roles, with one aggregator listing 111 open jobs and LinkedIn showing a small set of current openings; these are a snapshot and do not establish a trend.\",\n      \"findings\": [\n        {\n          \"claim\": \"Indeed lists 111 open jobs at Bionical Solutions, mostly community and IV nursing roles across the UK.\",\n          \"value_number\": 111,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://uk.indeed.com/cmp/Bionical-Solutions/jobs\",\n          \"source_title\": \"Bionical Solutions jobs and careers\",\n          \"publisher\": \"Indeed\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"LinkedIn lists five open roles, including project manager roles in Paulsboro, NJ and registered nurse roles in London and Luton.\",\n          \"value_number\": 5,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://www.linkedin.com/jobs/bionical-solutions-jobs-worldwide\",\n          \"source_title\": \"5 Bionical Solutions jobs\",\n          \"publisher\": \"LinkedIn\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"ZipRecruiter lists a Flemington, NJ healthcare marketing coordinator role, an accountant role, and other roles as on-site.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://www.ziprecruiter.com/Jobs/Bionical/-in-Flemington,NJ\",\n          \"source_title\": \"Bionical Jobs in Flemington, NJ (NOW HIRING) Jul 26\",\n          \"publisher\": \"ZipRecruiter\",\n          \"published_date\": \"2026-07\"\n        },\n        {\n          \"claim\": \"Employment Hero lists one open role, a hybrid graduate full stack developer based in Willington.\",\n          \"value_number\": 1,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://employmenthero.com/uk/jobs/organisations/mkvbcffxn4/\",\n          \"source_title\": \"Bionical Solutions Limited Jobs & Careers\",\n          \"publisher\": \"Employment Hero\",\n          \"published_date\": null\n        }\n      ]\n    },\n    {\n      \"field\": \"travel_indicators\",\n      \"status\": \"found\",\n      \"summary\": \"One UK job advert from a closed Community Nurse posting states directly that the role involves travel to deliver care in patients' homes, and no current posting located was found that explicitly requires business travel for corporate or sales staff.\",\n      \"findings\": [\n        {\n          \"claim\": \"A closed Community Nurse advert from Bionical Solutions Ltd says candidates must enjoy travel because they will deliver care to patients in their own homes.\",\n          \"value_number\": null,\n          \"signal_type\": \"direct_travel\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://www.jobs.nhs.uk/candidate/jobadvert/E0393-24-0010\",\n          \"source_title\": \"Community Nurse - Job Advert\",\n          \"publisher\": \"NHS Jobs\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"An earlier NHS Jobs Community Nurse advert from Bionical Solutions Ltd, now closed, makes the same travel point about delivering care in patients' homes.\",\n          \"value_number\": null,\n          \"signal_type\": \"direct_travel\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://www.jobs.nhs.uk/candidate/jobadvert/E0393-23-0047?page=1184\",\n          \"source_title\": \"Job Advert - Bionical Solutions Ltd\",\n          \"publisher\": \"NHS Jobs\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Several Bionical listings are marked on-site in Flemington, NJ, which indicates a fixed work location rather than travel.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://www.ziprecruiter.com/Jobs/Bionical?version=next\",\n          \"source_title\": \"Bionical Jobs (NOW HIRING) Jan 2026\",\n          \"publisher\": \"ZipRecruiter\",\n          \"published_date\": \"2026-01\"\n        },\n        {\n          \"claim\": \"Community nursing roles for patients in their homes imply field travel between patient sites.\",\n          \"value_number\": null,\n          \"signal_type\": \"direct_travel\",\n          \"observation\": \"inferred\",\n          \"source_url\": \"https://uk.indeed.com/cmp/Bionical-Solutions/jobs\",\n          \"source_title\": \"Bionical Solutions jobs and careers\",\n          \"publisher\": \"Indeed\",\n          \"published_date\": null\n        }\n      ]\n    },\n    {\n      \"field\": \"funding_financial\",\n      \"status\": \"conflicting\",\n      \"summary\": \"Private-equity backing is reported through Fullbrook Thorpe Investments, and the group's annual accounts show intercompany loans of about £11.2 million, while aggregator funding totals differ widely (about $146.8M in ZoomInfo versus under $5M in ZoomInfo's other field), so the funding figure is unreliable.\",\n      \"findings\": [\n        {\n          \"claim\": \"PitchBook lists Fullbrook Thorpe Investments as an investor and the company as private-equity backed.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://pitchbook.com/profiles/company/125238-61\",\n          \"source_title\": \"Bionical Solutions 2026 Company Profile: Valuation, Funding & Investors\",\n          \"publisher\": \"PitchBook\",\n          \"published_date\": \"2026\"\n        },\n        {\n          \"claim\": \"The Bionical Solutions Group annual report for 2022 states that the group's loans, about £11.18 million, are payable to Fullbrook Thorpe Investments, an independent private equity fund under common ownership.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://tisegroup.com/umbraco/surface/proxyapi/newspdf?id=328601&name=Bionical+Solutions+Group+Ltd\",\n          \"source_title\": \"Bionical Solutions Group Limited Annual report and consolidated\",\n          \"publisher\": \"Bionical Solutions Group Limited (filed via TISE group)\",\n          \"published_date\": \"2022-12\"\n        },\n        {\n          \"claim\": \"The annual report also says the group reported net liabilities of £3.334 million at 31 December 2022.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://tisegroup.com/umbraco/surface/proxyapi/newspdf?id=328601&name=Bionical+Solutions+Group+Ltd\",\n          \"source_title\": \"Bionical Solutions Group Limited Annual report and consolidated\",\n          \"publisher\": \"Bionical Solutions Group Limited (filed via TISE group)\",\n          \"published_date\": \"2022-12\"\n        },\n        {\n          \"claim\": \"ZoomInfo gives a total funding figure of $146.8M, while its funding field shows under $5M.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://www.zoominfo.com/c/bionical-ltd/366457381\",\n          \"source_title\": \"Bionical - Overview, News & Similar companies\",\n          \"publisher\": \"ZoomInfo\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Tracxn says the company has one institutional investor and describes it as a funded company, without a disclosed amount.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://tracxn.com/d/companies/bionical/__DZOOb9YHiEzwDWPjmosmKGzB-0SEri7CtixJ1wzuIPo\",\n          \"source_title\": \"Bionical - 2026 Company Profile, Team, Funding & Competitors - Tracxn\",\n          \"publisher\": \"Tracxn\",\n          \"published_date\": null\n        }\n      ]\n    },\n    {\n      \"field\": \"recent_expansion\",\n      \"status\": \"found\",\n      \"summary\": \"Recent corporate changes include the 2024 divestment of EMAS Pharma and a restructuring that focuses Bionical Emas on Early Access Programs and Clinical Trial Supply, plus the 2024 demerger of parts of the group and a new CEO for Bionical Health. No new office or international opening was found in the sources.\",\n      \"findings\": [\n        {\n          \"claim\": \"Kester Capital acquired EMAS Pharma from Bionical in December 2024, and Bionical then focused on Early Access Programs and Clinical Trial Supply.\",\n          \"value_number\": null,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://bionicalemas.com/press/kester-capital-backs-experienced-management-team-in-acquiring-emas-pharma/\",\n          \"source_title\": \"Kester Capital backs experienced management team in acquiring EMAS Pharma - Bionical Emas\",\n          \"publisher\": \"Bionical Emas\",\n          \"published_date\": \"2024-12-09\"\n        },\n        {\n          \"claim\": \"The demerger of Bionical Virtual Engagement was scheduled to complete on 1 July 2024, and the demerger of Bionical Health on 1 August 2024.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://www.cbinsights.com/investor/bionical\",\n          \"source_title\": \"Bionical Portfolio Investments, Bionical Funds, Bionical Exits\",\n          \"publisher\": \"CB Insights\",\n          \"published_date\": \"2024-06\"\n        },\n        {\n          \"claim\": \"Gareth Williams was appointed CEO of Bionical Health in June 2024.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://tracxn.com/d/companies/bionical/__DZOOb9YHiEzwDWPjmosmKGzB-0SEri7CtixJ1wzuIPo\",\n          \"source_title\": \"Bionical - 2026 Company Profile, Team, Funding & Competitors - Tracxn\",\n          \"publisher\": \"Tracxn\",\n          \"published_date\": \"2024-06-19\"\n        },\n        {\n          \"claim\": \"Bionical appointed a Chief Technology Officer to expand its digital business product pipeline.\",\n          \"value_number\": null,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://www.linkedin.com/company/bionical-limited\",\n          \"source_title\": \"Bionical Solutions\",\n          \"publisher\": \"LinkedIn\",\n          \"published_date\": \"2024-02\"\n        }\n      ]\n    },\n    {\n      \"field\": \"support_complexity\",\n      \"status\": \"found\",\n      \"summary\": \"The business runs multiple service lines (clinical trial supply, nurse education, contact centre, digital platforms, nursing services) across several brands, which suggests a multi-entity support model, but no direct statements on support volume or complexity were found.\",\n      \"findings\": [\n        {\n          \"claim\": \"The company's services span the product lifecycle, including comparator supply, clinical educator services, contract sales, recruitment, and digital and educational platforms.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://www.crunchbase.com/organization/bionical\",\n          \"source_title\": \"Bionical - Crunchbase Company Profile & Funding\",\n          \"publisher\": \"Crunchbase\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Owler lists call centre services among the company's offerings.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://www.owler.com/company/bionical\",\n          \"source_title\": \"Bionical Solutions’s Competitors, Revenue, Number of Employees, Funding, Acquisitions & News - Owler Company Profile\",\n          \"publisher\": \"Owler\",\n          \"published_date\": \"2019\"\n        },\n        {\n          \"claim\": \"Bionical Solutions Group describes its work as helping patients and healthcare professionals with engagement and behaviour change solutions.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://www.bionicalsolutionsgroup.com/\",\n          \"source_title\": \"Home - Bionical Solutions Group\",\n          \"publisher\": \"Bionical Solutions Group\",\n          \"published_date\": null\n        }\n      ]\n    }\n  ],\n  \"conflicts\": [\n    {\n      \"field\": \"funding_financial\",\n      \"description\": \"ZoomInfo reports a total funding figure of $146.8M and also shows a funding value under $5M, while Tracxn and PitchBook give only investor names and no amount. The conflict affects how well-funded the company appears, so the amount should not be relied on for sizing.\",\n      \"source_urls\": [\n        \"https://www.zoominfo.com/c/bionical-ltd/366457381\",\n        \"https://tracxn.com/d/companies/bionical/__DZOOb9YHiEzwDWPjmosmKGzB-0SEri7CtixJ1wzuIPo\",\n        \"https://pitchbook.com/profiles/company/125238-61\"\n      ]\n    }\n  ],\n  \"summary\": \"Bionical Solutions is a UK-headquartered, private-equity-backed healthcare services firm with a US office in New Jersey, serving pharma and life-sciences clients and, in parts, NHS-facing nursing. Its headcount is unverified because aggregators range from about 90 to 501-1,000, so use it only as a rough size estimate. The strongest travel signal is a UK community nursing advert that explicitly requires travel to patients' homes; corporate travel was not found in any source.\",\n  \"research_limitations\": [\n    \"Employee counts come from aggregators (PitchBook, RocketReach, Tracxn, LinkedIn, Owler, ZoomInfo) and are estimates with different dates; no official headcount was found in the company's own materials.\",\n    \"The company's own careers page was not retrieved; travel evidence comes from third-party job boards and a closed NHS advert, so current corporate travel requirements could not be verified.\",\n    \"Several sources (Owler, Tracxn, ZoomInfo) mix in other Bionical entities such as Bionical Emas and Bionical Health, so some profile details may describe a different legal entity.\",\n    \"Funding amounts are not disclosed by primary sources; the only official figures are intercompany loan balances from a 2022 annual report, which are not a funding round.\",\n    \"Job boards show point-in-time snapshots with undated or inconsistent dates, so hiring trends cannot be measured over time.\",\n    \"Recent expansion sources are dated 2024 or earlier, and no 2025-2026 news on new offices or acquisitions was found.\"\n  ]\n}\n```",
+  "analysis": {
+    "parse_ok": true,
+    "raw_employee_values_before_guard": [
+      {
+        "value": 90.0,
+        "claim": "PitchBook states that Bionical Solutions has 90 total employees."
+      },
+      {
+        "value": 152.0,
+        "claim": "RocketReach reports 152 people employed at Bionical Solutions."
+      },
+      {
+        "value": 184.0,
+        "claim": "Tracxn reports 184 employees as of May 26, with no year given."
+      },
+      {
+        "value": 288.0,
+        "claim": "The LinkedIn company page shows 288 employees."
+      },
+      {
+        "value": null,
+        "claim": "Owler gives an estimated employee band of 100-250."
+      },
+      {
+        "value": null,
+        "claim": "ZoomInfo gives an employee band of 501-1,000."
+      }
+    ],
+    "band_guard_changes": [],
+    "field_statuses": {
+      "industry_business_model": "found",
+      "geographic_footprint": "found",
+      "employee_count": "found",
+      "hiring_trends": "found",
+      "travel_indicators": "found",
+      "funding_financial": "conflicting",
+      "recent_expansion": "found",
+      "support_complexity": "found"
+    },
+    "findings_kept": 36,
+    "findings_dropped": [],
+    "employee_values": [
+      {
+        "value": 90.0,
+        "claim": "PitchBook states that Bionical Solutions has 90 total employees.",
+        "url": "https://pitchbook.com/profiles/company/125238-61",
+        "reliability": "aggregator",
+        "date": "2026"
+      },
+      {
+        "value": 152.0,
+        "claim": "RocketReach reports 152 people employed at Bionical Solutions.",
+        "url": "https://rocketreach.co/bionical-solutions-profile_b599e4f0f69fb0c3",
+        "reliability": "aggregator",
+        "date": null
+      },
+      {
+        "value": 184.0,
+        "claim": "Tracxn reports 184 employees as of May 26, with no year given.",
+        "url": "https://tracxn.com/d/companies/bionical/__DZOOb9YHiEzwDWPjmosmKGzB-0SEri7CtixJ1wzuIPo",
+        "reliability": "aggregator",
+        "date": null
+      },
+      {
+        "value": 288.0,
+        "claim": "The LinkedIn company page shows 288 employees.",
+        "url": "https://www.linkedin.com/company/bionical-limited/jobs",
+        "reliability": "aggregator",
+        "date": null
+      },
+      {
+        "value": null,
+        "claim": "Owler gives an estimated employee band of 100-250.",
+        "url": "https://www.owler.com/company/bionical",
+        "reliability": "aggregator",
+        "date": "2019"
+      },
+      {
+        "value": null,
+        "claim": "ZoomInfo gives an employee band of 501-1,000.",
+        "url": "https://www.zoominfo.com/c/bionical-ltd/366457381",
+        "reliability": "aggregator",
+        "date": null
+      }
+    ],
+    "travel_findings": [
+      {
+        "claim": "A closed Community Nurse advert from Bionical Solutions Ltd says candidates must enjoy travel because they will deliver care to patients in their own homes.",
+        "signal_type": "direct_travel",
+        "observation": "observed",
+        "travel_scope": null,
+        "url": "https://www.jobs.nhs.uk/candidate/jobadvert/E0393-24-0010"
+      },
+      {
+        "claim": "An earlier NHS Jobs Community Nurse advert from Bionical Solutions Ltd, now closed, makes the same travel point about delivering care in patients' homes.",
+        "signal_type": "direct_travel",
+        "observation": "observed",
+        "travel_scope": null,
+        "url": "https://www.jobs.nhs.uk/candidate/jobadvert/E0393-23-0047?page=1184"
+      },
+      {
+        "claim": "Several Bionical listings are marked on-site in Flemington, NJ, which indicates a fixed work location rather than travel.",
+        "signal_type": "descriptive",
+        "observation": "observed",
+        "travel_scope": null,
+        "url": "https://www.ziprecruiter.com/Jobs/Bionical?version=next"
+      },
+      {
+        "claim": "Community nursing roles for patients in their homes imply field travel between patient sites.",
+        "signal_type": "direct_travel",
+        "observation": "inferred",
+        "travel_scope": null,
+        "url": "https://uk.indeed.com/cmp/Bionical-Solutions/jobs"
+      }
+    ],
+    "conflicts": [
+      {
+        "field": "funding_financial",
+        "description": "ZoomInfo reports a total funding figure of $146.8M and also shows a funding value under $5M, while Tracxn and PitchBook give only investor names and no amount. The conflict affects how well-funded the company appears, so the amount should not be relied on for sizing.",
+        "source_urls": [
+          "https://www.zoominfo.com/c/bionical-ltd/366457381",
+          "https://tracxn.com/d/companies/bionical/__DZOOb9YHiEzwDWPjmosmKGzB-0SEri7CtixJ1wzuIPo",
+          "https://pitchbook.com/profiles/company/125238-61"
+        ]
+      }
+    ],
+    "identity": [
+      true,
+      "The bionical.com domain is linked from several profiles (LinkedIn, Crunchbase, PharmiWeb, Employment Hero, NHS job advert) that describe a UK-headquartered healthcare services firm called Bionical Solutions. Related but separate entities also appear: Bionical Solutions Group (bionicalsolutionsgroup.com, which lists a New Jersey office), Bionical Emas, and Bionical Health. Some aggregator profiles mix these up, so figures were checked against the group and parent-level sources where possible."
+    ]
+  }
+}

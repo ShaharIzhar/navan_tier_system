@@ -36,6 +36,15 @@ JSON_SHAPE = {
     "research_limitations": ["What could not be found or verified"],
 }
 
+# v3 adds travel_scope. Each prompt version keeps its own JSON shape so old versions stay reproducible.
+JSON_SHAPE_V3 = json.loads(json.dumps(JSON_SHAPE))
+_f = JSON_SHAPE_V3["fields"][0]["findings"][0]
+JSON_SHAPE_V3["fields"][0]["findings"][0] = {
+    **{k: _f[k] for k in ("claim", "value_number", "signal_type", "observation")},
+    "travel_scope": "business_travel | local_field_travel | unclear (direct_travel only, else null)",
+    **{k: _f[k] for k in ("source_url", "source_title", "publisher", "published_date")},
+}
+
 _FIELD_LIST = "\n".join(f"- {k}: {v}" for k, v in RESEARCH_FIELDS.items())
 
 # ---------------------------------------------------------------------------
@@ -120,14 +129,33 @@ Describe them in the field summary, not as a conflict, and use status "found".
 Return JSON in exactly this shape:
 {shape}"""
 
+
+# ---------------------------------------------------------------------------
+# v3: refined after a live Deep Research run on P-025 Bionical Solutions found community-nurse
+# job ads (driving to patients' homes, mileage allowance) and the rules counted them as business
+# travel. Local field travel rarely creates bookable travel (flights, hotels, rail), which is what
+# GBV measures. v3 asks the model to label the travel scope of every direct_travel finding.
+# ---------------------------------------------------------------------------
+TRAVEL_SCOPE_RULES = """
+travel_scope (required for every direct_travel finding, null otherwise):
+- business_travel: travel that is usually booked: flights, hotels, rail, overnight stays, travel to \
+other cities or countries, travel to customer sites in other regions, conferences.
+- local_field_travel: driving within a local area, home visits, a mileage or car allowance, \
+"on the road" within a territory, daily site visits near home.
+- unclear: the source says travel is required but not what kind."""
+
+SYSTEM_V3 = SYSTEM_V2
+USER_V3 = USER_V2.replace("Employee count rules:", TRAVEL_SCOPE_RULES.strip() + "\n\nEmployee count rules:")
+
 # ---------------------------------------------------------------------------
 # Registry. Old versions are kept unchanged for comparison.
 # ---------------------------------------------------------------------------
 PROMPTS: dict[str, dict[str, str]] = {
-    "v1": {"system": SYSTEM_V1, "user": USER_V1},
-    "v2": {"system": SYSTEM_V2, "user": USER_V2},
+    "v1": {"system": SYSTEM_V1, "user": USER_V1, "shape": JSON_SHAPE},
+    "v2": {"system": SYSTEM_V2, "user": USER_V2, "shape": JSON_SHAPE},
+    "v3": {"system": SYSTEM_V3, "user": USER_V3, "shape": JSON_SHAPE_V3},
 }
-CURRENT_VERSION = "v2"
+CURRENT_VERSION = "v3"
 
 
 def build_standard_prompt(company_name: str, domain: str, version: str | None = None) -> tuple[str, str, str]:
@@ -138,7 +166,7 @@ def build_standard_prompt(company_name: str, domain: str, version: str | None = 
         company_name=company_name,
         domain=domain,
         fields=_FIELD_LIST,
-        shape=json.dumps(JSON_SHAPE, indent=2),
+        shape=json.dumps(p["shape"], indent=2),
     )
     return v, p["system"], user
 
@@ -166,6 +194,10 @@ Fields to investigate (and why):
 Existing evidence (already known; do not search for it again):
 {existing}
 
+For every direct_travel finding, set travel_scope: business_travel (flights, hotels, rail, \
+overnight or out-of-region trips), local_field_travel (local driving, home visits, mileage or car \
+allowance), or unclear.
+
 Return JSON in exactly this shape, including only the fields listed above:
 {shape}"""
 
@@ -178,7 +210,7 @@ def build_deep_prompt(company_name: str, domain: str, focus: dict[str, str], exi
         domain=domain,
         focus=focus_txt,
         existing=existing_txt,
-        shape=json.dumps(JSON_SHAPE, indent=2),
+        shape=json.dumps(JSON_SHAPE_V3, indent=2),
     )
     return DEEP_SYSTEM, user
 

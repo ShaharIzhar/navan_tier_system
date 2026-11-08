@@ -75,6 +75,11 @@ def reassess(session: Session, prospect_id: str, trigger: str, actor: str = "sys
             if f["type"] == "tier_mismatch":
                 f["severity"] = "low"
                 f["reasons"] = f["reasons"] + [x["reason"] for x in suppressed[:1]]
+            elif f["type"] == "data_conflict" and f["severity"] == "material":
+                # A reviewer has already looked at the proposal this conflict produced. Keep it
+                # visible, but stop holding it in Review Now until new evidence arrives.
+                f["severity"] = "moderate"
+                f["reasons"] = f["reasons"] + ["A reviewer has already reviewed the resulting tier proposal."]
     proposals = [session.get(TierProposal, i) for i in proposal_ids]
     proposal_dicts = [{"id": p.id, "proposed_tier": p.proposed_tier, "status": p.status} for p in proposals]
 
@@ -148,11 +153,17 @@ def recommend(flags, proposals, research_ran, provisional, deep, day30) -> str:
         p = unresolved[0]
         kind = "standard-rule correction" if p.proposal_type == "standard_rule_correction" else "evidence-based override"
         return f"Review the {kind} proposal: Tier {p.from_tier} → Tier {p.proposed_tier}."
-    types = {f["type"]: f for f in flags}
+    rank = {"material": 3, "moderate": 2, "low": 1}
+    types: dict[str, dict] = {}
+    for f in flags:  # keep the most severe flag of each type
+        if f["type"] not in types or rank[f["severity"]] > rank[types[f["type"]]["severity"]]:
+            types[f["type"]] = f
     if "data_conflict" in types and types["data_conflict"]["severity"] == "material":
         return "Confirm the employee count — it decides Tier 2 eligibility. Add a verified value or run Deep Research."
-    if "travel_potential" in types:
+    if "travel_potential" in types and types["travel_potential"]["severity"] != "low":
         return "Check the travel evidence and consider an extra AE touchpoint. No tier change is proposed."
+    if "travel_potential" in types:
+        return "Travel evidence is consistent with the current support level. No action needed."
     if day30 and day30.get("comparison") == "weakens":
         return "Day 30 activity weakens the earlier signal. No action needed unless new evidence appears."
     if "growth_opportunity" in types:

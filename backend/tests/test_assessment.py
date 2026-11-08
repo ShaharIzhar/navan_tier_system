@@ -182,6 +182,8 @@ def test_reject_keeps_tier_and_suppresses_duplicate(session):
     a = latest_assessment(session, "P-007")
     assert a.accepted_values["suppressed_proposals"]
     assert flag(a, "tier_mismatch")["severity"] == "low"
+    assert flag(a, "data_conflict")["severity"] == "moderate"
+    assert a.attention == "review_suggested"
 
 
 def test_approve_applies_tier_and_is_stable(session):
@@ -271,3 +273,83 @@ def test_approved_override_is_not_reverted_by_rules(session):
     reassess(session, "P-009", trigger="manual")
     assert session.get(Prospect, "P-009").applied_tier == 1
     assert len(session.exec(select(TierProposal).where(TierProposal.prospect_id == "P-009")).all()) == 1
+
+
+# --- Regressions found by live-research error analysis --------------------------------
+
+def test_disagreeing_research_headcounts_do_not_create_proposal(session, fake_llm):
+    """Live P-025 run: aggregators said 219 / 90 / 152 (median 152) -> must not propose Tier 2."""
+    u1, u2, u3 = "https://craft.co/x", "https://pitchbook.com/x", "https://rocketreach.co/x"
+    text = research_json({"employee_count": ("found", [
+        finding("Craft lists 219 employees", u1, value=219),
+        finding("PitchBook lists 90 employees", u2, value=90),
+        finding("RocketReach lists 152 employees", u3, value=152)])})
+    fake_llm(llm_result(text, [u1, u2, u3]))
+    rs.run_standard_research(session, "P-025")
+    a = latest_assessment(session, "P-025")
+    assert flag(a, "data_conflict")["severity"] == "material"
+    assert not session.exec(select(TierProposal).where(TierProposal.prospect_id == "P-025")).all()
+    assert a.accepted_values["deep_research"]["suggested"] is True
+
+
+def test_travel_on_tier1_is_informational(session, fake_llm):
+    """Live P-041/P-021 runs: Tier 1 accounts were sent to Review Suggested for travel evidence."""
+    u1, u2 = "https://www.anthropic.com/careers/jobs", "https://builtin.com/company/anthropic/jobs"
+    text = research_json({"travel_indicators": ("found", [
+        finding("Roles marked Remote-Friendly (Travel-Required)", u1, signal="direct_travel"),
+        finding("Role requires 25-50% travel to customer sites", u2, signal="direct_travel")])})
+    fake_llm(llm_result(text, [u1, u2]))
+    rs.run_standard_research(session, "P-041")
+    a = latest_assessment(session, "P-041")
+    assert flag(a, "travel_potential")["severity"] == "low"
+    assert a.attention == "monitor"
+
+
+def test_job_board_search_page_is_aggregator():
+    from app.research.evidence import classify_reliability
+
+    assert classify_reliability("https://uk.indeed.com/q-bionical-solutions-jobs.html", "bionical.com") == "aggregator"
+    assert classify_reliability("https://www.jobs.nhs.uk/candidate/jobadvert/E0393-24-0010", "bionical.com") == "secondary"
+
+
+def test_local_field_travel_does_not_create_override(session, fake_llm):
+    """Live P-025 deep research: community nurses driving to patients' homes were counted as
+    business travel and produced a Tier 3 -> Tier 2 override. v3 labels travel scope."""
+    u1, u2, u3 = "https://www.jobs.nhs.uk/a", "https://bebee.com/b", "https://jobs.example.com/c"
+    def ft(claim, url, scope):
+        f = finding(claim, url, signal="direct_travel")
+        f["travel_scope"] = scope
+        return f
+    text = research_json({"travel_indicators": ("found", [
+        ft("Community nurse role with car allowance and mileage", u1, "local_field_travel"),
+        ft("Nurses travel to patients' homes", u2, "local_field_travel")])})
+    fake_llm(llm_result(text, [u1, u2]))
+    rs.run_standard_research(session, "P-033")
+    a = latest_assessment(session, "P-033")
+    assert flag(a, "travel_potential")["severity"] == "low"
+    assert not session.exec(select(TierProposal).where(TierProposal.prospect_id == "P-033")).all()
+    # Business travel from two hosts still qualifies.
+    text2 = research_json({"travel_indicators": ("found", [
+        ft("Engineers travel to customer sites across Europe", u1, "business_travel"),
+        ft("Sales role with 40% travel", u3, "unclear")])})
+    fake_llm(llm_result(text2, [u1, u3]))
+    rs.run_standard_research(session, "P-033", force=True)
+    a = latest_assessment(session, "P-033")
+    assert flag(a, "travel_potential")["severity"] == "material"
+    assert session.exec(select(TierProposal).where(TierProposal.prospect_id == "P-033")).one().proposed_tier == 2
+
+
+def test_unknown_travel_scope_label_is_lenient():
+    from app.research.schema import Finding
+
+    assert Finding(claim="abc travel", source_url="https://x", travel_scope="regional").travel_scope == "unclear"
+
+
+def test_recommendation_uses_most_severe_flag_of_each_type():
+    """Live P-025: a low LLM conflict listed after a material headcount conflict hid the
+    'confirm the employee count' recommendation."""
+    from app.assessment.engine import recommend
+
+    flags = [{"type": "data_conflict", "severity": "material"}, {"type": "travel_potential", "severity": "moderate"},
+             {"type": "data_conflict", "severity": "low"}]
+    assert recommend(flags, [], True, False, {}, None).startswith("Confirm the employee count")

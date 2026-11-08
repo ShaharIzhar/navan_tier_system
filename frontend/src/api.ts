@@ -110,6 +110,7 @@ export interface Evidence {
   value_number: number | null
   signal_type: string
   observation: string
+  travel_scope: string | null
   source_title: string | null
   source_url: string | null
   publisher: string | null

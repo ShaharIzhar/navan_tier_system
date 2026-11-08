@@ -51,7 +51,7 @@ These are proposals or flags that:
 The scenario checks show that the rules behave as specified. They say nothing about predictive accuracy.
 
 - **17 in-app scenario checks** run on every Reports page load. They cover tier boundaries, missing and invalid inputs, conflicts across the 150-employee threshold, verified manual values resolving a conflict, and Day 30 thresholds and the "weakens" comparison.
-- **57 backend pytest tests and 3 frontend smoke tests** cover the following (see `backend/tests/`):
+- **65 backend pytest tests and 3 frontend smoke tests** cover the following (see `backend/tests/`):
   - malformed LLM output, which is repaired once and otherwise fails visibly
   - timeouts and a missing API key
   - fabricated citations, which are dropped
@@ -80,6 +80,8 @@ For each error found in review or in outcomes:
    - Extraction → prompt version (prompts are versioned and kept; see `docs/llm_experiments.md`) or post-processing.
    - Policy → the thresholds in `backend/app/config.py`.
 5. **Rerun the original case and add a regression test** (a pytest case, or a scenario check for policy errors).
+
+This loop has already been run on live data. Section 9 of [`llm_experiments.md`](llm_experiments.md) lists six errors found in end-to-end runs on 10 real companies. Each entry gives its cause class, fix and regression test. Example: home-visit nursing ads were counted as business travel. The cause was extraction granularity, fixed with prompt v3's `travel_scope` and a rule change.
 
 Reviewer approval alone is never used as a measure of accuracy.
 

@@ -78,7 +78,8 @@ def analyse(text: str, search_results: list[dict], domain: str) -> dict:
             for f in validated.fields if f.field == "employee_count" for x in f.findings
         ],
         travel_findings=[
-            {"claim": x.claim, "signal_type": x.signal_type, "observation": x.observation, "url": x.source_url}
+            {"claim": x.claim, "signal_type": x.signal_type, "observation": x.observation,
+             "travel_scope": x.travel_scope, "url": x.source_url}
             for f in validated.fields if f.field == "travel_indicators" for x in f.findings
         ],
         conflicts=[c.model_dump() for c in validated.conflicts],

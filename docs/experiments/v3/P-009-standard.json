@@ -1,0 +1,263 @@
+{
+  "case": "P-009-standard",
+  "prompt_version": "v3",
+  "model": "claude-haiku-5-5",
+  "started_at": "2026-11-08T16:45:54.263118+00:00",
+  "usage": {
+    "input_tokens": 65997,
+    "output_tokens": 10567,
+    "web_searches": 3,
+    "llm_calls": 1,
+    "approx_cost_usd": 0.04188
+  },
+  "stop_reason": "end_turn",
+  "search_errors": [],
+  "search_queries": [
+    "NexGen Cloud nexgencloud.com company",
+    "NexGen Cloud careers jobs travel client site on-site",
+    "NexGen Cloud funding expansion news 2026"
+  ],
+  "search_results": [
+    {
+      "url": "https://app.dealroom.co/companies/nexgen_cloud",
+      "title": "NexGen Cloud company information, funding & investors",
+      "page_age": "2412 days ago"
+    },
+    {
+      "url": "https://uk.linkedin.com/company/nexgen-cloud",
+      "title": "NexGen Cloud",
+      "page_age": null
+    },
+    {
+      "url": "https://www.cbinsights.com/company/nexgen-cloud",
+      "title": "NexGen Cloud - Products, Competitors, Financials, Employees, Headquarters Locations",
+      "page_age": "507 days ago"
+    },
+    {
+      "url": "https://www.crunchbase.com/organization/nexgen-cloud-bf96",
+      "title": "NexGen Cloud - Crunchbase Company Profile & Funding",
+      "page_age": null
+    },
+    {
+      "url": "https://pitchbook.com/profiles/company/459299-44",
+      "title": "NexGen Cloud 2026 Company Profile: Valuation, Funding & Investors",
+      "page_age": "2137 days ago"
+    },
+    {
+      "url": "https://www.zoominfo.com/c/nexgen-cloud/558083522",
+      "title": "NexGen Cloud - Overview, News & Similar companies",
+      "page_age": null
+    },
+    {
+      "url": "https://www.nexgencloud.com/letter-from-our-ceo",
+      "title": "A Letter from our CEO",
+      "page_age": null
+    },
+    {
+      "url": "https://www.nexgencloud.com/",
+      "title": "Leading AI Cloud Solutions",
+      "page_age": "1187 days ago"
+    },
+    {
+      "url": "https://tracxn.com/d/companies/nexgencloud/__dIH9zB5hbDceRftOJGFi2Sjza23c97jD2VsmCsbxjZo",
+      "title": "NexGen Cloud - 2026 Company Profile, Team, Funding, Competitors & Financials - Tracxn",
+      "page_age": "167 days ago"
+    },
+    {
+      "url": "https://wellfound.com/company/nexgen-cloud",
+      "title": "NexGen Cloud Careers - Insights and Opportunities",
+      "page_age": null
+    },
+    {
+      "url": "https://startup.jobs/company/nexgen-cloud",
+      "title": "NexGen Cloud Jobs (October 2026)",
+      "page_age": null
+    },
+    {
+      "url": "https://jobgether.com/offer/6a87c65fa55bd7e3ae1046f8-deployment-lead",
+      "title": "Deployment Lead at NexGen Cloud",
+      "page_age": "80 days ago"
+    },
+    {
+      "url": "https://builtin.com/company/nexgen-cloud",
+      "title": "NexGen Cloud Careers, Perks + Culture",
+      "page_age": null
+    },
+    {
+      "url": "https://careers.nexgencloud.com/",
+      "title": "NexGen Cloud",
+      "page_age": null
+    },
+    {
+      "url": "https://builtinlondon.uk/company/nexgen-cloud",
+      "title": "NexGen Cloud London Office: Careers, Perks + Culture",
+      "page_age": null
+    },
+    {
+      "url": "https://www.nexgencloud.com/careers",
+      "title": "Build Your Career in AI & Cloud",
+      "page_age": "1441 days ago"
+    },
+    {
+      "url": "https://workopia.io/hi/companies/nexgencloud",
+      "title": "Nexgencloud Hiring Intelligence — Jobs, Layoffs & Trends",
+      "page_age": "56 days ago"
+    },
+    {
+      "url": "https://nex-gentechnologies.com/career",
+      "title": "Careers at Nex-Gen Technologies LLC",
+      "page_age": null
+    },
+    {
+      "url": "https://www.citybiz.co/article/926634/usd-ai-leads-106-million-financing-for-nexgen-clouds-gpu-expansion-in-finland/",
+      "title": "USD.AI Leads $106 Million Financing for NexGen Cloud’s GPU Expansion in Finland",
+      "page_age": "10 days ago"
+    },
+    {
+      "url": "https://pulse2.com/usd-ai-leads-106-million-gpu-financing-for-nexgen-cloud/",
+      "title": "USD.AI Leads $106 Million GPU Financing For NexGen Cloud",
+      "page_age": "9 days ago"
+    },
+    {
+      "url": "https://www.nexgencloud.com/news/usd.ai-provides-34m-facility-to-finance-nexgen-clouds-gpu-deployment-in-sweden",
+      "title": "USD.AI Provides $34M Facility to Finance NexGen Cloud's GPU Deployment in Sweden",
+      "page_age": "130 days ago"
+    },
+    {
+      "url": "https://www.finopotamus.com/post/usd-ai-leads-106-million-gpu-financing-for-nexgen-cloud",
+      "title": "USD.AI Leads $106 Million GPU Financing for NexGen Cloud",
+      "page_age": "10 days ago"
+    },
+    {
+      "url": "https://www.structureresearch.net/2026/07/29/nexgen-cloud-secures-usd-ai-funding-for-sweden-nvidia-deployment/",
+      "title": "NexGen Cloud secures USD.AI funding for Sweden NVIDIA deployment - Structure Research",
+      "page_age": "102 days ago"
+    },
+    {
+      "url": "https://www.prnewswire.com/news-releases/usdai-leads-106-million-gpu-financing-for-nexgen-cloud-302923115.html",
+      "title": "USD.AI Leads $106 Million GPU Financing for NexGen Cloud",
+      "page_age": "10 days ago"
+    },
+    {
+      "url": "https://usd.ai/blog/usdai-106m-nexgen-cloud-finland-gpu-financing",
+      "title": "NexGen Cloud Secures $106 Million GPU Financing Through USD.AI's GLX",
+      "page_age": "8 days ago"
+    },
+    {
+      "url": "https://globalfintechedge.com/news/usd-ai-secures-106m-loan-for-nexgen-cloud-expansion/",
+      "title": "USD.AI Secures $106M for NexGen Cloud GPU Expansion",
+      "page_age": "9 days ago"
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Nexar",
+      "title": "Nexar",
+      "page_age": null
+    }
+  ],
+  "system_prompt": "You are a company research assistant for a B2B sales team at a business-travel platform. You research companies using web search and report what public sources say.\n\nRules:\n- Use only information from your web search results. Do not use prior knowledge.\n- Every finding must cite the URL of the search result it came from.\n- If you cannot find information for a field, mark it not_found. Do not guess.\n- If sources disagree, mark the field conflicting and describe the conflict.\n- Separate facts stated by a source (observed) from your own inferences (inferred).\n- Do not estimate travel spend or GBV.\n- Do not give confidence percentages.\n- Respond with a single JSON object and nothing else.\n- Several pages repeating the same figure or announcement are one source, not several.\n- Treat data aggregators (LinkedIn, ZoomInfo, PitchBook, Crunchbase, Tracxn, Dealroom and similar) as estimates.",
+  "user_prompt": "Research this company:\nCompany name: NexGen Cloud\nWebsite domain: nexgencloud.com\n\nCover these fields:\n- industry_business_model: Industry and business model\n- geographic_footprint: Locations and geographic footprint\n- employee_count: Employee count\n- hiring_trends: Hiring and workforce trends\n- travel_indicators: Direct travel-requirement indicators\n- funding_financial: Funding and financial developments\n- recent_expansion: Recent expansion\n- support_complexity: Support-complexity indicators\n\nSearch plan (you have a small number of searches; use them in this order):\n1. The company's own website and basic profile (what it does, where it operates, size).\n2. Travel requirements: search for the company's job postings or careers page together with words like \"travel\", \"client site\", \"on-site\", \"field\". This is the most important field for this research. Report what job ads or company pages actually say. If you find nothing, mark travel_indicators not_found.\n3. Recent funding, expansion and hiring news.\n\nsignal_type meanings:\n- direct_travel: a source explicitly states that employees travel for work (e.g. a job ad saying \"travel required\" or \"50% travel\", field engineers visiting customer sites, consultants based at client sites). Use this ONLY when the source states it. If you are guessing that a role probably involves travel, set observation to \"inferred\".\n- indirect_growth: growth signals (funding, new offices, hiring growth, international expansion)\n- descriptive: everything else\n\ntravel_scope (required for every direct_travel finding, null otherwise):\n- business_travel: travel that is usually booked: flights, hotels, rail, overnight stays, travel to other cities or countries, travel to customer sites in other regions, conferences.\n- local_field_travel: driving within a local area, home visits, a mileage or car allowance, \"on the road\" within a territory, daily site visits near home.\n- unclear: the source says travel is required but not what kind.\n\nEmployee count rules:\n- Put a number in value_number ONLY when the source states one exact headcount (e.g. \"53 employees\").\n- For a band or range (e.g. \"11-50\", \"51-200\", \"fewer than 25\"), set value_number to null and keep the band in the claim.\n- Include the \"as of\" date in published_date when the source gives one.\n\nConflict rules:\n- Report a conflict only when sources disagree about the same fact for the same period in a way that changes the conclusion (for example, one source says 40 staff and another says 400).\n- Different estimates from different databases, or figures from different dates, are normal. Describe them in the field summary, not as a conflict, and use status \"found\".\n\nReturn JSON in exactly this shape:\n{\n  \"company_identity_confirmed\": true,\n  \"identity_note\": \"How you confirmed the sources describe the company at this domain\",\n  \"fields\": [\n    {\n      \"field\": \"employee_count\",\n      \"status\": \"found | not_found | conflicting | not_applicable\",\n      \"summary\": \"One-sentence plain-English summary of what the sources say\",\n      \"findings\": [\n        {\n          \"claim\": \"Exact fact taken from the source\",\n          \"value_number\": 120,\n          \"signal_type\": \"direct_travel | indirect_growth | descriptive\",\n          \"observation\": \"observed | inferred\",\n          \"travel_scope\": \"business_travel | local_field_travel | unclear (direct_travel only, else null)\",\n          \"source_url\": \"URL returned by your web search\",\n          \"source_title\": \"Page title\",\n          \"publisher\": \"Site or organisation\",\n          \"published_date\": \"YYYY-MM-DD, YYYY-MM, YYYY, or null\"\n        }\n      ]\n    }\n  ],\n  \"conflicts\": [\n    {\n      \"field\": \"employee_count\",\n      \"description\": \"...\",\n      \"source_urls\": [\n        \"...\"\n      ]\n    }\n  ],\n  \"summary\": \"2-3 sentence summary for a salesperson\",\n  \"research_limitations\": [\n    \"What could not be found or verified\"\n  ]\n}",
+  "raw_text": "```json\n{\n  \"company_identity_confirmed\": true,\n  \"identity_note\": \"The company's own pages on nexgencloud.com (homepage, careers page, CEO letter and news page) describe a GPU/AI cloud business with the same name. Aggregator profiles and third-party financing releases that link to the domain corroborate this. Several aggregator profiles also show a London/Marbella footprint, which matches the company's own careers page.\",\n  \"fields\": [\n    {\n      \"field\": \"industry_business_model\",\n      \"status\": \"found\",\n      \"summary\": \"NexGen Cloud is a GPU-based AI cloud infrastructure provider that sells on-demand and private enterprise cloud environments through its Hyperstack platform.\",\n      \"findings\": [\n        {\n          \"claim\": \"The company describes itself as a UK-owned, EU-sovereign global AI cloud provider offering customised solutions for every workload and scale.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.nexgencloud.com/\",\n          \"source_title\": \"Leading AI Cloud Solutions\",\n          \"publisher\": \"NexGen Cloud\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Its hardware (NVIDIA GPUs, AMD processors, Supermicro platforms) is operated by NexGen Cloud and sold commercially through Hyperstack.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.nexgencloud.com/\",\n          \"source_title\": \"Leading AI Cloud Solutions\",\n          \"publisher\": \"NexGen Cloud\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"A financing announcement describes the company as providing AI cloud infrastructure across Europe and North America, offering Hyperstack Secure Private Cloud and Hyperstack On-Demand, and as an NVIDIA Cloud Partner.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://pulse2.com/usd-ai-leads-106-million-gpu-financing-for-nexgen-cloud/\",\n          \"source_title\": \"USD.AI Leads $106 Million GPU Financing For NexGen Cloud\",\n          \"publisher\": \"Pulse 2.0\",\n          \"published_date\": \"2026-10-29\"\n        },\n        {\n          \"claim\": \"Crunchbase describes the company as offering sustainable cloud IaaS focused on HPC and GPU infrastructure, including GPU-as-a-service via Hyperstack.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.crunchbase.com/organization/nexgen-cloud-bf96\",\n          \"source_title\": \"NexGen Cloud - Crunchbase Company Profile & Funding\",\n          \"publisher\": \"Crunchbase\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Dealroom describes the firm as an IaaS provider of high-performance GPU cloud computing for virtual workstations, founded in October 2020, that pivoted toward AI and machine learning workloads.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://app.dealroom.co/companies/nexgen_cloud\",\n          \"source_title\": \"NexGen Cloud company information, funding & investors\",\n          \"publisher\": \"Dealroom\",\n          \"published_date\": null\n        }\n      ]\n    },\n    {\n      \"field\": \"geographic_footprint\",\n      \"status\": \"found\",\n      \"summary\": \"The company's careers page names London as headquarters and Marbella, Spain as a second office, with team members also listed in India and Portugal. Its GPU capacity is being added in Sweden and Finland.\",\n      \"findings\": [\n        {\n          \"claim\": \"The company's headquarters are in London, UK, with a second office in Marbella, Spain.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://careers.nexgencloud.com/\",\n          \"source_title\": \"NexGen Cloud\",\n          \"publisher\": \"NexGen Cloud\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Team members are listed in London, Marbella, India and Portugal on the company's careers page.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.nexgencloud.com/careers\",\n          \"source_title\": \"Build Your Career in AI & Cloud\",\n          \"publisher\": \"NexGen Cloud\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"A financing release says the company provides AI cloud infrastructure across Europe and North America.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://pulse2.com/usd-ai-leads-106-million-gpu-financing-for-nexgen-cloud/\",\n          \"source_title\": \"USD.AI Leads $106 Million GPU Financing For NexGen Cloud\",\n          \"publisher\": \"Pulse 2.0\",\n          \"published_date\": \"2026-10-29\"\n        },\n        {\n          \"claim\": \"A CB Insights profile states the company's managed infrastructure is hosted in Tier 3 data centres across Europe and North America.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.cbinsights.com/company/nexgen-cloud\",\n          \"source_title\": \"NexGen Cloud - Products, Competitors, Financials, Employees, Headquarters Locations\",\n          \"publisher\": \"CB Insights\",\n          \"published_date\": null\n        }\n      ]\n    },\n    {\n      \"field\": \"employee_count\",\n      \"status\": \"found\",\n      \"summary\": \"No official headcount was found. Aggregator estimates range from 79 to 117 people, with some listing bands of 11-50 and 51-200, so all point to a small company, though the figures are not verified.\",\n      \"findings\": [\n        {\n          \"claim\": \"PitchBook's profile lists 117 total employees for NexGen Cloud.\",\n          \"value_number\": 117,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://pitchbook.com/profiles/company/459299-44\",\n          \"source_title\": \"NexGen Cloud 2026 Company Profile: Valuation, Funding & Investors\",\n          \"publisher\": \"PitchBook\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Built In lists 92 total employees for NexGen Cloud.\",\n          \"value_number\": 92,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://builtin.com/company/nexgen-cloud\",\n          \"source_title\": \"NexGen Cloud Careers, Perks + Culture\",\n          \"publisher\": \"Built In\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"A LinkedIn-linked structured data block states a headcount of 79.\",\n          \"value_number\": 79,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://uk.linkedin.com/company/nexgen-cloud\",\n          \"source_title\": \"NexGen Cloud\",\n          \"publisher\": \"LinkedIn\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"LinkedIn gives the company size as a band of 11-50 employees.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://uk.linkedin.com/company/nexgen-cloud\",\n          \"source_title\": \"NexGen Cloud\",\n          \"publisher\": \"LinkedIn\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"ZoomInfo gives a band of 51-200 employees.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.zoominfo.com/c/nexgen-cloud/558083522\",\n          \"source_title\": \"NexGen Cloud - Overview, News & Similar companies\",\n          \"publisher\": \"ZoomInfo\",\n          \"published_date\": null\n        }\n      ]\n    },\n    {\n      \"field\": \"hiring_trends\",\n      \"status\": \"found\",\n      \"summary\": \"The company is actively hiring across London, Marbella and remote roles, with aggregators reporting roughly 11 to 55 open postings depending on the snapshot date.\",\n      \"findings\": [\n        {\n          \"claim\": \"The careers page lists open roles in Marbella, London, Nottingham and fully remote locations, spanning tech, sales and HR.\",\n          \"value_number\": null,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://careers.nexgencloud.com/\",\n          \"source_title\": \"NexGen Cloud\",\n          \"publisher\": \"NexGen Cloud\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"A startup jobs board shows 11 open positions, including Technical Architect, Senior HPC Engineer and Datacentre Deployment Lead roles.\",\n          \"value_number\": 11,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://startup.jobs/company/nexgen-cloud\",\n          \"source_title\": \"NexGen Cloud Jobs (October 2026)\",\n          \"publisher\": \"startup.jobs\",\n          \"published_date\": \"2026-10\"\n        },\n        {\n          \"claim\": \"Workopia, a hiring-intelligence aggregator, reports 55 total jobs online and 10 active jobs newly posted in the month of September 2026.\",\n          \"value_number\": 55,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://workopia.io/hi/companies/nexgencloud\",\n          \"source_title\": \"Nexgencloud Hiring Intelligence — Jobs, Layoffs & Trends\",\n          \"publisher\": \"Workopia\",\n          \"published_date\": \"2026-09\"\n        },\n        {\n          \"claim\": \"Workopia reports zero layoffs announced.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://workopia.io/hi/companies/nexgencloud\",\n          \"source_title\": \"Nexgencloud Hiring Intelligence — Jobs, Layoffs & Trends\",\n          \"publisher\": \"Workopia\",\n          \"published_date\": \"2026-09\"\n        }\n      ]\n    },\n    {\n      \"field\": \"travel_indicators\",\n      \"status\": \"found\",\n      \"summary\": \"One posted Deployment Lead role explicitly requires extensive global travel to GPU deployment sites, which points to business travel. No other posting reviewed states a travel requirement.\",\n      \"findings\": [\n        {\n          \"claim\": \"A Deployment Lead posting lists a remote, home-based role across Ireland, the UK and Spain, with extensive global travel to deployment sites.\",\n          \"value_number\": null,\n          \"signal_type\": \"direct_travel\",\n          \"observation\": \"observed\",\n          \"travel_scope\": \"business_travel\",\n          \"source_url\": \"https://jobgether.com/offer/6a87c65fa55bd7e3ae1046f8-deployment-lead\",\n          \"source_title\": \"Deployment Lead at NexGen Cloud\",\n          \"publisher\": \"Jobgether\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"The same posting asks candidates to be willing to travel globally at short notice for extended periods, and to carry out on-site build execution for each new GPU site.\",\n          \"value_number\": null,\n          \"signal_type\": \"direct_travel\",\n          \"observation\": \"observed\",\n          \"travel_scope\": \"business_travel\",\n          \"source_url\": \"https://jobgether.com/offer/6a87c65fa55bd7e3ae1046f8-deployment-lead\",\n          \"source_title\": \"Deployment Lead at NexGen Cloud\",\n          \"publisher\": \"Jobgether\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Built In lists a Datacentre Deployment Lead role as remote in the UK, but the listing does not state any travel requirement.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://builtinlondon.uk/company/nexgen-cloud\",\n          \"source_title\": \"NexGen Cloud London Office: Careers, Perks + Culture\",\n          \"publisher\": \"Built In London\",\n          \"published_date\": null\n        }\n      ]\n    },\n    {\n      \"field\": \"funding_financial\",\n      \"status\": \"found\",\n      \"summary\": \"Aggregators report a $45M Series A in April 2025 and varying total-raised figures, while the most recent disclosed financing is a $106M senior secured loan from USD.AI in October 2026 that adds to a $34M facility from June 2026.\",\n      \"findings\": [\n        {\n          \"claim\": \"Dealroom reports a $45 million Series A in April 2025 that set a valuation of $354 million, with total funding of $59 million.\",\n          \"value_number\": null,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://app.dealroom.co/companies/nexgen_cloud\",\n          \"source_title\": \"NexGen Cloud company information, funding & investors\",\n          \"publisher\": \"Dealroom\",\n          \"published_date\": \"2025-04\"\n        },\n        {\n          \"claim\": \"USD.AI announced a $106 million senior secured term loan led and closed for NexGen Cloud, with Silver Point Capital and Victory Park Capital participating in a four-year facility to fund GPU capacity in Finland.\",\n          \"value_number\": 106,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://pulse2.com/usd-ai-leads-106-million-gpu-financing-for-nexgen-cloud/\",\n          \"source_title\": \"USD.AI Leads $106 Million GPU Financing For NexGen Cloud\",\n          \"publisher\": \"Pulse 2.0\",\n          \"published_date\": \"2026-10-29\"\n        },\n        {\n          \"claim\": \"A PR Newswire release says the facility is structured through USD.AI's GPU Loan Exchange and funds GPU capacity in Finland, with escrow funding aligned to server shipments in Q4 2026.\",\n          \"value_number\": 106,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.prnewswire.com/news-releases/usdai-leads-106-million-gpu-financing-for-nexgen-cloud-302923115.html\",\n          \"source_title\": \"USD.AI Leads $106 Million GPU Financing for NexGen Cloud\",\n          \"publisher\": \"PR Newswire\",\n          \"published_date\": \"2026-10-29\"\n        },\n        {\n          \"claim\": \"USD.AI provided a three-year, non-recourse $34 million debt facility to fund NVIDIA B200 GPUs in Sweden, operated by NexGen Cloud.\",\n          \"value_number\": 34,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.nexgencloud.com/news/usd.ai-provides-34m-facility-to-finance-nexgen-clouds-gpu-deployment-in-sweden\",\n          \"source_title\": \"USD.AI Provides $34M Facility to Finance NexGen Cloud's GPU Deployment in Sweden\",\n          \"publisher\": \"NexGen Cloud\",\n          \"published_date\": \"2026-06-25\"\n        },\n        {\n          \"claim\": \"CB Insights reports total raised of $93M and names a line of credit as the latest round.\",\n          \"value_number\": 93,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.cbinsights.com/company/nexgen-cloud\",\n          \"source_title\": \"NexGen Cloud - Products, Competitors, Financials, Employees, Headquarters Locations\",\n          \"publisher\": \"CB Insights\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"PitchBook reports the company has raised $64.4M, and Tracxn reports $76.7M raised across 17 rounds.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://pitchbook.com/profiles/company/459299-44\",\n          \"source_title\": \"NexGen Cloud 2026 Company Profile: Valuation, Funding & Investors\",\n          \"publisher\": \"PitchBook\",\n          \"published_date\": null\n        }\n      ]\n    },\n    {\n      \"field\": \"recent_expansion\",\n      \"status\": \"found\",\n      \"summary\": \"The company is expanding its GPU capacity in Sweden and Finland, financed by USD.AI facilities, with server shipments expected in Q4 2026.\",\n      \"findings\": [\n        {\n          \"claim\": \"The $106 million facility is intended to fund 216 NVIDIA HGX B300 servers at a Tier III data centre in Finland.\",\n          \"value_number\": 216,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.citybiz.co/article/926634/usd-ai-leads-106-million-financing-for-nexgen-clouds-gpu-expansion-in-finland/\",\n          \"source_title\": \"USD.AI Leads $106 Million Financing for NexGen Cloud's GPU Expansion in Finland\",\n          \"publisher\": \"CityBiz\",\n          \"published_date\": \"2026-10-29\"\n        },\n        {\n          \"claim\": \"The June 2026 facility supports a large-scale NVIDIA B200 GPU fleet in Sweden, which the company describes as expanding Europe's sovereign AI compute capacity.\",\n          \"value_number\": null,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.nexgencloud.com/news/usd.ai-provides-34m-facility-to-finance-nexgen-clouds-gpu-deployment-in-sweden\",\n          \"source_title\": \"USD.AI Provides $34M Facility to Finance NexGen Cloud's GPU Deployment in Sweden\",\n          \"publisher\": \"NexGen Cloud\",\n          \"published_date\": \"2026-06-25\"\n        },\n        {\n          \"claim\": \"A CEO statement says the company was an official launch partner for NVIDIA Blackwell GPUs and launched Secure Private Cloud single-tenant super clusters for enterprises.\",\n          \"value_number\": null,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.nexgencloud.com/letter-from-our-ceo\",\n          \"source_title\": \"A Letter from our CEO\",\n          \"publisher\": \"NexGen Cloud\",\n          \"published_date\": null\n        }\n      ]\n    },\n    {\n      \"field\": \"support_complexity\",\n      \"status\": \"found\",\n      \"summary\": \"The company serves enterprise customers with single-tenant private clusters and runs a dedicated L2 support function on a shift basis, which suggests moderate support complexity. No explicit support-volume data was found.\",\n      \"findings\": [\n        {\n          \"claim\": \"The platform serves a range of clients, from AI researchers to large enterprises, with on-demand and private GPU infrastructure.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://startup.jobs/company/nexgen-cloud\",\n          \"source_title\": \"NexGen Cloud Jobs (October 2026)\",\n          \"publisher\": \"startup.jobs\",\n          \"published_date\": \"2026-10\"\n        },\n        {\n          \"claim\": \"The company's careers page lists an L2 Support Engineer role on an APAC shift, based in Nottingham.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://careers.nexgencloud.com/\",\n          \"source_title\": \"NexGen Cloud\",\n          \"publisher\": \"NexGen Cloud\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"The Secure Private Cloud offering consists of single-tenant super clusters designed for enterprises.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.nexgencloud.com/letter-from-our-ceo\",\n          \"source_title\": \"A Letter from our CEO\",\n          \"publisher\": \"NexGen Cloud\",\n          \"published_date\": null\n        }\n      ]\n    }\n  ],\n  \"conflicts\": [],\n  \"summary\": \"NexGen Cloud is a small, London- and Marbella-based GPU/AI cloud provider. It is growing through debt-funded GPU deployments in Sweden and Finland, and it hires actively. One posted Deployment Lead role explicitly requires extensive global travel to deployment sites, which is the strongest travel signal found.\",\n  \"research_limitations\": [\n    \"No official headcount was published; employee figures come from aggregators (PitchBook, Built In, LinkedIn, ZoomInfo) and vary from 79 to 117 people, with band estimates of 11-50 and 51-200.\",\n    \"Total funding raised varies by aggregator (Dealroom $59M, PitchBook $64.4M, Tracxn $76.7M, CB Insights $93M); these are estimates and were not reconciled.\",\n    \"Only one posting explicitly states travel. The Jobgether listing is a third-party reproduction, and its publish date is not stated, so the travel finding rests on that single source.\",\n    \"Job counts come from aggregators (Workopia, startup.jobs) and reflect different snapshot dates, so they are not a current open-role total.\",\n    \"The CB Insights structured data describes the company as an application and data integration business, which conflicts with the company's own GPU cloud description; the company's own pages were treated as authoritative.\",\n    \"No information was found on the company's own travel policy, customer-site visits, conference attendance or business-travel spend.\"\n  ]\n}\n```",
+  "analysis": {
+    "parse_ok": true,
+    "raw_employee_values_before_guard": [
+      {
+        "value": 117.0,
+        "claim": "PitchBook's profile lists 117 total employees for NexGen Cloud."
+      },
+      {
+        "value": 92.0,
+        "claim": "Built In lists 92 total employees for NexGen Cloud."
+      },
+      {
+        "value": 79.0,
+        "claim": "A LinkedIn-linked structured data block states a headcount of 79."
+      },
+      {
+        "value": null,
+        "claim": "LinkedIn gives the company size as a band of 11-50 employees."
+      },
+      {
+        "value": null,
+        "claim": "ZoomInfo gives a band of 51-200 employees."
+      }
+    ],
+    "band_guard_changes": [],
+    "field_statuses": {
+      "industry_business_model": "found",
+      "geographic_footprint": "found",
+      "employee_count": "found",
+      "hiring_trends": "found",
+      "travel_indicators": "found",
+      "funding_financial": "found",
+      "recent_expansion": "found",
+      "support_complexity": "found"
+    },
+    "findings_kept": 33,
+    "findings_dropped": [],
+    "employee_values": [
+      {
+        "value": 117.0,
+        "claim": "PitchBook's profile lists 117 total employees for NexGen Cloud.",
+        "url": "https://pitchbook.com/profiles/company/459299-44",
+        "reliability": "aggregator",
+        "date": null
+      },
+      {
+        "value": 92.0,
+        "claim": "Built In lists 92 total employees for NexGen Cloud.",
+        "url": "https://builtin.com/company/nexgen-cloud",
+        "reliability": "secondary",
+        "date": null
+      },
+      {
+        "value": 79.0,
+        "claim": "A LinkedIn-linked structured data block states a headcount of 79.",
+        "url": "https://uk.linkedin.com/company/nexgen-cloud",
+        "reliability": "aggregator",
+        "date": null
+      },
+      {
+        "value": null,
+        "claim": "LinkedIn gives the company size as a band of 11-50 employees.",
+        "url": "https://uk.linkedin.com/company/nexgen-cloud",
+        "reliability": "aggregator",
+        "date": null
+      },
+      {
+        "value": null,
+        "claim": "ZoomInfo gives a band of 51-200 employees.",
+        "url": "https://www.zoominfo.com/c/nexgen-cloud/558083522",
+        "reliability": "aggregator",
+        "date": null
+      }
+    ],
+    "travel_findings": [
+      {
+        "claim": "A Deployment Lead posting lists a remote, home-based role across Ireland, the UK and Spain, with extensive global travel to deployment sites.",
+        "signal_type": "direct_travel",
+        "observation": "observed",
+        "travel_scope": "business_travel",
+        "url": "https://jobgether.com/offer/6a87c65fa55bd7e3ae1046f8-deployment-lead"
+      },
+      {
+        "claim": "The same posting asks candidates to be willing to travel globally at short notice for extended periods, and to carry out on-site build execution for each new GPU site.",
+        "signal_type": "direct_travel",
+        "observation": "observed",
+        "travel_scope": "business_travel",
+        "url": "https://jobgether.com/offer/6a87c65fa55bd7e3ae1046f8-deployment-lead"
+      },
+      {
+        "claim": "Built In lists a Datacentre Deployment Lead role as remote in the UK, but the listing does not state any travel requirement.",
+        "signal_type": "descriptive",
+        "observation": "observed",
+        "travel_scope": null,
+        "url": "https://builtinlondon.uk/company/nexgen-cloud"
+      }
+    ],
+    "conflicts": [],
+    "identity": [
+      true,
+      "The company's own pages on nexgencloud.com (homepage, careers page, CEO letter and news page) describe a GPU/AI cloud business with the same name. Aggregator profiles and third-party financing releases that link to the domain corroborate this. Several aggregator profiles also show a London/Marbella footprint, which matches the company's own careers page."
+    ]
+  }
+}

@@ -17,7 +17,11 @@ export default function EvidenceList({ items, onWithdraw }: { items: Evidence[];
             </div>
             <div className="evidence-meta">
               <ReliabilityChip reliability={e.reliability} />
-              {e.signal_type === 'direct_travel' && <span className="badge flag">Direct travel signal</span>}
+              {e.signal_type === 'direct_travel' && (
+                <span className="badge flag">
+                  {e.travel_scope === 'local_field_travel' ? 'Local field travel (not counted)' : e.travel_scope === 'business_travel' ? 'Business travel' : 'Travel (type unclear)'}
+                </span>
+              )}
               {e.signal_type === 'indirect_growth' && <span className="badge flag">Growth signal</span>}
               {e.observation === 'inferred' && <span className="badge st-stale">Inferred, not stated</span>}
               {e.is_stale && <span className="badge st-stale">Stale</span>}

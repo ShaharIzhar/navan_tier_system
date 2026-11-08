@@ -39,10 +39,20 @@ class Finding(BaseModel):
     value_number: Optional[float] = None
     signal_type: Literal["direct_travel", "indirect_growth", "descriptive"] = "descriptive"
     observation: Literal["observed", "inferred"] = "observed"
+    # Only meaningful for direct_travel: bookable business travel vs local driving/home visits.
+    travel_scope: Optional[Literal["business_travel", "local_field_travel", "unclear"]] = None
     source_url: str
     source_title: Optional[str] = None
     publisher: Optional[str] = None
     published_date: Optional[str] = None
+
+    @field_validator("travel_scope", mode="before")
+    @classmethod
+    def _lenient_scope(cls, v):
+        # An unexpected label should not fail the whole run; treat it as unclear.
+        if v in (None, "", "null"):
+            return None
+        return v if v in ("business_travel", "local_field_travel", "unclear") else "unclear"
 
     @field_validator("published_date", mode="before")
     @classmethod

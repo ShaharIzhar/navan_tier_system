@@ -82,7 +82,12 @@ def classify_reliability(url: Optional[str], company_domain: str) -> str:
         return "primary"
     if any(host == d or host.endswith("." + d) for d in config.AGGREGATOR_DOMAINS):
         return "aggregator"
+    if _SEARCH_LISTING.search(normalize_url(url)):
+        return "aggregator"  # job-board search results can mix several employers
     return "secondary"
+
+
+_SEARCH_LISTING = re.compile(r"/q-[^/]*jobs|[?&](q|query|keywords?)=|/jobs/search|/job-search|srch_", re.I)
 
 
 _DATE_FORMATS = (("%Y-%m-%d", 10), ("%Y-%m", 7), ("%Y", 4))

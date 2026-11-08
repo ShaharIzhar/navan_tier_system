@@ -109,22 +109,43 @@ def build_day0_flags(
                             f"{c.get('description', '')}"]))
 
     # --- Travel Potential (direct evidence only) --------------------------------
-    if s.direct_travel:
-        hosts = independent_hosts(s.direct_travel)
-        only_unverified_manual = all(e.reliability == "manual_unverified" for e in s.direct_travel)
+    # Local field travel (driving, home visits, mileage) rarely produces bookable travel, so it
+    # cannot make Travel Potential strong or trigger an override on its own.
+    bookable = [e for e in s.direct_travel if e.travel_scope != "local_field_travel"]
+    local_only = [e for e in s.direct_travel if e.travel_scope == "local_field_travel"]
+    if s.direct_travel and not bookable:
+        flags.append(_flag(
+            "travel_potential", "low",
+            [f"{len(local_only)} indicator(s) of local field travel (driving, home visits, mileage).",
+             *[f"“{e.claim}”" for e in local_only[:2]]],
+            [e.id for e in local_only],
+            ["Local field travel rarely creates bookable travel (flights, hotels, rail), which is what GBV measures."],
+        ))
+    if bookable:
+        hosts = independent_hosts(bookable)
+        only_unverified_manual = all(e.reliability == "manual_unverified" for e in bookable)
         strong = len(hosts) >= 2 and not only_unverified_manual
-        reasons = [f"{len(s.direct_travel)} direct travel indicator(s) from {len(hosts)} independent source(s)."]
-        reasons += [f"“{e.claim}”" for e in s.direct_travel[:3]]
+        reasons = [f"{len(bookable)} direct travel indicator(s) from {len(hosts)} independent source(s)."]
+        reasons += [f"“{e.claim}”" for e in bookable[:3]]
+        if local_only:
+            reasons.append(f"{len(local_only)} further indicator(s) describe only local field travel and are not counted.")
         unc = []
         if only_unverified_manual:
             unc.append("Based only on unverified manual input.")
-        if any(e.origin == "synthetic_test" for e in s.direct_travel):
+        if any(e.origin == "synthetic_test" for e in bookable):
             unc.append("Includes a SYNTHETIC test observation.")
+        if any(e.travel_scope in (None, "unclear") for e in bookable):
+            unc.append("Some sources do not say what kind of travel is involved.")
         if len(hosts) < 2:
             unc.append("Only one independent source.")
         unc.append("Travel indicators do not tell us annual travel spend.")
-        flags.append(_flag("travel_potential", "material" if strong else "moderate", reasons,
-                           [e.id for e in s.direct_travel], unc))
+        if applied == 1:
+            # Tier 1 already has a dedicated AE and account manager: travel evidence is informational.
+            severity = "low"
+            reasons.append("Already Tier 1 (dedicated AE and account manager), so this is informational.")
+        else:
+            severity = "material" if strong else "moderate"
+        flags.append(_flag("travel_potential", severity, reasons, [e.id for e in bookable], unc))
         if strong and applied == 3:
             candidates.append({
                 "proposal_type": "evidence_override", "from_tier": 3, "proposed_tier": 2,
@@ -134,7 +155,7 @@ def build_day0_flags(
                     "Two or more independent sources show employees travel for work.",
                     "Standard rules give Tier 3 from reported GBV and headcount; this is an override recommendation.",
                 ],
-                "evidence_ids": [e.id for e in s.direct_travel],
+                "evidence_ids": [e.id for e in bookable],
                 "uncertainties": unc,
             })
 
@@ -186,8 +207,12 @@ def build_day0_flags(
     rv = s.research_employee_value
     if rv is not None and rv != s.accepted_employees and applied is not None:
         rb = calculate_baseline(s.gbv, rv)
-        if rb.tier is not None and rb.tier != applied and rb.tier != baseline.tier:
-            r_srcs: list[EmployeeSource] = s.research_employee_sources
+        r_srcs: list[EmployeeSource] = s.research_employee_sources
+        fresh_vals = [x.value for x in r_srcs if not x.stale] or [x.value for x in r_srcs]
+        # Only propose when research sources agree on which side of 150 the company is.
+        # Disagreeing estimates (e.g. 90 / 152 / 219) are a conflict to resolve, not a proposal.
+        consensus = len({_side(v) for v in fresh_vals}) == 1
+        if rb.tier is not None and rb.tier != applied and rb.tier != baseline.tier and consensus:
             unc = []
             if any(x.reliability == "aggregator" for x in r_srcs):
                 unc.append("Research headcount comes partly from data aggregators (estimates).")
