@@ -1,0 +1,260 @@
+{
+  "case": "P-007-conflict",
+  "prompt_version": "v2",
+  "model": "claude-haiku-5-5",
+  "started_at": "2026-11-08T16:33:16.706779+00:00",
+  "usage": {
+    "input_tokens": 21853,
+    "output_tokens": 3419,
+    "web_searches": 2,
+    "llm_calls": 1,
+    "approx_cost_usd": 0.02389
+  },
+  "stop_reason": "end_turn",
+  "search_errors": [],
+  "search_queries": [
+    "IMU Biosciences employees",
+    "imubiosciences.com about company"
+  ],
+  "search_results": [
+    {
+      "url": "https://pitchbook.com/profiles/company/432627-67",
+      "title": "IMU Biosciences 2026 Company Profile: Valuation, Funding & Investors",
+      "page_age": null
+    },
+    {
+      "url": "https://builtin.com/company/imu-biosciences",
+      "title": "IMU Biosciences Careers, Perks + Culture",
+      "page_age": null
+    },
+    {
+      "url": "https://uk.linkedin.com/company/imubiosciences",
+      "title": "IMU Biosciences",
+      "page_age": null
+    },
+    {
+      "url": "https://app.dealroom.co/companies/imu_1",
+      "title": "IMU Biosciences company information, funding & investors",
+      "page_age": "1407 days ago"
+    },
+    {
+      "url": "https://builtinlondon.uk/company/imu-biosciences",
+      "title": "IMU Biosciences London Office: Careers, Perks + Culture",
+      "page_age": null
+    },
+    {
+      "url": "https://mtec-sc.org/life-sciences/imu-biosciences",
+      "title": "IMU Biosciences",
+      "page_age": null
+    },
+    {
+      "url": "https://theorg.com/org/imu-biosciences",
+      "title": "IMU Biosciences",
+      "page_age": null
+    },
+    {
+      "url": "https://rocketreach.co/imu-biosciences-management_b71c71cbc491dca2",
+      "title": "IMU Biosciences Management Team",
+      "page_age": null
+    },
+    {
+      "url": "https://fundediq.co/imu-biosciences-imubiosciences-com-funding/",
+      "title": "IMU Biosciences: Funding, Investors & Team (Sep 2026)",
+      "page_age": "61 days ago"
+    },
+    {
+      "url": "https://uk.linkedin.com/company/imubiosciences",
+      "title": "IMU Biosciences",
+      "page_age": null
+    },
+    {
+      "url": "https://app.dealroom.co/companies/imu_1",
+      "title": "IMU Biosciences company information, funding & investors",
+      "page_age": "1407 days ago"
+    },
+    {
+      "url": "https://www.crunchbase.com/organization/imu-8423",
+      "title": "IMU Biosciences - Crunchbase Company Profile & Funding",
+      "page_age": null
+    },
+    {
+      "url": "https://www.ventureradar.com/organisation/IMU%20Biosciences%20%20/4fde6081-c3a5-413c-aed1-ceac662c8628",
+      "title": "IMU Biosciences",
+      "page_age": null
+    },
+    {
+      "url": "https://tracxn.com/d/companies/imu-biosciences/__eg1VfpTS0KxbnkzphyzXlL2GYUGCJvtfOBXMMfLMcNQ",
+      "title": "IMU Biosciences - 2025 Company Profile, Team, Funding & Competitors - Tracxn",
+      "page_age": "502 days ago"
+    },
+    {
+      "url": "https://mtec-sc.org/life-sciences/imu-biosciences",
+      "title": "IMU Biosciences",
+      "page_age": null
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/YM_Biosciences",
+      "title": "YM Biosciences",
+      "page_age": null
+    },
+    {
+      "url": "https://imubiosciences.com/",
+      "title": "IMU Biosciences : Immune Powered Precision Medicine",
+      "page_age": "306 days ago"
+    },
+    {
+      "url": "https://www.imubiosciences.com/about-us/",
+      "title": "About IMU",
+      "page_age": "306 days ago"
+    }
+  ],
+  "system_prompt": "You are doing a focused follow-up research pass for a B2B sales team at a business-travel platform. A first research pass already exists. Your job is to resolve the specific gaps and conflicts listed by the user with additional web searches.\n\nRules:\n- Use only information from your web search results in THIS conversation. Do not use prior knowledge.\n- Every finding must cite the URL of a search result you retrieved.\n- Do not repeat findings that are already in the existing evidence unless you found an independent source that confirms or contradicts them.\n- Several articles repeating the same announcement are one source of evidence, not several.\n- If you still cannot find something, mark it not_found and say what you tried.\n- Do not estimate travel spend or GBV. Do not give confidence percentages.\n- Respond with a single JSON object and nothing else.",
+  "user_prompt": "Company name: IMU Biosciences\nWebsite domain: imubiosciences.com\n\nFields to investigate (and why):\n- employee_count (Employee count): two inputs disagree across the 150-employee Tier 2 threshold (155 vs 90)\n\nExisting evidence (already known; do not search for it again):\n[\n {\n  \"field\": \"employee_count\",\n  \"claim\": \"[SYNTHETIC TEST] Alternative estimate: 90 employees\",\n  \"source_url\": null,\n  \"published_date\": null,\n  \"note\": \"Synthetic observation for a controlled test, not a real source.\"\n },\n {\n  \"field\": \"employee_count\",\n  \"claim\": \"Enrichment provider estimate: 155 employees\",\n  \"source_url\": null,\n  \"published_date\": null,\n  \"note\": \"Dataset enrichment value (fictional scenario data).\"\n }\n]\n\nReturn JSON in exactly this shape, including only the fields listed above:\n{\n  \"company_identity_confirmed\": true,\n  \"identity_note\": \"How you confirmed the sources describe the company at this domain\",\n  \"fields\": [\n    {\n      \"field\": \"employee_count\",\n      \"status\": \"found | not_found | conflicting | not_applicable\",\n      \"summary\": \"One-sentence plain-English summary of what the sources say\",\n      \"findings\": [\n        {\n          \"claim\": \"Exact fact taken from the source\",\n          \"value_number\": 120,\n          \"signal_type\": \"direct_travel | indirect_growth | descriptive\",\n          \"observation\": \"observed | inferred\",\n          \"source_url\": \"URL returned by your web search\",\n          \"source_title\": \"Page title\",\n          \"publisher\": \"Site or organisation\",\n          \"published_date\": \"YYYY-MM-DD, YYYY-MM, YYYY, or null\"\n        }\n      ]\n    }\n  ],\n  \"conflicts\": [\n    {\n      \"field\": \"employee_count\",\n      \"description\": \"...\",\n      \"source_urls\": [\n        \"...\"\n      ]\n    }\n  ],\n  \"summary\": \"2-3 sentence summary for a salesperson\",\n  \"research_limitations\": [\n    \"What could not be found or verified\"\n  ]\n}",
+  "raw_text": "```json\n{\n  \"company_identity_confirmed\": true,\n  \"identity_note\": \"The imubiosciences.com homepage and About Us page describe a London immune-profiling company with Company Reg 11881827 and a Wood Wharf address. Third-party profiles (Dealroom, LinkedIn, Built In, MTEC) also list the same domain, London HQ, and immune-profiling business, so they describe the same company.\",\n  \"fields\": [\n    {\n      \"field\": \"employee_count\",\n      \"status\": \"conflicting\",\n      \"summary\": \"Third-party sources give headcounts from 14 to 77 for the whole company, or bands from 1-50 to 51-200, and none of them shows the 155 or 90 figures from the existing inputs.\",\n      \"findings\": [\n        {\n          \"claim\": \"PitchBook profile lists 25 total employees for IMU Biosciences.\",\n          \"value_number\": 25,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://pitchbook.com/profiles/company/432627-67\",\n          \"source_title\": \"IMU Biosciences 2026 Company Profile: Valuation, Funding & Investors\",\n          \"publisher\": \"PitchBook\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Built In profile lists 53 total employees, with London as HQ.\",\n          \"value_number\": 53,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://builtin.com/company/imu-biosciences\",\n          \"source_title\": \"IMU Biosciences Careers, Perks + Culture\",\n          \"publisher\": \"Built In\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Built In London page also lists 53 total employees.\",\n          \"value_number\": 53,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://builtinlondon.uk/company/imu-biosciences\",\n          \"source_title\": \"IMU Biosciences London Office: Careers, Perks + Culture\",\n          \"publisher\": \"Built In\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"LinkedIn UK company page shows a 'View all 49 employees' link and an 11-50 company-size band.\",\n          \"value_number\": 49,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://uk.linkedin.com/company/imubiosciences\",\n          \"source_title\": \"IMU Biosciences\",\n          \"publisher\": \"LinkedIn\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Dealroom lists the employee band as 51-200 people.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://app.dealroom.co/companies/imu_1\",\n          \"source_title\": \"IMU Biosciences company information, funding & investors\",\n          \"publisher\": \"Dealroom\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"MTEC profile places the company in the small (1-50) employee size category.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://mtec-sc.org/life-sciences/imu-biosciences\",\n          \"source_title\": \"IMU Biosciences\",\n          \"publisher\": \"MTEC\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"The Org profile lists the employee band as 11-50 and shows 14 people at the HQ office.\",\n          \"value_number\": 14,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://theorg.com/org/imu-biosciences\",\n          \"source_title\": \"IMU Biosciences\",\n          \"publisher\": \"The Org\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"RocketReach management page states IMU Biosciences employs 77 employees.\",\n          \"value_number\": 77,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://rocketreach.co/imu-biosciences-management_b71c71cbc491dca2\",\n          \"source_title\": \"IMU Biosciences Management Team\",\n          \"publisher\": \"RocketReach\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"FundedIQ profile reports an 11-50 employee band and notes that counts are reported bands rather than exact headcounts.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://fundediq.co/imu-biosciences-imubiosciences-com-funding/\",\n          \"source_title\": \"IMU Biosciences: Funding, Investors & Team (Sep 2026)\",\n          \"publisher\": \"FundedIQ\",\n          \"published_date\": \"2026-09\"\n        }\n      ]\n    }\n  ],\n  \"conflicts\": [\n    {\n      \"field\": \"employee_count\",\n      \"description\": \"Sources range from 14 (Org HQ count) to 77 (RocketReach) for total headcount, with 25, 49, and 53 also reported. Band-only sources give 1-50, 11-50, and 51-200. None of the sources supports the 155 or the 90 values from the existing inputs, so neither input is verified. The 1-50 and 11-50 bands sit below 150, while the 51-200 band straddles it.\",\n      \"source_urls\": [\n        \"https://pitchbook.com/profiles/company/432627-67\",\n        \"https://builtin.com/company/imu-biosciences\",\n        \"https://uk.linkedin.com/company/imubiosciences\",\n        \"https://app.dealroom.co/companies/imu_1\",\n        \"https://mtec-sc.org/life-sciences/imu-biosciences\",\n        \"https://theorg.com/org/imu-biosciences\",\n        \"https://rocketreach.co/imu-biosciences-management_b71c71cbc491dca2\",\n        \"https://fundediq.co/imu-biosciences-imubiosciences-com-funding/\"\n      ]\n    }\n  ],\n  \"summary\": \"No source confirms the 155 or 90 employee figures, and the public sources instead show a headcount that is mostly well below the 150 threshold, typically 25 to 53, with one 77 figure and one 51-200 band. Treat the Tier 2 classification as unverified and confirm headcount directly with the company or through a current LinkedIn count before relying on either value.\",\n  \"research_limitations\": [\n    \"Neither 155 nor 90 appeared in any search result, so the two existing inputs could not be verified or traced to a source.\",\n    \"Most sources are aggregators or enrichment sites with undated or self-reported figures, and several are internally inconsistent (for example, Dealroom 51-200 versus LinkedIn 11-50).\",\n    \"The RocketReach figure of 77 may reflect a different scope (for example, contacts or past staff) and was not corroborated.\",\n    \"The LinkedIn page showed a '49 employees' link without a retrieval date, so it may be out of date.\",\n    \"The company's own site (imubiosciences.com and About Us) did not publish a headcount.\",\n    \"I did not search Companies House filings or a UK annual report, which might state headcount directly; these were not checked.\",\n    \"Searches did not retrieve a dated headcount for a single point in time, so growth over time could not be assessed.\"\n  ]\n}\n```",
+  "analysis": {
+    "parse_ok": true,
+    "raw_employee_values_before_guard": [
+      {
+        "value": 25.0,
+        "claim": "PitchBook profile lists 25 total employees for IMU Biosciences."
+      },
+      {
+        "value": 53.0,
+        "claim": "Built In profile lists 53 total employees, with London as HQ."
+      },
+      {
+        "value": 53.0,
+        "claim": "Built In London page also lists 53 total employees."
+      },
+      {
+        "value": 49.0,
+        "claim": "LinkedIn UK company page shows a 'View all 49 employees' link and an 11-50 company-size band."
+      },
+      {
+        "value": null,
+        "claim": "Dealroom lists the employee band as 51-200 people."
+      },
+      {
+        "value": null,
+        "claim": "MTEC profile places the company in the small (1-50) employee size category."
+      },
+      {
+        "value": 14.0,
+        "claim": "The Org profile lists the employee band as 11-50 and shows 14 people at the HQ office."
+      },
+      {
+        "value": 77.0,
+        "claim": "RocketReach management page states IMU Biosciences employs 77 employees."
+      },
+      {
+        "value": null,
+        "claim": "FundedIQ profile reports an 11-50 employee band and notes that counts are reported bands rather than exact headcounts."
+      }
+    ],
+    "band_guard_changes": [
+      {
+        "field": "employee_count",
+        "claim": "LinkedIn UK company page shows a 'View all 49 employees' link and an 11-50 company-size band.",
+        "source_url": "https://uk.linkedin.com/company/imubiosciences",
+        "reason": "value_number 49 cleared: the source gives a band, not an exact headcount"
+      },
+      {
+        "field": "employee_count",
+        "claim": "The Org profile lists the employee band as 11-50 and shows 14 people at the HQ office.",
+        "source_url": "https://theorg.com/org/imu-biosciences",
+        "reason": "value_number 14 cleared: the source gives a band, not an exact headcount"
+      }
+    ],
+    "field_statuses": {
+      "employee_count": "conflicting"
+    },
+    "findings_kept": 9,
+    "findings_dropped": [],
+    "employee_values": [
+      {
+        "value": 25.0,
+        "claim": "PitchBook profile lists 25 total employees for IMU Biosciences.",
+        "url": "https://pitchbook.com/profiles/company/432627-67",
+        "reliability": "aggregator",
+        "date": null
+      },
+      {
+        "value": 53.0,
+        "claim": "Built In profile lists 53 total employees, with London as HQ.",
+        "url": "https://builtin.com/company/imu-biosciences",
+        "reliability": "secondary",
+        "date": null
+      },
+      {
+        "value": 53.0,
+        "claim": "Built In London page also lists 53 total employees.",
+        "url": "https://builtinlondon.uk/company/imu-biosciences",
+        "reliability": "secondary",
+        "date": null
+      },
+      {
+        "value": null,
+        "claim": "LinkedIn UK company page shows a 'View all 49 employees' link and an 11-50 company-size band.",
+        "url": "https://uk.linkedin.com/company/imubiosciences",
+        "reliability": "aggregator",
+        "date": null
+      },
+      {
+        "value": null,
+        "claim": "Dealroom lists the employee band as 51-200 people.",
+        "url": "https://app.dealroom.co/companies/imu_1",
+        "reliability": "secondary",
+        "date": null
+      },
+      {
+        "value": null,
+        "claim": "MTEC profile places the company in the small (1-50) employee size category.",
+        "url": "https://mtec-sc.org/life-sciences/imu-biosciences",
+        "reliability": "secondary",
+        "date": null
+      },
+      {
+        "value": null,
+        "claim": "The Org profile lists the employee band as 11-50 and shows 14 people at the HQ office.",
+        "url": "https://theorg.com/org/imu-biosciences",
+        "reliability": "aggregator",
+        "date": null
+      },
+      {
+        "value": 77.0,
+        "claim": "RocketReach management page states IMU Biosciences employs 77 employees.",
+        "url": "https://rocketreach.co/imu-biosciences-management_b71c71cbc491dca2",
+        "reliability": "aggregator",
+        "date": null
+      },
+      {
+        "value": null,
+        "claim": "FundedIQ profile reports an 11-50 employee band and notes that counts are reported bands rather than exact headcounts.",
+        "url": "https://fundediq.co/imu-biosciences-imubiosciences-com-funding/",
+        "reliability": "secondary",
+        "date": "2026-09"
+      }
+    ],
+    "travel_findings": [],
+    "conflicts": [
+      {
+        "field": "employee_count",
+        "description": "Sources range from 14 (Org HQ count) to 77 (RocketReach) for total headcount, with 25, 49, and 53 also reported. Band-only sources give 1-50, 11-50, and 51-200. None of the sources supports the 155 or the 90 values from the existing inputs, so neither input is verified. The 1-50 and 11-50 bands sit below 150, while the 51-200 band straddles it.",
+        "source_urls": [
+          "https://pitchbook.com/profiles/company/432627-67",
+          "https://builtin.com/company/imu-biosciences",
+          "https://uk.linkedin.com/company/imubiosciences",
+          "https://app.dealroom.co/companies/imu_1",
+          "https://mtec-sc.org/life-sciences/imu-biosciences",
+          "https://theorg.com/org/imu-biosciences",
+          "https://rocketreach.co/imu-biosciences-management_b71c71cbc491dca2",
+          "https://fundediq.co/imu-biosciences-imubiosciences-com-funding/"
+        ]
+      }
+    ],
+    "identity": [
+      true,
+      "The imubiosciences.com homepage and About Us page describe a London immune-profiling company with Company Reg 11881827 and a Wood Wharf address. Third-party profiles (Dealroom, LinkedIn, Built In, MTEC) also list the same domain, London HQ, and immune-profiling business, so they describe the same company."
+    ]
+  }
+}

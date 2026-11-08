@@ -128,3 +128,24 @@ def validate_citations(output: ResearchOutput, allowed_urls: set[str]) -> tuple[
                 )
         fr.findings = kept
     return output, dropped
+
+
+_RANGE = re.compile(
+    r"\d[\d,]*\s*(?:-|\u2013|\u2014|to)\s*\d|\b(?:fewer|less|more)\s+than\b|\bunder\s+\d|\bover\s+\d|[<>]\s*\d|\d\+",
+    re.I,
+)
+
+
+def clear_band_headcounts(output: ResearchOutput) -> list[dict]:
+    """A headcount band ("51-200", "fewer than 25") is not an exact number. If the model put a
+    number in value_number for a band, clear it so the band is not used by the tier rules."""
+    changed = []
+    for fr in output.fields:
+        if fr.field != "employee_count":
+            continue
+        for f in fr.findings:
+            if f.value_number is not None and _RANGE.search(f.claim):
+                changed.append({"field": fr.field, "claim": f.claim, "source_url": f.source_url,
+                                "reason": f"value_number {f.value_number:g} cleared: the source gives a band, not an exact headcount"})
+                f.value_number = None
+    return changed

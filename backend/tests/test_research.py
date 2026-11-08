@@ -153,3 +153,31 @@ def test_extract_json_variants():
 
 def test_normalize_url():
     assert normalize_url("https://www.Example.com/a/?utm_source=x") == normalize_url("http://example.com/a")
+
+
+def test_headcount_band_is_not_used_as_exact_number(session, fake_llm):
+    """Regression for an observed v1 failure: '101-250' was stored as value_number=101."""
+    u = "https://www.crunchbase.com/organization/x"
+    text = research_json({"employee_count": ("found", [
+        finding("Crunchbase shows a headcount band of 101-250.", u, value=101),
+        finding("ZoomInfo lists fewer than 25 employees.", u, value=25),
+        finding("BuiltIn lists 92 total employees.", u, value=92)])})
+    fake_llm(llm_result(text, [u]))
+    run = rs.run_standard_research(session, "P-009")
+    vals = sorted(e.value_number for e in session.exec(select(Evidence).where(Evidence.run_id == run.id))
+                  if e.value_number is not None)
+    assert vals == [92]
+    assert len(run.normalized_findings) == 2
+
+
+def test_non_routing_llm_conflicts_do_not_raise_flags(session, fake_llm):
+    """Regression for observed v1 noise: funding-total differences became Data Conflict flags."""
+    u = "https://a.example.com/x"
+    text = research_json(
+        {"funding_financial": ("conflicting", [finding("Raised $45M", u, signal="indirect_growth")])},
+        conflicts=[{"field": "funding_financial", "description": "Totals differ by source", "source_urls": [u]}],
+    )
+    fake_llm(llm_result(text, [u]))
+    rs.run_standard_research(session, "P-009")
+    a = latest_assessment(session, "P-009")
+    assert "data_conflict" not in {f["type"] for f in a.flags}

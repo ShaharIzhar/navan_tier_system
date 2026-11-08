@@ -1,0 +1,258 @@
+{
+  "case": "P-007-standard",
+  "prompt_version": "v1",
+  "model": "claude-haiku-5-5",
+  "started_at": "2026-11-08T16:27:42.878821+00:00",
+  "usage": {
+    "input_tokens": 51209,
+    "output_tokens": 9151,
+    "web_searches": 3,
+    "llm_calls": 1,
+    "approx_cost_usd": 0.0397
+  },
+  "stop_reason": "end_turn",
+  "search_errors": [],
+  "search_results": [
+    {
+      "url": "https://app.dealroom.co/companies/imu_1",
+      "title": "IMU Biosciences company information, funding & investors",
+      "page_age": "1407 days ago"
+    },
+    {
+      "url": "https://www.crunchbase.com/organization/imu-8423",
+      "title": "IMU Biosciences - Crunchbase Company Profile & Funding",
+      "page_age": null
+    },
+    {
+      "url": "https://uk.linkedin.com/company/imubiosciences",
+      "title": "IMU Biosciences",
+      "page_age": null
+    },
+    {
+      "url": "https://pitchbook.com/profiles/company/432627-67",
+      "title": "IMU Biosciences 2026 Company Profile: Valuation, Funding & Investors",
+      "page_age": null
+    },
+    {
+      "url": "https://mtec-sc.org/life-sciences/imu-biosciences",
+      "title": "IMU Biosciences",
+      "page_age": null
+    },
+    {
+      "url": "https://startupintros.com/orgs/imu-biosciences",
+      "title": "IMU Biosciences: Funding, Team & Investors",
+      "page_age": "206 days ago"
+    },
+    {
+      "url": "https://tracxn.com/d/companies/imu-biosciences/__eg1VfpTS0KxbnkzphyzXlL2GYUGCJvtfOBXMMfLMcNQ",
+      "title": "IMU Biosciences - 2025 Company Profile, Team, Funding & Competitors - Tracxn",
+      "page_age": "502 days ago"
+    },
+    {
+      "url": "https://www.bioindustry.org/member/imu-biosciences/",
+      "title": "Member profile: IMU Biosciences",
+      "page_age": "726 days ago"
+    },
+    {
+      "url": "https://www.bioindustry.org/resource/imu-biosciences-announces-oversubscribed-financing-round.html",
+      "title": "IMU Biosciences announces oversubscribed financing round",
+      "page_age": "160 days ago"
+    },
+    {
+      "url": "https://imubiosciences.com/",
+      "title": "IMU Biosciences : Immune Powered Precision Medicine",
+      "page_age": "306 days ago"
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/YM_Biosciences",
+      "title": "YM Biosciences",
+      "page_age": null
+    },
+    {
+      "url": "https://www.biospace.com/press-releases/imu-biosciences-appoints-dr-carlos-paya-as-non-executive-director-strengthening-its-board-of-directors",
+      "title": "IMU Biosciences Appoints Dr. Carlos Paya as Non-Executive Director, Strengthening its Board of Directors",
+      "page_age": null
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Immuron",
+      "title": "Immuron",
+      "page_age": null
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/IBA_Lifesciences",
+      "title": "IBA Lifesciences",
+      "page_age": null
+    },
+    {
+      "url": "https://www.cbinsights.com/company/imu-2",
+      "title": "Founded Year",
+      "page_age": null
+    },
+    {
+      "url": "https://www.cbinsights.com/compare/divbioscience-vs-mybio",
+      "title": "Compare DivBioScience vs MyBio",
+      "page_age": null
+    },
+    {
+      "url": "https://www.einpresswire.com/article/744088120/imu-biosciences-expands-leadership-team-with-appointment-of-industry-experts-dr-john-baker-as-chief-executive-officer-and-dr-jason-brown-as-chief",
+      "title": "imu biosciences expands leadership team with appointment of industry experts dr john baker as chief executive officer and dr jason brown as chief",
+      "page_age": null
+    },
+    {
+      "url": "https://uk.finance.yahoo.com/quote/IMMU",
+      "title": "Symbols similar to 'IMMU'",
+      "page_age": null
+    },
+    {
+      "url": "https://simplify.jobs/c/IMU-Biosciences",
+      "title": "Jobs and Employment at IMU Biosciences",
+      "page_age": null
+    },
+    {
+      "url": "https://builtinlondon.uk/company/imu-biosciences",
+      "title": "IMU Biosciences London Office: Careers, Perks + Culture",
+      "page_age": null
+    },
+    {
+      "url": "https://jobs.nonlinearproject.com/companies/707e8103-c91f-4ef8-a3ec-78ee83f3bbf1",
+      "title": "Jobs at IMU Biosciences",
+      "page_age": null
+    },
+    {
+      "url": "https://www.landed.jobs/companies/imu-biosciences",
+      "title": "IMU Biosciences careers: 1 open role - landed.jobs",
+      "page_age": "28 days ago"
+    },
+    {
+      "url": "https://www.remoterocketship.com/gb/company/imu-biosciences/jobs/bioinformatics-software-engineer-london-hybrid/",
+      "title": "Bioinformatics Software Engineer at IMU Biosciences - United Kingdom Hybrid",
+      "page_age": "26 days ago"
+    },
+    {
+      "url": "https://uk.linkedin.com/company/imubiosciences",
+      "title": "IMU Biosciences",
+      "page_age": null
+    },
+    {
+      "url": "https://www.biocareerai.com/companies/imu-biosciences",
+      "title": "Imu Biosciences Jobs",
+      "page_age": null
+    },
+    {
+      "url": "https://imubiosciences.com/careers",
+      "title": "IMU Biosciences : Careers at IMU",
+      "page_age": "555 days ago"
+    },
+    {
+      "url": "https://imubiosciences.com/contact",
+      "title": "IMU Biosciences : Contact Us",
+      "page_age": "536 days ago"
+    },
+    {
+      "url": "https://imubiosciences.com/",
+      "title": "IMU Biosciences : Immune Powered Precision Medicine",
+      "page_age": "306 days ago"
+    }
+  ],
+  "system_prompt": "You are a company research assistant for a B2B sales team at a business-travel platform. You research companies using web search and report what public sources say.\n\nRules:\n- Use only information from your web search results. Do not use prior knowledge.\n- Every finding must cite the URL of the search result it came from.\n- If you cannot find information for a field, mark it not_found. Do not guess.\n- If sources disagree, mark the field conflicting and describe the conflict.\n- Separate facts stated by a source (observed) from your own inferences (inferred).\n- Do not estimate travel spend or GBV.\n- Do not give confidence percentages.\n- Respond with a single JSON object and nothing else.",
+  "user_prompt": "Research this company:\nCompany name: IMU Biosciences\nWebsite domain: imubiosciences.com\n\nCover these fields:\n- industry_business_model: Industry and business model\n- geographic_footprint: Locations and geographic footprint\n- employee_count: Employee count\n- hiring_trends: Hiring and workforce trends\n- travel_indicators: Direct travel-requirement indicators\n- funding_financial: Funding and financial developments\n- recent_expansion: Recent expansion\n- support_complexity: Support-complexity indicators\n\nsignal_type meanings:\n- direct_travel: direct evidence that employees travel for work (e.g. job ads requiring travel, field or client-site work, travelling sales teams)\n- indirect_growth: growth signals (funding, new offices, hiring growth, international expansion)\n- descriptive: everything else\n\nFor employee_count findings, put the number in value_number.\n\nReturn JSON in exactly this shape:\n{\n  \"company_identity_confirmed\": true,\n  \"identity_note\": \"How you confirmed the sources describe the company at this domain\",\n  \"fields\": [\n    {\n      \"field\": \"employee_count\",\n      \"status\": \"found | not_found | conflicting | not_applicable\",\n      \"summary\": \"One-sentence plain-English summary of what the sources say\",\n      \"findings\": [\n        {\n          \"claim\": \"Exact fact taken from the source\",\n          \"value_number\": 120,\n          \"signal_type\": \"direct_travel | indirect_growth | descriptive\",\n          \"observation\": \"observed | inferred\",\n          \"source_url\": \"URL returned by your web search\",\n          \"source_title\": \"Page title\",\n          \"publisher\": \"Site or organisation\",\n          \"published_date\": \"YYYY-MM-DD, YYYY-MM, YYYY, or null\"\n        }\n      ]\n    }\n  ],\n  \"conflicts\": [\n    {\n      \"field\": \"employee_count\",\n      \"description\": \"...\",\n      \"source_urls\": [\n        \"...\"\n      ]\n    }\n  ],\n  \"summary\": \"2-3 sentence summary for a salesperson\",\n  \"research_limitations\": [\n    \"What could not be found or verified\"\n  ]\n}",
+  "raw_text": "```json\n{\n  \"company_identity_confirmed\": true,\n  \"identity_note\": \"The company's own site at imubiosciences.com describes a London-based immune profiling and AI biotech, and its contact and careers emails use the same domain. Third-party profiles (LinkedIn, Dealroom, PitchBook, BIA, Built In London, Tracxn) that link to the same website or describe the same London company, CytAtlas platform and £11.5M Series A confirm the match. A few profiles give different headcounts and funding totals, which are reported as conflicts below. The site footer says IMU is a trademark of Melio Healthcare Limited, which is noted but not treated as a separate entity.\",\n  \"fields\": [\n    {\n      \"field\": \"industry_business_model\",\n      \"status\": \"found\",\n      \"summary\": \"Public sources describe IMU as a biotechnology company that profiles the immune system and sells AI-driven analytics and data to pharma, biotech, diagnostics and research partners.\",\n      \"findings\": [\n        {\n          \"claim\": \"Described as a biotech company building high-resolution, multi-omic immune profiling and AI/ML analytics for diagnostics, drug development and precision medicine.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://mtec-sc.org/life-sciences/imu-biosciences\",\n          \"source_title\": \"IMU Biosciences\",\n          \"publisher\": \"MTEC (mtec-sc.org)\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Works with clinical research groups, pharma, biotech and diagnostics companies to turn immune data into clinical action.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://imubiosciences.com/\",\n          \"source_title\": \"IMU Biosciences : Immune Powered Precision Medicine\",\n          \"publisher\": \"IMU Biosciences\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Core product is the CytAtlas platform, combining systems-level immune profiling with proprietary AI and machine learning.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://app.dealroom.co/companies/imu_1\",\n          \"source_title\": \"IMU Biosciences company information, funding & investors\",\n          \"publisher\": \"Dealroom\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Classified by PitchBook as a Discovery Tools company in the healthcare sector, and as a private company.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://pitchbook.com/profiles/company/432627-67\",\n          \"source_title\": \"IMU Biosciences 2026 Company Profile: Valuation, Funding & Investors\",\n          \"publisher\": \"PitchBook\",\n          \"published_date\": \"2026\"\n        }\n      ]\n    },\n    {\n      \"field\": \"geographic_footprint\",\n      \"status\": \"found\",\n      \"summary\": \"Every source places IMU's headquarters in London, UK, and the company's own careers material and one LinkedIn posting list UK-based roles; one posting also names Sweden and Spain.\",\n      \"findings\": [\n        {\n          \"claim\": \"Registered business address is at Wood Wharf in London, E14.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://imubiosciences.com/contact\",\n          \"source_title\": \"IMU Biosciences : Contact Us\",\n          \"publisher\": \"IMU Biosciences\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Headquarters listed as London, United Kingdom, with launch date given as March 2019.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://app.dealroom.co/companies/imu_1\",\n          \"source_title\": \"IMU Biosciences company information, funding & investors\",\n          \"publisher\": \"Dealroom\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"A LinkedIn posting for a Data Platform Engineer lists the locations as UK, Sweden and Spain.\",\n          \"value_number\": null,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://uk.linkedin.com/company/imubiosciences\",\n          \"source_title\": \"IMU Biosciences\",\n          \"publisher\": \"LinkedIn\",\n          \"published_date\": \"2026-09\"\n        },\n        {\n          \"claim\": \"Open roles are listed as London on-site or hybrid.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://imubiosciences.com/careers\",\n          \"source_title\": \"IMU Biosciences : Careers at IMU\",\n          \"publisher\": \"IMU Biosciences\",\n          \"published_date\": null\n        }\n      ]\n    },\n    {\n      \"field\": \"employee_count\",\n      \"status\": \"conflicting\",\n      \"summary\": \"Reported headcounts vary by source, ranging from about 11 to 50 and 51 to 200 for range-based profiles, to point figures of 25 (PitchBook) and 53 (Built In London).\",\n      \"findings\": [\n        {\n          \"claim\": \"PitchBook lists 25 total employees.\",\n          \"value_number\": 25,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://pitchbook.com/profiles/company/432627-67\",\n          \"source_title\": \"IMU Biosciences 2026 Company Profile: Valuation, Funding & Investors\",\n          \"publisher\": \"PitchBook\",\n          \"published_date\": \"2026\"\n        },\n        {\n          \"claim\": \"Built In London lists 53 total employees.\",\n          \"value_number\": 53,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://builtinlondon.uk/company/imu-biosciences\",\n          \"source_title\": \"IMU Biosciences London Office: Careers, Perks + Culture\",\n          \"publisher\": \"Built In London\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"LinkedIn company page gives company size as 11-50 employees.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://uk.linkedin.com/company/imubiosciences\",\n          \"source_title\": \"IMU Biosciences\",\n          \"publisher\": \"LinkedIn\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Structured data on the startupintros profile gives a headcount range of 11 to 50.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://startupintros.com/orgs/imu-biosciences\",\n          \"source_title\": \"IMU Biosciences: Funding, Team & Investors\",\n          \"publisher\": \"StartupIntros\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Dealroom lists employees in the 51 to 200 range.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://app.dealroom.co/companies/imu_1\",\n          \"source_title\": \"IMU Biosciences company information, funding & investors\",\n          \"publisher\": \"Dealroom\",\n          \"published_date\": null\n        }\n      ]\n    },\n    {\n      \"field\": \"hiring_trends\",\n      \"status\": \"found\",\n      \"summary\": \"Open-role counts differ by job board (one to two roles), and the roles are mainly lab, data and engineering positions in London; no source shows a sustained hiring trend.\",\n      \"findings\": [\n        {\n          \"claim\": \"Careers page lists a Communications and Marketing Manager (hybrid), and a Lab Platform Scientist I (London on-site).\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://imubiosciences.com/careers\",\n          \"source_title\": \"IMU Biosciences : Careers at IMU\",\n          \"publisher\": \"IMU Biosciences\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Landed.jobs reports two open roles as of 19 October 2026, both mid-level.\",\n          \"value_number\": 2,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://www.landed.jobs/companies/imu-biosciences\",\n          \"source_title\": \"IMU Biosciences careers: 1 open role - landed.jobs\",\n          \"publisher\": \"landed.jobs\",\n          \"published_date\": \"2026-10\"\n        },\n        {\n          \"claim\": \"BioCareerAI lists one active opening, a Scientist I role, with a last-updated date of 29 August 2026.\",\n          \"value_number\": 1,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://www.biocareerai.com/companies/imu-biosciences\",\n          \"source_title\": \"Imu Biosciences Jobs\",\n          \"publisher\": \"BioCareerAI\",\n          \"published_date\": \"2026-08\"\n        },\n        {\n          \"claim\": \"A LinkedIn post advertises a new Laboratory Manager role in London and a Data Platform Engineer role.\",\n          \"value_number\": null,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://uk.linkedin.com/company/imubiosciences\",\n          \"source_title\": \"IMU Biosciences\",\n          \"publisher\": \"LinkedIn\",\n          \"published_date\": \"2026-09\"\n        },\n        {\n          \"claim\": \"Simplify lists two jobs, with a Senior Software Engineer (Data & Analytics, London) and a Scientist I (Lab, London) shown on another board.\",\n          \"value_number\": 2,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://jobs.nonlinearproject.com/companies/707e8103-c91f-4ef8-a3ec-78ee83f3bbf1\",\n          \"source_title\": \"Jobs at IMU Biosciences\",\n          \"publisher\": \"Nonlinear Project\",\n          \"published_date\": \"2026-06\"\n        }\n      ]\n    },\n    {\n      \"field\": \"travel_indicators\",\n      \"status\": \"not_found\",\n      \"summary\": \"No source found says employees must travel for work, and the only work-location evidence describes London-based on-site or hybrid roles.\",\n      \"findings\": [\n        {\n          \"claim\": \"Built In London lists the company as having an on-site workspace, with typical time on-site given as none.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://builtinlondon.uk/company/imu-biosciences\",\n          \"source_title\": \"IMU Biosciences London Office: Careers, Perks + Culture\",\n          \"publisher\": \"Built In London\",\n          \"published_date\": null\n        }\n      ]\n    },\n    {\n      \"field\": \"funding_financial\",\n      \"status\": \"conflicting\",\n      \"summary\": \"The company announced a £11.5M Series A, later reported as a Series A extension of over $53M (£40M), but total-funding figures from aggregators range from about $14.6M to $54.6M.\",\n      \"findings\": [\n        {\n          \"claim\": \"Series A of £11.5 million led by Molten Ventures with LifeX Ventures participating, reported as taking place in January 2024.\",\n          \"value_number\": null,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://app.dealroom.co/companies/imu_1\",\n          \"source_title\": \"IMU Biosciences company information, funding & investors\",\n          \"publisher\": \"Dealroom\",\n          \"published_date\": \"2024-01\"\n        },\n        {\n          \"claim\": \"Series A brought in over $53 million (£40 million) in an oversubscribed round co-led by IQ Capital and Molten Ventures, with British Business Bank and Meltwind participating.\",\n          \"value_number\": null,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://www.bioindustry.org/resource/imu-biosciences-announces-oversubscribed-financing-round.html\",\n          \"source_title\": \"IMU Biosciences announces oversubscribed financing round\",\n          \"publisher\": \"BIA (Bioindustry Association)\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"PitchBook reports total funding raised of $54.6M from 12 investors.\",\n          \"value_number\": null,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://pitchbook.com/profiles/company/432627-67\",\n          \"source_title\": \"IMU Biosciences 2026 Company Profile: Valuation, Funding & Investors\",\n          \"publisher\": \"PitchBook\",\n          \"published_date\": \"2026\"\n        },\n        {\n          \"claim\": \"CB Insights reports total raised of $14.62M, with the last raise listed as two years earlier.\",\n          \"value_number\": null,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://www.cbinsights.com/company/imu-2\",\n          \"source_title\": \"Founded Year\",\n          \"publisher\": \"CB Insights\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"StartupIntros reports $15.0M raised across one funding round.\",\n          \"value_number\": null,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://startupintros.com/orgs/imu-biosciences\",\n          \"source_title\": \"IMU Biosciences: Funding, Team & Investors\",\n          \"publisher\": \"StartupIntros\",\n          \"published_date\": null\n        }\n      ]\n    },\n    {\n      \"field\": \"recent_expansion\",\n      \"status\": \"found\",\n      \"summary\": \"Recent activity includes a larger Series A, a UK Biobank collaboration, a Scientific Advisory Board, a Eurofins Transplant Genomics partnership, and a board appointment in late 2025.\",\n      \"findings\": [\n        {\n          \"claim\": \"Non-executive director Dr Carlos Paya was appointed to the board, announced 20 November 2025.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://www.biospace.com/press-releases/imu-biosciences-appoints-dr-carlos-paya-as-non-executive-director-strengthening-its-board-of-directors\",\n          \"source_title\": \"IMU Biosciences Appoints Dr. Carlos Paya as Non-Executive Director, Strengthening its Board of Directors\",\n          \"publisher\": \"BioSpace\",\n          \"published_date\": \"2025-11-20\"\n        },\n        {\n          \"claim\": \"Company says it has scaled its dataset to more than 25,000 individuals in 2026.\",\n          \"value_number\": 25000,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://www.bioindustry.org/resource/imu-biosciences-announces-oversubscribed-financing-round.html\",\n          \"source_title\": \"IMU Biosciences announces oversubscribed financing round\",\n          \"publisher\": \"BIA (Bioindustry Association)\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Member profile notes a new collaboration with UK Biobank to generate large-scale multi-omic immune profiling data.\",\n          \"value_number\": null,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://www.bioindustry.org/member/imu-biosciences/\",\n          \"source_title\": \"Member profile: IMU Biosciences\",\n          \"publisher\": \"BIA (Bioindustry Association)\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Company has announced formation of a Scientific Advisory Board.\",\n          \"value_number\": null,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://mtec-sc.org/life-sciences/imu-biosciences\",\n          \"source_title\": \"IMU Biosciences\",\n          \"publisher\": \"MTEC (mtec-sc.org)\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Homepage highlights a partnership with Eurofins Transplant Genomics.\",\n          \"value_number\": null,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://imubiosciences.com/\",\n          \"source_title\": \"IMU Biosciences : Immune Powered Precision Medicine\",\n          \"publisher\": \"IMU Biosciences\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Leadership expanded in September 2024, with Dr John Baker named CEO and Dr Jason Brown named Chief Business Officer, while founder Dr Adam Laing moved to President and Chief Scientific Officer.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://www.einpresswire.com/article/744088120/imu-biosciences-expands-leadership-team-with-appointment-of-industry-experts-dr-john-baker-as-chief-executive-officer-and-dr-jason-brown-as-chief\",\n          \"source_title\": \"imu biosciences expands leadership team with appointment of industry experts dr john baker as chief executive officer and dr jason brown as chief\",\n          \"publisher\": \"EIN Presswire\",\n          \"published_date\": \"2024-09-17\"\n        }\n      ]\n    },\n    {\n      \"field\": \"support_complexity\",\n      \"status\": \"not_found\",\n      \"summary\": \"No source describes travel-related support needs, and the available information covers only the company's customer types and lab-based service model.\",\n      \"findings\": [\n        {\n          \"claim\": \"Customers include clinical research groups, pharma, biotech and diagnostics companies, with services delivered through blood-sample-based immune phenotyping.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://imubiosciences.com/\",\n          \"source_title\": \"IMU Biosciences : Immune Powered Precision Medicine\",\n          \"publisher\": \"IMU Biosciences\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Services are described as end-to-end immune phenotyping and AI/ML analysis for research partners and industry.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://mtec-sc.org/life-sciences/imu-biosciences\",\n          \"source_title\": \"IMU Biosciences\",\n          \"publisher\": \"MTEC (mtec-sc.org)\",\n          \"published_date\": null\n        }\n      ]\n    }\n  ],\n  \"conflicts\": [\n    {\n      \"field\": \"employee_count\",\n      \"description\": \"Headcount figures disagree: PitchBook shows 25, Built In London shows 53, LinkedIn and StartupIntros show 11 to 50, and Dealroom shows 51 to 200.\",\n      \"source_urls\": [\n        \"https://pitchbook.com/profiles/company/432627-67\",\n        \"https://builtinlondon.uk/company/imu-biosciences\",\n        \"https://uk.linkedin.com/company/imubiosciences\",\n        \"https://startupintros.com/orgs/imu-biosciences\",\n        \"https://app.dealroom.co/companies/imu_1\"\n      ]\n    },\n    {\n      \"field\": \"funding_financial\",\n      \"description\": \"The first Series A is reported as £11.5M (Dealroom, dated January 2024). A later BIA release describes a Series A of over $53M (£40M). Aggregators show total funding of $14.62M (CB Insights), $15.0M (StartupIntros) and $54.6M (PitchBook). The sources do not reconcile these figures, and some pages carry no date.\",\n      \"source_urls\": [\n        \"https://app.dealroom.co/companies/imu_1\",\n        \"https://www.bioindustry.org/resource/imu-biosciences-announces-oversubscribed-financing-round.html\",\n        \"https://www.cbinsights.com/company/imu-2\",\n        \"https://startupintros.com/orgs/imu-biosciences\",\n        \"https://pitchbook.com/profiles/company/432627-67\"\n      ]\n    },\n    {\n      \"field\": \"hiring_trends\",\n      \"description\": \"Open-role counts differ across job boards: landed.jobs shows 2 roles, BioCareerAI shows 1, and Simplify and the careers page show roles that do not fully match each other. The snapshots are from different dates.\",\n      \"source_urls\": [\n        \"https://www.landed.jobs/companies/imu-biosciences\",\n        \"https://www.biocareerai.com/companies/imu-biosciences\",\n        \"https://jobs.nonlinearproject.com/companies/707e8103-c91f-4ef8-a3ec-78ee83f3bbf1\",\n        \"https://imubiosciences.com/careers\"\n      ]\n    }\n  ],\n  \"summary\": \"IMU Biosciences is a London-based immune profiling and AI biotech that sells data and analytics services to pharma, biotech and diagnostics partners. Its headcount and funding totals are inconsistent across sources, and no public evidence of direct business travel was found. Its roles are London-based lab, data and engineering positions, with on-site or hybrid work indicated.\",\n  \"research_limitations\": [\n    \"No source describes employee travel, client-site work, field work or a travelling sales team, so travel_indicators is not_found.\",\n    \"Headcount and funding totals conflict across aggregators and were not reconciled. Several pages carry no publication date.\",\n    \"Job-board counts are snapshots from different dates and may not reflect current openings.\",\n    \"No source was found on office locations outside London; the Sweden and Spain mention comes from one LinkedIn posting and is not confirmed elsewhere.\",\n    \"Support-complexity indicators (such as travel-related support needs, duty-of-care or traveller volume) are not publicly available in the results.\",\n    \"The company's own site was accessed only through search snippets, so page content may be incomplete.\"\n  ]\n}\n```",
+  "analysis": {
+    "parse_ok": true,
+    "field_statuses": {
+      "industry_business_model": "found",
+      "geographic_footprint": "found",
+      "employee_count": "conflicting",
+      "hiring_trends": "found",
+      "travel_indicators": "not_found",
+      "funding_financial": "conflicting",
+      "recent_expansion": "found",
+      "support_complexity": "not_found"
+    },
+    "findings_kept": 32,
+    "findings_dropped": [],
+    "employee_values": [
+      {
+        "value": 25.0,
+        "claim": "PitchBook lists 25 total employees.",
+        "url": "https://pitchbook.com/profiles/company/432627-67",
+        "reliability": "aggregator",
+        "date": "2026"
+      },
+      {
+        "value": 53.0,
+        "claim": "Built In London lists 53 total employees.",
+        "url": "https://builtinlondon.uk/company/imu-biosciences",
+        "reliability": "secondary",
+        "date": null
+      },
+      {
+        "value": null,
+        "claim": "LinkedIn company page gives company size as 11-50 employees.",
+        "url": "https://uk.linkedin.com/company/imubiosciences",
+        "reliability": "aggregator",
+        "date": null
+      },
+      {
+        "value": null,
+        "claim": "Structured data on the startupintros profile gives a headcount range of 11 to 50.",
+        "url": "https://startupintros.com/orgs/imu-biosciences",
+        "reliability": "secondary",
+        "date": null
+      },
+      {
+        "value": null,
+        "claim": "Dealroom lists employees in the 51 to 200 range.",
+        "url": "https://app.dealroom.co/companies/imu_1",
+        "reliability": "secondary",
+        "date": null
+      }
+    ],
+    "travel_findings": [
+      {
+        "claim": "Built In London lists the company as having an on-site workspace, with typical time on-site given as none.",
+        "signal_type": "descriptive",
+        "observation": "observed",
+        "url": "https://builtinlondon.uk/company/imu-biosciences"
+      }
+    ],
+    "conflicts": [
+      {
+        "field": "employee_count",
+        "description": "Headcount figures disagree: PitchBook shows 25, Built In London shows 53, LinkedIn and StartupIntros show 11 to 50, and Dealroom shows 51 to 200.",
+        "source_urls": [
+          "https://pitchbook.com/profiles/company/432627-67",
+          "https://builtinlondon.uk/company/imu-biosciences",
+          "https://uk.linkedin.com/company/imubiosciences",
+          "https://startupintros.com/orgs/imu-biosciences",
+          "https://app.dealroom.co/companies/imu_1"
+        ]
+      },
+      {
+        "field": "funding_financial",
+        "description": "The first Series A is reported as £11.5M (Dealroom, dated January 2024). A later BIA release describes a Series A of over $53M (£40M). Aggregators show total funding of $14.62M (CB Insights), $15.0M (StartupIntros) and $54.6M (PitchBook). The sources do not reconcile these figures, and some pages carry no date.",
+        "source_urls": [
+          "https://app.dealroom.co/companies/imu_1",
+          "https://www.bioindustry.org/resource/imu-biosciences-announces-oversubscribed-financing-round.html",
+          "https://www.cbinsights.com/company/imu-2",
+          "https://startupintros.com/orgs/imu-biosciences",
+          "https://pitchbook.com/profiles/company/432627-67"
+        ]
+      },
+      {
+        "field": "hiring_trends",
+        "description": "Open-role counts differ across job boards: landed.jobs shows 2 roles, BioCareerAI shows 1, and Simplify and the careers page show roles that do not fully match each other. The snapshots are from different dates.",
+        "source_urls": [
+          "https://www.landed.jobs/companies/imu-biosciences",
+          "https://www.biocareerai.com/companies/imu-biosciences",
+          "https://jobs.nonlinearproject.com/companies/707e8103-c91f-4ef8-a3ec-78ee83f3bbf1",
+          "https://imubiosciences.com/careers"
+        ]
+      }
+    ],
+    "identity": [
+      true,
+      "The company's own site at imubiosciences.com describes a London-based immune profiling and AI biotech, and its contact and careers emails use the same domain. Third-party profiles (LinkedIn, Dealroom, PitchBook, BIA, Built In London, Tracxn) that link to the same website or describe the same London company, CytAtlas platform and £11.5M Series A confirm the match. A few profiles give different headcounts and funding totals, which are reported as conflicts below. The site footer says IMU is a trademark of Melio Healthcare Limited, which is noted but not treated as a separate entity."
+    ]
+  }
+}

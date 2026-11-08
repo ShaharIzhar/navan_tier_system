@@ -1,0 +1,235 @@
+{
+  "case": "P-033-standard",
+  "prompt_version": "v2",
+  "model": "claude-haiku-5-5",
+  "started_at": "2026-11-08T16:32:05.578086+00:00",
+  "usage": {
+    "input_tokens": 38179,
+    "output_tokens": 6358,
+    "web_searches": 3,
+    "llm_calls": 1,
+    "approx_cost_usd": 0.037
+  },
+  "stop_reason": "end_turn",
+  "search_errors": [],
+  "search_queries": [
+    "Moorside Engineering moorsideengineering.com",
+    "Moorside Manufacturing careers jobs travel client site",
+    "Moorside Manufacturing Ltd news funding expansion hiring"
+  ],
+  "search_results": [
+    {
+      "url": "https://www.zoominfo.com/c/moorside-manufacturing-ltd/431588160",
+      "title": "Moorside Manufacturing - Overview, News & Similar companies",
+      "page_age": null
+    },
+    {
+      "url": "https://open.endole.co.uk/insight/company/04936087-moorside-manufacturing-ltd",
+      "title": "Moorside Manufacturing Ltd - Company Profile - Endole",
+      "page_age": null
+    },
+    {
+      "url": "https://companycheck.co.uk/company/06189566/MOORSIDE-ENGINEERING-LIMITED/companies-house-data",
+      "title": "MOORSIDE ENGINEERING LIMITED. Free business summary taken from official companies house information. Free alerts. Registered as 06189566",
+      "page_age": null
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Moorside_Edge",
+      "title": "Moorside Edge",
+      "page_age": null
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Moorside_railway_station_(Cumbria)",
+      "title": "Moorside railway station (Cumbria)",
+      "page_age": null
+    },
+    {
+      "url": "http://moorsideengineering.com/automotive/",
+      "title": "Automotive",
+      "page_age": "5671 days ago"
+    },
+    {
+      "url": "http://moorsideengineering.com/",
+      "title": "Moorside Manufacturing, a precision engineering company, We manufacture high quality precision engineered turned and milled components, from one off to large batch quantities. For one off or prototypes, machining, welding, assembly & fabrication",
+      "page_age": "5666 days ago"
+    },
+    {
+      "url": "http://moorsideengineering.com/precision_engineering/",
+      "title": "Precision Engineering, Fabrication & Sheet Metal work",
+      "page_age": "5671 days ago"
+    },
+    {
+      "url": "https://www.moorside.engineering/",
+      "title": "Building Services",
+      "page_age": null
+    },
+    {
+      "url": "https://www.totaljobs.com/jobs/in-moorside_oldham",
+      "title": "JOBS IN MOORSIDE, OLDHAM (with salaries) - October 2026",
+      "page_age": null
+    },
+    {
+      "url": "https://uk.indeed.com/cmp/moorside-precision",
+      "title": "Moorside Precision Careers and Employment",
+      "page_age": null
+    },
+    {
+      "url": "https://www.zoominfo.com/c/moorside-manufacturing-ltd/431588160",
+      "title": "Moorside Manufacturing - Overview, News & Similar companies",
+      "page_age": null
+    },
+    {
+      "url": "https://uk.indeed.com/l-moorside-jobs.html",
+      "title": "Work, jobs in Moorside (with Salaries)",
+      "page_age": null
+    },
+    {
+      "url": "https://www.indeed.com/q-traveling-manufacturing-jobs.html",
+      "title": "Now Hiring: 400 Traveling Manufacturing Jobs",
+      "page_age": null
+    },
+    {
+      "url": "https://www.glassdoor.co.uk/Job/moorside-jobs-SRCH_IL.0,8_IC3316421.htm",
+      "title": "72,080 Moorside, England jobs",
+      "page_age": null
+    },
+    {
+      "url": "https://moorside-precision.co.uk/careers/",
+      "title": "Careers",
+      "page_age": null
+    },
+    {
+      "url": "https://www.ziprecruiter.com/Jobs/Travel-Manufacturing",
+      "title": "$39k-$61k Travel Manufacturing Jobs (NOW HIRING) Oct 2026",
+      "page_age": null
+    },
+    {
+      "url": "http://moorsideengineering.com/",
+      "title": "Moorside Manufacturing, a precision engineering company, We manufacture high quality precision engineered turned and milled components, from one off to large batch quantities. For one off or prototypes, machining, welding, assembly & fabrication",
+      "page_age": "5666 days ago"
+    },
+    {
+      "url": "https://travelingcontractjobs.com/industries/manufacturing/",
+      "title": "Traveling Manufacturing Jobs",
+      "page_age": "1133 days ago"
+    },
+    {
+      "url": "https://www.zoominfo.com/c/moorside-manufacturing-ltd/431588160",
+      "title": "Moorside Manufacturing - Overview, News & Similar companies",
+      "page_age": null
+    },
+    {
+      "url": "https://open.endole.co.uk/insight/company/04936087-moorside-manufacturing-ltd",
+      "title": "Moorside Manufacturing Ltd - Company Profile - Endole",
+      "page_age": null
+    },
+    {
+      "url": "https://find-and-update.company-information.service.gov.uk/company/04936087",
+      "title": "MOORSIDE MANUFACTURING LTD overview - Find and update company information - GOV.UK",
+      "page_age": null
+    },
+    {
+      "url": "https://tracxn.com/d/legal-entities/united-kingdom/moorside-manufacturing-ltd/__QF1vMpItwYQYfNQS4folyPYgW84OxnfRDMSQ9NVJY_A",
+      "title": "MOORSIDE MANUFACTURING LTD - 2026 Company Profile - Tracxn",
+      "page_age": "31 days ago"
+    },
+    {
+      "url": "https://gb.kompass.com/c/moorside-manufacturing-ltd/gb07746950/",
+      "title": "Moorside Manufacturing Ltd - to Manchester, United Kingdom",
+      "page_age": null
+    },
+    {
+      "url": "https://us.kompass.com/c/moorside-manufacturing-ltd/gb07746950/",
+      "title": "Moorside Manufacturing Ltd - to Manchester, United Kingdom",
+      "page_age": null
+    },
+    {
+      "url": "http://moorsideengineering.com/",
+      "title": "Moorside Manufacturing, a precision engineering company, We manufacture high quality precision engineered turned and milled components, from one off to large batch quantities. For one off or prototypes, machining, welding, assembly & fabrication",
+      "page_age": "5666 days ago"
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Moorside,_Greater_Manchester",
+      "title": "Moorside, Greater Manchester",
+      "page_age": null
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Moorcroft",
+      "title": "Moorcroft",
+      "page_age": null
+    }
+  ],
+  "system_prompt": "You are a company research assistant for a B2B sales team at a business-travel platform. You research companies using web search and report what public sources say.\n\nRules:\n- Use only information from your web search results. Do not use prior knowledge.\n- Every finding must cite the URL of the search result it came from.\n- If you cannot find information for a field, mark it not_found. Do not guess.\n- If sources disagree, mark the field conflicting and describe the conflict.\n- Separate facts stated by a source (observed) from your own inferences (inferred).\n- Do not estimate travel spend or GBV.\n- Do not give confidence percentages.\n- Respond with a single JSON object and nothing else.\n- Several pages repeating the same figure or announcement are one source, not several.\n- Treat data aggregators (LinkedIn, ZoomInfo, PitchBook, Crunchbase, Tracxn, Dealroom and similar) as estimates.",
+  "user_prompt": "Research this company:\nCompany name: Moorside Manufacturing Ltd\nWebsite domain: moorsideengineering.com\n\nCover these fields:\n- industry_business_model: Industry and business model\n- geographic_footprint: Locations and geographic footprint\n- employee_count: Employee count\n- hiring_trends: Hiring and workforce trends\n- travel_indicators: Direct travel-requirement indicators\n- funding_financial: Funding and financial developments\n- recent_expansion: Recent expansion\n- support_complexity: Support-complexity indicators\n\nSearch plan (you have a small number of searches; use them in this order):\n1. The company's own website and basic profile (what it does, where it operates, size).\n2. Travel requirements: search for the company's job postings or careers page together with words like \"travel\", \"client site\", \"on-site\", \"field\". This is the most important field for this research. Report what job ads or company pages actually say. If you find nothing, mark travel_indicators not_found.\n3. Recent funding, expansion and hiring news.\n\nsignal_type meanings:\n- direct_travel: a source explicitly states that employees travel for work (e.g. a job ad saying \"travel required\" or \"50% travel\", field engineers visiting customer sites, consultants based at client sites). Use this ONLY when the source states it. If you are guessing that a role probably involves travel, set observation to \"inferred\".\n- indirect_growth: growth signals (funding, new offices, hiring growth, international expansion)\n- descriptive: everything else\n\nEmployee count rules:\n- Put a number in value_number ONLY when the source states one exact headcount (e.g. \"53 employees\").\n- For a band or range (e.g. \"11-50\", \"51-200\", \"fewer than 25\"), set value_number to null and keep the band in the claim.\n- Include the \"as of\" date in published_date when the source gives one.\n\nConflict rules:\n- Report a conflict only when sources disagree about the same fact for the same period in a way that changes the conclusion (for example, one source says 40 staff and another says 400).\n- Different estimates from different databases, or figures from different dates, are normal. Describe them in the field summary, not as a conflict, and use status \"found\".\n\nReturn JSON in exactly this shape:\n{\n  \"company_identity_confirmed\": true,\n  \"identity_note\": \"How you confirmed the sources describe the company at this domain\",\n  \"fields\": [\n    {\n      \"field\": \"employee_count\",\n      \"status\": \"found | not_found | conflicting | not_applicable\",\n      \"summary\": \"One-sentence plain-English summary of what the sources say\",\n      \"findings\": [\n        {\n          \"claim\": \"Exact fact taken from the source\",\n          \"value_number\": 120,\n          \"signal_type\": \"direct_travel | indirect_growth | descriptive\",\n          \"observation\": \"observed | inferred\",\n          \"source_url\": \"URL returned by your web search\",\n          \"source_title\": \"Page title\",\n          \"publisher\": \"Site or organisation\",\n          \"published_date\": \"YYYY-MM-DD, YYYY-MM, YYYY, or null\"\n        }\n      ]\n    }\n  ],\n  \"conflicts\": [\n    {\n      \"field\": \"employee_count\",\n      \"description\": \"...\",\n      \"source_urls\": [\n        \"...\"\n      ]\n    }\n  ],\n  \"summary\": \"2-3 sentence summary for a salesperson\",\n  \"research_limitations\": [\n    \"What could not be found or verified\"\n  ]\n}",
+  "raw_text": "```json\n{\n  \"company_identity_confirmed\": true,\n  \"identity_note\": \"The moorsideengineering.com homepage describes itself as Moorside Manufacturing Ltd, a Manchester precision engineering firm, and the Companies House record for Moorside Manufacturing Ltd (04936087) gives a Manchester registered office. Other companies with 'Moorside' names are different entities and were excluded: Moorside Precision (Poole), Moorside Consulting Engineers (moorside.engineering, Leeds) and Moorside Engineering Limited (Bromborough, companycheck record 06189566).\",\n  \"fields\": [\n    {\n      \"field\": \"industry_business_model\",\n      \"status\": \"found\",\n      \"summary\": \"The company's website describes a family-owned sub-contract precision engineering business doing machining, welding, assembly, fabrication and sheet metal work to customer drawings, while third-party directories classify it under different industry labels.\",\n      \"findings\": [\n        {\n          \"claim\": \"The company says it is a family-owned and run precision engineering firm, formed in 1991, that works from Manchester, England.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"http://moorsideengineering.com/\",\n          \"source_title\": \"Moorside Manufacturing, a precision engineering company, We manufacture high quality precision engineered turned and milled components, from one off to large batch quantities. For one off or prototypes, machining, welding, assembly & fabrication\",\n          \"publisher\": \"Moorside Manufacturing Ltd (company website)\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"The company describes itself as a sub-contractor of high-tolerance precision engineered components, making one-off or large-batch parts to customer specifications.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"http://moorsideengineering.com/\",\n          \"source_title\": \"Moorside Manufacturing, a precision engineering company, We manufacture high quality precision engineered turned and milled components, from one off to large batch quantities. For one off or prototypes, machining, welding, assembly & fabrication\",\n          \"publisher\": \"Moorside Manufacturing Ltd (company website)\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"The website lists milling and turning work, surface grinding, sawing, fabrication and tooling, with a rubber-industry service and automotive parts services including wheel modifications and engine part repair.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"http://moorsideengineering.com/precision_engineering/\",\n          \"source_title\": \"Precision Engineering, Fabrication & Sheet Metal work\",\n          \"publisher\": \"Moorside Manufacturing Ltd (company website)\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Endole classifies the company's activity as fabricated metal products manufacturing.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://open.endole.co.uk/insight/company/04936087-moorside-manufacturing-ltd\",\n          \"source_title\": \"Moorside Manufacturing Ltd - Company Profile - Endole\",\n          \"publisher\": \"Endole\",\n          \"published_date\": \"2025-12-31\"\n        },\n        {\n          \"claim\": \"Kompass lists the company as a metal forging contractor, and ZoomInfo lists it under industrial machinery and equipment.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://gb.kompass.com/c/moorside-manufacturing-ltd/gb07746950/\",\n          \"source_title\": \"Moorside Manufacturing Ltd - to Manchester, United Kingdom\",\n          \"publisher\": \"Kompass\",\n          \"published_date\": null\n        }\n      ]\n    },\n    {\n      \"field\": \"geographic_footprint\",\n      \"status\": \"found\",\n      \"summary\": \"Sources consistently place the business and its registered office in Manchester, with a single Denton, Manchester address; no other sites were found.\",\n      \"findings\": [\n        {\n          \"claim\": \"The company's registered office is at 72 Two Trees Lane, Denton, Manchester, M34 7SZ.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://find-and-update.company-information.service.gov.uk/company/04936087\",\n          \"source_title\": \"MOORSIDE MANUFACTURING LTD overview - Find and update company information - GOV.UK\",\n          \"publisher\": \"Companies House (GOV.UK)\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"The company's website says it is based in Manchester, England.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"http://moorsideengineering.com/\",\n          \"source_title\": \"Moorside Manufacturing, a precision engineering company, We manufacture high quality precision engineered turned and milled components, from one off to large batch quantities. For one off or prototypes, machining, welding, assembly & fabrication\",\n          \"publisher\": \"Moorside Manufacturing Ltd (company website)\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"ZoomInfo gives the headquarters as 72 Two Trees Ln in Manchester and places the business in Lancashire.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://www.zoominfo.com/c/moorside-manufacturing-ltd/431588160\",\n          \"source_title\": \"Moorside Manufacturing - Overview, News & Similar companies\",\n          \"publisher\": \"ZoomInfo\",\n          \"published_date\": null\n        }\n      ]\n    },\n    {\n      \"field\": \"employee_count\",\n      \"status\": \"found\",\n      \"summary\": \"Endole and Tracxn both report a headcount of 6 (for periods ending 2025 and 2024 respectively), while ZoomInfo and Kompass give only bands of 1-10 and 0-9; these are aggregator estimates and the figures are not contradictory.\",\n      \"findings\": [\n        {\n          \"claim\": \"Endole reports 6 employees for the period ended 31 December 2025, unchanged over the past five years.\",\n          \"value_number\": 6,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://open.endole.co.uk/insight/company/04936087-moorside-manufacturing-ltd\",\n          \"source_title\": \"Moorside Manufacturing Ltd - Company Profile - Endole\",\n          \"publisher\": \"Endole\",\n          \"published_date\": \"2025-12-31\"\n        },\n        {\n          \"claim\": \"Tracxn reports the latest employee count as 6 as of 31 December 2024, with 0% year-over-year headcount growth.\",\n          \"value_number\": 6,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://tracxn.com/d/legal-entities/united-kingdom/moorside-manufacturing-ltd/__QF1vMpItwYQYfNQS4folyPYgW84OxnfRDMSQ9NVJY_A\",\n          \"source_title\": \"MOORSIDE MANUFACTURING LTD - 2026 Company Profile - Tracxn\",\n          \"publisher\": \"Tracxn\",\n          \"published_date\": \"2024-12-31\"\n        },\n        {\n          \"claim\": \"ZoomInfo lists the company at 1-10 employees.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://www.zoominfo.com/c/moorside-manufacturing-ltd/431588160\",\n          \"source_title\": \"Moorside Manufacturing - Overview, News & Similar companies\",\n          \"publisher\": \"ZoomInfo\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Kompass lists the company at 0-9 employees, with the address headcount not declared.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://gb.kompass.com/c/moorside-manufacturing-ltd/gb07746950/\",\n          \"source_title\": \"Moorside Manufacturing Ltd - to Manchester, United Kingdom\",\n          \"publisher\": \"Kompass\",\n          \"published_date\": null\n        }\n      ]\n    },\n    {\n      \"field\": \"hiring_trends\",\n      \"status\": \"not_found\",\n      \"summary\": \"No job postings or careers page for Moorside Manufacturing Ltd were found; the job results that came up belonged to unrelated employers.\",\n      \"findings\": []\n    },\n    {\n      \"field\": \"travel_indicators\",\n      \"status\": \"not_found\",\n      \"summary\": \"No source states that Moorside Manufacturing employees travel for work, and no job ad or careers page for the company was found.\",\n      \"findings\": []\n    },\n    {\n      \"field\": \"funding_financial\",\n      \"status\": \"found\",\n      \"summary\": \"No funding round was found; ZoomInfo gives an estimated funding figure under $5M, and Endole reports net assets falling about 8.5% in the year to December 2025, though it is an aggregator estimate and not filed accounts.\",\n      \"findings\": [\n        {\n          \"claim\": \"ZoomInfo's profile shows funding below $5M and founding in 2003, and notes no recent funding news.\",\n          \"value_number\": null,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://www.zoominfo.com/c/moorside-manufacturing-ltd/431588160\",\n          \"source_title\": \"Moorside Manufacturing - Overview, News & Similar companies\",\n          \"publisher\": \"ZoomInfo\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Endole reports total assets of about £199.66K and net assets of about £190.34K for the year to 31 December 2025, with net assets down 8.5% and no turnover reported.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"https://open.endole.co.uk/insight/company/04936087-moorside-manufacturing-ltd\",\n          \"source_title\": \"Moorside Manufacturing Ltd - Company Profile - Endole\",\n          \"publisher\": \"Endole\",\n          \"published_date\": \"2025-12-31\"\n        }\n      ]\n    },\n    {\n      \"field\": \"recent_expansion\",\n      \"status\": \"not_found\",\n      \"summary\": \"No dated expansion announcement, new site or new service launch was found; the website's claim of structured growth since founding is undated.\",\n      \"findings\": []\n    },\n    {\n      \"field\": \"support_complexity\",\n      \"status\": \"found\",\n      \"summary\": \"The company's website says it serves large national and international customers across many industries and handles varied jobs to individual specifications, which suggests a varied account profile, though this is not a travel-specific signal.\",\n      \"findings\": [\n        {\n          \"claim\": \"The website says its customers include large national and international companies in many industries, as well as smaller firms.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"http://moorsideengineering.com/\",\n          \"source_title\": \"Moorside Manufacturing, a precision engineering company, We manufacture high quality precision engineered turned and milled components, from one off to large batch quantities. For one off or prototypes, machining, welding, assembly & fabrication\",\n          \"publisher\": \"Moorside Manufacturing Ltd (company website)\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"The website says it works to customer drawings and specifications across all materials, with one-off and batch runs and in-house quality control before dispatch.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"source_url\": \"http://moorsideengineering.com/precision_engineering/\",\n          \"source_title\": \"Precision Engineering, Fabrication & Sheet Metal work\",\n          \"publisher\": \"Moorside Manufacturing Ltd (company website)\",\n          \"published_date\": null\n        }\n      ]\n    }\n  ],\n  \"conflicts\": [],\n  \"summary\": \"Moorside Manufacturing Ltd is a small Manchester precision engineering subcontractor with about 6 staff according to two aggregator estimates, and its customers include large national and international firms. No direct evidence of employee travel, hiring activity or recent expansion was found, so any travel-led outreach needs first-hand verification. Financial information is limited to aggregator estimates.\",\n  \"research_limitations\": [\n    \"No direct travel-requirement evidence was found: no job ads or careers page for Moorside Manufacturing Ltd turned up, so travel_indicators is not_found.\",\n    \"Headcount figures come from aggregators (Endole, Tracxn, ZoomInfo, Kompass) rather than filed accounts; Endole and Tracxn give 6 at different dates, while ZoomInfo and Kompass give bands.\",\n    \"Company website pages are old and undated, so the claimed growth and 1991 formation date could not be checked against filings; Companies House records a 2003 incorporation.\",\n    \"Financial data is limited to Endole's summary of the most recent accounts and an aggregator funding estimate; no filed accounts or funding announcements were retrieved.\",\n    \"Search coverage was limited to three searches, so news about contracts, sites or hiring may exist but was not found.\"\n  ]\n}\n```",
+  "analysis": {
+    "parse_ok": true,
+    "raw_employee_values_before_guard": [
+      {
+        "value": 6.0,
+        "claim": "Endole reports 6 employees for the period ended 31 December 2025, unchanged over the past five years."
+      },
+      {
+        "value": 6.0,
+        "claim": "Tracxn reports the latest employee count as 6 as of 31 December 2024, with 0% year-over-year headcount growth."
+      },
+      {
+        "value": null,
+        "claim": "ZoomInfo lists the company at 1-10 employees."
+      },
+      {
+        "value": null,
+        "claim": "Kompass lists the company at 0-9 employees, with the address headcount not declared."
+      }
+    ],
+    "band_guard_changes": [],
+    "field_statuses": {
+      "industry_business_model": "found",
+      "geographic_footprint": "found",
+      "employee_count": "found",
+      "hiring_trends": "not_found",
+      "travel_indicators": "not_found",
+      "funding_financial": "found",
+      "recent_expansion": "not_found",
+      "support_complexity": "found"
+    },
+    "findings_kept": 16,
+    "findings_dropped": [],
+    "employee_values": [
+      {
+        "value": 6.0,
+        "claim": "Endole reports 6 employees for the period ended 31 December 2025, unchanged over the past five years.",
+        "url": "https://open.endole.co.uk/insight/company/04936087-moorside-manufacturing-ltd",
+        "reliability": "secondary",
+        "date": "2025-12-31"
+      },
+      {
+        "value": 6.0,
+        "claim": "Tracxn reports the latest employee count as 6 as of 31 December 2024, with 0% year-over-year headcount growth.",
+        "url": "https://tracxn.com/d/legal-entities/united-kingdom/moorside-manufacturing-ltd/__QF1vMpItwYQYfNQS4folyPYgW84OxnfRDMSQ9NVJY_A",
+        "reliability": "aggregator",
+        "date": "2024-12-31"
+      },
+      {
+        "value": null,
+        "claim": "ZoomInfo lists the company at 1-10 employees.",
+        "url": "https://www.zoominfo.com/c/moorside-manufacturing-ltd/431588160",
+        "reliability": "aggregator",
+        "date": null
+      },
+      {
+        "value": null,
+        "claim": "Kompass lists the company at 0-9 employees, with the address headcount not declared.",
+        "url": "https://gb.kompass.com/c/moorside-manufacturing-ltd/gb07746950/",
+        "reliability": "secondary",
+        "date": null
+      }
+    ],
+    "travel_findings": [],
+    "conflicts": [],
+    "identity": [
+      true,
+      "The moorsideengineering.com homepage describes itself as Moorside Manufacturing Ltd, a Manchester precision engineering firm, and the Companies House record for Moorside Manufacturing Ltd (04936087) gives a Manchester registered office. Other companies with 'Moorside' names are different entities and were excluded: Moorside Precision (Poole), Moorside Consulting Engineers (moorside.engineering, Leeds) and Moorside Engineering Limited (Bromborough, companycheck record 06189566)."
+    ]
+  }
+}

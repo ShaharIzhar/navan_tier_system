@@ -1,0 +1,259 @@
+{
+  "case": "P-007-standard",
+  "prompt_version": "v2",
+  "model": "claude-haiku-5-5",
+  "started_at": "2026-11-08T16:31:31.311977+00:00",
+  "usage": {
+    "input_tokens": 47724,
+    "output_tokens": 8514,
+    "web_searches": 3,
+    "llm_calls": 1,
+    "approx_cost_usd": 0.03903
+  },
+  "stop_reason": "end_turn",
+  "search_errors": [],
+  "search_queries": [
+    "IMU Biosciences company",
+    "IMU Biosciences careers travel client site",
+    "IMU Biosciences expansion hiring 2026"
+  ],
+  "search_results": [
+    {
+      "url": "https://app.dealroom.co/companies/imu_1",
+      "title": "IMU Biosciences company information, funding & investors",
+      "page_age": "1407 days ago"
+    },
+    {
+      "url": "https://www.crunchbase.com/organization/imu-8423",
+      "title": "IMU Biosciences - Crunchbase Company Profile & Funding",
+      "page_age": null
+    },
+    {
+      "url": "https://uk.linkedin.com/company/imubiosciences",
+      "title": "IMU Biosciences",
+      "page_age": null
+    },
+    {
+      "url": "https://pitchbook.com/profiles/company/432627-67",
+      "title": "IMU Biosciences 2026 Company Profile: Valuation, Funding & Investors",
+      "page_age": null
+    },
+    {
+      "url": "https://mtec-sc.org/life-sciences/imu-biosciences",
+      "title": "IMU Biosciences",
+      "page_age": null
+    },
+    {
+      "url": "https://startupintros.com/orgs/imu-biosciences",
+      "title": "IMU Biosciences: Funding, Team & Investors",
+      "page_age": "206 days ago"
+    },
+    {
+      "url": "https://tracxn.com/d/companies/imu-biosciences/__eg1VfpTS0KxbnkzphyzXlL2GYUGCJvtfOBXMMfLMcNQ",
+      "title": "IMU Biosciences - 2025 Company Profile, Team, Funding & Competitors - Tracxn",
+      "page_age": "502 days ago"
+    },
+    {
+      "url": "https://www.bioindustry.org/member/imu-biosciences/",
+      "title": "Member profile: IMU Biosciences",
+      "page_age": "726 days ago"
+    },
+    {
+      "url": "https://www.bioindustry.org/resource/imu-biosciences-announces-oversubscribed-financing-round.html",
+      "title": "IMU Biosciences announces oversubscribed financing round",
+      "page_age": "160 days ago"
+    },
+    {
+      "url": "https://www.glassdoor.co.uk/Overview/Working-at-IMU-Biosciences-EI_IE10722041.11,26.htm",
+      "title": "IMU Biosciences Career: Working at IMU Biosciences",
+      "page_age": null
+    },
+    {
+      "url": "https://builtinlondon.uk/company/imu-biosciences",
+      "title": "IMU Biosciences London Office: Careers, Perks + Culture",
+      "page_age": null
+    },
+    {
+      "url": "https://jobs.nonlinearproject.com/companies/707e8103-c91f-4ef8-a3ec-78ee83f3bbf1",
+      "title": "Jobs at IMU Biosciences",
+      "page_age": null
+    },
+    {
+      "url": "https://www.landed.jobs/companies/imu-biosciences",
+      "title": "IMU Biosciences careers: 1 open role - landed.jobs",
+      "page_age": "28 days ago"
+    },
+    {
+      "url": "https://uk.linkedin.com/company/imubiosciences",
+      "title": "IMU Biosciences",
+      "page_age": null
+    },
+    {
+      "url": "https://imubiosciences.com/contact",
+      "title": "IMU Biosciences : Contact Us",
+      "page_age": "536 days ago"
+    },
+    {
+      "url": "https://imubiosciences.com/",
+      "title": "IMU Biosciences : Immune Powered Precision Medicine",
+      "page_age": "306 days ago"
+    },
+    {
+      "url": "https://imubiosciences.com/news",
+      "title": "IMU Biosciences : News & Perspectives",
+      "page_age": "551 days ago"
+    },
+    {
+      "url": "https://tracxn.com/d/companies/imu-biosciences/__eg1VfpTS0KxbnkzphyzXlL2GYUGCJvtfOBXMMfLMcNQ",
+      "title": "IMU Biosciences - 2025 Company Profile, Team, Funding & Competitors - Tracxn",
+      "page_age": "502 days ago"
+    },
+    {
+      "url": "https://simplify.jobs/c/IMU-Biosciences",
+      "title": "Jobs and Employment at IMU Biosciences",
+      "page_age": null
+    },
+    {
+      "url": "https://www.ddw-online.com/imu-biosciences-raises-53m-to-expand-disease-platform-42028-202606/",
+      "title": "IMU Biosciences raises $53m to expand disease platform - Drug Discovery World (DDW)",
+      "page_age": "153 days ago"
+    },
+    {
+      "url": "https://www.bioxconomy.com/investment/imu-closes-53m-series-a-to-decode-the-immune-system-at-scale",
+      "title": "IMU closes $53m Series A to decode the immune system at scale",
+      "page_age": "159 days ago"
+    },
+    {
+      "url": "https://european-biotechnology.com/latest-news/imu-biosciences-secures-us53m-to-decode-the-immune-system/",
+      "title": "IMU Biosciences secures US$53m to decode the immune system - European Biotechnology Magazine",
+      "page_age": "159 days ago"
+    },
+    {
+      "url": "https://www.fiercebiotech.com/medtech/imu-biosciences-nabs-53m-funding-round-decode-immune-system",
+      "title": "IMU Biosciences nabs $53M funding round to ‘decode’ the immune system",
+      "page_age": "158 days ago"
+    },
+    {
+      "url": "https://www.landed.jobs/companies/imu-biosciences",
+      "title": "IMU Biosciences careers: 1 open role - landed.jobs",
+      "page_age": "28 days ago"
+    },
+    {
+      "url": "https://jobs.nonlinearproject.com/companies/707e8103-c91f-4ef8-a3ec-78ee83f3bbf1",
+      "title": "Jobs at IMU Biosciences",
+      "page_age": null
+    },
+    {
+      "url": "https://uk.linkedin.com/company/imubiosciences",
+      "title": "IMU Biosciences",
+      "page_age": null
+    },
+    {
+      "url": "https://ventureburn.com/imu-biosciences-secures-53m-to-advance-immune-tech/",
+      "title": "IMU Biosciences Secures $53M to Advance Immune Tech - Ventureburn",
+      "page_age": "158 days ago"
+    }
+  ],
+  "system_prompt": "You are a company research assistant for a B2B sales team at a business-travel platform. You research companies using web search and report what public sources say.\n\nRules:\n- Use only information from your web search results. Do not use prior knowledge.\n- Every finding must cite the URL of the search result it came from.\n- If you cannot find information for a field, mark it not_found. Do not guess.\n- If sources disagree, mark the field conflicting and describe the conflict.\n- Separate facts stated by a source (observed) from your own inferences (inferred).\n- Do not estimate travel spend or GBV.\n- Do not give confidence percentages.\n- Respond with a single JSON object and nothing else.\n- Several pages repeating the same figure or announcement are one source, not several.\n- Treat data aggregators (LinkedIn, ZoomInfo, PitchBook, Crunchbase, Tracxn, Dealroom and similar) as estimates.",
+  "user_prompt": "Research this company:\nCompany name: IMU Biosciences\nWebsite domain: imubiosciences.com\n\nCover these fields:\n- industry_business_model: Industry and business model\n- geographic_footprint: Locations and geographic footprint\n- employee_count: Employee count\n- hiring_trends: Hiring and workforce trends\n- travel_indicators: Direct travel-requirement indicators\n- funding_financial: Funding and financial developments\n- recent_expansion: Recent expansion\n- support_complexity: Support-complexity indicators\n\nSearch plan (you have a small number of searches; use them in this order):\n1. The company's own website and basic profile (what it does, where it operates, size).\n2. Travel requirements: search for the company's job postings or careers page together with words like \"travel\", \"client site\", \"on-site\", \"field\". This is the most important field for this research. Report what job ads or company pages actually say. If you find nothing, mark travel_indicators not_found.\n3. Recent funding, expansion and hiring news.\n\nsignal_type meanings:\n- direct_travel: a source explicitly states that employees travel for work (e.g. a job ad saying \"travel required\" or \"50% travel\", field engineers visiting customer sites, consultants based at client sites). Use this ONLY when the source states it. If you are guessing that a role probably involves travel, set observation to \"inferred\".\n- indirect_growth: growth signals (funding, new offices, hiring growth, international expansion)\n- descriptive: everything else\n\nEmployee count rules:\n- Put a number in value_number ONLY when the source states one exact headcount (e.g. \"53 employees\").\n- For a band or range (e.g. \"11-50\", \"51-200\", \"fewer than 25\"), set value_number to null and keep the band in the claim.\n- Include the \"as of\" date in published_date when the source gives one.\n\nConflict rules:\n- Report a conflict only when sources disagree about the same fact for the same period in a way that changes the conclusion (for example, one source says 40 staff and another says 400).\n- Different estimates from different databases, or figures from different dates, are normal. Describe them in the field summary, not as a conflict, and use status \"found\".\n\nReturn JSON in exactly this shape:\n{\n  \"company_identity_confirmed\": true,\n  \"identity_note\": \"How you confirmed the sources describe the company at this domain\",\n  \"fields\": [\n    {\n      \"field\": \"employee_count\",\n      \"status\": \"found | not_found | conflicting | not_applicable\",\n      \"summary\": \"One-sentence plain-English summary of what the sources say\",\n      \"findings\": [\n        {\n          \"claim\": \"Exact fact taken from the source\",\n          \"value_number\": 120,\n          \"signal_type\": \"direct_travel | indirect_growth | descriptive\",\n          \"observation\": \"observed | inferred\",\n          \"source_url\": \"URL returned by your web search\",\n          \"source_title\": \"Page title\",\n          \"publisher\": \"Site or organisation\",\n          \"published_date\": \"YYYY-MM-DD, YYYY-MM, YYYY, or null\"\n        }\n      ]\n    }\n  ],\n  \"conflicts\": [\n    {\n      \"field\": \"employee_count\",\n      \"description\": \"...\",\n      \"source_urls\": [\n        \"...\"\n      ]\n    }\n  ],\n  \"summary\": \"2-3 sentence summary for a salesperson\",\n  \"research_limitations\": [\n    \"What could not be found or verified\"\n  ]\n}",
+  "raw_text": "{\"company_identity_confirmed\": true, \"identity_note\": \"The domain imubiosciences.com is the company's own site, and its contact and address details match the London biotech described by Dealroom, LinkedIn, Bioindustry, Built In and trade press. Several aggregator profiles also link to that domain.\", \"fields\": [{\"field\": \"industry_business_model\", \"status\": \"found\", \"summary\": \"IMU is a London biotech that sells immune profiling and AI/ML analytics, working with academic, pharma and biotech partners on biomarker and patient-stratification work.\", \"findings\": [{\"claim\": \"Described as a biotechnology company building high-resolution, multi-omic immune profiling and AI/ML analytics, delivering immune datasets and signatures for diagnostics, drug development and precision medicine.\", \"value_number\": null, \"signal_type\": \"descriptive\", \"observation\": \"observed\", \"source_url\": \"https://mtec-sc.org/life-sciences/imu-biosciences\", \"source_title\": \"IMU Biosciences\", \"publisher\": \"MTEC (mtec-sc.org)\", \"published_date\": null}, {\"claim\": \"Works with academic, pharma and biotech partners, offering end-to-end immune phenotyping and analysis services alongside biomarker discovery work.\", \"value_number\": null, \"signal_type\": \"descriptive\", \"observation\": \"observed\", \"source_url\": \"https://mtec-sc.org/life-sciences/imu-biosciences\", \"source_title\": \"IMU Biosciences\", \"publisher\": \"MTEC (mtec-sc.org)\", \"published_date\": null}, {\"claim\": \"Its core product is the CytAtlas platform, which pairs systems-level immune profiling with proprietary AI and machine learning.\", \"value_number\": null, \"signal_type\": \"descriptive\", \"observation\": \"observed\", \"source_url\": \"https://app.dealroom.co/companies/imu_1\", \"source_title\": \"IMU Biosciences company information, funding & investors\", \"publisher\": \"Dealroom\", \"published_date\": null}, {\"claim\": \"Classified in Bioindustry's member directory as a drug discovery company with platform technology, covering areas such as immunology, diagnostics and autoimmune disease.\", \"value_number\": null, \"signal_type\": \"descriptive\", \"observation\": \"observed\", \"source_url\": \"https://www.bioindustry.org/member/imu-biosciences/\", \"source_title\": \"Member profile: IMU Biosciences\", \"publisher\": \"BioIndustry Association\", \"published_date\": null}, {\"claim\": \"Commercial model appears to be partner-based: it engages pharma, biotech, diagnostics developers and clinical research organisations.\", \"value_number\": null, \"signal_type\": \"descriptive\", \"observation\": \"inferred\", \"source_url\": \"https://www.crunchbase.com/organization/imu-8423\", \"source_title\": \"IMU Biosciences - Crunchbase Company Profile & Funding\", \"publisher\": \"Crunchbase\", \"published_date\": null}]}, {\"field\": \"geographic_footprint\", \"status\": \"found\", \"summary\": \"The registered and listed base is in London, with a LinkedIn role listing UK, Sweden and Spain, and recent funding releases mention US expansion.\", \"findings\": [{\"claim\": \"Registered office listed at Wood Wharf in London E14.\", \"value_number\": null, \"signal_type\": \"descriptive\", \"observation\": \"observed\", \"source_url\": \"https://imubiosciences.com/contact\", \"source_title\": \"IMU Biosciences : Contact Us\", \"publisher\": \"IMU Biosciences\", \"published_date\": null}, {\"claim\": \"A Data Platform Engineer posting lists locations as the UK, Sweden and Spain.\", \"value_number\": null, \"signal_type\": \"descriptive\", \"observation\": \"observed\", \"source_url\": \"https://uk.linkedin.com/company/imubiosciences\", \"source_title\": \"IMU Biosciences\", \"publisher\": \"LinkedIn\", \"published_date\": null}, {\"claim\": \"Funding coverage says the round will support plans that include US expansion.\", \"value_number\": null, \"signal_type\": \"indirect_growth\", \"observation\": \"observed\", \"source_url\": \"https://ventureburn.com/imu-biosciences-secures-53m-to-advance-immune-tech/\", \"source_title\": \"IMU Biosciences Secures $53M to Advance Immune Tech - Ventureburn\", \"publisher\": \"Ventureburn\", \"published_date\": \"2026-06-02\"}]}, {\"field\": \"employee_count\", \"status\": \"found\", \"summary\": \"Headcount figures vary by source and date: aggregators give bands of 11-50, 51-200 and 1-50, plus exact counts of 25, 53 and 80, so no single authoritative figure exists.\", \"findings\": [{\"claim\": \"LinkedIn company page lists company size as 11-50 employees.\", \"value_number\": null, \"signal_type\": \"descriptive\", \"observation\": \"observed\", \"source_url\": \"https://uk.linkedin.com/company/imubiosciences\", \"source_title\": \"IMU Biosciences\", \"publisher\": \"LinkedIn\", \"published_date\": null}, {\"claim\": \"Dealroom, an aggregator, lists the headcount band as 51-200 people.\", \"value_number\": null, \"signal_type\": \"descriptive\", \"observation\": \"observed\", \"source_url\": \"https://app.dealroom.co/companies/imu_1\", \"source_title\": \"IMU Biosciences company information, funding & investors\", \"publisher\": \"Dealroom\", \"published_date\": null}, {\"claim\": \"Glassdoor, an aggregator, lists 1 to 50 employees.\", \"value_number\": null, \"signal_type\": \"descriptive\", \"observation\": \"observed\", \"source_url\": \"https://www.glassdoor.co.uk/Overview/Working-at-IMU-Biosciences-EI_IE10722041.11,26.htm\", \"source_title\": \"IMU Biosciences Career: Working at IMU Biosciences\", \"publisher\": \"Glassdoor\", \"published_date\": null}, {\"claim\": \"PitchBook, an aggregator, lists 25 total employees.\", \"value_number\": 25, \"signal_type\": \"descriptive\", \"observation\": \"observed\", \"source_url\": \"https://pitchbook.com/profiles/company/432627-67\", \"source_title\": \"IMU Biosciences 2026 Company Profile: Valuation, Funding & Investors\", \"publisher\": \"PitchBook\", \"published_date\": \"2026\"}, {\"claim\": \"Built In London, an aggregator, lists 53 total employees.\", \"value_number\": 53, \"signal_type\": \"descriptive\", \"observation\": \"observed\", \"source_url\": \"https://builtinlondon.uk/company/imu-biosciences\", \"source_title\": \"IMU Biosciences London Office: Careers, Perks + Culture\", \"publisher\": \"Built In\", \"published_date\": null}, {\"claim\": \"Landed.jobs, an aggregator, lists headcount as 80 with a 2026 snapshot.\", \"value_number\": 80, \"signal_type\": \"descriptive\", \"observation\": \"observed\", \"source_url\": \"https://www.landed.jobs/companies/imu-biosciences\", \"source_title\": \"IMU Biosciences careers: 1 open role - landed.jobs\", \"publisher\": \"landed.jobs\", \"published_date\": \"2026-10-19\"}]}, {\"field\": \"hiring_trends\", \"status\": \"found\", \"summary\": \"Hiring is small and London-focused, with about two open roles on the careers pages in 2026, and LinkedIn posts for lab and data engineering roles.\", \"findings\": [{\"claim\": \"Landed.jobs reports two open roles as of 19 October 2026, both at mid level.\", \"value_number\": 2, \"signal_type\": \"indirect_growth\", \"observation\": \"observed\", \"source_url\": \"https://www.landed.jobs/companies/imu-biosciences\", \"source_title\": \"IMU Biosciences careers: 1 open role - landed.jobs\", \"publisher\": \"landed.jobs\", \"published_date\": \"2026-10-19\"}, {\"claim\": \"Open roles listed are a Bioinformatics Software Engineer and a Communications and Marketing Manager, both based in London.\", \"value_number\": null, \"signal_type\": \"descriptive\", \"observation\": \"observed\", \"source_url\": \"https://www.landed.jobs/companies/imu-biosciences\", \"source_title\": \"IMU Biosciences careers: 1 open role - landed.jobs\", \"publisher\": \"landed.jobs\", \"published_date\": \"2026-10-19\"}, {\"claim\": \"A LinkedIn post announces a Laboratory Manager hire in London.\", \"value_number\": null, \"signal_type\": \"indirect_growth\", \"observation\": \"observed\", \"source_url\": \"https://uk.linkedin.com/company/imubiosciences\", \"source_title\": \"IMU Biosciences\", \"publisher\": \"LinkedIn\", \"published_date\": null}, {\"claim\": \"A LinkedIn post advertises a Data Platform Engineer role across the UK, Sweden and Spain.\", \"value_number\": null, \"signal_type\": \"indirect_growth\", \"observation\": \"observed\", \"source_url\": \"https://uk.linkedin.com/company/imubiosciences\", \"source_title\": \"IMU Biosciences\", \"publisher\": \"LinkedIn\", \"published_date\": null}, {\"claim\": \"The company careers page lists a Senior Software Engineer and a Scientist I, both in London.\", \"value_number\": null, \"signal_type\": \"descriptive\", \"observation\": \"observed\", \"source_url\": \"https://jobs.nonlinearproject.com/companies/707e8103-c91f-4ef8-a3ec-78ee83f3bbf1\", \"source_title\": \"Jobs at IMU Biosciences\", \"publisher\": \"Nonlinear Project\", \"published_date\": \"2026-06\"}]}, {\"field\": \"travel_indicators\", \"status\": \"not_found\", \"summary\": \"No job ad, careers page or company page found states that roles require business travel, client-site work or field visits; the only on-site note is a Built In listing showing typical time on-site as none.\", \"findings\": [{\"claim\": \"Built In lists an office type described as onsite workspace, with typical time on-site given as none, and a London hybrid role.\", \"value_number\": null, \"signal_type\": \"descriptive\", \"observation\": \"observed\", \"source_url\": \"https://builtinlondon.uk/company/imu-biosciences\", \"source_title\": \"IMU Biosciences London Office: Careers, Perks + Culture\", \"publisher\": \"Built In\", \"published_date\": null}]}, {\"field\": \"funding_financial\", \"status\": \"found\", \"summary\": \"IMU closed a Series A extension in June 2026 to over $53M (£40M), which it says brings total capital raised to about $60M, while aggregator totals differ.\", \"findings\": [{\"claim\": \"IMU closed an oversubscribed Series A extension bringing total raise to over $53M (£40M), co-led by IQ Capital and Molten Ventures.\", \"value_number\": null, \"signal_type\": \"indirect_growth\", \"observation\": \"observed\", \"source_url\": \"https://www.ddw-online.com/imu-biosciences-raises-53m-to-expand-disease-platform-42028-202606/\", \"source_title\": \"IMU Biosciences raises $53m to expand disease platform - Drug Discovery World (DDW)\", \"publisher\": \"Drug Discovery World\", \"published_date\": \"2026-06-08\"}, {\"claim\": \"The company says it has raised $60 million to date.\", \"value_number\": null, \"signal_type\": \"indirect_growth\", \"observation\": \"observed\", \"source_url\": \"https://www.ddw-online.com/imu-biosciences-raises-53m-to-expand-disease-platform-42028-202606/\", \"source_title\": \"IMU Biosciences raises $53m to expand disease platform - Drug Discovery World (DDW)\", \"publisher\": \"Drug Discovery World\", \"published_date\": \"2026-06-08\"}, {\"claim\": \"The round is reported as bringing IMU's total capital raised to $60 million, with proceeds for operational expansion and clinical platform infrastructure.\", \"value_number\": null, \"signal_type\": \"indirect_growth\", \"observation\": \"observed\", \"source_url\": \"https://www.bioxconomy.com/investment/imu-closes-53m-series-a-to-decode-the-immune-system-at-scale\", \"source_title\": \"IMU closes $53m Series A to decode the immune system at scale\", \"publisher\": \"BioXconomy\", \"published_date\": \"2026-06-02\"}, {\"claim\": \"Fierce Biotech reports a £40 million ($53 million) Series A, co-led by IQ Capital and Molten Ventures.\", \"value_number\": null, \"signal_type\": \"indirect_growth\", \"observation\": \"observed\", \"source_url\": \"https://www.fiercebiotech.com/medtech/imu-biosciences-nabs-53m-funding-round-decode-immune-system\", \"source_title\": \"IMU Biosciences nabs $53M funding round to 'decode' the immune system\", \"publisher\": \"Fierce Biotech\", \"published_date\": \"2026-06-03\"}, {\"claim\": \"Earlier Series A of £11.5 million was led by Molten Ventures in January 2024, per Dealroom.\", \"value_number\": null, \"signal_type\": \"indirect_growth\", \"observation\": \"observed\", \"source_url\": \"https://app.dealroom.co/companies/imu_1\", \"source_title\": \"IMU Biosciences company information, funding & investors\", \"publisher\": \"Dealroom\", \"published_date\": \"2024-01\"}, {\"claim\": \"PitchBook, an aggregator, puts total funding at $54.6M, and Tracxn puts it at $14.6M from one round, which appears to predate the 2026 round.\", \"value_number\": null, \"signal_type\": \"indirect_growth\", \"observation\": \"observed\", \"source_url\": \"https://pitchbook.com/profiles/company/432627-67\", \"source_title\": \"IMU Biosciences 2026 Company Profile: Valuation, Funding & Investors\", \"publisher\": \"PitchBook\", \"published_date\": \"2026\"}]}, {\"field\": \"recent_expansion\", \"status\": \"found\", \"summary\": \"Recent expansion includes the 2026 Series A extension to fund operations and clinical programmes, a June 2026 Waters partnership, and a Eurofins partnership.\", \"findings\": [{\"claim\": \"Proceeds from the 2026 round are intended to fund operational expansion and clinical platform development, along with several clinical programmes.\", \"value_number\": null, \"signal_type\": \"indirect_growth\", \"observation\": \"observed\", \"source_url\": \"https://european-biotechnology.com/latest-news/imu-biosciences-secures-us53m-to-decode-the-immune-system/\", \"source_title\": \"IMU Biosciences secures US$53m to decode the immune system - European Biotechnology Magazine\", \"publisher\": \"European Biotechnology Magazine\", \"published_date\": \"2026-06\"}, {\"claim\": \"Waters Corporation and IMU announced a strategic partnership on 24 June 2026 to speed development of IMU's next-generation AI-powered immunology platform.\", \"value_number\": null, \"signal_type\": \"indirect_growth\", \"observation\": \"observed\", \"source_url\": \"https://simplify.jobs/c/IMU-Biosciences\", \"source_title\": \"Jobs and Employment at IMU Biosciences\", \"publisher\": \"Simplify\", \"published_date\": \"2026-06-24\"}, {\"claim\": \"A September 2026 item says Eurofins granted exclusive access for transplant clinical development programmes.\", \"value_number\": null, \"signal_type\": \"indirect_growth\", \"observation\": \"observed\", \"source_url\": \"https://simplify.jobs/c/IMU-Biosciences\", \"source_title\": \"Jobs and Employment at IMU Biosciences\", \"publisher\": \"Simplify\", \"published_date\": \"2026-09\"}, {\"claim\": \"Coulter Partners placed a new CEO and Chief Business Officer at IMU, indicating leadership build-out.\", \"value_number\": null, \"signal_type\": \"indirect_growth\", \"observation\": \"observed\", \"source_url\": \"https://www.bioindustry.org/member/imu-biosciences/\", \"source_title\": \"Member profile: IMU Biosciences\", \"publisher\": \"BioIndustry Association\", \"published_date\": null}]}, {\"field\": \"support_complexity\", \"status\": \"found\", \"summary\": \"Sources describe multi-party clinical and data programmes with partners and cross-country roles, but none mention field support or customer-site work.\", \"findings\": [{\"claim\": \"IMU is involved in a UK consortium analysing blood samples to develop predictive biomarkers for immunotherapy response and toxicity.\", \"value_number\": null, \"signal_type\": \"descriptive\", \"observation\": \"observed\", \"source_url\": \"https://mtec-sc.org/life-sciences/imu-biosciences\", \"source_title\": \"IMU Biosciences\", \"publisher\": \"MTEC (mtec-sc.org)\", \"published_date\": null}, {\"claim\": \"IMU has announced a collaboration with UK Biobank to generate large-scale multi-omic immune profiling data.\", \"value_number\": null, \"signal_type\": \"descriptive\", \"observation\": \"observed\", \"source_url\": \"https://www.bioindustry.org/member/imu-biosciences/\", \"source_title\": \"Member profile: IMU Biosciences\", \"publisher\": \"BioIndustry Association\", \"published_date\": null}, {\"claim\": \"Dataset reportedly covers more than 25,000 individuals, drawn from patient samples and population-wide clinical data.\", \"value_number\": 25000, \"signal_type\": \"descriptive\", \"observation\": \"observed\", \"source_url\": \"https://www.ddw-online.com/imu-biosciences-raises-53m-to-expand-disease-platform-42028-202606/\", \"source_title\": \"IMU Biosciences raises $53m to expand disease platform - Drug Discovery World (DDW)\", \"publisher\": \"Drug Discovery World\", \"published_date\": \"2026-06-08\"}]}], \"conflicts\": [], \"summary\": \"IMU Biosciences is a London-based immune-profiling and AI biotech that closed a roughly $53M (£40M) Series A extension in June 2026 and says it has raised about $60M in total. Its hiring is small, at about two open roles, and it has partnerships with Waters and Eurofins. No source states that its roles require travel, so travel should be checked directly with the account before pitching.\", \"research_limitations\": [\"No travel requirement, client-site or field-role language was found on the company careers page or in job ads, so travel_indicators is not_found.\", \"Headcount figures come from aggregators (PitchBook, Built In, Glassdoor, Dealroom, landed.jobs, LinkedIn) that give different bands and dates; none is an official company figure.\", \"The company's own careers page content returned in search did not show full job descriptions, so the travel wording in those ads could not be checked.\", \"The Simplify and Landed pages are job-board aggregators and are used for dates and listings only; the Waters and Eurofins items came from a Simplify summary, not the original press releases.\", \"Total funding figures differ by source (Tracxn $14.6M, Startupintros $15.0M, PitchBook $54.6M, company-stated $60M); these reflect different dates and estimates rather than a conflict on the same fact.\"]}",
+  "analysis": {
+    "parse_ok": true,
+    "raw_employee_values_before_guard": [
+      {
+        "value": null,
+        "claim": "LinkedIn company page lists company size as 11-50 employees."
+      },
+      {
+        "value": null,
+        "claim": "Dealroom, an aggregator, lists the headcount band as 51-200 people."
+      },
+      {
+        "value": null,
+        "claim": "Glassdoor, an aggregator, lists 1 to 50 employees."
+      },
+      {
+        "value": 25.0,
+        "claim": "PitchBook, an aggregator, lists 25 total employees."
+      },
+      {
+        "value": 53.0,
+        "claim": "Built In London, an aggregator, lists 53 total employees."
+      },
+      {
+        "value": 80.0,
+        "claim": "Landed.jobs, an aggregator, lists headcount as 80 with a 2026 snapshot."
+      }
+    ],
+    "band_guard_changes": [],
+    "field_statuses": {
+      "industry_business_model": "found",
+      "geographic_footprint": "found",
+      "employee_count": "found",
+      "hiring_trends": "found",
+      "travel_indicators": "not_found",
+      "funding_financial": "found",
+      "recent_expansion": "found",
+      "support_complexity": "found"
+    },
+    "findings_kept": 33,
+    "findings_dropped": [],
+    "employee_values": [
+      {
+        "value": null,
+        "claim": "LinkedIn company page lists company size as 11-50 employees.",
+        "url": "https://uk.linkedin.com/company/imubiosciences",
+        "reliability": "aggregator",
+        "date": null
+      },
+      {
+        "value": null,
+        "claim": "Dealroom, an aggregator, lists the headcount band as 51-200 people.",
+        "url": "https://app.dealroom.co/companies/imu_1",
+        "reliability": "secondary",
+        "date": null
+      },
+      {
+        "value": null,
+        "claim": "Glassdoor, an aggregator, lists 1 to 50 employees.",
+        "url": "https://www.glassdoor.co.uk/Overview/Working-at-IMU-Biosciences-EI_IE10722041.11,26.htm",
+        "reliability": "secondary",
+        "date": null
+      },
+      {
+        "value": 25.0,
+        "claim": "PitchBook, an aggregator, lists 25 total employees.",
+        "url": "https://pitchbook.com/profiles/company/432627-67",
+        "reliability": "aggregator",
+        "date": "2026"
+      },
+      {
+        "value": 53.0,
+        "claim": "Built In London, an aggregator, lists 53 total employees.",
+        "url": "https://builtinlondon.uk/company/imu-biosciences",
+        "reliability": "secondary",
+        "date": null
+      },
+      {
+        "value": 80.0,
+        "claim": "Landed.jobs, an aggregator, lists headcount as 80 with a 2026 snapshot.",
+        "url": "https://www.landed.jobs/companies/imu-biosciences",
+        "reliability": "secondary",
+        "date": "2026-10-19"
+      }
+    ],
+    "travel_findings": [
+      {
+        "claim": "Built In lists an office type described as onsite workspace, with typical time on-site given as none, and a London hybrid role.",
+        "signal_type": "descriptive",
+        "observation": "observed",
+        "url": "https://builtinlondon.uk/company/imu-biosciences"
+      }
+    ],
+    "conflicts": [],
+    "identity": [
+      true,
+      "The domain imubiosciences.com is the company's own site, and its contact and address details match the London biotech described by Dealroom, LinkedIn, Bioindustry, Built In and trade press. Several aggregator profiles also link to that domain."
+    ]
+  }
+}

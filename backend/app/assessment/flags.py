@@ -22,6 +22,7 @@ FLAG_LABELS = {
 FLAG_ORDER = ["tier_mismatch", "data_conflict", "travel_potential", "growth_opportunity", "insufficient_evidence"]
 SEVERITY_RANK = {"material": 3, "moderate": 2, "low": 1}
 
+ROUTING_FIELDS = {"employee_count", "travel_indicators"}
 GROWTH_FIELDS = {"funding_financial", "recent_expansion", "hiring_trends", "geographic_footprint"}
 
 
@@ -99,7 +100,9 @@ def build_day0_flags(
     if conflict:
         flags.append(conflict)
     for c in s.llm_conflicts:
-        if c.get("field") == "employee_count" and conflict:
+        # Only conflicts in fields that can affect routing become flags. Others (e.g. differing
+        # funding totals) stay visible in the research section without raising attention.
+        if c.get("field") not in ROUTING_FIELDS or (c.get("field") == "employee_count" and conflict):
             continue
         flags.append(_flag("data_conflict", "low",
                            [f"Research reported conflicting sources for {c.get('field', 'a field').replace('_', ' ')}: "

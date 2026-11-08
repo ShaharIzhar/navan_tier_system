@@ -68,6 +68,7 @@ def _run_dict(r: ResearchRun, include_raw: bool = False) -> dict:
         "output_tokens": r.output_tokens, "web_search_requests": r.web_search_requests, "llm_calls": r.llm_calls,
         "approx_cost_usd": r.approx_cost_usd, "error": r.error, "summary": r.summary,
         "limitations": r.limitations or [], "dropped_findings": r.dropped_findings or [],
+        "normalized_findings": r.normalized_findings or [], "search_queries": r.search_queries or [],
         "conflicts": (r.parsed or {}).get("conflicts", []),
         "search_result_count": len(r.searched_results or []),
     }

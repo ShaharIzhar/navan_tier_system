@@ -27,6 +27,7 @@ class LLMResult:
     llm_calls: int = 1
     stop_reason: Optional[str] = None
     search_errors: list[str] = field(default_factory=list)
+    search_queries: list[str] = field(default_factory=list)
 
 
 class LLMClient(Protocol):
@@ -112,6 +113,10 @@ class AnthropicResearchClient:
                     url = getattr(c, "url", None)
                     if url:
                         result.cited_urls.append(url)
+            elif btype == "server_tool_use" and getattr(block, "name", "") == "web_search":
+                q = (getattr(block, "input", None) or {}).get("query")
+                if q:
+                    result.search_queries.append(q)
             elif btype == "web_search_tool_result":
                 content = block.content
                 if isinstance(content, list):

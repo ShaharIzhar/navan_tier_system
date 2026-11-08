@@ -72,13 +72,62 @@ For employee_count findings, put the number in value_number.
 Return JSON in exactly this shape:
 {shape}"""
 
+
 # ---------------------------------------------------------------------------
-# Registry. v2 is added after observing v1 behaviour (see docs/llm_experiments.md).
+# v2: refined after running v1 on P-007, P-009, P-033 (see docs/llm_experiments.md).
+# Observed v1 failures this addresses:
+#   1. Headcount bands ("101-250", "<25") were turned into exact numbers in value_number.
+#   2. No search ever targeted travel requirements; travel_indicators was not_found in 3/3 runs.
+#   3. Method/date differences between databases were reported as conflicts.
+# ---------------------------------------------------------------------------
+SYSTEM_V2 = SYSTEM_V1 + """
+- Several pages repeating the same figure or announcement are one source, not several.
+- Treat data aggregators (LinkedIn, ZoomInfo, PitchBook, Crunchbase, Tracxn, Dealroom and similar) as estimates."""
+
+USER_V2 = """Research this company:
+Company name: {company_name}
+Website domain: {domain}
+
+Cover these fields:
+{fields}
+
+Search plan (you have a small number of searches; use them in this order):
+1. The company's own website and basic profile (what it does, where it operates, size).
+2. Travel requirements: search for the company's job postings or careers page together with words like \
+"travel", "client site", "on-site", "field". This is the most important field for this research. \
+Report what job ads or company pages actually say. If you find nothing, mark travel_indicators not_found.
+3. Recent funding, expansion and hiring news.
+
+signal_type meanings:
+- direct_travel: a source explicitly states that employees travel for work (e.g. a job ad saying \
+"travel required" or "50% travel", field engineers visiting customer sites, consultants based at client sites). \
+Use this ONLY when the source states it. If you are guessing that a role probably involves travel, \
+set observation to "inferred".
+- indirect_growth: growth signals (funding, new offices, hiring growth, international expansion)
+- descriptive: everything else
+
+Employee count rules:
+- Put a number in value_number ONLY when the source states one exact headcount (e.g. "53 employees").
+- For a band or range (e.g. "11-50", "51-200", "fewer than 25"), set value_number to null and keep the band in the claim.
+- Include the "as of" date in published_date when the source gives one.
+
+Conflict rules:
+- Report a conflict only when sources disagree about the same fact for the same period in a way that \
+changes the conclusion (for example, one source says 40 staff and another says 400).
+- Different estimates from different databases, or figures from different dates, are normal. \
+Describe them in the field summary, not as a conflict, and use status "found".
+
+Return JSON in exactly this shape:
+{shape}"""
+
+# ---------------------------------------------------------------------------
+# Registry. Old versions are kept unchanged for comparison.
 # ---------------------------------------------------------------------------
 PROMPTS: dict[str, dict[str, str]] = {
     "v1": {"system": SYSTEM_V1, "user": USER_V1},
+    "v2": {"system": SYSTEM_V2, "user": USER_V2},
 }
-CURRENT_VERSION = "v1"
+CURRENT_VERSION = "v2"
 
 
 def build_standard_prompt(company_name: str, domain: str, version: str | None = None) -> tuple[str, str, str]:

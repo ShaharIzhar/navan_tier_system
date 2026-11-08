@@ -67,6 +67,8 @@ class ResearchRun(SQLModel, table=True):
     parsed: Optional[dict] = json_col()
     searched_results: Optional[list] = json_col()   # what the search tool actually returned
     dropped_findings: Optional[list] = json_col()   # findings removed by validation, with reason
+    normalized_findings: Optional[list] = json_col()  # findings changed by deterministic post-processing
+    search_queries: Optional[list] = json_col()     # queries the model actually ran
     summary: Optional[str] = None
     limitations: Optional[list] = json_col()
 

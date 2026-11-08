@@ -15,7 +15,8 @@ from ..assessment.engine import reassess
 from ..models import Evidence, FieldStatus, Prospect, ResearchRun, utcnow
 from . import prompts
 from .client import AnthropicResearchClient, LLMClient, LLMResult, ResearchProviderError, estimate_cost
-from .evidence import ParseError, classify_reliability, is_future, is_stale, parse_research_output, validate_citations
+from .evidence import (ParseError, classify_reliability, clear_band_headcounts, is_future, is_stale,
+                       parse_research_output, validate_citations)
 from .schema import RESEARCH_FIELDS, ResearchOutput
 
 ClientFactory = Callable[[], LLMClient]
@@ -161,6 +162,8 @@ def _execute(session, prospect, kind, version, system, user, max_searches, focus
     allowed = {r["url"] for r in result.search_results} | set(result.cited_urls)
     output, dropped = validate_citations(output, allowed)
     run.dropped_findings = dropped
+    run.normalized_findings = clear_band_headcounts(output)
+    run.search_queries = result.search_queries
     run.parsed = output.model_dump()
     run.summary = output.summary
     run.limitations = output.research_limitations

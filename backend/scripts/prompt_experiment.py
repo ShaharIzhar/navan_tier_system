@@ -21,7 +21,8 @@ from app import config  # noqa: E402
 from app.importer import read_csv  # noqa: E402
 from app.research import prompts  # noqa: E402
 from app.research.client import AnthropicResearchClient, ResearchProviderError, estimate_cost  # noqa: E402
-from app.research.evidence import ParseError, classify_reliability, parse_research_output, validate_citations  # noqa: E402
+from app.research.evidence import (ParseError, classify_reliability, clear_band_headcounts, parse_research_output,
+                                   validate_citations)  # noqa: E402
 
 OUT = config.REPO_DIR / "docs" / "experiments"
 
@@ -59,7 +60,14 @@ def analyse(text: str, search_results: list[dict], domain: str) -> dict:
         return out
     allowed = {r["url"] for r in search_results}
     validated, dropped = validate_citations(parsed, allowed)
+    raw_employee_values = [
+        {"value": x.value_number, "claim": x.claim}
+        for f in validated.fields if f.field == "employee_count" for x in f.findings
+    ]
+    band_fixes = clear_band_headcounts(validated)
     out.update(
+        raw_employee_values_before_guard=raw_employee_values,
+        band_guard_changes=band_fixes,
         parse_ok=True,
         field_statuses={f.field: f.status for f in validated.fields},
         findings_kept=sum(len(f.findings) for f in validated.fields),
@@ -96,6 +104,7 @@ def run_case(client, label: str, system: str, user: str, max_searches: int, doma
                       "approx_cost_usd": estimate_cost(res.input_tokens, res.output_tokens, res.web_search_requests)},
             "stop_reason": res.stop_reason,
             "search_errors": res.search_errors,
+            "search_queries": res.search_queries,
             "search_results": res.search_results,
             "system_prompt": system,
             "user_prompt": user,
