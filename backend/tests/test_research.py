@@ -256,3 +256,10 @@ def test_only_one_deep_research_runs_at_a_time_and_restart_cleans_up(session, fa
     session.commit()
     assert rs.mark_interrupted_runs(session) == 1
     assert session.get(ResearchRun, stuck.id).status == "failed"
+
+
+
+def test_research_output_without_summary_is_accepted():
+    from app.research.schema import ResearchOutput
+    out = ResearchOutput.model_validate({"company_identity_confirmed": True, "fields": [], "conflicts": []})
+    assert out.summary == ""

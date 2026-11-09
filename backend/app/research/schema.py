@@ -86,5 +86,5 @@ class ResearchOutput(BaseModel):
     identity_note: str = ""
     fields: list[FieldResult]
     conflicts: list[Conflict] = Field(default_factory=list)
-    summary: str
+    summary: str = ""  # nice-to-have; long Deep Research answers sometimes leave it out
     research_limitations: list[str] = Field(default_factory=list)

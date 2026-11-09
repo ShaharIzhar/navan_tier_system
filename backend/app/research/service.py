@@ -329,14 +329,25 @@ class _StoredRunClient:
         self.run = run
 
     def complete(self, system: str, user: str, max_searches: Optional[int]) -> LLMResult:
-        return LLMResult(text=self.run.raw_text or "", search_results=self.run.searched_results or [],
+        # Original answer, or the repaired one when only that is valid JSON.
+        parts = (self.run.raw_text or "").split("\n\n--- repair attempt ---\n")
+        text = parts[0]
+        for candidate in parts:
+            try:
+                parse_research_output(candidate)
+                text = candidate
+                break
+            except Exception:  # noqa: BLE001
+                continue
+        return LLMResult(text=text, search_results=self.run.searched_results or [],
                          search_queries=self.run.search_queries or [], llm_calls=0)
 
 
 def reprocess_run(session: Session, run_id: int, actor: str = "system:reprocess") -> ResearchRun:
     """Re-run validation and evidence storage on a stored run's raw output. No AI call, no cost."""
     old = session.get(ResearchRun, run_id)
-    if old is None or old.status not in ("ok", "partial") or not old.raw_text:
+    # Failed runs can be recovered too when the search results were saved (e.g. after a validation fix).
+    if old is None or not old.raw_text or (old.status not in ("ok", "partial") and not old.searched_results):
         raise ValueError("Run cannot be reprocessed.")
     prospect = session.get(Prospect, old.prospect_id)
     global _client_factory
