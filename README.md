@@ -32,7 +32,7 @@ Requirements: Python 3.11+ and Node 20+.
 # 1. Backend
 cd backend
 python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
-cp .env.example .env          # add ANTHROPIC_API_KEY=... (optional, see below)
+cp .env.example .env          # optional: add ANTHROPIC_API_KEY for live research (see demo mode below)
 .venv/bin/uvicorn app.main:app --port 8000
 
 # 2. Frontend (new terminal)
@@ -43,16 +43,17 @@ npm run dev                    # http://localhost:5173
 
 The CSV in `data/prospects.csv` is imported automatically on first start. Every company gets a rules-only assessment straight away. Enter your name under **Acting as** in the sidebar, because it's recorded in the audit trail.
 
-**Research data is not committed** (the SQLite file is in `.gitignore`). A fresh start has rules-only assessments. To populate the 10 demo companies with live research (about $0.40), either:
-- set `AUTO_RESEARCH_ON_IMPORT=true` in `backend/.env` before the first start (it runs in the background), or
-- click **Run standard research** on each company.
-
-**Without an API key**, rules, manual enrichment, reviews, Day 30 reassessment and reports all work. Research requests fail visibly with "Research provider not configured", and no research results are simulated.
+**No API key? It still works (demo mode).** With no `ANTHROPIC_API_KEY`, the backend replays **recorded real Claude runs** from `data/demo_snapshot.json`: the 10 demo companies researched live on 8 November 2026, plus the AI judge summary.
+- Replays go through the same validation, evidence storage and rules as live research, so flags, proposals and the queue match the live result.
+- Everything replayed is labelled **Recorded**, and a purple banner says demo mode is on. Nothing is generated or invented.
+- Companies without a recording show "No API key and no recorded research" if you click research.
+- Add a key to switch to live research. Set `DEMO_REPLAY=false` to turn replay off.
+- To refresh the recordings after live runs: `cd backend && .venv/bin/python -m scripts.export_demo_snapshot`.
 
 **Tests**
 
 ```bash
-cd backend && .venv/bin/python -m pytest -q     # 70 tests
+cd backend && .venv/bin/python -m pytest -q     # 74 tests
 cd frontend && npm test                          # 3 smoke tests
 ```
 
@@ -241,7 +242,7 @@ backend/app/
   reviews/service.py       approve / reject / request info + audit
   enrichment.py            manual values, synthetic test evidence
   api/routes.py            FastAPI endpoints
-backend/tests/             70 pytest tests
+backend/tests/             74 pytest tests
 backend/scripts/prompt_experiment.py   reproduces the LLM experiments
 frontend/src/pages/        ReviewQueue, Companies, CompanyDetail, TierReview, Reviews, Reports
 docs/                      flowchart, llm_experiments (+ raw outputs), evaluation, cases

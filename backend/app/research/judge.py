@@ -131,6 +131,9 @@ def get_or_create_judgement(session: Session, proposal_id: int, force: bool = Fa
                     "created_at": utcnow().isoformat()}
     try:
         client = research_service._client_factory()
+        if getattr(client, "replayed", False):
+            result["model"] = f"{config.RESEARCH_MODEL} (recorded)"
+            result["replayed"] = True
         res = client.complete(SYSTEM, USER.format(facts=json.dumps(facts, indent=1, default=str)), None)
         result["approx_cost_usd"] = estimate_cost(res.input_tokens, res.output_tokens, 0)
         out = JudgeOutput.model_validate(extract_json(res.text))

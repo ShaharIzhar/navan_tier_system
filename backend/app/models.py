@@ -51,6 +51,7 @@ class ResearchRun(SQLModel, table=True):
     prospect_id: str = Field(foreign_key="prospect.id", index=True)
     kind: str  # "standard" | "deep"
     status: str = "running"  # running | ok | partial | failed
+    replayed: bool = False   # True = recorded real run replayed in demo mode (no API key)
     prompt_version: str = ""
     model: str = ""
     focus_fields: Optional[list] = json_col()

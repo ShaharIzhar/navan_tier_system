@@ -30,7 +30,7 @@ class LLMResult:
     search_queries: list[str] = field(default_factory=list)
 
 
-class LLMClient(Protocol):
+class LLMClient(Protocol):  # implemented by AnthropicResearchClient and replay.ReplayClient
     def complete(self, system: str, user: str, max_searches: Optional[int]) -> LLMResult: ...
 
 

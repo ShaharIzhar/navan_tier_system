@@ -38,11 +38,36 @@ def _auto_research() -> None:
                 log.exception("auto research failed for %s", pid)
 
 
+def _replay_recordings(session: Session) -> None:
+    """Demo mode: replay recorded standard runs (then deep runs) for companies with no research yet."""
+    from .models import ResearchRun
+    from .research.replay import load_snapshot
+    from .research.service import run_deep_research, run_standard_research
+
+    snap = load_snapshot() or {}
+    for kind in ("standard", "deep"):
+        for rec in snap.get("runs", []):
+            if rec["kind"] != kind:
+                continue
+            done = session.exec(select(ResearchRun).where(ResearchRun.prospect_id == rec["prospect_id"],
+                                                          ResearchRun.kind == kind)).first()
+            if done:
+                continue
+            if kind == "standard":
+                run_standard_research(session, rec["prospect_id"], actor="system:demo-replay")
+            else:
+                run_deep_research(session, rec["prospect_id"], rec.get("focus_fields"), actor="system:demo-replay")
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     init_db()
     with Session(get_engine()) as session:
         bootstrap(session)
+        from .research.replay import provider_mode
+
+        if provider_mode() == "replay":
+            _replay_recordings(session)
     if config.AUTO_RESEARCH_ON_IMPORT and config.ANTHROPIC_API_KEY:
         threading.Thread(target=_auto_research, daemon=True).start()
     yield

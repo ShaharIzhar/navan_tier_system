@@ -193,6 +193,9 @@ export default function CompanyDetail() {
             summary={
               okRun ? (
                 <>
+                  {okRun.replayed && (
+                    <span className="badge rel rel-synthetic" style={{ fontWeight: 600 }} title="Recorded real Claude run replayed in demo mode (no API key)">Recorded</span>
+                  )}
                   {covFound}/8 found · {covGaps} gaps
                   <Info text={`Last ${okRun.kind} run ${when(okRun.finished_at)} · ${okRun.web_search_requests} web searches · ≈$${okRun.approx_cost_usd.toFixed(3)} · prompt ${okRun.prompt_version}`} />
                 </>
@@ -340,7 +343,7 @@ export default function CompanyDetail() {
                 {data.research_runs.map((r) => (
                   <li key={r.id} className="spread">
                     <span className="small">
-                      <strong>{r.kind}</strong> · {r.prompt_version} · ≈${r.approx_cost_usd.toFixed(3)}
+                      <strong>{r.kind}</strong>{r.replayed ? ' · recorded' : ''} · {r.prompt_version} · ≈${r.approx_cost_usd.toFixed(3)}
                       <Info text={`${when(r.started_at)} · ${r.model} · ${r.web_search_requests} searches · ${r.llm_calls} AI call(s)${r.error ? ` · ${r.error}` : ''}`} />
                     </span>
                     <span className={`badge ${r.status === 'failed' ? 'st-conflicting' : r.status === 'partial' ? 'st-stale' : 'st-found'}`}>{r.status}</span>

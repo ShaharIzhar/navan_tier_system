@@ -21,6 +21,7 @@ export default function JudgeCard({ proposalId }: { proposalId: number }) {
         <span className="judge-mark" aria-hidden>✦</span>
         <span className="judge-title">AI judge</span>
         <Info text="Claude Haiku reads only this proposal's reasons, evidence and doubts, and sums up why it exists. It cannot change anything; you decide. Numbers it uses are checked against the evidence." />
+        {j?.replayed && <span className="badge rel rel-synthetic" title="Recorded real Claude output replayed in demo mode">Recorded</span>}
         {s && (
           <span className={`badge ${s.cls}`} title={s.hint} style={{ marginLeft: 'auto' }}>{s.label}</span>
         )}

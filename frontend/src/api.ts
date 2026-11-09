@@ -130,6 +130,7 @@ export interface ResearchRun {
   id: number
   kind: 'standard' | 'deep'
   status: string
+  replayed: boolean
   prompt_version: string
   model: string
   focus_fields: string[] | null
@@ -216,7 +217,7 @@ export interface ProposalDetail {
 }
 
 export interface Meta {
-  provider: { configured: boolean; model: string; web_search_tool: string; standard_max_searches: number; deep_max_searches: number; prompt_version: string }
+  provider: { configured: boolean; mode: 'live' | 'replay' | 'off'; recorded_companies: string[]; model: string; web_search_tool: string; standard_max_searches: number; deep_max_searches: number; prompt_version: string }
   research_fields: Record<string, string>
   flag_labels: Record<string, string>
   attention_labels: Record<string, string>
@@ -235,6 +236,7 @@ export interface Judgement {
   model: string
   created_at: string
   approx_cost_usd?: number
+  replayed?: boolean
   from_cache: boolean
 }
 

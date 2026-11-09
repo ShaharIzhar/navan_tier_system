@@ -27,6 +27,8 @@ TIER2_EMPLOYEES_MIN = 150
 # --- LLM / research provider --------------------------------------------------
 ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")
 RESEARCH_MODEL = os.getenv("RESEARCH_MODEL", "claude-haiku-5-5")
+# Without an API key, replay recorded real runs from data/demo_snapshot.json (clearly labelled).
+DEMO_REPLAY = os.getenv("DEMO_REPLAY", "true").lower() == "true"
 # Haiku 5.5 uses the basic web search tool version (dynamic filtering variants are
 # Opus/Sonnet only).
 WEB_SEARCH_TOOL_TYPE = os.getenv("WEB_SEARCH_TOOL_TYPE", "web_search_20250305")

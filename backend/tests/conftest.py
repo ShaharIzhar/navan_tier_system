@@ -25,6 +25,7 @@ def db_url(tmp_path):
 @pytest.fixture()
 def session(db_url, monkeypatch):
     monkeypatch.setattr(config, "CSV_PATH", CSV)
+    monkeypatch.setattr(config, "DEMO_REPLAY", False)  # tests never depend on the recorded snapshot
     init_db(db_url)
     from app.main import bootstrap
 

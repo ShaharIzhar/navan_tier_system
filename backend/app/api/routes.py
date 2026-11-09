@@ -62,6 +62,7 @@ def _evidence_dict(e: Evidence) -> dict:
 def _run_dict(r: ResearchRun, include_raw: bool = False) -> dict:
     d = {
         "id": r.id, "kind": r.kind, "status": r.status, "prompt_version": r.prompt_version, "model": r.model,
+        "replayed": r.replayed,
         "focus_fields": r.focus_fields, "started_at": r.started_at.isoformat(),
         "finished_at": r.finished_at.isoformat() if r.finished_at else None,
         "research_cutoff": r.research_cutoff.isoformat(), "input_tokens": r.input_tokens,

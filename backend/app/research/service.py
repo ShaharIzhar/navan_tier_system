@@ -20,7 +20,15 @@ from .evidence import (ParseError, classify_reliability, clear_band_headcounts, 
 from .schema import RESEARCH_FIELDS, ResearchOutput
 
 ClientFactory = Callable[[], LLMClient]
-_client_factory: ClientFactory = lambda: AnthropicResearchClient()  # noqa: E731
+def _default_client() -> LLMClient:
+    from .replay import ReplayClient, provider_mode
+
+    if provider_mode() == "replay":
+        return ReplayClient()
+    return AnthropicResearchClient()
+
+
+_client_factory: ClientFactory = _default_client
 
 
 def set_client_factory(factory: ClientFactory) -> None:
@@ -30,8 +38,13 @@ def set_client_factory(factory: ClientFactory) -> None:
 
 
 def provider_status() -> dict:
+    from .replay import provider_mode, recorded_domains
+
+    mode = provider_mode()
     return {
-        "configured": bool(config.ANTHROPIC_API_KEY),
+        "configured": mode != "off",
+        "mode": mode,  # live | replay | off
+        "recorded_companies": recorded_domains() if mode == "replay" else [],
         "model": config.RESEARCH_MODEL,
         "web_search_tool": config.WEB_SEARCH_TOOL_TYPE,
         "standard_max_searches": config.STANDARD_MAX_SEARCHES,
@@ -125,6 +138,19 @@ def _execute(session, prospect, kind, version, system, user, max_searches, focus
 
     try:
         client = _client_factory()
+        if getattr(client, "replayed", False):
+            from .replay import recorded_run
+
+            rec = recorded_run(prospect.domain, kind)
+            run.replayed = True
+            run.model = f"{rec['model']} (recorded)" if rec else "recorded"
+            if rec:
+                from datetime import datetime
+
+                run.research_cutoff = datetime.fromisoformat(rec["research_cutoff"])
+                run.prompt_version = rec["prompt_version"]
+            session.add(run)
+            session.commit()
         result = client.complete(system, user, max_searches)
     except ResearchProviderError as e:
         return _fail(session, run, str(e))
