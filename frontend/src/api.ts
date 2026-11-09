@@ -263,8 +263,6 @@ export const api = {
     post<{ before: Assessment | null; after: Assessment; llm_calls: number }>(`/prospects/${id}/enrichment`, body),
   synthetic: (id: string, body: { field: string; claim: string; value_number?: number | null; signal_type: string; entered_by: string }) =>
     post<Evidence>(`/prospects/${id}/synthetic-evidence`, body),
-  resolveConflict: (id: string, body: { value: number; reviewer: string; choice: 'keep_current' | 'use_source' | 'custom'; source_url?: string | null; source_label?: string | null; note?: string }) =>
-    post<{ before: Assessment | null; after: Assessment; llm_calls: number }>(`/prospects/${id}/resolve-employee-conflict`, body),
   withdraw: (evidenceId: number, actor: string, reason: string) => post<Evidence>(`/evidence/${evidenceId}/withdraw`, { actor, reason }),
   releaseDay30: (id: string) => post<Assessment>(`/prospects/${id}/day30/release`),
   releaseAllDay30: () => post<{ released: string[] }>('/day30/release-all'),

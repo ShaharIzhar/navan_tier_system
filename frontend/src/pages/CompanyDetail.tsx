@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { api, type DeepPlan, type Flag, type ProspectDetail } from '../api'
-import DecisionPanel from '../components/DecisionPanel'
 import EnrichmentForm from '../components/EnrichmentForm'
 import EvidenceList from '../components/EvidenceList'
 import { Clamp, Hint, Info, Section } from '../components/Section'
@@ -82,8 +81,6 @@ export default function CompanyDetail() {
           Contains a <strong>SYNTHETIC test observation</strong>, which is not real research. <Info text={g('synthetic')} />
         </div>
       )}
-
-      <DecisionPanel data={data} reviewer={reviewer} onDone={reload} />
 
       <div className="detail-layout">
         <div className="stack">

@@ -353,35 +353,3 @@ def test_recommendation_uses_most_severe_flag_of_each_type():
     flags = [{"type": "data_conflict", "severity": "material"}, {"type": "travel_potential", "severity": "moderate"},
              {"type": "data_conflict", "severity": "low"}]
     assert recommend(flags, [], True, False, {}, None).startswith("Confirm the employee count")
-
-
-def test_resolving_conflict_by_keeping_current_value(session):
-    """Reviewer says the current (enrichment) headcount is right: conflict resolved, the
-    headcount proposal is withdrawn, the company leaves Review Now, no tier change."""
-    from app.enrichment import resolve_employee_conflict
-
-    p = _make_p007_proposal(session)
-    e, after, before = resolve_employee_conflict(session, "P-007", 155, "Sam", "keep_current",
-                                                 source_label="Enrichment estimate (dataset)")
-    assert before.attention == "review_now"
-    assert flag(after, "data_conflict")["severity"] == "low"
-    assert "tier_mismatch" not in flag_types(after)
-    assert after.attention != "review_now"
-    assert session.get(TierProposal, p.id).status == "superseded"
-    assert session.get(Prospect, "P-007").applied_tier == 2
-    assert e.reliability == "manual_verified" and e.origin == "human"
-    assert session.exec(select(AuditEvent).where(AuditEvent.action == "conflict_resolved")).one()
-    # the synthetic/research evidence is kept
-    assert session.exec(select(Evidence).where(Evidence.origin == "synthetic_test")).one().superseded_by is None
-
-
-def test_resolving_conflict_with_research_value_creates_rule_correction(session):
-    from app.enrichment import resolve_employee_conflict
-
-    _make_p007_proposal(session)
-    _, after, _ = resolve_employee_conflict(session, "P-007", 90, "Sam", "use_source", source_label="Source X")
-    assert after.baseline["tier"] == 3
-    props = session.exec(select(TierProposal).where(TierProposal.prospect_id == "P-007",
-                                                    TierProposal.status == "open")).all()
-    assert len(props) == 1 and props[0].proposed_tier == 3  # still needs a human to apply the tier
-    assert session.get(Prospect, "P-007").applied_tier == 2

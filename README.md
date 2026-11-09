@@ -58,7 +58,7 @@ cd frontend && npm test                          # 3 smoke tests
 
 ### A 5-minute demo
 
-1. **Day 0 conflict (IMU Biosciences, P-007).** Open the company. It is Tier 2 *only* because the enrichment says 155 employees ($48K GBV). Public research finds 25 (PitchBook) and 53 (Built In) employees, plus an 11-50 LinkedIn band. The two straddle 150, so the system raises a **material Data Conflict** and a Tier 2 → Tier 3 standard-rule proposal. The **Decision needed** panel at the top shows the competing numbers as a diff (− in use now, + found). Click *Keep current* or *Use this*, or approve or reject the tier change right there.
+1. **Day 0 conflict (IMU Biosciences, P-007).** Open the company. It is Tier 2 *only* because the enrichment says 155 employees ($48K GBV). Public research finds 25 (PitchBook) and 53 (Built In) employees, plus an 11-50 LinkedIn band. The two straddle 150, so the system raises a **material Data Conflict** and a Tier 2 → Tier 3 standard-rule proposal. Open the review and reject or approve it with a comment.
 2. **Manual enrichment, no AI.** On Quantum Motion (P-011, headcount missing, provisional Tier 3), click *Add or correct a value* and enter 180 employees. The before/after diff shows baseline Tier 2 and a new proposal. 0 AI calls are made, and the applied tier doesn't change until someone approves.
 3. **Day 30.** On *All companies*, click **Receive all Day 30 activity**. NexGen Cloud, Greyparrot and Puttshack get Tier 2 → Tier 1 *evidence-based override* proposals. Each company's Day 0 assessment stays unchanged in its history.
 4. **Restart the backend.** All decisions, evidence and audit events are still there (SQLite).
