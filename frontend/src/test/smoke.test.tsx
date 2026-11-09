@@ -113,9 +113,9 @@ describe('Tier review', () => {
     )
     expect(await screen.findByText(/Tier 2 rests only on 155 employees/)).toBeInTheDocument()
     expect(screen.getByText('Weakly supported')).toBeInTheDocument()
-    const reject = await screen.findByRole('button', { name: 'Reject' })
+    const reject = await screen.findByRole('button', { name: 'Reject change' })
     expect(reject).toBeDisabled()
-    expect(screen.getByRole('button', { name: /Approve Tier 3/ })).toBeEnabled()
+    expect(screen.getByRole('button', { name: /Approve change to Tier 3/ })).toBeEnabled()
     await userEvent.type(screen.getByLabelText('Review comment'), 'Synthetic source only')
     expect(reject).toBeEnabled()
     await userEvent.click(reject)
@@ -278,15 +278,15 @@ describe('Confirmations', () => {
         </MemoryRouter>
       </ConfirmProvider>,
     )
-    await userEvent.click(await screen.findByRole('button', { name: /Approve Tier 3/ }))
-    const first = await screen.findByRole('dialog', { name: /Downgrade IMU Biosciences to Tier 3\?/ })
+    await userEvent.click(await screen.findByRole('button', { name: /Approve change to Tier 3/ }))
+    const first = await screen.findByRole('dialog', { name: /Confirm downgrade of IMU Biosciences to Tier 3/ })
     expect(within(first).getByText(/mostly self-serve/)).toBeInTheDocument()
     await userEvent.click(screen.getByRole('button', { name: 'Cancel' }))
     expect(calls.some((c) => c.url.endsWith('/decision'))).toBe(false)
 
-    await userEvent.click(screen.getByRole('button', { name: /Approve Tier 3/ }))
+    await userEvent.click(screen.getByRole('button', { name: /Approve change to Tier 3/ }))
     const dialog = await screen.findByRole('dialog')
-    await userEvent.click(within(dialog).getByRole('button', { name: 'Approve Tier 3' }))
+    await userEvent.click(within(dialog).getByRole('button', { name: 'Confirm approval' }))
     await waitFor(() => expect(calls.some((c) => c.url.endsWith('/decision'))).toBe(true))
   })
 

@@ -11,10 +11,10 @@ import { AttentionBadge, CompanyLogo, ErrorBox, FlagChip, Spinner, TierBadge, so
 import { g } from '../glossary'
 
 const ACTION_LABELS: Record<string, string> = {
-  approve: 'approved',
-  reject: 'rejected',
-  request_info: 'asked for more information',
-  comment: 'commented',
+  approve: 'approved the tier change',
+  reject: 'rejected the tier change',
+  request_info: 'requested additional information',
+  comment: 'added a comment',
 }
 
 /** Tier review. Used as a page (/reviews/:id) and inside a pop-up on the company page (embedded). */
@@ -40,13 +40,13 @@ export default function TierReview({ proposalId, embedded = false, onChanged }: 
     if (action === 'approve') {
       const up = p.proposed_tier < (p.from_tier ?? 3)
       const ok = await confirm({
-        title: `${up ? 'Upgrade' : 'Downgrade'} ${prospect.company_name} to Tier ${p.proposed_tier}?`,
-        confirmLabel: `Approve Tier ${p.proposed_tier}`,
+        title: `Confirm ${up ? 'upgrade' : 'downgrade'} of ${prospect.company_name} to Tier ${p.proposed_tier}`,
+        confirmLabel: `Confirm approval`,
         tone: 'approve',
         body: (
           <p>
-            Support changes from <strong>{SUPPORT_LEVEL[p.from_tier ?? 0]}</strong> to <strong>{SUPPORT_LEVEL[p.proposed_tier]}</strong>.
-            {isOverride ? ' This goes against the standard rules.' : ''}
+            The support level will change from <strong>{SUPPORT_LEVEL[p.from_tier ?? 0]}</strong> to <strong>{SUPPORT_LEVEL[p.proposed_tier]}</strong>.
+            {isOverride ? ' This is an approved exception to the standard tier rules.' : ''} The decision is recorded in the audit trail.
           </p>
         ),
       })
@@ -144,7 +144,7 @@ export default function TierReview({ proposalId, embedded = false, onChanged }: 
           </Section>
 
           <div className="card">
-            <div className="section-head"><h2>Decision</h2><Info text="Rejecting or asking for info needs a short reason." /></div>
+            <div className="section-head"><h2>Review decision</h2><Info text="A written rationale is required to reject a proposed change." /></div>
             {data.decisions.length > 0 && (
               <ul className="timeline">
                 {data.decisions.map((d) => (
@@ -158,26 +158,26 @@ export default function TierReview({ proposalId, embedded = false, onChanged }: 
               </ul>
             )}
             <div className="section-body stack" style={{ borderTop: data.decisions.length ? '1px solid var(--border)' : undefined }}>
-              {!reviewer && <div className="callout warn small">Set your name (top right) to review.</div>}
-              <textarea placeholder={unresolved ? 'Comment' : 'Add a comment'} value={comment} onChange={(e) => setComment(e.target.value)} aria-label="Review comment" />
+              {!reviewer && <div className="callout warn small">Please set your name (top right) before submitting a decision.</div>}
+              <textarea placeholder={unresolved ? 'Decision rationale or comment (required to reject)' : 'Add a comment'} value={comment} onChange={(e) => setComment(e.target.value)} aria-label="Review comment" />
               <div className="row">
                 {unresolved && (
                   <>
                     <button className="approve" disabled={!!busy || !reviewer} onClick={() => act('approve')}>
-                      {busy === 'approve' && <Spinner />} Approve Tier {p.proposed_tier}
+                      {busy === 'approve' && <Spinner />} Approve change to Tier {p.proposed_tier}
                     </button>
                     <button className="danger" disabled={!!busy || !reviewer || !comment.trim()} onClick={() => act('reject')}>
-                      {busy === 'reject' && <Spinner />} Reject
+                      {busy === 'reject' && <Spinner />} Reject change
                     </button>
                   </>
                 )}
                 <button disabled={!!busy || !reviewer || !comment.trim()} onClick={() => act('comment')}>
-                  {busy === 'comment' && <Spinner />} Comment only
+                  {busy === 'comment' && <Spinner />} Add comment
                 </button>
               </div>
               {p.status === 'needs_info' && (
                 <p className="small muted">
-                  Waiting for more information. Add it on the <Link to={`/companies/${prospect.id}`}>company page</Link>.
+                  Awaiting additional information. Please add it on the <Link to={`/companies/${prospect.id}`}>company page</Link>.
                 </p>
               )}
             </div>
