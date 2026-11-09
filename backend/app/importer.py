@@ -134,6 +134,7 @@ def import_prospects(session: Session, path: Path) -> dict:
                     bookings=parsed.bookings,
                     trend_pct=parsed.trend_pct,
                     parse_ok=parsed.parse_ok,
+                    remarks=activity_text,  # the file's own Day 30 note, shown under Remarks
                 )
             )
         audit.record(session, entity_type="prospect", entity_id=pid, prospect_id=pid,

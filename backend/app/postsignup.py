@@ -79,7 +79,7 @@ def remove_day30(session: Session, prospect_id: str, actor: str) -> Assessment:
     if act.raw_text and act.raw_text != "(entered manually)":
         parsed = parse_activity(act.raw_text)
         act.travelers, act.bookings, act.trend_pct = parsed.travelers, parsed.bookings, parsed.trend_pct
-        act.remarks = None
+        act.remarks = act.raw_text
         act.trend_basis = "within_month"
         act.released_at = None
         session.add(act)
