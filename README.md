@@ -21,7 +21,7 @@ All company names and domains are real. All customer values (reported GBV, emplo
    - **Research:** field-by-field coverage and sources. Clicking anywhere on a finding opens the source page. **Re-run** and **Deep Research** buttons (Deep Research runs in the background with a progress bar, and is turned off once it has run).
    - **Day 30 activity:** travelers, bookings and trend, with **Update** and **Remove** (see section 6).
    - **Tier change:** each proposal as one line: "↑ Upgrade to Tier 1", the main reason, the type, the status and a **Review →** button. Past proposals are folded away.
-4. **Tier review.** Opens with an **AI judge**: one sentence on why the change is proposed, how well the evidence supports it, and the main doubt (advisory only; numbers checked against the evidence). Then a pull-request-style page: current tier → proposed tier, the values behind it, flags, evidence, **Keep in mind**, and **Approve / Reject / Request more information**. Tier changes and other important actions ask for confirmation. Every decision is logged.
+4. **Tier review.** Opens with an **AI judge**: one sentence on why the change is proposed, how well the evidence supports it, and the main doubt (advisory only; numbers checked against the evidence). Then a pull-request-style page: current tier → proposed tier, the values behind it, flags, evidence, **Keep in mind**, and **Approve / Reject / Comment only**. Tier changes and other important actions ask for confirmation. Every decision is logged.
 
 The signed-in name (top right, "Employee 23" by default) is recorded in the audit trail; click it to change it. Salespeople never see costs or token counts, and prompts are not shown in the UI.
 
@@ -156,7 +156,7 @@ How proposals are made:
 - They are deduplicated per target tier. A proposal a reviewer rejected is not raised again unless new evidence appears. A proposal the latest evidence no longer supports is marked **No longer needed**.
 - **Approve** changes the applied tier and keeps the original and previous tier. Approving a research-headcount correction also records that headcount as reviewer-accepted, so the rules stay consistent. Approving an override is logged as a policy override.
 - **Reject** requires a reason.
-- **Request more information** keeps the proposal open.
+- **Comment only** adds a note and keeps the proposal open.
 
 ### 5. Manual enrichment
 

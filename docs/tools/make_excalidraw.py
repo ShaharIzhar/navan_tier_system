@@ -162,7 +162,7 @@ prop = box(X, 980, W, 100,
 review = box(X, 1130, W, 90, "Human review (PR-style)\nAI judge gives a one-line why (advisory)", HUMAN, 15)
 appr = box(X - 200, 1270, 240, 80, "Approve\ntier changes, original kept", HUMAN, 14)
 rej = box(X + 110, 1270, 240, 80, "Reject\nreason required", HUMAN, 14)
-info = box(X + 420, 1270, 240, 80, "Request more info\nstays open", HUMAN, 14)
+info = box(X + 420, 1270, 240, 80, "Comment only\nproposal stays open", HUMAN, 14)
 
 manual = box(40, 610, 220, 150, "Manual correction\nedit a value\n→ rules rerun\ninstantly, no AI", HUMAN, 15)
 
