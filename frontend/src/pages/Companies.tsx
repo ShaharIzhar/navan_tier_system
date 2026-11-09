@@ -41,7 +41,7 @@ export default function Companies() {
       <div className="page-head">
         <div>
           <h1>All companies</h1>
-          <p>{data ? `${data.length} imported prospects` : 'Loading…'} · reported values are fictional scenario data.</p>
+          <p className="small">{data ? `${data.length} imported prospects` : 'Loading…'} · reported values are fictional scenario data.</p>
         </div>
         {pendingDay30 && (
           <button
