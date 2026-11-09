@@ -215,7 +215,8 @@ details > summary { cursor: pointer; color: var(--accent); font-size: 12px; marg
 .hero .label { font-size: 11px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.04em; display: flex; align-items: center; gap: 4px; margin-bottom: 4px; }
 .next-step { display: flex; gap: 10px; align-items: center; padding: 10px 14px; background: var(--accent-soft); border: 1px solid #cdd3fa; border-radius: var(--radius); }
 .next-step strong { white-space: nowrap; }
-.flag-row { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+.flag-row { display: grid; grid-template-columns: 160px 1fr; align-items: start; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+.flag-row > .tip { justify-self: start; margin-top: 1px; }
 .flag-row:last-child { border-bottom: none; }
 .flag-row .why { flex: 1; color: var(--text-2); }
 .more { border: none; background: none; color: var(--accent); padding: 0; font-size: 12px; cursor: pointer; }
@@ -243,8 +244,8 @@ details > summary { cursor: pointer; color: var(--accent); font-size: 12px; marg
 .judge-foot { margin-top: 8px; font-size: 11px; color: var(--text-3); display: flex; gap: 10px; align-items: center; }
 
 /* ---------- Single-column company page ---------- */
-.single { max-width: 980px; }
-.hero-tight { grid-template-columns: auto 1fr; gap: 28px; }
+.single { max-width: none; }
+.hero-tight { grid-template-columns: auto 1fr; gap: 28px; align-items: center; }
 .hero-tight .next-step { margin: 0; }
 table.values td { padding: 14px 16px; }
 .vlabel { color: var(--text-2); width: 140px; }
