@@ -6,9 +6,9 @@ import { Info } from '../components/Section'
 import { g } from '../glossary'
 
 const TABS: { key: NonNullable<ProspectRow['attention']>; label: string; help: string }[] = [
-  { key: 'review_now', label: 'Review Now', help: 'Important, reasonably supported cases. A tier proposal or a conflict that decides tier eligibility.' },
-  { key: 'review_suggested', label: 'Review Suggested', help: 'Meaningful opportunity or discrepancy worth investigating, but not urgent.' },
-  { key: 'monitor', label: 'Monitor', help: 'Interesting signals or open gaps. No need to spend sales time yet.' },
+  { key: 'review_now', label: 'Review Now', help: 'Needs a decision now.' },
+  { key: 'review_suggested', label: 'Review Suggested', help: 'Worth a look, not urgent.' },
+  { key: 'monitor', label: 'Monitor', help: 'Keep an eye on it. No action yet.' },
 ]
 
 export default function ReviewQueue() {

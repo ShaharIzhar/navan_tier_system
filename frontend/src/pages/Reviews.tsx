@@ -4,6 +4,7 @@ import { api } from '../api'
 import { ErrorBox, Spinner, TierBadge, useAsync, when } from '../components/ui'
 import { Hint, Info } from '../components/Section'
 import { SortTh, useSort } from '../components/sort'
+import { TierArrow } from '../components/ProspectTable'
 import { g } from '../glossary'
 
 const FILTERS = [
@@ -35,7 +36,7 @@ export default function Reviews() {
       <div className="page-head">
         <div>
           <h1>Tier reviews</h1>
-          <p className="small">Proposed tier changes. Nothing changes until a person approves. <Info text={`${g('standard_rule_correction')} ${g('evidence_override')}`} /></p>
+          <p className="small">Proposed tier changes. Nothing changes until a person approves. <Info text="Rule correction: the rules give another tier. Override: evidence beats the rules." /></p>
         </div>
       </div>
       <ErrorBox error={error} />
@@ -73,7 +74,10 @@ export default function Reviews() {
 
                   </td>
                   <td>
-                    <TierBadge tier={p.from_tier} /> → <TierBadge tier={p.proposed_tier} />
+                    <span className="row" style={{ gap: 6, flexWrap: 'nowrap' }}>
+                      <TierBadge tier={p.from_tier} />
+                      <TierArrow from={p.from_tier} to={p.proposed_tier} />
+                    </span>
                   </td>
                   <td>
                     <Hint text={g(p.proposal_type)}>{p.proposal_type === 'standard_rule_correction' ? 'Rule correction' : 'Override'}</Hint>

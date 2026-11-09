@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { api, type Assessment, type DeepPlan, type Flag, type ProspectDetail } from '../api'
+import { api, type Assessment, type Flag, type ProspectDetail } from '../api'
 import EvidenceList from '../components/EvidenceList'
-import { Suggestion } from '../components/ProspectTable'
+import { Suggestion, TierArrow } from '../components/ProspectTable'
+import { useConfirm } from '../components/confirm'
 import { Clamp, Hint, Info, Section } from '../components/Section'
 import {
-  AttentionBadge, CompanySiteBadge, ErrorBox, FIELD_LABELS, FlagChip, Modal, Spinner, StatusChip, TierBadge, hostOf, sourceText,
+  AttentionBadge, CompanySiteBadge, ErrorBox, FIELD_LABELS, FlagChip, Spinner, StatusChip, TierBadge, hostOf, sourceText,
   TrendArrow, num, usd, useAsync, useReviewer, when,
 } from '../components/ui'
 import { g } from '../glossary'
@@ -33,7 +34,7 @@ export default function CompanyDetail() {
   const [busy, setBusy] = useState<string | null>(null)
   const [actionError, setActionError] = useState<string | null>(null)
   const [notice, setNotice] = useState<string | null>(null)
-  const [deepOpen, setDeepOpen] = useState(false)
+  const confirm = useConfirm()
   const [openField, setOpenField] = useState<string | null>(null)
   const [highlight, setHighlight] = useState<{ id: number; at: number } | null>(null)
   useEffect(() => {
@@ -60,6 +61,15 @@ export default function CompanyDetail() {
     } finally {
       setBusy(null)
     }
+  }
+
+  const runDeep = async () => {
+    const ok = await confirm({
+      title: `Run Deep Research for ${data.prospect.company_name}?`,
+      confirmLabel: 'Run Deep Research',
+      body: <p>A more thorough search of all areas, including travel requirements and expansion. Takes up to two minutes. Current findings are kept.</p>,
+    })
+    if (ok) run('deep', () => api.deepResearch(data.prospect.id, reviewer || 'user'))
   }
 
   const saved = (before: Assessment | null, after: Assessment) => {
@@ -90,7 +100,7 @@ export default function CompanyDetail() {
           </h1>
           <p className="small">
             <a href={`https://${p.domain}`} target="_blank" rel="noreferrer">{p.domain}</a> · {p.id} ·{' '}
-            <Hint text={a?.stage === 'day30' ? g('day30') : 'Assessed with signup-time information only.'}>
+            <Hint text={a?.stage === 'day30' ? 'Includes the first 30 days on Navan.' : 'Based on signup information only.'}>
               {a?.stage === 'day30' ? 'Day 30' : 'Signup (Day 0)'}
             </Hint>
           </p>
@@ -98,7 +108,7 @@ export default function CompanyDetail() {
         <div className="row">
           {a && <AttentionBadge attention={a.attention} label={a.attention_label} />}
           {a?.attention && (
-            <Hint text={[g('priority'), ...a.priority_reasons].join(' ')} align="right">
+            <Hint text={g('priority')} align="right">
               <span className="badge att-none">Priority: {a.priority}</span>
             </Hint>
           )}
@@ -113,14 +123,14 @@ export default function CompanyDetail() {
       )}
       {hasSynthetic && (
         <div className="callout synthetic banner small">
-          Contains a <strong>SYNTHETIC test observation</strong>, which is not real research. <Info text={g('synthetic')} />
+          Contains <strong>test data</strong>, not real research.
         </div>
       )}
 
       <div className="stack">
         {/* Values */}
         {a && (
-          <Section id="values" title="Values" info="The numbers the tier rules use, next to what public research found. Click Edit to correct a value; the rules rerun instantly with no AI call." flush>
+          <Section id="values" title="Values" info="What we use vs. what research found. Click Edit to correct." flush>
             <table className="values">
               <thead>
                 <tr><th></th><th>Used by the tier rules</th><th>Research found</th><th></th></tr>
@@ -129,12 +139,12 @@ export default function CompanyDetail() {
                 <tr>
                   <td className="vlabel">Annual GBV</td>
                   <td>
-                    <Hint text="Reported by the company at signup (fictional scenario value). Used as-is by the tier rules.">
+                    <Hint text="Reported by the company at signup.">
                       <strong className="vbig">{usd(a.accepted_values.gbv_usd)}</strong>
                     </Hint>{' '}
                     <span className="muted small">reported by the company</span>
                   </td>
-                  <td className="muted small">— <Info text="Travel spend is not public, so GBV cannot be researched." /></td>
+                  <td className="muted small">— <Info text="Travel spend isn’t public." /></td>
                   <td></td>
                 </tr>
                 <EmployeeRow data={data} reviewer={reviewer} onSaved={saved} onShowEvidence={(id) => showEvidence('employee_count', id)} />
@@ -154,7 +164,7 @@ export default function CompanyDetail() {
           <Section
             id="flags"
             title="Why it was flagged"
-            info="Each flag says why it fired. Hover a flag for its meaning; open a row for the evidence and the uncertainty."
+            info="Why this company stands out."
             summary={a.flags.length ? `${a.flags.length} flag${a.flags.length > 1 ? 's' : ''}` : 'none'}
           >
             {a.flags.length === 0 ? <p className="muted small">No flags.</p> : a.flags.map((f, i) => <FlagRow key={i} f={f} />)}
@@ -166,7 +176,7 @@ export default function CompanyDetail() {
           id="research"
           openSignal={highlight?.at}
           title="Public research"
-          info="AI research with web search. Each field shows whether something was found. Click a field to see its sources or add your own finding."
+          info="What public sources say. Click a field for details."
           summary={
             okRun ? (
               <>
@@ -174,7 +184,7 @@ export default function CompanyDetail() {
                   <span className="badge rel rel-synthetic" style={{ fontWeight: 600 }} title="Recorded real Claude run replayed in demo mode (no API key)">Recorded</span>
                 )}
                 {covFound}/8 found · {covGaps} gaps
-                <Info text={`Last ${okRun.kind} run ${when(okRun.finished_at)} · ${okRun.web_search_requests} web searches · ≈$${okRun.approx_cost_usd.toFixed(3)} · prompt ${okRun.prompt_version}`} />
+                <Info text={`Last updated ${when(okRun.finished_at)}.`} />
               </>
             ) : (
               'not researched yet'
@@ -185,13 +195,19 @@ export default function CompanyDetail() {
               <button
                 className={`small${okRun ? '' : ' primary'}`}
                 disabled={!!busy}
-                onClick={() => run('research', () => api.research(p.id, !!okRun, reviewer || 'user'))}
-                title={okRun ? 'Runs a fresh research pass (new API cost). Old evidence is kept.' : 'Runs standard research with web search'}
+                onClick={async () => {
+                  const ok = await confirm({
+                    title: `${okRun ? 'Re-run' : 'Run'} research for ${p.company_name}?`,
+                    confirmLabel: okRun ? 'Re-run research' : 'Run research',
+                    body: <p>Checks industry, locations, employees, funding and hiring. Takes about a minute.{okRun ? ' Updates the current results.' : ''}</p>,
+                  })
+                  if (ok) run('research', () => api.research(p.id, !!okRun, reviewer || 'user'))
+                }}
               >
                 {busy === 'research' && <Spinner />} {okRun ? 'Re-run' : 'Run research'}
               </button>
               <Hint text={g('deep_research')} align="right">
-                <button className="small" disabled={!!busy || !okRun} onClick={() => setDeepOpen(true)}>Deep Research…</button>
+                <button className="small" disabled={!!busy || !okRun} onClick={runDeep}>Deep Research…</button>
               </Hint>
             </>
           }
@@ -229,7 +245,7 @@ export default function CompanyDetail() {
                     {c.evidence_count > 0 && <span className="muted small"> · {c.evidence_count}</span>}
                     {c.manual && <span className="muted small"> · manual</span>}
                   </span>
-                  <StatusChip status={c.status} explain={[g(c.status), c.summary].filter(Boolean).join(' ')} />
+                  <StatusChip status={c.status} />
                 </div>
               ))}
             </div>
@@ -244,7 +260,15 @@ export default function CompanyDetail() {
                 companyDomain={p.domain}
                 highlightId={highlight?.id}
                 items={data.evidence.filter((e) => e.field === openField)}
-                onWithdraw={(e) => run('withdraw', () => api.withdraw(e.id, reviewer || 'user', 'Withdrawn from company page'))}
+                onWithdraw={async (e) => {
+                  const ok = await confirm({
+                    title: 'Withdraw this value?',
+                    confirmLabel: 'Withdraw',
+                    tone: 'danger',
+                    body: <p>“{e.claim}” will no longer be used.</p>,
+                  })
+                  if (ok) run('withdraw', () => api.withdraw(e.id, reviewer || 'user', 'Withdrawn from company page'))
+                }}
               />
               {ADDABLE[openField] && (
                 <AddFinding prospectId={p.id} field={openField} reviewer={reviewer} onSaved={saved} />
@@ -266,15 +290,22 @@ export default function CompanyDetail() {
           )}
         </Section>
 
-        <Day30Section data={data} busy={busy} onRelease={() => run('day30', () => api.releaseDay30(p.id))} />
+        <Day30Section data={data} busy={busy} onRelease={async () => {
+          const ok = await confirm({
+            title: `Receive Day 30 activity for ${p.company_name}?`,
+            confirmLabel: 'Receive Day 30 data',
+            body: <p>Adds the company’s first 30 days on Navan. Strong activity may suggest a tier change for review. This can’t be undone.</p>,
+          })
+          if (ok) run('day30', () => api.releaseDay30(p.id))
+        }} />
 
         {data.proposals.length > 0 && (
-          <Section id="proposals" title="Tier proposals" info="Only a person can approve a tier change." summary={`${data.proposals.length}`} flush>
+          <Section id="proposals" title="Tier proposals" info="Tier changes need a person’s approval." summary={`${data.proposals.length}`} flush>
             <ul className="timeline">
               {data.proposals.map((x) => (
                 <li key={x.id} className="spread">
                   <span className="row">
-                    <TierBadge tier={x.from_tier} /> → <TierBadge tier={x.proposed_tier} />
+                    <TierBadge tier={x.from_tier} /> <TierArrow from={x.from_tier} to={x.proposed_tier} />
                     <Link to={`/reviews/${x.id}`}>#{x.id}</Link>
                     <Info text={`${x.title}. ${g(x.proposal_type)}`} />
                   </span>
@@ -286,13 +317,6 @@ export default function CompanyDetail() {
         )}
       </div>
 
-      {deepOpen && (
-        <DeepResearchModal
-          prospectId={p.id}
-          onClose={() => setDeepOpen(false)}
-          onConfirm={(fields) => { setDeepOpen(false); run('deep', () => api.deepResearch(p.id, reviewer || 'user', fields)) }}
-        />
-      )}
       {busy === 'deep' && (
         <div className="modal-backdrop"><div className="modal card-pad"><Spinner /> Running Deep Research… up to two minutes.</div></div>
       )}
@@ -312,7 +336,19 @@ function EmployeeRow({ data, reviewer, onSaved, onShowEvidence }: { data: Prospe
   const found = a.accepted_values.employee_sources.filter((s) => s.origin === 'ai_research' || s.origin === 'synthetic_test')
   const usedSource = a.accepted_values.employee_sources.find((s) => s.label === a.accepted_values.employee_source)
 
+  const confirm = useConfirm()
   const save = async () => {
+    const newValue = Number(value.replace(/,/g, ''))
+    const before = rulesTier(a.accepted_values.gbv_usd, a.accepted_values.employees)
+    const after = rulesTier(a.accepted_values.gbv_usd, newValue)
+    if (before !== after) {
+      const ok = await confirm({
+        title: `Change employees to ${num(newValue)}?`,
+        confirmLabel: 'Save and rerun rules',
+        body: <p>This points to <strong>Tier {after}</strong> instead of Tier {before}. A tier change will be suggested for review; nothing changes until someone approves.</p>,
+      })
+      if (!ok) return
+    }
     setBusy(true)
     setErr(null)
     try {
@@ -383,7 +419,7 @@ function EmployeeRow({ data, reviewer, onSaved, onShowEvidence }: { data: Prospe
               <label className="inline small">
                 <input type="checkbox" checked={verified} disabled={!url} onChange={(e) => setVerified(e.target.checked)} />
                 I checked the source
-                <Info text="Checked against a source = verified: it settles conflicts. Without a source the value is used but marked unverified." />
+                <Info text="Tick if you checked the source. Checked values settle disagreements." />
               </label>
               <button className="primary small" disabled={busy || !reviewer || !/^\d[\d,]*$/.test(value.trim())} onClick={save}>
                 {busy && <Spinner />} Save
@@ -477,7 +513,7 @@ function HeadcountTrend({ history }: { history: { date: string; value: number; l
   return (
     <span className="small">
       {num(first.value)} → {num(last.value)} <TrendArrow pct={pct} />
-      <Info text={`${first.date} to ${last.date}, from dated public figures (may be different sources).`} />
+      <Info text={`${first.date} → ${last.date}.`} />
     </span>
   )
 }
@@ -514,7 +550,7 @@ function Day30Section({ data, busy, onRelease }: { data: ProspectDetail; busy: s
     <Section
       id="day30"
       title="Day 30 activity"
-      info={`${g('day30')} The Day 0 assessment stays unchanged in History.`}
+      info={g('day30')}
       summary={day30 ? COMPARISON[day30.comparison] ?? day30.comparison : undefined}
     >
       <div className="grid-3">
@@ -523,7 +559,7 @@ function Day30Section({ data, busy, onRelease }: { data: ProspectDetail; busy: s
         <div className="stat" style={{ padding: 0 }}>
           <div className="v"><TrendArrow pct={d.trend_pct} /></div>
           <div className="l">
-            booking trend <Info text="Bookings in days 16–30 compared with days 1–15." />
+            booking trend <Info text="Second half of the month vs. the first." />
           </div>
         </div>
       </div>
@@ -532,38 +568,9 @@ function Day30Section({ data, busy, onRelease }: { data: ProspectDetail; busy: s
   )
 }
 
-function DeepResearchModal({ prospectId, onClose, onConfirm }: { prospectId: string; onClose: () => void; onConfirm: (fields: string[]) => void }) {
-  const { data, error } = useAsync<DeepPlan>(() => api.deepPlan(prospectId), [prospectId])
-  const [selected, setSelected] = useState<string[] | null>(null)
-  const fields = selected ?? (data ? Object.keys(data.focus) : [])
-  return (
-    <Modal title="Run Deep Research?" onClose={onClose}>
-      <ErrorBox error={error} />
-      {!data ? (
-        <Spinner />
-      ) : (
-        <div className="stack">
-          <div className="callout warn small">{data.note}</div>
-          <p className="small">
-            Up to <strong>{data.max_searches} web searches</strong>, estimated at most <strong>≈${data.estimated_max_cost_usd.toFixed(2)}</strong>. Fields to investigate:
-          </p>
-          {Object.entries(data.focus).map(([f, why]) => (
-            <label key={f} className="inline">
-              <input
-                type="checkbox"
-                checked={fields.includes(f)}
-                onChange={(e) => setSelected(e.target.checked ? [...fields, f] : fields.filter((x) => x !== f))}
-              />
-              <span><strong>{FIELD_LABELS[f] ?? f}</strong> <span className="muted">— {why}</span></span>
-            </label>
-          ))}
-          <div className="row">
-            <button className="primary" disabled={!fields.length} onClick={() => onConfirm(fields)}>Run Deep Research</button>
-            <button onClick={onClose}>Cancel</button>
-          </div>
-        </div>
-      )}
-    </Modal>
-  )
+function rulesTier(gbv: number | null, employees: number | null): number | null {
+  if (gbv == null || gbv < 0) return null
+  if (gbv >= 500_000) return 1
+  if (gbv >= 100_000 || (employees ?? 0) >= 150) return 2
+  return 3
 }
-

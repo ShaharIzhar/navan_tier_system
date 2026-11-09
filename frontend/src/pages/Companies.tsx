@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { api } from '../api'
 import ProspectTable from '../components/ProspectTable'
 import { ErrorBox, Spinner, useAsync } from '../components/ui'
+import { useConfirm } from '../components/confirm'
 
 const FLAG_OPTIONS: Record<string, string> = {
   tier_mismatch: 'Tier Mismatch',
@@ -19,6 +20,7 @@ export default function Companies() {
   const [attention, setAttention] = useState('')
   const [research, setResearch] = useState('')
   const [busy, setBusy] = useState(false)
+  const confirm = useConfirm()
 
   const rows = useMemo(() => {
     const term = q.trim().toLowerCase()
@@ -46,6 +48,12 @@ export default function Companies() {
             disabled={busy}
             title="Simulates the 30-day activity summaries arriving. Runs a rules-only reassessment for each company with activity."
             onClick={async () => {
+              const ok = await confirm({
+                title: 'Receive all Day 30 activity?',
+                confirmLabel: 'Receive all',
+                body: <p>Adds the first 30 days on Navan for every company that has it. Strong activity may suggest tier changes for review. This can’t be undone.</p>,
+              })
+              if (!ok) return
               setBusy(true)
               try {
                 await api.releaseAllDay30()

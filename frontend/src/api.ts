@@ -242,12 +242,6 @@ export interface Judgement {
   from_cache: boolean
 }
 
-export interface DeepPlan {
-  focus: Record<string, string>
-  max_searches: number
-  estimated_max_cost_usd: number
-  note: string
-}
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`/api${path}`, {
@@ -274,7 +268,6 @@ export const api = {
   prospects: () => request<ProspectRow[]>('/prospects'),
   prospect: (id: string) => request<ProspectDetail>(`/prospects/${id}`),
   research: (id: string, force = false, actor = 'user') => post<ResearchRun>(`/prospects/${id}/research`, { force, actor }),
-  deepPlan: (id: string) => request<DeepPlan>(`/prospects/${id}/deep-research/plan`),
   deepResearch: (id: string, actor: string, focus_fields?: string[]) =>
     post<ResearchRun>(`/prospects/${id}/deep-research`, { confirm: true, actor, focus_fields }),
   enrich: (id: string, body: { param: string; value: string; entered_by: string; source_url?: string; note?: string; verified: boolean; accepted: boolean }) =>

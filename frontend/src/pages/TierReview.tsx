@@ -3,6 +3,9 @@ import { Link, useParams } from 'react-router-dom'
 import { api } from '../api'
 import EvidenceList from '../components/EvidenceList'
 import JudgeCard from '../components/JudgeCard'
+import { TierArrow } from '../components/ProspectTable'
+import { useConfirm } from '../components/confirm'
+import { SUPPORT_LEVEL } from '../components/ui'
 import { Hint, Info, Section } from '../components/Section'
 import { AttentionBadge, ErrorBox, FlagChip, Spinner, TierBadge, sourceText, useAsync, useReviewer, when } from '../components/ui'
 import { g } from '../glossary'
@@ -21,6 +24,7 @@ export default function TierReview() {
   const [comment, setComment] = useState('')
   const [busy, setBusy] = useState<string | null>(null)
   const [actionError, setActionError] = useState<string | null>(null)
+  const confirm = useConfirm()
 
   if (loading && !data) return <div className="empty"><Spinner /></div>
   if (error || !data) return <ErrorBox error={error ?? 'Not found'} />
@@ -31,6 +35,21 @@ export default function TierReview() {
   const typeLabel = isOverride ? 'Evidence-based override' : 'Standard-rule correction'
 
   const act = async (action: string) => {
+    if (action === 'approve') {
+      const up = p.proposed_tier < (p.from_tier ?? 3)
+      const ok = await confirm({
+        title: `${up ? 'Upgrade' : 'Downgrade'} ${prospect.company_name} to Tier ${p.proposed_tier}?`,
+        confirmLabel: `Approve Tier ${p.proposed_tier}`,
+        tone: 'approve',
+        body: (
+          <p>
+            Support changes from <strong>{SUPPORT_LEVEL[p.from_tier ?? 0]}</strong> to <strong>{SUPPORT_LEVEL[p.proposed_tier]}</strong>.
+            {isOverride ? ' This goes against the standard rules.' : ''}
+          </p>
+        ),
+      })
+      if (!ok) return
+    }
     setBusy(action)
     setActionError(null)
     try {
@@ -57,7 +76,7 @@ export default function TierReview() {
         <div>
           <h1 className="row" style={{ gap: 10 }}>
             {prospect.company_name}
-            <span className="tier-change"><TierBadge tier={p.from_tier} /> → <TierBadge tier={p.proposed_tier} /></span>
+            <span className="tier-change"><TierBadge tier={p.from_tier} /><TierArrow from={p.from_tier} to={p.proposed_tier} /></span>
           </h1>
           <p className="row small" style={{ marginTop: 6 }}>
             <span className={`status-pill${p.status === 'open' ? ' awaiting' : ''}`}>{p.status_label}</span>
@@ -75,7 +94,7 @@ export default function TierReview() {
         <div className="stack">
           <JudgeCard proposalId={p.id} />
 
-          <Section id="rv-why" title="Why" info="The reasons this proposal was created." summary={p.title}>
+          <Section id="rv-why" title="Why" info="Why this change is suggested." summary={p.title}>
             <ul className="reasons" style={{ marginTop: 0 }}>
               {p.rationale.map((r, i) => <li key={i}>{r}</li>)}
             </ul>
@@ -89,7 +108,7 @@ export default function TierReview() {
           <Section
             id="rv-evidence"
             title="Evidence"
-            info="Sources behind the proposal. Hover a source badge for how reliable it is."
+            info="Where this comes from."
             summary={data.evidence.length ? `${data.evidence.length} item(s)` : p.stage === 'day30' ? 'Day 30 activity' : 'structured values'}
             flush
           >
@@ -105,7 +124,7 @@ export default function TierReview() {
           <Section
             id="rv-uncertainty"
             title="Uncertainty"
-            info="What could make this proposal wrong."
+            info="What could make this wrong."
             summary={uncertaintyCount ? `${uncertaintyCount} item(s)` : 'none'}
           >
             {uncertaintyCount === 0 && <p className="muted small">None recorded.</p>}
@@ -121,7 +140,7 @@ export default function TierReview() {
           </Section>
 
           <div className="card">
-            <div className="section-head"><h2>Decision</h2><Info text="Approve changes the tier inside the prototype. Reject keeps it. Request more information keeps the proposal open. A comment is required to reject or ask for info." /></div>
+            <div className="section-head"><h2>Decision</h2><Info text="Rejecting or asking for info needs a short reason." /></div>
             {data.decisions.length > 0 && (
               <ul className="timeline">
                 {data.decisions.map((d) => (
@@ -169,7 +188,7 @@ export default function TierReview() {
               <dt className="row">Applied now <Info text={g('applied_tier')} align="left" /></dt><dd><TierBadge tier={prospect.applied_tier} /></dd>
               <dt>Reported GBV</dt>
               <dd>
-                <Hint text="Reported by the company at signup (fictional scenario value)." align="right">
+                <Hint text="Reported by the company at signup." align="right">
                   {prospect.entered_gbv_usd != null ? `$${prospect.entered_gbv_usd.toLocaleString()}` : '—'}
                 </Hint>
               </dd>

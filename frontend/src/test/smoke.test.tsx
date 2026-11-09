@@ -5,6 +5,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import ReviewQueue from '../pages/ReviewQueue'
 import CompanyDetail from '../pages/CompanyDetail'
 import TierReview from '../pages/TierReview'
+import { ConfirmProvider } from '../components/confirm'
 
 const row = (over: Record<string, unknown>) => ({
   id: 'P-007', company_name: 'IMU Biosciences', domain: 'imubiosciences.com', entered_gbv_usd: 48000, zi_employees: 155,
@@ -87,7 +88,7 @@ describe('Company detail', () => {
       </MemoryRouter>,
     )
     expect(await screen.findByRole('heading', { name: /IMU Biosciences/ })).toBeInTheDocument()
-    expect(screen.getByText(/SYNTHETIC test observation/, { selector: 'strong' })).toBeInTheDocument()
+    expect(screen.getByText('test data', { selector: 'strong' })).toBeInTheDocument()
     expect(screen.getAllByText('Data Conflict').length).toBeGreaterThan(0)
     expect(screen.getByText('Conflicting')).toBeInTheDocument()
     expect(screen.getByText('Not found')).toBeInTheDocument()
@@ -256,5 +257,61 @@ describe('User menu', () => {
     await userEvent.type(input, 'Dana Levi{Enter}')
     expect(screen.getByRole('button', { name: /Dana Levi/ })).toHaveTextContent('DL')
     expect(localStorage.getItem('ngi.reviewer')).toBe('Dana Levi')
+  })
+})
+
+
+describe('Confirmations', () => {
+  it('asks before approving a tier change and only posts after Confirm', async () => {
+    const calls = mockFetch({
+      '/api/proposals/9/decision': { ...proposal, status: 'approved' },
+      '/api/proposals/9/judge': { status: 'failed', error: 'x', model: 'm', created_at: '2026-11-09T08:00:00', from_cache: false },
+      '/api/proposals/9': {
+        proposal, prospect: row({}), evidence: [], assessment_at_creation: assessment, current_assessment: assessment,
+        linked_assessments: [], history: [], decisions: [], audit: [],
+      },
+    })
+    render(
+      <ConfirmProvider>
+        <MemoryRouter initialEntries={['/reviews/9']}>
+          <Routes><Route path="/reviews/:id" element={<TierReview />} /></Routes>
+        </MemoryRouter>
+      </ConfirmProvider>,
+    )
+    await userEvent.click(await screen.findByRole('button', { name: /Approve Tier 3/ }))
+    const first = await screen.findByRole('dialog', { name: /Downgrade IMU Biosciences to Tier 3\?/ })
+    expect(within(first).getByText(/mostly self-serve/)).toBeInTheDocument()
+    await userEvent.click(screen.getByRole('button', { name: 'Cancel' }))
+    expect(calls.some((c) => c.url.endsWith('/decision'))).toBe(false)
+
+    await userEvent.click(screen.getByRole('button', { name: /Approve Tier 3/ }))
+    const dialog = await screen.findByRole('dialog')
+    await userEvent.click(within(dialog).getByRole('button', { name: 'Approve Tier 3' }))
+    await waitFor(() => expect(calls.some((c) => c.url.endsWith('/decision'))).toBe(true))
+  })
+
+  it('asks before an employee edit that changes the rules tier', async () => {
+    const calls = mockFetch({
+      '/api/prospects/P-007/enrichment': { before: assessment, after: assessment, llm_calls: 0 },
+      '/api/prospects/P-007': {
+        prospect: row({}), assessment, history: [], proposals: [], research_runs: [], evidence: [],
+        day30: { received: false, exists: false }, day30_pending: false, audit: [],
+      },
+    })
+    render(
+      <ConfirmProvider>
+        <MemoryRouter initialEntries={['/companies/P-007']}>
+          <Routes><Route path="/companies/:id" element={<CompanyDetail />} /></Routes>
+        </MemoryRouter>
+      </ConfirmProvider>,
+    )
+    await userEvent.click(await screen.findByRole('button', { name: 'Edit employees' }))
+    await userEvent.type(screen.getByLabelText('Correct employee count'), '90')
+    await userEvent.click(screen.getByRole('button', { name: /^Save$/ }))
+    const dialog = await screen.findByRole('dialog', { name: /Change employees to 90\?/ })
+    expect(within(dialog).getByText('Tier 3')).toBeInTheDocument()
+    expect(calls.some((c) => c.url.endsWith('/enrichment'))).toBe(false)
+    await userEvent.click(within(dialog).getByRole('button', { name: 'Save and rerun rules' }))
+    await waitFor(() => expect(calls.some((c) => c.url.endsWith('/enrichment'))).toBe(true))
   })
 })

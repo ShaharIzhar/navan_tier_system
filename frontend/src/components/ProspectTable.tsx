@@ -1,6 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom'
 import type { ProspectRow } from '../api'
-import { g } from '../glossary'
 import { Hint, Info } from './Section'
 import { SortTh, useSort } from './sort'
 import { AttentionBadge, FlagChip, TierBadge, num, usd } from './ui'
@@ -24,14 +23,14 @@ export default function ProspectTable({ rows, showAttention = true, empty }: { r
         <tr>
           <SortTh k="company" sort={sort}>Company</SortTh>
           <SortTh k="tier" sort={sort}>
-            Tier <Info text={`${g('applied_tier')} An arrow shows a tier change waiting for review.`} />
+            Tier <Info text="Current tier. An arrow means a change is waiting for review." />
           </SortTh>
           <SortTh k="gbv" sort={sort} className="num">Reported GBV</SortTh>
           <SortTh k="employees" sort={sort} className="num">
-            Employees <Info text="Enrichment estimate from the dataset (fictional). Research may disagree." align="right" />
+            Employees <Info text="From the signup data." align="right" />
           </SortTh>
           <SortTh k="reason" sort={sort}>
-            Main reason <Info text="The most important reason flag. Open the company to see all flags." />
+            Main reason <Info text="The main reason it was flagged." />
           </SortTh>
           {showAttention && <SortTh k="attention" sort={sort}>Attention</SortTh>}
         </tr>
@@ -68,14 +67,23 @@ export default function ProspectTable({ rows, showAttention = true, empty }: { r
   )
 }
 
+/** "↑T1" / "↓T3" badge: the tier a change points to (lower number = more support = up). */
+export function TierArrow({ from, to }: { from: number | null; to: number }) {
+  const up = to < (from ?? 3)
+  return (
+    <span className={`suggest ${up ? 'up' : 'down'}`} aria-label={`Suggested Tier ${to}`}>
+      <span className="suggest-arrow" aria-hidden>{up ? '↑' : '↓'}</span>T{to}
+    </span>
+  )
+}
+
 export function Suggestion({ s }: { s: NonNullable<ProspectRow['suggestion']> }) {
-  const up = s.to_tier < (s.from_tier ?? 3) // lower tier number = more support
-  const text = `${up ? 'Suggested upgrade' : 'Suggested downgrade'} to Tier ${s.to_tier}: ${s.title}.${s.status === 'needs_info' ? ' Waiting for more information.' : ' Awaiting review.'} Click to open the review.`
+  const up = s.to_tier < (s.from_tier ?? 3)
+  const text = `Suggested ${up ? 'upgrade' : 'downgrade'} to Tier ${s.to_tier}${s.status === 'needs_info' ? ' (waiting for info)' : ''}. Click to review.`
   return (
     <Hint text={text}>
-      <Link to={`/reviews/${s.proposal_id}`} className={`suggest ${up ? 'up' : 'down'}`} onClick={(e) => e.stopPropagation()}
-        aria-label={`Suggested Tier ${s.to_tier}`}>
-        <span className="suggest-arrow" aria-hidden>{up ? '↑' : '↓'}</span>T{s.to_tier}
+      <Link to={`/reviews/${s.proposal_id}`} className="suggest-link" onClick={(e) => e.stopPropagation()}>
+        <TierArrow from={s.from_tier} to={s.to_tier} />
       </Link>
     </Hint>
   )

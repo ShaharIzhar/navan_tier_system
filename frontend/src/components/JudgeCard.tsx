@@ -4,9 +4,9 @@ import { Info } from './Section'
 import { Spinner, useAsync, when } from './ui'
 
 const SUPPORT: Record<string, { label: string; cls: string; hint: string }> = {
-  strong: { label: 'Well supported', cls: 'st-found', hint: 'Several independent, reliable sources back the change.' },
-  partial: { label: 'Partly supported', cls: 'st-stale', hint: 'Some evidence backs it, but there are real gaps or weak sources.' },
-  weak: { label: 'Weakly supported', cls: 'st-conflicting', hint: 'Evidence is thin, unreliable or conflicting. Check before approving.' },
+  strong: { label: 'Well supported', cls: 'st-found', hint: 'Solid evidence.' },
+  partial: { label: 'Partly supported', cls: 'st-stale', hint: 'Some evidence, some gaps.' },
+  weak: { label: 'Weakly supported', cls: 'st-conflicting', hint: 'Thin evidence. Check first.' },
 }
 
 /** One-sentence AI overview of why a proposal exists. Advisory only. */
@@ -20,7 +20,7 @@ export default function JudgeCard({ proposalId }: { proposalId: number }) {
       <div className="judge-head">
         <span className="judge-mark" aria-hidden>✦</span>
         <span className="judge-title">AI judge</span>
-        <Info text="Claude Haiku reads only this proposal's reasons, evidence and doubts, and sums up why it exists. It cannot change anything; you decide. Numbers it uses are checked against the evidence." />
+        <Info text="AI summary of this proposal. It can’t change anything; you decide." />
         {j?.replayed && <span className="badge rel rel-synthetic" title="Recorded real Claude output replayed in demo mode">Recorded</span>}
         {s && (
           <span className={`badge ${s.cls}`} title={s.hint} style={{ marginLeft: 'auto' }}>{s.label}</span>

@@ -31,13 +31,13 @@ export default function App() {
         {meta?.provider.mode === 'replay' && (
           <div className="callout synthetic banner small row">
             <strong>Demo mode</strong> · no API key, so research shows <strong>recorded</strong> real Claude runs (8 Nov 2026).
-            <Info text={`Recorded runs are replayed through the same validation and rules as live research. Recorded companies: ${meta.provider.recorded_companies.join(', ')}. Others show "Not researched". Add ANTHROPIC_API_KEY to backend/.env for live research.`} />
+            <Info text="Shows saved research from 8 Nov. Add an API key for live research." />
           </div>
         )}
         {meta?.provider.mode === 'off' && (
           <div className="callout warn banner small row">
             Live research is off (no API key).
-            <Info text="Everything else works: rules, manual values, reviews, Day 30. No research results are simulated." />
+            <Info text="Everything else still works." />
           </div>
         )}
         <Routes>
