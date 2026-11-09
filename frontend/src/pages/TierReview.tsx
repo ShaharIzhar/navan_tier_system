@@ -4,7 +4,7 @@ import { api } from '../api'
 import EvidenceList from '../components/EvidenceList'
 import JudgeCard from '../components/JudgeCard'
 import { Hint, Info, Section } from '../components/Section'
-import { AttentionBadge, ErrorBox, FlagChip, Spinner, TierBadge, TRIGGER_LABELS, sourceText, useAsync, useReviewer, when } from '../components/ui'
+import { AttentionBadge, ErrorBox, FlagChip, Spinner, TierBadge, sourceText, useAsync, useReviewer, when } from '../components/ui'
 import { g } from '../glossary'
 
 const ACTION_LABELS: Record<string, string> = {
@@ -191,28 +191,6 @@ export default function TierReview() {
             <div style={{ marginTop: 10 }}><Link to={`/companies/${prospect.id}`}>Company page →</Link></div>
           </div>
 
-          <Section id="rv-history" title="Previous assessments" summary={`${data.history.length}`} defaultOpen={false} flush>
-            <ul className="timeline">
-              {data.history.map((h) => (
-                <li key={h.id}>
-                  <strong className="small">{TRIGGER_LABELS[h.trigger] ?? h.trigger}</strong>
-                  {p.linked_assessment_ids.includes(h.id) && <span className="small muted"> · supports this</span>}
-                  <div className="when">{when(h.created_at)} · {h.stage === 'day30' ? 'Day 30' : 'Day 0'} · rules T{h.baseline_tier ?? '—'} · applied T{h.applied_tier ?? '—'}</div>
-                </li>
-              ))}
-            </ul>
-          </Section>
-
-          <Section id="rv-audit" title="Audit trail" summary={`${data.audit.length}`} defaultOpen={false} flush>
-            <ul className="timeline" style={{ maxHeight: 320, overflow: 'auto' }}>
-              {data.audit.map((e) => (
-                <li key={e.id}>
-                  <strong className="small">{e.action.replace(/_/g, ' ')}</strong> <span className="muted small">by {e.actor}</span>
-                  <div className="when">{when(e.created_at)}</div>
-                </li>
-              ))}
-            </ul>
-          </Section>
         </div>
       </div>
     </>
