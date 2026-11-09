@@ -186,7 +186,9 @@ details > summary { cursor: pointer; color: var(--accent); font-size: 12px; marg
 .section.open .section-head { border-bottom: 1px solid var(--border); }
 .section-toggle { border: none; background: none; padding: 0; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; color: var(--text); }
 .section-toggle:hover:not(:disabled) { background: none; }
-.section-toggle h2 { font-size: 14px; }
+.section-toggle h2 { font-size: 14px; white-space: nowrap; letter-spacing: 0; padding-right: 2px; }
+.section-toggle { flex-shrink: 0; overflow: visible; }
+.section-toggle:focus:not(:focus-visible) { outline: none; }
 .chev { color: var(--text-3); transition: transform 0.15s ease; flex-shrink: 0; }
 .chev.open { transform: rotate(90deg); }
 .section-toggle:hover .chev { color: var(--text); }

@@ -46,6 +46,7 @@ def sync_proposals(
             changed = (
                 set(open_match.evidence_ids or []) != set(c["evidence_ids"])
                 or (open_match.uncertainties or []) != c["uncertainties"]
+                or (open_match.rationale or []) != c["rationale"]
             )
             open_match.linked_assessment_ids = (open_match.linked_assessment_ids or []) + [assessment_id]
             if changed:

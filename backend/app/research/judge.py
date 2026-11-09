@@ -57,8 +57,18 @@ def build_facts(session: Session, p: TierProposal) -> dict:
         "open_uncertainties": p.uncertainties or [],
     }
     if p.stage == "day30" and a and a.day30:
+        # The basis is Navan activity, not headcount: leave employee figures out so the summary stays on point.
+        for k in ("employee_count_currently_used", "employee_count_source", "employee_figures_from_all_sources"):
+            facts.pop(k, None)
+        facts["basis"] = "Day 30 Navan activity (first 30 days on the platform)"
         facts["day30_activity"] = {k: a.day30.get(k) for k in ("travelers", "bookings", "trend_pct")}
+        facts["day30_policy"] = {
+            "travelers_for_tier1_level_activity": config.DAY30_TIER1_CANDIDATE_TRAVELERS,
+            "travelers_for_more_than_tier3_activity": config.DAY30_MATERIAL_TRAVELERS,
+        }
         facts["note"] = "Booking counts are not dollar GBV."
+    else:
+        facts["basis"] = "signup evidence (reported values and public sources)"
     return facts
 
 

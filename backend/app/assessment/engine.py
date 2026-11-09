@@ -50,7 +50,8 @@ def reassess(session: Session, prospect_id: str, trigger: str, actor: str = "sys
         prev_day0 = latest_assessment(session, prospect_id, "day0")
         prev_types = [f["type"] for f in (prev_day0.flags or [])] if prev_day0 else []
         day30 = evaluate_day30(
-            s.activity.travelers, s.activity.bookings, s.activity.trend_pct, prospect.applied_tier, prev_types
+            s.activity.travelers, s.activity.bookings, s.activity.trend_pct, prospect.applied_tier, prev_types,
+            trend_basis=s.activity.trend_basis, gbv=s.gbv,
         )
         day30["compared_with_assessment_id"] = prev_day0.id if prev_day0 else None
         flags.extend(day30["flags"])

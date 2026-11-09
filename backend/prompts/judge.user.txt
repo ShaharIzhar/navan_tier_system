@@ -5,7 +5,7 @@ Facts about this proposal:
 
 Return JSON:
 {{
-  "summary": "ONE plain-English sentence, max 35 words, explaining why the tier change is proposed. Structure: what the current tier rests on, what the evidence shows instead, and so which tier the rules or evidence point to. Example shape: 'Downgrade: Tier 2 rests only on X; sources show Y, which is below Z, so the rules give Tier 3.' A salesperson must understand it in five seconds.",
+  "summary": "ONE plain-English sentence, max 35 words, explaining WHY the tier change is proposed. Start with 'Upgrade:' or 'Downgrade:'. Then: what the evidence in 'basis' shows, and why that points to the proposed tier. Signup example: 'Downgrade: Tier 2 rests only on X; sources show Y, which is below Z, so the rules give Tier 3.' Day 30 example: 'Upgrade: N travelers and M bookings in the first 30 days is above the policy's K-traveler Tier 1 level, though reported GBV is under $500K.' A salesperson must understand it in five seconds.",
   "support": "strong | partial | weak  (how well the cited evidence supports the change)",
   "main_doubt": "the single biggest reason it could be wrong, max 15 words"
 }}
@@ -13,5 +13,8 @@ Return JSON:
 Rules:
 - Only use numbers that appear in the facts.
 - Say "downgrade" when the proposed tier number is higher (less support), "upgrade" when lower.
+- The summary explains the case FOR the proposal, built from 'basis' and 'reasons'. Do not argue against it there; doubts go in main_doubt.
+- Do not bring in facts unrelated to the basis (for a Day 30 proposal, employee counts are not the reason).
 - If evidence comes only from data aggregators, a synthetic test, or a single source, support cannot be "strong".
+- Day 30 activity is Navan's own first-hand data, but it is short and not dollars: support is at most "partial".
 - No confidence percentages.

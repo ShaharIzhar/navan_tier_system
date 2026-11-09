@@ -18,6 +18,8 @@ def evaluate_day30(
     trend_pct: Optional[float],
     applied_tier: Optional[int],
     previous_flags: list[str],
+    trend_basis: Optional[str] = None,
+    gbv: Optional[float] = None,
 ) -> dict:
     caveat = (
         "Booking counts do not establish dollar GBV, and 30 days may not represent a full year."
@@ -48,9 +50,16 @@ def evaluate_day30(
     declining = trend_pct is not None and trend_pct < 0
     out.update(material=material, tier1_candidate=tier1_candidate, weak=weak, declining=declining)
 
-    summary = f"{travelers} travelers, {bookings} bookings in 30 days"
+    summary = f"{travelers} travelers and {bookings} bookings in the first 30 days"
     if trend_pct is not None:
-        summary += f", bookings {trend_pct:+.0f}% in days 16–30 vs days 1–15"
+        summary += (f", bookings {trend_pct:+.0f}% vs the previous summary" if trend_basis == "vs_previous"
+                    else f", bookings {trend_pct:+.0f}% in days 16–30 vs days 1–15")
+    gbv_txt = f" (${gbv / 1000:,.0f}K)" if gbv else ""
+    if travelers >= config.DAY30_MATERIAL_TRAVELERS:
+        t3_trigger = f"{travelers} travelers is above the {config.DAY30_MATERIAL_TRAVELERS}+ this policy treats as more than Tier 3 activity."
+    else:
+        t3_trigger = (f"{bookings} bookings growing {t:+.0f}% is above the {config.DAY30_MATERIAL_BOOKINGS}+ bookings "
+                      f"growing {config.DAY30_MATERIAL_TREND_PCT}%+ this policy treats as more than Tier 3 activity.")
 
     positive_prior = any(f in previous_flags for f in ("travel_potential", "growth_opportunity", "tier_mismatch"))
 
@@ -61,8 +70,8 @@ def evaluate_day30(
         out["proposal"] = {
             "proposal_type": "evidence_override", "from_tier": 3, "proposed_tier": 2,
             "title": "Day 30 activity suggests Tier 3 → Tier 2 support",
-            "rationale": [f"Observed activity: {summary}.",
-                          "Standard rules still give Tier 3 from reported GBV and headcount; this is an override recommendation."],
+            "rationale": [f"{summary[0].upper()}{summary[1:]}.", t3_trigger,
+                          f"Reported GBV{gbv_txt} and headcount still give Tier 3 under the standard rules, so this is an exception. A person decides."],
             "uncertainties": [caveat],
         }
         out["comparison"] = "strengthens" if positive_prior else "new_signal"
@@ -73,8 +82,9 @@ def evaluate_day30(
         out["proposal"] = {
             "proposal_type": "evidence_override", "from_tier": 2, "proposed_tier": 1,
             "title": "Day 30 activity suggests Tier 2 → Tier 1 support",
-            "rationale": [f"Observed activity: {summary}.",
-                          "Reported GBV is below $500K, so this goes against the standard rule and needs a human decision."],
+            "rationale": [f"{summary[0].upper()}{summary[1:]}.",
+                          f"{travelers} travelers is above the {config.DAY30_TIER1_CANDIDATE_TRAVELERS}+ this policy treats as Tier 1-level activity.",
+                          f"Reported GBV{gbv_txt} is below Tier 1's $500K, so this is an exception to the standard rule. A person decides."],
             "uncertainties": [caveat],
         }
         out["comparison"] = "strengthens" if positive_prior else "new_signal"
