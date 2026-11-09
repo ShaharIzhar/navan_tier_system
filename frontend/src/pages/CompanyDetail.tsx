@@ -425,7 +425,7 @@ function EmployeeRow({ data, reviewer, onSaved, onShowEvidence }: { data: Prospe
       <tr>
         <td className="vlabel"><span className="row" style={{ gap: 8 }}><Icon name="people" size={18} /> Employees</span></td>
         <td>
-          <Hint text={usedSource ? sourceText(usedSource) : 'No employee count from any source yet.'}>
+          <Hint text={usedSource ? sourceText(usedSource, data.evidence.find((e) => e.id === usedSource.evidence_id)?.source_title) : 'No employee count from any source yet.'}>
             {usedSource?.evidence_id ? (
               <button type="button" className="value-link" onClick={() => onShowEvidence(usedSource.evidence_id!)}>
                 <strong className="vbig">{num(a.accepted_values.employees)}</strong>
@@ -442,7 +442,7 @@ function EmployeeRow({ data, reviewer, onSaved, onShowEvidence }: { data: Prospe
           ) : (
             <span className="row" style={{ gap: 6 }}>
               {found.map((s, i) => (
-                <Hint key={i} text={sourceText(s)}>
+                <Hint key={i} text={sourceText(s, data.evidence.find((e) => e.id === s.evidence_id)?.source_title)}>
                   <button
                     type="button"
                     className={`badge rel ${s.company_site ? 'rel-primary own-site' : ''} chip-link`}

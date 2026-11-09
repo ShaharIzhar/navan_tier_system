@@ -50,7 +50,7 @@ export default function EvidenceList({ items, onWithdraw, companyDomain, highlig
               {e.observation === 'inferred' && <span className="badge st-stale">Inferred</span>}
               {e.is_stale && <span className="badge st-stale">Old</span>}
               {e.source_url ? (
-                <Hint text={[e.source_title, hostOf(e.source_url), e.published_date].filter(Boolean).join(' · ')}>
+                <Hint text={[hostOf(e.source_url), e.source_title, e.published_date].filter(Boolean).join(' · ')}>
                   <a className="source-link" href={e.source_url} target="_blank" rel="noreferrer">
                     <SiteIcon url={e.source_url} />
                     <span>{e.source_title || hostOf(e.source_url)}</span>

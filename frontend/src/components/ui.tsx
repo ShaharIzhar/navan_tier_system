@@ -115,11 +115,15 @@ export function isCompanySite(url: string | null | undefined, companyDomain: str
 }
 
 /** One-line description of where a figure came from, for hover tooltips. */
-export function sourceText(s: { label: string; origin: string; reliability: string; as_of?: string | null; stale?: boolean; url?: string | null; company_site?: boolean }) {
+/** Hover text for a figure: website domain first, then the page title, then the date. */
+export function sourceText(
+  s: { label: string; origin: string; as_of?: string | null; stale?: boolean; url?: string | null; company_site?: boolean },
+  title?: string | null,
+) {
   if (s.origin === 'dataset') return 'From the signup data.'
-  if (s.company_site) return `From the company’s own website${s.as_of ? ` (${s.as_of})` : ''}. Click to see it.`
-  const name = s.label.replace(/\s*\([^)]*\)\s*/g, ' ').trim() // drop the AI's own "(aggregator estimate)" notes
-  return `${name}${s.as_of ? ` · ${s.as_of}` : ''}${s.stale ? ' · old' : ''}. Click to see it.`
+  const host = hostOf(s.url)
+  const name = title || s.label.replace(/\s*\([^)]*\)\s*/g, ' ').trim() // drop the AI's own "(aggregator estimate)" notes
+  return [host, name, s.as_of, s.stale ? 'old' : null].filter(Boolean).join(' · ')
 }
 
 /** Blue verified check for figures that come from the company's own website. */
