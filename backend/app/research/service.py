@@ -16,7 +16,7 @@ from ..models import Evidence, FieldStatus, Prospect, ResearchRun, utcnow
 from . import prompts
 from .client import AnthropicResearchClient, LLMClient, LLMResult, ResearchProviderError, estimate_cost
 from .evidence import (ParseError, classify_reliability, clear_band_headcounts, is_future, is_stale,
-                       parse_research_output, validate_citations)
+                       parse_research_output, recover_company_site_headcount, validate_citations)
 from .schema import RESEARCH_FIELDS, ResearchOutput
 
 ClientFactory = Callable[[], LLMClient]
@@ -127,9 +127,11 @@ def run_deep_research(session: Session, prospect_id: str, focus_fields: Optional
                     config.DEEP_MAX_SEARCHES, focus=list(focus), actor=actor)
 
 
-def _execute(session, prospect, kind, version, system, user, max_searches, focus, actor) -> ResearchRun:
+def _execute(session, prospect, kind, version, system, user, max_searches, focus, actor, from_run=None) -> ResearchRun:
     run = ResearchRun(prospect_id=prospect.id, kind=kind, prompt_version=version, model=config.RESEARCH_MODEL,
                       focus_fields=focus)
+    if from_run is not None:  # reprocessing a stored run: keep its identity and research date
+        run.model, run.replayed, run.research_cutoff = from_run.model, from_run.replayed, from_run.research_cutoff
     session.add(run)
     session.commit()
     session.refresh(run)
@@ -188,7 +190,7 @@ def _execute(session, prospect, kind, version, system, user, max_searches, focus
     allowed = {r["url"] for r in result.search_results} | set(result.cited_urls)
     output, dropped = validate_citations(output, allowed)
     run.dropped_findings = dropped
-    run.normalized_findings = clear_band_headcounts(output)
+    run.normalized_findings = clear_band_headcounts(output) + recover_company_site_headcount(output, prospect.domain)
     run.search_queries = result.search_queries
     run.parsed = output.model_dump()
     run.summary = output.summary
@@ -297,3 +299,37 @@ def _run_kind(session: Session, run_id: Optional[int]) -> Optional[str]:
         return None
     r = session.get(ResearchRun, run_id)
     return r.kind if r else None
+
+
+class _StoredRunClient:
+    """Returns a stored run's original model output. Used to re-apply updated validation rules."""
+    replayed = False
+
+    def __init__(self, run: ResearchRun):
+        self.run = run
+
+    def complete(self, system: str, user: str, max_searches: Optional[int]) -> LLMResult:
+        return LLMResult(text=self.run.raw_text or "", search_results=self.run.searched_results or [],
+                         search_queries=self.run.search_queries or [], llm_calls=0)
+
+
+def reprocess_run(session: Session, run_id: int, actor: str = "system:reprocess") -> ResearchRun:
+    """Re-run validation and evidence storage on a stored run's raw output. No AI call, no cost."""
+    old = session.get(ResearchRun, run_id)
+    if old is None or old.status not in ("ok", "partial") or not old.raw_text:
+        raise ValueError("Run cannot be reprocessed.")
+    prospect = session.get(Prospect, old.prospect_id)
+    global _client_factory
+    saved_factory = _client_factory
+    _client_factory = lambda: _StoredRunClient(old)  # noqa: E731
+    try:
+        new = _execute(session, prospect, old.kind, old.prompt_version, "", "", None, focus=old.focus_fields,
+                       actor=actor, from_run=old)
+    finally:
+        _client_factory = saved_factory
+    new.input_tokens = new.output_tokens = new.web_search_requests = new.llm_calls = 0
+    new.approx_cost_usd = 0.0
+    new.error = f"Reprocessed from run #{old.id} with updated validation (no new AI call)."
+    session.add(new)
+    session.commit()
+    return new

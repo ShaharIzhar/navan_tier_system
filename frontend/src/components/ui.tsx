@@ -94,6 +94,41 @@ export function ReliabilityChip({ reliability }: { reliability: string }) {
   )
 }
 
+/** True when the source URL is on the company's own website (same domain or a subdomain). */
+export function isCompanySite(url: string | null | undefined, companyDomain: string | null | undefined) {
+  const host = hostOf(url)
+  const d = (companyDomain ?? '').toLowerCase().replace(/^www\./, '')
+  return !!host && !!d && (host === d || host.endsWith(`.${d}`))
+}
+
+/** One-line description of where a figure came from, for hover tooltips. */
+export function sourceText(s: { label: string; origin: string; reliability: string; as_of?: string | null; stale?: boolean; url?: string | null; company_site?: boolean }) {
+  const where = s.origin === 'dataset' ? 'Enrichment estimate from the signup dataset (fictional scenario value).' : `Source: ${s.label}.`
+  const parts = [where]
+  const host = hostOf(s.url)
+  if (host && !s.label.includes(host)) parts.push(host)
+  if (s.as_of) parts.push(`Dated ${s.as_of}.`)
+  if (s.company_site) parts.push("From the company's own website: usually the most trustworthy source.")
+  else if (s.origin !== 'dataset' && RELIABILITY_LABELS[s.reliability]) parts.push(`${RELIABILITY_LABELS[s.reliability]}.`)
+  if (s.stale) parts.push('Stale (older than 18 months).')
+  return parts.filter(Boolean).join(' ')
+}
+
+/** Blue verified check for figures that come from the company's own website. */
+export function CompanySiteBadge({ domain, date, plain = false }: { domain: string; date?: string | null; plain?: boolean }) {
+  const icon = (
+    <span className="verified" aria-label="From the company's own website">
+      <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden>
+        <circle cx="8" cy="8" r="8" fill="currentColor" />
+        <path d="M4.6 8.3l2.2 2.2 4.6-4.8" fill="none" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </span>
+  )
+  if (plain) return icon // the surrounding element already explains it on hover
+  const text = `From the company's own website (${domain})${date ? `, ${date}` : ''}. Usually more trustworthy than data aggregators.`
+  return <Hint text={text}>{icon}</Hint>
+}
+
 /** Only rendered for genuine comparable values. Never infers a change. */
 export function TrendArrow({ pct, label }: { pct: number | null | undefined; label?: string }) {
   if (pct == null) return null

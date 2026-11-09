@@ -4,7 +4,7 @@ import { api } from '../api'
 import EvidenceList from '../components/EvidenceList'
 import JudgeCard from '../components/JudgeCard'
 import { Hint, Info, Section } from '../components/Section'
-import { AttentionBadge, ErrorBox, FlagChip, Spinner, TierBadge, TRIGGER_LABELS, useAsync, useReviewer, when } from '../components/ui'
+import { AttentionBadge, ErrorBox, FlagChip, Spinner, TierBadge, TRIGGER_LABELS, sourceText, useAsync, useReviewer, when } from '../components/ui'
 import { g } from '../glossary'
 
 const ACTION_LABELS: Record<string, string> = {
@@ -94,7 +94,7 @@ export default function TierReview() {
             flush
           >
             {data.evidence.length ? (
-              <EvidenceList items={data.evidence} />
+              <EvidenceList items={data.evidence} companyDomain={prospect.domain} />
             ) : (
               <div className="section-body small muted">
                 {p.stage === 'day30' ? 'Based on the Day 30 activity summary (Navan data, not a web source).' : 'Based on the structured values shown on the company page.'}
@@ -169,8 +169,23 @@ export default function TierReview() {
               <dt className="row">Applied now <Info text={g('applied_tier')} align="left" /></dt><dd><TierBadge tier={prospect.applied_tier} /></dd>
               <dt className="row">Rules say <Info text={cur ? `${g('baseline_tier')} ${cur.baseline.basis}` : g('baseline_tier')} align="left" /></dt>
               <dd><TierBadge tier={cur?.baseline.tier} provisional={cur?.baseline.provisional} /></dd>
-              <dt>Reported GBV</dt><dd>{prospect.entered_gbv_usd != null ? `$${prospect.entered_gbv_usd.toLocaleString()}` : '—'}</dd>
-              <dt>Employees used</dt><dd>{cur?.accepted_values.employees?.toLocaleString() ?? 'unknown'}</dd>
+              <dt>Reported GBV</dt>
+              <dd>
+                <Hint text="Reported by the company at signup (fictional scenario value)." align="right">
+                  {prospect.entered_gbv_usd != null ? `$${prospect.entered_gbv_usd.toLocaleString()}` : '—'}
+                </Hint>
+              </dd>
+              <dt>Employees used</dt>
+              <dd>
+                {(() => {
+                  const src = cur?.accepted_values.employee_sources.find((s) => s.label === cur?.accepted_values.employee_source)
+                  return (
+                    <Hint text={src ? sourceText(src) : 'No employee count from any source yet.'} align="right">
+                      {cur?.accepted_values.employees?.toLocaleString() ?? 'unknown'}
+                    </Hint>
+                  )
+                })()}
+              </dd>
               <dt>Attention</dt><dd>{cur && <AttentionBadge attention={cur.attention} label={cur.attention_label} />}</dd>
             </dl>
             <div style={{ marginTop: 10 }}><Link to={`/companies/${prospect.id}`}>Company page →</Link></div>

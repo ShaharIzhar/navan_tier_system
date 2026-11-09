@@ -4,7 +4,7 @@ import { api, type Assessment, type DeepPlan, type Flag, type ProspectDetail } f
 import EvidenceList from '../components/EvidenceList'
 import { Clamp, Hint, Info, Section } from '../components/Section'
 import {
-  AttentionBadge, ErrorBox, FIELD_LABELS, FlagChip, Modal, Spinner, StatusChip, TierBadge,
+  AttentionBadge, CompanySiteBadge, ErrorBox, FIELD_LABELS, FlagChip, Modal, Spinner, StatusChip, TierBadge, hostOf, sourceText,
   TrendArrow, num, usd, useAsync, useReviewer, when,
 } from '../components/ui'
 import { g } from '../glossary'
@@ -137,7 +137,12 @@ export default function CompanyDetail() {
               <tbody>
                 <tr>
                   <td className="vlabel">Annual GBV</td>
-                  <td><strong className="vbig">{usd(a.accepted_values.gbv_usd)}</strong> <span className="muted small">reported by the company</span></td>
+                  <td>
+                    <Hint text="Reported by the company at signup (fictional scenario value). Used as-is by the tier rules.">
+                      <strong className="vbig">{usd(a.accepted_values.gbv_usd)}</strong>
+                    </Hint>{' '}
+                    <span className="muted small">reported by the company</span>
+                  </td>
                   <td className="muted small">— <Info text="Travel spend is not public, so GBV cannot be researched." /></td>
                   <td></td>
                 </tr>
@@ -239,6 +244,7 @@ export default function CompanyDetail() {
                 <button className="more" onClick={() => setOpenField(null)}>Close</button>
               </div>
               <EvidenceList
+                companyDomain={p.domain}
                 items={data.evidence.filter((e) => e.field === openField)}
                 onWithdraw={(e) => run('withdraw', () => api.withdraw(e.id, reviewer || 'user', 'Withdrawn from company page'))}
               />
@@ -306,6 +312,7 @@ function EmployeeRow({ data, reviewer, onSaved }: { data: ProspectDetail; review
   const [busy, setBusy] = useState(false)
   const [err, setErr] = useState<string | null>(null)
   const found = a.accepted_values.employee_sources.filter((s) => s.origin === 'ai_research' || s.origin === 'synthetic_test')
+  const usedSource = a.accepted_values.employee_sources.find((s) => s.label === a.accepted_values.employee_source)
 
   const save = async () => {
     setBusy(true)
@@ -331,7 +338,7 @@ function EmployeeRow({ data, reviewer, onSaved }: { data: ProspectDetail; review
       <tr>
         <td className="vlabel">Employees</td>
         <td>
-          <Hint text={a.accepted_values.employee_source ?? 'No value available'}>
+          <Hint text={usedSource ? sourceText(usedSource) : 'No employee count from any source yet.'}>
             <strong className="vbig">{a.accepted_values.employees == null ? 'unknown' : num(a.accepted_values.employees)}</strong>
           </Hint>{' '}
           <span className="muted small">{a.accepted_values.employee_source ?? 'no estimate'}</span>
@@ -342,8 +349,11 @@ function EmployeeRow({ data, reviewer, onSaved }: { data: ProspectDetail; review
           ) : (
             <span className="row" style={{ gap: 6 }}>
               {found.map((s, i) => (
-                <Hint key={i} text={`${s.label}${s.as_of ? `, ${s.as_of}` : ''}. ${g(s.reliability)}${s.stale ? ' Stale.' : ''}`}>
-                  <span className={`badge rel rel-${s.reliability}`}>{num(s.value)}</span>
+                <Hint key={i} text={sourceText(s)}>
+                  <span className={`badge rel rel-${s.company_site ? 'primary own-site' : s.reliability}`}>
+                    {num(s.value)}
+                    {s.company_site && <CompanySiteBadge domain={hostOf(s.url) ?? data.prospect.domain} date={s.as_of} plain />}
+                  </span>
                 </Hint>
               ))}
             </span>

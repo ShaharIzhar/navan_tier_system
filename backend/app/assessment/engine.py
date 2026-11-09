@@ -108,7 +108,8 @@ def reassess(session: Session, prospect_id: str, trigger: str, actor: str = "sys
         "research_employees": s.research_employee_value,
         "employee_sources": [
             {"value": x.value, "label": x.label, "origin": x.origin, "reliability": x.reliability,
-             "as_of": x.as_of, "evidence_id": x.evidence_id, "stale": x.stale}
+             "as_of": x.as_of, "evidence_id": x.evidence_id, "stale": x.stale,
+             "company_site": x.company_site, "url": x.url}
             for x in s.employee_sources
         ],
         "headcount_history": s.headcount_history,

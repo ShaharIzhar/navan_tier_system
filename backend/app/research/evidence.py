@@ -141,6 +141,33 @@ _RANGE = re.compile(
 )
 
 
+# Dates like 2023-12-31 or 2023-12 look like ranges ("12-31") to the band check; strip them first.
+_DATES = re.compile(r"\b(?:19|20)\d{2}-\d{1,2}(?:-\d{1,2})?\b")
+_HEADCOUNT = re.compile(r"(\d{1,3}(?:,\d{3})+|\d+)\s+(?:employees|staff|people|team members|colleagues)\b", re.I)
+
+
+def recover_company_site_headcount(output: ResearchOutput, company_domain: str) -> list[dict]:
+    """The company's own website is the most trustworthy headcount source. If the model left
+    value_number empty for a company-site claim that states one clear figure ("26,000 employees"),
+    recover it. Bands ("over 700", "51-200") are never recovered."""
+    changed = []
+    for fr in output.fields:
+        if fr.field != "employee_count":
+            continue
+        for f in fr.findings:
+            if f.value_number is not None or classify_reliability(f.source_url, company_domain) != "primary":
+                continue
+            if host_of(f.source_url) not in (company_domain,) and not host_of(f.source_url).endswith("." + company_domain):
+                continue  # registries are primary too; only recover from the company's own site
+            clean = _DATES.sub(" ", f.claim)
+            nums = _HEADCOUNT.findall(clean)
+            if len(nums) == 1 and not _RANGE.search(clean):
+                f.value_number = float(nums[0].replace(",", ""))
+                changed.append({"field": fr.field, "claim": f.claim, "source_url": f.source_url,
+                                "reason": f"value_number {f.value_number:g} recovered from the company's own website"})
+    return changed
+
+
 def clear_band_headcounts(output: ResearchOutput) -> list[dict]:
     """A headcount band ("51-200", "fewer than 25") is not an exact number. If the model put a
     number in value_number for a band, clear it so the band is not used by the tier rules."""
@@ -149,7 +176,7 @@ def clear_band_headcounts(output: ResearchOutput) -> list[dict]:
         if fr.field != "employee_count":
             continue
         for f in fr.findings:
-            if f.value_number is not None and _RANGE.search(f.claim):
+            if f.value_number is not None and _RANGE.search(_DATES.sub(" ", f.claim)):
                 changed.append({"field": fr.field, "claim": f.claim, "source_url": f.source_url,
                                 "reason": f"value_number {f.value_number:g} cleared: the source gives a band, not an exact headcount"})
                 f.value_number = None

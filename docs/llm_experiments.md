@@ -172,6 +172,11 @@ After v2, I ran the full app on 10 companies. Live research, then the determinis
 | 5 | After a reviewer **rejected** IMU's proposal, the company stayed in Review Now indefinitely | **Policy.** A reviewed conflict kept re-escalating | Once its proposal is rejected, a material conflict drops to Review Suggested until new evidence arrives | Extended `test_reject_keeps_tier_and_suppresses_duplicate` |
 | 6 | An Indeed *search-results* page was used as evidence for one employer | **Source quality.** Search listings mix employers | Job-board search URLs are classified as aggregator | `test_job_board_search_page_is_aggregator` |
 
+| 7 | **Bionical (P-025):** "employs 703 people… (period ending 2023-12-31)" lost its number | **Bug** in the band filter: the date `2023-12` looked like a range such as "51-200" | Strip dates before the band check | `test_band_check_ignores_dates` |
+| 8 | **Balfour Beatty (P-021):** the company's own "26,000 employees" had no number, so it never counted | **Extraction.** The prompt asks for exact numbers only, and the model treated a rounded company figure as inexact | Deterministic recovery: one clear "N employees" figure on the company's **own website** keeps its number (bands like "over 700" never do). Company-website figures are shown first, with a verified check | `test_company_site_headcount_is_recovered_and_listed_first` |
+
+Fixes 7 and 8 were applied to the stored runs with `scripts/reprocess_runs.py`. It re-validates each saved raw AI response with the current rules: no new AI call, no cost.
+
 **v2 vs v3 on Bionical's job ads.** Same standard prompt structure, same day. Raw files: `experiments/v2/P-025-standard.json` and `experiments/v3/P-025-standard.json`.
 
 | | v2 | v3 |

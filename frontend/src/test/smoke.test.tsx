@@ -149,3 +149,41 @@ describe('Inline value correction', () => {
     expect(await screen.findByText(/Rules rerun with no AI call/)).toBeInTheDocument()
   })
 })
+
+describe('Company website source', () => {
+  it('shows a verified check only for figures from the company domain', async () => {
+    const ev = (id: number, url: string) => ({
+      id, run_id: 1, field: 'employee_count', claim: `claim ${id}`, value_number: id === 1 ? 160 : 25, signal_type: 'descriptive',
+      observation: 'observed', travel_scope: null, source_title: null, source_url: url, publisher: null, published_date: null,
+      retrieved_at: null, reliability: id === 1 ? 'primary' : 'aggregator', origin: 'ai_research', is_stale: false,
+      accepted_for_reassessment: false, entered_by: null, note: null, superseded_by: null, created_at: '2026-11-08T10:00:00',
+    })
+    const a = {
+      ...assessment,
+      accepted_values: {
+        ...assessment.accepted_values,
+        employee_sources: [
+          { value: 155, label: 'Enrichment estimate (dataset)', origin: 'dataset', reliability: 'enrichment', as_of: null, evidence_id: null, stale: false },
+          { value: 160, label: 'Company website (imubiosciences.com)', origin: 'ai_research', reliability: 'primary', as_of: null, evidence_id: 1, stale: false, company_site: true, url: 'https://www.imubiosciences.com/about' },
+          { value: 25, label: 'PitchBook', origin: 'ai_research', reliability: 'aggregator', as_of: null, evidence_id: 2, stale: false },
+        ],
+      },
+    }
+    mockFetch({
+      '/api/prospects/P-007': {
+        prospect: row({}), assessment: a, history: [], proposals: [], research_runs: [],
+        evidence: [ev(1, 'https://www.imubiosciences.com/about'), ev(2, 'https://pitchbook.com/profiles/x')],
+        day30: { received: false, exists: false }, day30_pending: false, audit: [],
+      },
+    })
+    render(
+      <MemoryRouter initialEntries={['/companies/P-007']}>
+        <Routes><Route path="/companies/:id" element={<CompanyDetail />} /></Routes>
+      </MemoryRouter>,
+    )
+    await screen.findByRole('heading', { name: 'IMU Biosciences' })
+    const checks = screen.getAllByLabelText("From the company's own website")
+    expect(checks).toHaveLength(1)
+    expect(checks[0].closest('.badge')?.textContent).toContain('160')
+  })
+})

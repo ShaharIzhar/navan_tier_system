@@ -1,11 +1,22 @@
 import type { Evidence } from '../api'
-import { ReliabilityChip, hostOf, when } from './ui'
+import { CompanySiteBadge, ReliabilityChip, hostOf, isCompanySite, when } from './ui'
 
-export default function EvidenceList({ items, onWithdraw }: { items: Evidence[]; onWithdraw?: (e: Evidence) => void }) {
+const TRUST: Record<string, number> = { primary: 0, manual_verified: 1, secondary: 2, manual_unverified: 3, aggregator: 4, synthetic: 5 }
+
+export default function EvidenceList({ items, onWithdraw, companyDomain }: { items: Evidence[]; onWithdraw?: (e: Evidence) => void; companyDomain?: string }) {
   if (!items.length) return <div className="empty small">No evidence recorded for this field.</div>
+  const rank = (e: Evidence) => [
+    e.superseded_by ? 1 : 0,
+    e.origin === 'ai_research' && isCompanySite(e.source_url, companyDomain) ? 0 : 1,
+    TRUST[e.reliability] ?? 6,
+  ]
+  const sorted = [...items].sort((x, y) => {
+    const a = rank(x), b = rank(y)
+    return a[0] - b[0] || a[1] - b[1] || a[2] - b[2]
+  })
   return (
     <div>
-      {items.map((e) => {
+      {sorted.map((e) => {
         const superseded = !!e.superseded_by
         return (
           <div key={e.id} className={`evidence-item${superseded ? ' superseded' : ''}`}>
@@ -16,7 +27,11 @@ export default function EvidenceList({ items, onWithdraw }: { items: Evidence[];
               )}
             </div>
             <div className="evidence-meta">
-              <ReliabilityChip reliability={e.reliability} />
+              {e.origin === 'ai_research' && isCompanySite(e.source_url, companyDomain) ? (
+                <span className="badge rel rel-primary">Company website</span>
+              ) : (
+                <ReliabilityChip reliability={e.reliability} />
+              )}
               {e.signal_type === 'direct_travel' && (
                 <span className="badge flag">
                   {e.travel_scope === 'local_field_travel' ? 'Local field travel (not counted)' : e.travel_scope === 'business_travel' ? 'Business travel' : 'Travel (type unclear)'}
@@ -26,9 +41,14 @@ export default function EvidenceList({ items, onWithdraw }: { items: Evidence[];
               {e.observation === 'inferred' && <span className="badge st-stale">Inferred, not stated</span>}
               {e.is_stale && <span className="badge st-stale">Stale</span>}
               {e.source_url ? (
-                <a href={e.source_url} target="_blank" rel="noreferrer">
-                  {e.source_title || hostOf(e.source_url)}
-                </a>
+                <span className="row" style={{ gap: 4 }}>
+                  {e.origin === 'ai_research' && isCompanySite(e.source_url, companyDomain) && (
+                    <CompanySiteBadge domain={hostOf(e.source_url) ?? ''} date={e.published_date} />
+                  )}
+                  <a href={e.source_url} target="_blank" rel="noreferrer">
+                    {e.source_title || hostOf(e.source_url)}
+                  </a>
+                </span>
               ) : (
                 <span>{e.origin === 'human' ? 'No source given' : e.publisher}</span>
               )}

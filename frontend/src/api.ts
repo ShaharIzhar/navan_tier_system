@@ -53,6 +53,8 @@ export interface EmployeeSource {
   as_of: string | null
   evidence_id: number | null
   stale: boolean
+  company_site?: boolean
+  url?: string | null
 }
 
 export interface Assessment {

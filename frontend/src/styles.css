@@ -253,3 +253,8 @@ table.values td { padding: 14px 16px; }
 .edit-row td { background: var(--accent-soft); padding-top: 10px; padding-bottom: 12px; }
 @media (max-width: 1000px) { .hero-tight { grid-template-columns: 1fr 1fr; } .hero-tight .next-step { grid-column: 1 / -1; } }
 
+
+/* ---------- Company-website verified check ---------- */
+.verified { color: #1d7bf2; display: inline-flex; align-items: center; cursor: help; }
+.own-site { display: inline-flex; align-items: center; gap: 4px; }
+.hint:has(.verified) { border-bottom: none; }

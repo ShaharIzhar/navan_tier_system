@@ -53,8 +53,8 @@ The CSV in `data/prospects.csv` is imported automatically on first start. Every 
 **Tests**
 
 ```bash
-cd backend && .venv/bin/python -m pytest -q     # 81 tests
-cd frontend && npm test                          # 4 smoke tests
+cd backend && .venv/bin/python -m pytest -q     # 84 tests
+cd frontend && npm test                          # 5 smoke tests
 ```
 
 ### A 5-minute demo
@@ -244,7 +244,7 @@ backend/app/
   reviews/service.py       approve / reject / request info + audit
   enrichment.py            manual values, synthetic test evidence
   api/routes.py            FastAPI endpoints
-backend/tests/             81 pytest tests
+backend/tests/             84 pytest tests
 backend/scripts/prompt_experiment.py   reproduces the LLM experiments
 frontend/src/pages/        ReviewQueue, Companies, CompanyDetail, TierReview, Reviews, Reports
 docs/                      flowchart, llm_experiments (+ raw outputs), evaluation, cases

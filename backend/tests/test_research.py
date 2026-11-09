@@ -1,3 +1,4 @@
+import json
 import pytest
 from sqlmodel import select
 
@@ -179,3 +180,42 @@ def test_non_routing_llm_conflicts_do_not_raise_flags(session, fake_llm):
     rs.run_standard_research(session, "P-009")
     a = latest_assessment(session, "P-009")
     assert "data_conflict" not in {f["type"] for f in a.flags}
+
+
+def test_band_check_ignores_dates():
+    """Live P-025: '703 people ... period ending 2023-12-31' was cleared because 2023-12 looked like a range."""
+    from app.research.evidence import clear_band_headcounts
+    from app.research.schema import ResearchOutput
+
+    out = ResearchOutput.model_validate(json.loads(research_json({"employee_count": ("found", [
+        finding("Employs 703 people, based on accounts for the period ending 2023-12-31.", "https://x.example/a", value=703)])})))
+    assert clear_band_headcounts(out) == []
+    assert out.fields[2].findings[0].value_number == 703
+
+
+def test_company_site_headcount_is_recovered_and_listed_first(session, fake_llm):
+    """Live P-021: the company's own '26,000 employees' had no number; it should be used and shown first."""
+    own, agg = "https://www.balfourbeatty.com/about-us/", "https://tracxn.com/d/balfour"
+    text = research_json({"employee_count": ("found", [
+        finding("Tracxn reports 14,941 employees", agg, value=14941),
+        finding("The company describes itself as having 26,000 employees (rounded figure).", own),
+        finding("Over 700 staff worldwide", own)])})
+    fake_llm(llm_result(text, [own, agg]))
+    run = rs.run_standard_research(session, "P-021")
+    assert any("recovered" in n["reason"] for n in run.normalized_findings)
+    srcs = latest_assessment(session, "P-021").accepted_values["employee_sources"]
+    research = [s for s in srcs if s["origin"] == "ai_research"]
+    assert research[0]["value"] == 26000 and research[0]["company_site"] and research[0]["label"].startswith("Company website")
+    assert srcs[0]["company_site"]  # company website listed before everything else
+    assert 700 not in [s["value"] for s in srcs]  # bands are never recovered
+
+
+def test_reprocess_rebuilds_evidence_without_ai(session, fake_llm):
+    own = "https://www.balfourbeatty.com/about-us/"
+    client = fake_llm(llm_result(research_json({"employee_count": ("found", [
+        finding("The company has 26,000 employees.", own)])}), [own]))
+    first = rs.run_standard_research(session, "P-021")
+    new = rs.reprocess_run(session, first.id)
+    assert len(client.calls) == 1  # no second AI call
+    assert new.status == "ok" and new.llm_calls == 0 and new.approx_cost_usd == 0 and "Reprocessed" in new.error
+    assert new.research_cutoff == first.research_cutoff
