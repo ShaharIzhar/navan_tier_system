@@ -28,7 +28,15 @@ export default function MultiSelect({ label, options, selected, onChange, allLab
 
   const names = selected.map((v) => shortLabels?.[v] ?? options.find((o) => o.value === v)?.label ?? v)
   const summary = selected.length === 0 ? allLabel : selected.length === 1 || shortLabels ? names.join(', ') : `${selected.length} selected`
-  const toggle = (v: string) => onChange(selected.includes(v) ? selected.filter((x) => x !== v) : [...selected, v])
+  // Empty selection means "all", so every box shows as ticked. Unticking narrows the filter;
+  // ticking everything again (or unticking the last one) goes back to "all".
+  const all = options.map((o) => o.value)
+  const isChecked = (v: string) => selected.length === 0 || selected.includes(v)
+  const toggle = (v: string) => {
+    const current = selected.length === 0 ? all : selected
+    const next = current.includes(v) ? current.filter((x) => x !== v) : [...current, v]
+    onChange(next.length === 0 || next.length === all.length ? [] : all.filter((x) => next.includes(x)))
+  }
 
   return (
     <div className="multi" ref={ref}>
@@ -40,12 +48,12 @@ export default function MultiSelect({ label, options, selected, onChange, allLab
         <div className="multi-pop" role="listbox" aria-multiselectable="true" aria-label={label}>
           {options.map((o) => (
             <label key={o.value} className="multi-opt">
-              <input type="checkbox" checked={selected.includes(o.value)} onChange={() => toggle(o.value)} />
+              <input type="checkbox" checked={isChecked(o.value)} onChange={() => toggle(o.value)} />
               <span>{o.label}</span>
             </label>
           ))}
           {selected.length > 0 && (
-            <button type="button" className="more multi-clear" onClick={() => onChange([])}>Clear</button>
+            <button type="button" className="more multi-clear" onClick={() => onChange([])}>Select all</button>
           )}
         </div>
       )}

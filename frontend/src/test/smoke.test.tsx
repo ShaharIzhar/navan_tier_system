@@ -378,8 +378,8 @@ describe('Multi-select filters', () => {
     render(<MemoryRouter><Companies /></MemoryRouter>)
     await screen.findByText('One')
     await userEvent.click(screen.getByRole('button', { name: 'Tier filter' }))
-    await userEvent.click(screen.getByRole('checkbox', { name: 'Tier 1' }))
-    await userEvent.click(screen.getByRole('checkbox', { name: 'Tier 3' }))
+    expect(screen.getByRole('checkbox', { name: 'Tier 1' })).toBeChecked() // "All" = every box ticked
+    await userEvent.click(screen.getByRole('checkbox', { name: 'Tier 2' }))
     expect(screen.getByRole('button', { name: 'Tier filter' })).toHaveTextContent('Tier: 1, 3')
     expect(screen.getByText('One')).toBeInTheDocument()
     expect(screen.getByText('Three')).toBeInTheDocument()
