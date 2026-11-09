@@ -17,8 +17,10 @@ const ACTION_LABELS: Record<string, string> = {
   comment: 'commented',
 }
 
-export default function TierReview() {
-  const { id = '' } = useParams()
+/** Tier review. Used as a page (/reviews/:id) and inside a pop-up on the company page (embedded). */
+export default function TierReview({ proposalId, embedded = false, onChanged }: { proposalId?: number; embedded?: boolean; onChanged?: () => void } = {}) {
+  const params = useParams()
+  const id = String(proposalId ?? params.id ?? '')
   const { data, error, loading, reload } = useAsync(() => api.proposal(Number(id)), [id])
   const [reviewer] = useReviewer()
   const [comment, setComment] = useState('')
@@ -56,6 +58,7 @@ export default function TierReview() {
       await api.decide(p.id, action, reviewer, comment)
       setComment('')
       reload()
+      onChanged?.()
     } catch (e) {
       setActionError(String((e as Error).message))
     } finally {
@@ -69,9 +72,9 @@ export default function TierReview() {
 
   return (
     <>
-      <div className="crumb">
+      {!embedded && <div className="crumb">
         <Link to="/reviews">Tier reviews</Link> / <Link to={`/companies/${prospect.id}`}>{prospect.company_name}</Link> / #{p.id}
-      </div>
+      </div>}
       <div className="page-head">
         <div>
           <h1 className="row" style={{ gap: 10 }}>
@@ -205,7 +208,7 @@ export default function TierReview() {
               </dd>
               <dt>Attention</dt><dd>{cur && <AttentionBadge attention={cur.attention} label={cur.attention_label} />}</dd>
             </dl>
-            <div style={{ marginTop: 10 }}><Link to={`/companies/${prospect.id}`}>Company page →</Link></div>
+            {!embedded && <div style={{ marginTop: 10 }}><Link to={`/companies/${prospect.id}`}>Company page →</Link></div>}
           </div>
 
         </div>

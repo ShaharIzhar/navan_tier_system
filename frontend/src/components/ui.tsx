@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from 'react'
+import { useEffect, useState, type ReactNode, useRef } from 'react'
 import type { Attention } from '../api'
 import { g } from '../glossary'
 import { Hint } from './Section'
@@ -235,18 +235,29 @@ export function ErrorBox({ error }: { error: string | null }) {
   return <div className="callout error banner">{error}</div>
 }
 
-export function Modal({ title, onClose, children }: { title: string; onClose: () => void; children: ReactNode }) {
+export function Modal({ title, onClose, children, wide = false, actions }: {
+  title: string; onClose: () => void; children: ReactNode; wide?: boolean; actions?: ReactNode
+}) {
+  const ref = useRef<HTMLDivElement>(null)
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose()
+    // Escape closes only the top-most dialog (e.g. a confirm opened on top of a review).
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return
+      const all = document.querySelectorAll('.modal-backdrop')
+      if (all[all.length - 1] === ref.current) onClose()
+    }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [onClose])
   return (
-    <div className="modal-backdrop" onClick={onClose}>
-      <div className="modal" role="dialog" aria-label={title} onClick={(e) => e.stopPropagation()}>
+    <div className="modal-backdrop" ref={ref} onClick={onClose}>
+      <div className={`modal${wide ? ' wide' : ''}`} role="dialog" aria-label={title} onClick={(e) => e.stopPropagation()}>
         <div className="card-head">
           <h2>{title}</h2>
-          <button className="ghost" onClick={onClose} aria-label="Close">✕</button>
+          <span className="row" style={{ gap: 8 }}>
+            {actions}
+            <button className="ghost" onClick={onClose} aria-label="Close">✕</button>
+          </span>
         </div>
         <div className="card-pad">{children}</div>
       </div>

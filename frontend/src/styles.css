@@ -357,3 +357,5 @@ th.num .sort-btn { flex-direction: row-reverse; }
 .multi-clear { align-self: flex-start; margin: 4px 8px 2px; }
 .company-logo.large { width: 36px; height: 36px; }
 .company-logo.large .site-icon, .company-logo.large .site-icon.globe { width: 22px; height: 22px; }
+.modal.wide { width: min(1100px, 96vw); max-height: 92vh; }
+.modal.wide .card-pad { padding: 20px 24px; background: var(--bg); }

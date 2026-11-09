@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
+import TierReview from './TierReview'
 import { api, type Assessment, type Flag, type ProspectDetail } from '../api'
 import EvidenceList from '../components/EvidenceList'
 import { Suggestion } from '../components/ProspectTable'
@@ -357,7 +358,7 @@ export default function CompanyDetail() {
           if (ok) run('day30', () => api.removeDay30(p.id, reviewer || 'user'))
         }} />
 
-        {data.proposals.length > 0 && <TierChanges proposals={data.proposals} />}
+        {data.proposals.length > 0 && <TierChanges proposals={data.proposals} onChanged={reload} />}
       </div>
 
     </div>
@@ -688,8 +689,8 @@ function Day30Editor({ initial, onClose, onSave }: {
 }
 
 /** Readable list of tier changes: open ones first, past ones folded away. */
-function TierChanges({ proposals }: { proposals: ProspectDetail['proposals'] }) {
-  const nav = useNavigate()
+function TierChanges({ proposals, onChanged }: { proposals: ProspectDetail['proposals']; onChanged: () => void }) {
+  const [openId, setOpenId] = useState<number | null>(null)
   const [showPast, setShowPast] = useState(false)
   const open = proposals.filter((p) => p.status === 'open' || p.status === 'needs_info')
   const past = proposals.filter((p) => !(p.status === 'open' || p.status === 'needs_info'))
@@ -706,7 +707,7 @@ function TierChanges({ proposals }: { proposals: ProspectDetail['proposals'] }) 
         const isOpen = p.status === 'open' || p.status === 'needs_info'
         return (
           <div key={p.id} className={`change-row${isOpen ? '' : ' past'}`} role="link" tabIndex={0}
-            onClick={() => nav(`/reviews/${p.id}`)} onKeyDown={(e) => e.key === 'Enter' && nav(`/reviews/${p.id}`)}>
+            onClick={() => setOpenId(p.id)} onKeyDown={(e) => e.key === 'Enter' && setOpenId(p.id)}>
             <span className={`change-what ${up ? 'up' : 'down'}`}>
               {up ? '↑' : '↓'} {up ? 'Upgrade' : 'Downgrade'} to Tier {p.proposed_tier}
             </span>
@@ -715,7 +716,7 @@ function TierChanges({ proposals }: { proposals: ProspectDetail['proposals'] }) 
               <span className="change-type">{p.proposal_type === 'evidence_override' ? 'Override' : 'Rule correction'}</span>
             </Hint>
             <span className={`status-pill${p.status === 'open' ? ' awaiting' : ''}`}>{p.status_label}</span>
-            {isOpen ? <button className="small primary" onClick={(e) => { e.stopPropagation(); nav(`/reviews/${p.id}`) }}>Review →</button> : <span />}
+            {isOpen ? <button className="small primary" onClick={(e) => { e.stopPropagation(); setOpenId(p.id) }}>Review →</button> : <span />}
           </div>
         )
       })}
@@ -725,6 +726,12 @@ function TierChanges({ proposals }: { proposals: ProspectDetail['proposals'] }) 
             {showPast ? 'Hide past proposals' : `Show ${past.length} past proposal${past.length > 1 ? 's' : ''}`}
           </button>
         </div>
+      )}
+      {openId != null && (
+        <Modal title="Tier review" wide onClose={() => setOpenId(null)}
+          actions={<Link className="small" to={`/reviews/${openId}`}>Open full page ↗</Link>}>
+          <TierReview proposalId={openId} embedded onChanged={onChanged} />
+        </Modal>
       )}
     </Section>
   )
