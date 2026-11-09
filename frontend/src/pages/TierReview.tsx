@@ -166,12 +166,11 @@ export default function TierReview() {
                     <button className="danger" disabled={!!busy || !reviewer || !comment.trim()} onClick={() => act('reject')}>
                       {busy === 'reject' && <Spinner />} Reject
                     </button>
-                    <button disabled={!!busy || !reviewer || !comment.trim()} onClick={() => act('request_info')}>
-                      {busy === 'request_info' && <Spinner />} Request more information
-                    </button>
                   </>
                 )}
-                <button className="ghost" disabled={!!busy || !reviewer || !comment.trim()} onClick={() => act('comment')}>Comment only</button>
+                <button disabled={!!busy || !reviewer || !comment.trim()} onClick={() => act('comment')}>
+                  {busy === 'comment' && <Spinner />} Comment only
+                </button>
               </div>
               {p.status === 'needs_info' && (
                 <p className="small muted">
