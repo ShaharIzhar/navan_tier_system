@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import type { Evidence } from '../api'
-import { CompanySiteBadge, ReliabilityChip, hostOf, isCompanySite, when } from './ui'
+import { CompanySiteBadge, ReliabilityChip, hostOf, isCompanySite } from './ui'
 
 const TRUST: Record<string, number> = { primary: 0, manual_verified: 1, secondary: 2, manual_unverified: 3, aggregator: 4, synthetic: 5 }
 
@@ -23,46 +23,39 @@ export default function EvidenceList({ items, onWithdraw, companyDomain, highlig
       {current.length === 0 && <div className="empty small">No current evidence for this field.</div>}
       {[...current, ...(showOlder ? older : [])].map((e) => {
         const superseded = !!e.superseded_by
+        const own = e.origin === 'ai_research' && isCompanySite(e.source_url, companyDomain)
         return (
           <div key={e.id} id={`ev-${e.id}`} className={`evidence-item${superseded ? ' superseded' : ''}${highlightId === e.id ? ' highlight' : ''}`}>
-            <div className="spread">
-              <div>{e.claim}</div>
+            <div className="spread" style={{ alignItems: 'flex-start' }}>
+              <div className="claim-line">
+                {own && (
+                  <span className="own-badge">
+                    <CompanySiteBadge domain={hostOf(e.source_url) ?? ''} date={e.published_date} plain /> Company website
+                  </span>
+                )}
+                <span>{e.claim}</span>
+              </div>
               {onWithdraw && !superseded && (e.origin === 'human' || e.origin === 'synthetic_test') && (
                 <button className="ghost small" onClick={() => onWithdraw(e)}>Withdraw</button>
               )}
             </div>
             <div className="evidence-meta">
-              {e.origin === 'ai_research' && isCompanySite(e.source_url, companyDomain) ? (
-                <span className="badge rel rel-primary">Company website</span>
-              ) : (
-                <ReliabilityChip reliability={e.reliability} />
-              )}
+              {(e.origin === 'human' || e.origin === 'synthetic_test') && <ReliabilityChip reliability={e.reliability} />}
               {e.signal_type === 'direct_travel' && (
                 <span className="badge flag">
-                  {e.travel_scope === 'local_field_travel' ? 'Local field travel (not counted)' : e.travel_scope === 'business_travel' ? 'Business travel' : 'Travel (type unclear)'}
+                  {e.travel_scope === 'local_field_travel' ? 'Local travel (not counted)' : e.travel_scope === 'business_travel' ? 'Business travel' : 'Travel'}
                 </span>
               )}
-              {e.signal_type === 'indirect_growth' && <span className="badge flag">Growth signal</span>}
-              {e.observation === 'inferred' && <span className="badge st-stale">Inferred, not stated</span>}
-              {e.is_stale && <span className="badge st-stale">Stale</span>}
+              {e.observation === 'inferred' && <span className="badge st-stale">Inferred</span>}
+              {e.is_stale && <span className="badge st-stale">Old</span>}
               {e.source_url ? (
-                <span className="row" style={{ gap: 4 }}>
-                  {e.origin === 'ai_research' && isCompanySite(e.source_url, companyDomain) && (
-                    <CompanySiteBadge domain={hostOf(e.source_url) ?? ''} date={e.published_date} />
-                  )}
-                  <a href={e.source_url} target="_blank" rel="noreferrer">
-                    {e.source_title || hostOf(e.source_url)}
-                  </a>
-                </span>
+                <a href={e.source_url} target="_blank" rel="noreferrer">{e.source_title || hostOf(e.source_url)}</a>
               ) : (
-                <span>{e.origin === 'human' ? 'No source given' : e.publisher}</span>
+                <span>{e.origin === 'human' ? `Added by ${e.entered_by}` : e.publisher}</span>
               )}
-              {e.publisher && e.source_url && <span>· {e.publisher}</span>}
-              {e.published_date && <span>· published {e.published_date}</span>}
-              <span>· {e.origin === 'human' ? `entered by ${e.entered_by} ${when(e.created_at)}` : `retrieved ${when(e.retrieved_at)}`}</span>
-              {e.run_id && <span>· run #{e.run_id}</span>}
-              {superseded && <span>· superseded ({e.superseded_by?.split(':')[0]})</span>}
-              {e.origin === 'human' && !e.accepted_for_reassessment && <span>· explanatory only</span>}
+              {e.published_date && <span>· {e.published_date}</span>}
+              {superseded && <span>· replaced</span>}
+              {e.origin === 'human' && !e.accepted_for_reassessment && <span>· note only</span>}
             </div>
             {e.note && <div className="small muted" style={{ marginTop: 4 }}>{e.note}</div>}
           </div>

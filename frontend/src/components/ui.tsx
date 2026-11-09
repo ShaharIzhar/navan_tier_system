@@ -3,11 +3,6 @@ import type { Attention } from '../api'
 import { g } from '../glossary'
 import { Hint } from './Section'
 
-const SHORT_SOURCE: Record<string, string> = {
-  primary: 'official source', secondary: 'independent source', aggregator: 'estimate',
-  manual_verified: 'checked by a person', manual_unverified: 'added by a person', synthetic: 'test data',
-}
-
 export const SUPPORT_LEVEL: Record<number, string> = {
   1: 'dedicated AE and account manager',
   2: 'AE for launch and adoption',
@@ -117,8 +112,7 @@ export function sourceText(s: { label: string; origin: string; reliability: stri
   if (s.origin === 'dataset') return 'From the signup data.'
   if (s.company_site) return `From the company’s own website${s.as_of ? ` (${s.as_of})` : ''}. Click to see it.`
   const name = s.label.replace(/\s*\([^)]*\)\s*/g, ' ').trim() // drop the AI's own "(aggregator estimate)" notes
-  const kind = SHORT_SOURCE[s.reliability] ?? 'source'
-  return `${name} · ${kind}${s.as_of ? ` · ${s.as_of}` : ''}${s.stale ? ' · old' : ''}. Click to see it.`
+  return `${name}${s.as_of ? ` · ${s.as_of}` : ''}${s.stale ? ' · old' : ''}. Click to see it.`
 }
 
 /** Blue verified check for figures that come from the company's own website. */

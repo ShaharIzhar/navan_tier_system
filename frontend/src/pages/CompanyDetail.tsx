@@ -392,7 +392,7 @@ function EmployeeRow({ data, reviewer, onSaved, onShowEvidence }: { data: Prospe
                 <Hint key={i} text={sourceText(s)}>
                   <button
                     type="button"
-                    className={`badge rel rel-${s.company_site ? 'primary own-site' : s.reliability} chip-link`}
+                    className={`badge rel ${s.company_site ? 'rel-primary own-site' : ''} chip-link`}
                     onClick={() => s.evidence_id && onShowEvidence(s.evidence_id)}
                     aria-label={`Show evidence for ${num(s.value)}`}
                   >
