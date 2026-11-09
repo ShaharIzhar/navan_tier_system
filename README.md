@@ -53,8 +53,8 @@ The CSV in `data/prospects.csv` is imported automatically on first start. Every 
 **Tests**
 
 ```bash
-cd backend && .venv/bin/python -m pytest -q     # 86 tests
-cd frontend && npm test                          # 7 smoke tests
+cd backend && .venv/bin/python -m pytest -q     # 89 tests
+cd frontend && npm test                          # 10 smoke tests
 ```
 
 ### A 5-minute demo
@@ -116,6 +116,8 @@ The AI's output is not trusted as-is:
 | Source reliability | Company site or registry / independent source / data aggregator, decided by domain |
 | Timeouts, API errors, missing key | Recorded on the run and shown in the UI; the rules keep working |
 
+**Deep Research runs in the background.** The company page shows a progress bar with the current step (starting, searching the web, checking sources, saving). It keeps running if you leave the page and refreshes the findings when done. Only one Deep Research runs per company at a time; a run cut off by a server restart is marked as interrupted.
+
 **Cost controls:**
 - Results are cached per company and prompt version.
 - Standard research runs only for a configured demo set of 10 companies, or when someone clicks it.
@@ -162,6 +164,9 @@ A Growth employee can set employee count, a direct travel requirement, funding, 
 - An entry can be withdrawn, and it stays in history.
 
 ### 6. Day 30 reassessment
+
+Day 30 numbers can be **updated** (travelers, plus bookings for days 1–15 and 16–30; the total and trend are calculated) or **removed** (the company goes back to its signup assessment, and any tier change suggested from the activity is withdrawn). Both ask for confirmation and are logged.
+
 
 Day 30 activity is imported into a separate table and stays *unreceived* until released, so it can't influence signup routing. When it arrives:
 1. A new rules-only assessment compares it with the latest Day 0 assessment, and says whether the activity *strengthens*, *weakens* or is *consistent with* it.
@@ -245,7 +250,7 @@ backend/app/
   reviews/service.py       approve / reject / request info + audit
   enrichment.py            manual values, synthetic test evidence
   api/routes.py            FastAPI endpoints
-backend/tests/             86 pytest tests
+backend/tests/             89 pytest tests
 backend/scripts/prompt_experiment.py   reproduces the LLM experiments
 frontend/src/pages/        ReviewQueue, Companies, CompanyDetail, TierReview, Reviews
 docs/                      flowchart, llm_experiments (+ raw outputs), evaluation, cases
