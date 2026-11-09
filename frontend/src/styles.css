@@ -324,3 +324,6 @@ th.num .sort-btn { flex-direction: row-reverse; }
 .site-icon.globe { display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; color: var(--text-3); }
 .day30-remarks { margin-top: 12px; font-size: 13px; color: var(--text-2); background: var(--surface-2); border-radius: 8px; padding: 8px 12px; white-space: pre-wrap; }
 .day30-remarks span { display: block; font-size: 11px; font-weight: 600; color: var(--text-3); margin-bottom: 2px; }
+.evidence-item.openable { cursor: pointer; }
+.evidence-item.openable:hover { background: #fafbfd; }
+.evidence-item.openable:hover .claim-line { color: var(--accent); }

@@ -26,7 +26,18 @@ export default function EvidenceList({ items, onWithdraw, companyDomain, highlig
         const superseded = !!e.superseded_by
         const own = e.origin === 'ai_research' && isCompanySite(e.source_url, companyDomain)
         return (
-          <div key={e.id} id={`ev-${e.id}`} className={`evidence-item${superseded ? ' superseded' : ''}${highlightId === e.id ? ' highlight' : ''}`}>
+          <div key={e.id} id={`ev-${e.id}`}
+            className={`evidence-item${superseded ? ' superseded' : ''}${highlightId === e.id ? ' highlight' : ''}${e.source_url ? ' openable' : ''}`}
+            role={e.source_url ? 'link' : undefined}
+            tabIndex={e.source_url ? 0 : undefined}
+            onClick={(ev) => {
+              // Open the source when clicking anywhere in the row (not buttons/links, and not while selecting text).
+              if (!e.source_url || (ev.target as HTMLElement).closest('a, button')) return
+              if (window.getSelection()?.toString()) return
+              window.open(e.source_url, '_blank', 'noopener,noreferrer')
+            }}
+            onKeyDown={(ev) => { if (ev.key === 'Enter' && e.source_url) window.open(e.source_url, '_blank', 'noopener,noreferrer') }}
+          >
             <div className="spread" style={{ alignItems: 'flex-start' }}>
               <div className="claim-line">
                 {own && (

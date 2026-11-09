@@ -349,3 +349,18 @@ describe('Flag order', () => {
     expect(out.map((f) => f.type)).toEqual(['tier_mismatch', 'data_conflict', 'growth_opportunity', 'travel_potential', 'insufficient_evidence'])
   })
 })
+
+describe('Evidence rows', () => {
+  it('opens the source when clicking the finding text', async () => {
+    const { default: EvidenceList } = await import('../components/EvidenceList')
+    const open = vi.fn()
+    vi.stubGlobal('open', open)
+    const ev = { id: 1, run_id: 1, field: 'employee_count', claim: 'Built In lists 92 employees.', value_number: 92, signal_type: 'descriptive',
+      observation: 'observed', travel_scope: null, source_title: 'Built In', source_url: 'https://builtin.com/x', publisher: null, published_date: null,
+      retrieved_at: null, reliability: 'secondary', origin: 'ai_research', is_stale: false, accepted_for_reassessment: false, entered_by: null,
+      note: null, superseded_by: null, created_at: '2026-11-08T10:00:00' }
+    render(<EvidenceList items={[ev]} />)
+    await userEvent.click(screen.getByText('Built In lists 92 employees.'))
+    expect(open).toHaveBeenCalledWith('https://builtin.com/x', '_blank', 'noopener,noreferrer')
+  })
+})
