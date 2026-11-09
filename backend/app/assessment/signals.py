@@ -112,19 +112,17 @@ def build_signals(session: Session, prospect: Prospect) -> Signals:
     if fresh:
         s.research_employee_value = int(median(fresh))
 
-    dated = sorted(
-        (
-            {"date": x.as_of, "value": x.value, "label": x.label}
-            for x in s.research_employee_sources
-            if x.origin == "ai_research" and parse_date(x.as_of)
-        ),
-        key=lambda d: parse_date(d["date"]),
-    )
-    # Keep one value per date; a real comparison needs two different dates.
-    seen: dict[str, dict] = {}
-    for d in dated:
-        seen[d["date"]] = d
-    s.headcount_history = list(seen.values())
+    # A trend needs two dated figures from the SAME source. Comparing different databases
+    # (e.g. PitchBook 90 vs Pomanda 422) would show fake growth.
+    by_source: dict[str, dict[str, dict]] = {}
+    for x in s.research_employee_sources:
+        if x.origin == "ai_research" and parse_date(x.as_of):
+            by_source.setdefault(x.label, {})[x.as_of] = {"date": x.as_of, "value": x.value, "label": x.label}
+    best: list[dict] = []
+    for points in by_source.values():
+        if len(points) >= 2 and len(points) > len(best):
+            best = sorted(points.values(), key=lambda d: parse_date(d["date"]))
+    s.headcount_history = best
 
     # --- travel and growth signals --------------------------------------------
     for e in evidence:

@@ -159,7 +159,7 @@ def recommend(flags, proposals, research_ran, provisional, deep, day30) -> str:
         if f["type"] not in types or rank[f["severity"]] > rank[types[f["type"]]["severity"]]:
             types[f["type"]] = f
     if "data_conflict" in types and types["data_conflict"]["severity"] == "material":
-        return "Confirm the employee count — it decides Tier 2 eligibility. Add a verified value or run Deep Research."
+        return "Confirm the employee count — it decides Tier 2 eligibility. Use Edit next to Employees, or run Deep Research."
     if "travel_potential" in types and types["travel_potential"]["severity"] != "low":
         return "Check the travel evidence and consider an extra AE touchpoint. No tier change is proposed."
     if "travel_potential" in types:

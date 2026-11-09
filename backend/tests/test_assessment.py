@@ -353,3 +353,14 @@ def test_recommendation_uses_most_severe_flag_of_each_type():
     flags = [{"type": "data_conflict", "severity": "material"}, {"type": "travel_potential", "severity": "moderate"},
              {"type": "data_conflict", "severity": "low"}]
     assert recommend(flags, [], True, False, {}, None).startswith("Confirm the employee count")
+
+
+def test_headcount_trend_only_compares_the_same_source(session, fake_llm):
+    """Live P-025: PitchBook 90 (2026) vs Pomanda 422 (2026-09) was shown as +369% growth."""
+    u1, u2 = "https://pitchbook.com/x", "https://pomanda.com/y"
+    text = research_json({"employee_count": ("found", [
+        finding("PitchBook lists 90 employees", u1, value=90, date="2026-01"),
+        finding("Pomanda lists 422 employees", u2, value=422, date="2026-09")])})
+    fake_llm(llm_result(text, [u1, u2]))
+    rs.run_standard_research(session, "P-025")
+    assert latest_assessment(session, "P-025").accepted_values["headcount_history"] == []

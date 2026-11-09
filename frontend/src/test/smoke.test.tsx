@@ -125,3 +125,27 @@ describe('Tier review', () => {
     expect(within(document.body).getByText('Standard-rule correction')).toBeInTheDocument()
   })
 })
+
+describe('Inline value correction', () => {
+  it('edits the employee count in place and saves through the enrichment API', async () => {
+    const calls = mockFetch({
+      '/api/prospects/P-007/enrichment': { before: assessment, after: assessment, llm_calls: 0 },
+      '/api/prospects/P-007': {
+        prospect: row({}), assessment, history: [], proposals: [], research_runs: [], evidence: [],
+        day30: { received: false, exists: false }, day30_pending: false, audit: [],
+      },
+    })
+    render(
+      <MemoryRouter initialEntries={['/companies/P-007']}>
+        <Routes><Route path="/companies/:id" element={<CompanyDetail />} /></Routes>
+      </MemoryRouter>,
+    )
+    await userEvent.click(await screen.findByRole('button', { name: 'Edit employees' }))
+    await userEvent.type(screen.getByLabelText('Correct employee count'), '85')
+    await userEvent.click(screen.getByRole('button', { name: /Save/ }))
+    await waitFor(() => expect(calls.some((c) => c.url === '/api/prospects/P-007/enrichment')).toBe(true))
+    const body = JSON.parse(String(calls.find((c) => c.url.endsWith('/enrichment'))!.init!.body))
+    expect(body).toMatchObject({ param: 'employee_count', value: '85', entered_by: 'Sam', accepted: true, verified: false })
+    expect(await screen.findByText(/Rules rerun with no AI call/)).toBeInTheDocument()
+  })
+})

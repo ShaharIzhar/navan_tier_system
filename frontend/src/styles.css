@@ -250,3 +250,14 @@ details > summary { cursor: pointer; color: var(--accent); font-size: 12px; marg
 .judge-doubt { margin-top: 6px; font-size: 13px; color: var(--text-2); }
 .judge-doubt span { font-weight: 600; color: var(--amber); }
 .judge-foot { margin-top: 8px; font-size: 11px; color: var(--text-3); display: flex; gap: 10px; align-items: center; }
+
+/* ---------- Single-column company page ---------- */
+.single { max-width: 980px; }
+.hero-tight { grid-template-columns: auto auto 1fr; gap: 28px; }
+.hero-tight .next-step { margin: 0; }
+table.values td { padding: 14px 16px; }
+.vlabel { color: var(--text-2); width: 140px; }
+.vbig { font-size: 17px; }
+.vedit { text-align: right; width: 90px; }
+.edit-row td { background: var(--accent-soft); padding-top: 10px; padding-bottom: 12px; }
+@media (max-width: 1000px) { .hero-tight { grid-template-columns: 1fr 1fr; } .hero-tight .next-step { grid-column: 1 / -1; } }
