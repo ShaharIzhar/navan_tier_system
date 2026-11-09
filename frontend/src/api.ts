@@ -30,6 +30,7 @@ export interface ProspectRow {
   primary_flag_label: string | null
   flags: string[]
   review_status: string | null
+  suggestion: { proposal_id: number; from_tier: number | null; to_tier: number; title: string; type: string; status: string } | null
   research_status: string
   stage: 'day0' | 'day30'
   day30_available: boolean

@@ -265,3 +265,17 @@ table.values td { padding: 14px 16px; }
 .value-link { border: none; background: none; padding: 0; cursor: pointer; color: inherit; }
 .value-link:hover:not(:disabled) { background: none; text-decoration: underline; }
 .evidence-item.highlight { background: #fff8db; box-shadow: inset 3px 0 0 #e3b341; transition: background 0.4s; }
+
+/* ---------- Sortable headers + tier suggestion ---------- */
+.sort-btn { border: none; background: none; padding: 0; font: inherit; color: inherit; display: inline-flex; align-items: center; gap: 4px; cursor: pointer; }
+.sort-btn:hover:not(:disabled) { background: none; color: var(--text); }
+.sort-btn.active { color: var(--text); }
+.sort-ind { font-size: 10px; color: var(--text-3); opacity: 0.7; }
+.sort-btn.active .sort-ind { color: var(--accent); opacity: 1; }
+th.num .sort-btn { flex-direction: row-reverse; }
+.suggest { display: inline-flex; align-items: center; gap: 1px; font-size: 12px; font-weight: 600; padding: 1px 6px; border-radius: 6px; text-decoration: none; }
+.suggest:hover { text-decoration: none; filter: brightness(0.95); }
+.suggest.up { color: var(--green); background: var(--green-soft); }
+.suggest.down { color: var(--amber); background: var(--amber-soft); }
+.suggest-arrow { font-size: 13px; }
+.hint:has(.suggest) { border-bottom: none; }

@@ -100,6 +100,17 @@ def _review_status(session: Session, prospect_id: str) -> Optional[str]:
     return REVIEW_STATUS_LABELS[decided[0].status] if decided else None
 
 
+def _suggestion(session: Session, prospect_id: str) -> Optional[dict]:
+    """The tier change waiting for a human decision, if any."""
+    p = session.exec(select(TierProposal).where(TierProposal.prospect_id == prospect_id,
+                                                TierProposal.status.in_(("open", "needs_info")))
+                     .order_by(TierProposal.id.desc())).first()
+    if p is None:
+        return None
+    return {"proposal_id": p.id, "from_tier": p.from_tier, "to_tier": p.proposed_tier, "title": p.title,
+            "type": p.proposal_type, "status": p.status}
+
+
 def _prospect_row(session: Session, p: Prospect) -> dict:
     a = latest_assessment(session, p.id)
     last_run = session.exec(select(ResearchRun).where(ResearchRun.prospect_id == p.id)
@@ -119,6 +130,7 @@ def _prospect_row(session: Session, p: Prospect) -> dict:
         "primary_flag_label": FLAG_LABELS.get(a.primary_flag) if a and a.primary_flag else None,
         "flags": sorted({f["type"] for f in (a.flags or [])}) if a else [],
         "review_status": _review_status(session, p.id),
+        "suggestion": _suggestion(session, p.id),
         "research_status": (last_run.status if last_run else "not_researched"),
         "stage": a.stage if a else "day0",
         "day30_available": bool(act and act.released_at),

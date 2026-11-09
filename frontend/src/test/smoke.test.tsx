@@ -222,3 +222,26 @@ describe('Figure to evidence', () => {
     expect(item.closest('.evidence-item')).toHaveClass('highlight')
   })
 })
+
+describe('Companies table', () => {
+  it('sorts by a column and shows a suggested tier arrow', async () => {
+    const { default: Companies } = await import('../pages/Companies')
+    mockFetch({
+      '/api/prospects': [
+        row({ id: 'P-001', company_name: 'Beta', entered_gbv_usd: 10000, suggestion: null }),
+        row({ id: 'P-002', company_name: 'Alpha', entered_gbv_usd: 90000, suggestion: { proposal_id: 4, from_tier: 2, to_tier: 1, title: 'Day 30 activity', type: 'evidence_override', status: 'open' } }),
+      ],
+    })
+    render(<MemoryRouter><Companies /></MemoryRouter>)
+    await screen.findByText('Alpha')
+    expect(screen.getByLabelText('Suggested Tier 1')).toHaveTextContent('↑T1')
+    expect(screen.queryByText('Review')).not.toBeInTheDocument()
+    expect(screen.queryByText('Rules say')).not.toBeInTheDocument()
+    const names = () => screen.getAllByRole('row').slice(1).map((r) => r.querySelector('strong')?.textContent)
+    await userEvent.click(screen.getByRole('button', { name: /Company/ }))
+    expect(names()).toEqual(['Alpha', 'Beta'])
+    await userEvent.click(screen.getByRole('button', { name: /Reported GBV/ }))
+    await userEvent.click(screen.getByRole('button', { name: /Reported GBV/ }))
+    expect(names()).toEqual(['Alpha', 'Beta']) // GBV descending: 90K first
+  })
+})
