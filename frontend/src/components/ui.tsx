@@ -219,8 +219,10 @@ export function SiteIcon({ url }: { url: string | null | undefined }) {
     )
   }
   return (
-    <img className="site-icon" src={`https://icons.duckduckgo.com/ip3/${host}.ico`} alt="" width={16} height={16}
-      loading="lazy" referrerPolicy="no-referrer" onError={() => setFailed(true)} />
+    <img className="site-icon" src={`https://www.google.com/s2/favicons?domain=${host}&sz=32`} alt="" width={16} height={16}
+      loading="lazy" referrerPolicy="no-referrer" onError={() => setFailed(true)}
+      // Google answers sites with no icon with its own 16px placeholder; use our globe instead.
+      onLoad={(e) => e.currentTarget.naturalWidth < 32 && setFailed(true)} />
   )
 }
 
