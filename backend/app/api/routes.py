@@ -381,6 +381,7 @@ def list_proposals(status: Optional[str] = None, session: Session = Depends(get_
         d = _proposal_dict(p)
         pr = session.get(Prospect, p.prospect_id)
         d["company_name"] = pr.company_name if pr else p.prospect_id
+        d["domain"] = pr.domain if pr else None
         out.append(d)
     return out
 

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { api } from '../api'
-import { ErrorBox, Spinner, TierBadge, useAsync, when } from '../components/ui'
+import { CompanyLogo, ErrorBox, Spinner, TierBadge, useAsync, when } from '../components/ui'
 import { Hint, Info } from '../components/Section'
 import { SortTh, useSort } from '../components/sort'
 import { TierArrow } from '../components/ProspectTable'
@@ -69,9 +69,11 @@ export default function Reviews() {
               {sort.sorted.map((p) => (
                 <tr key={p.id} className="clickable" onClick={() => nav(`/reviews/${p.id}`)}>
                   <td className="muted">#{p.id}</td>
-                  <td className="company-cell">
-                    <strong>{p.company_name}</strong>
-
+                  <td>
+                    <div className="company-with-logo">
+                      {p.domain && <CompanyLogo domain={p.domain} />}
+                      <strong>{p.company_name}</strong>
+                    </div>
                   </td>
                   <td>
                     <span className="row" style={{ gap: 6, flexWrap: 'nowrap' }}>

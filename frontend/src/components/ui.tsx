@@ -194,6 +194,15 @@ export function Icon({ name, size = 14 }: { name: 'edit' | 'refresh' | 'search' 
 }
 
 /** Small site logo for a source link. Falls back to a globe if the site has no icon. */
+/** Company logo in a circle (tables). Falls back to a globe. */
+export function CompanyLogo({ domain }: { domain: string }) {
+  return (
+    <span className="company-logo" aria-hidden>
+      <SiteIcon url={`https://${domain}`} />
+    </span>
+  )
+}
+
 export function SiteIcon({ url }: { url: string | null | undefined }) {
   const host = hostOf(url)
   const [failed, setFailed] = useState(false)

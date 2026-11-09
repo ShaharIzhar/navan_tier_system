@@ -158,6 +158,7 @@ export interface Proposal {
   id: number
   prospect_id: string
   company_name?: string
+  domain?: string
   assessment_id: number
   stage: string
   proposal_type: 'standard_rule_correction' | 'evidence_override'

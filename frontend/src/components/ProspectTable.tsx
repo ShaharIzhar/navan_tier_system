@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import type { ProspectRow } from '../api'
 import { Hint, Info } from './Section'
 import { SortTh, useSort } from './sort'
-import { AttentionBadge, FlagChip, TierBadge, num, usd } from './ui'
+import { AttentionBadge, CompanyLogo, FlagChip, TierBadge, num, usd } from './ui'
 
 const ATTENTION_RANK: Record<string, number> = { review_now: 0, review_suggested: 1, monitor: 2 }
 
@@ -38,12 +38,17 @@ export default function ProspectTable({ rows, showAttention = true, empty }: { r
       <tbody>
         {sort.sorted.map((r) => (
           <tr key={r.id} className="clickable" onClick={() => nav(`/companies/${r.id}`)}>
-            <td className="company-cell">
-              <strong>{r.company_name}</strong>
-              <span>
-                {r.id} · {r.domain}
-                {r.stage === 'day30' ? ' · Day 30' : ''}
-              </span>
+            <td>
+              <div className="company-with-logo">
+                <CompanyLogo domain={r.domain} />
+                <div className="company-cell">
+                  <strong>{r.company_name}</strong>
+                  <span>
+                    {r.id} · {r.domain}
+                    {r.stage === 'day30' ? ' · Day 30' : ''}
+                  </span>
+                </div>
+              </div>
             </td>
             <td>
               <span className="row" style={{ gap: 6, flexWrap: 'nowrap' }}>
