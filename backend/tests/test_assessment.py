@@ -116,7 +116,7 @@ def test_growth_without_travel_is_not_travel_potential(session, fake_llm):
     a = latest_assessment(session, "P-002")
     assert "growth_opportunity" in flag_types(a)
     assert "travel_potential" not in flag_types(a) and "tier_mismatch" not in flag_types(a)
-    assert any("not evidence of higher travel spend" in u for u in flag(a, "growth_opportunity")["uncertainty"])
+    assert flag(a, "growth_opportunity")["severity"] != "material"  # growth alone never drives a tier change
 
 
 def test_duplicate_sources_count_once(session, fake_llm):
@@ -157,7 +157,7 @@ def test_missing_public_info_is_insufficient_evidence_not_negative(session, fake
     rs.run_standard_research(session, "P-033")
     a = latest_assessment(session, "P-033")
     f = flag(a, "insufficient_evidence")
-    assert any("not evidence that the company does not travel" in u for u in f["uncertainty"])
+    assert f["uncertainty"] == []  # the general "missing isn't no travel" note lives in the tooltip
     assert a.attention == "monitor"
     # Standard v4 covers 5 fields; the other 3 stay "Not searched", never "Not found".
     from app.research import prompts

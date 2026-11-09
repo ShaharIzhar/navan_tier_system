@@ -123,7 +123,7 @@ export default function TierReview() {
 
           <Section
             id="rv-uncertainty"
-            title="Uncertainty"
+            title="Keep in mind"
             info="What could make this wrong."
             summary={uncertaintyCount ? `${uncertaintyCount} item(s)` : 'none'}
           >

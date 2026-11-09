@@ -527,11 +527,11 @@ function FlagRow({ f }: { f: Flag }) {
       <FlagChip label={f.label} severity={f.severity} />
       <div className="why small">
         {first}
-        {f.stage === 'day30' && <span className="muted"> (Day 30)</span>}
+        {f.stage === 'day30' && <> <Hint text="Bookings aren’t dollars, and 30 days may not reflect a full year."><span className="muted">(Day 30)</span></Hint></>}
         {open && (
           <>
             {rest.length > 0 && <ul className="reasons">{rest.map((r, j) => <li key={j}>{r}</li>)}</ul>}
-            {f.uncertainty.length > 0 && <p className="muted" style={{ marginTop: 6 }}>Uncertainty: {f.uncertainty.join(' ')}</p>}
+            {f.uncertainty.length > 0 && <p className="muted" style={{ marginTop: 6 }}>Keep in mind: {f.uncertainty.join(' ')}</p>}
           </>
         )}
         {(rest.length > 0 || f.uncertainty.length > 0) && (

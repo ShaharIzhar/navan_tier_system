@@ -20,9 +20,9 @@ export const GLOSSARY: Record<string, string> = {
   // Flags
   tier_mismatch: 'Evidence points to a different tier.',
   data_conflict: 'Sources disagree.',
-  travel_potential: 'Job ads or pages say staff travel for work.',
-  growth_opportunity: 'Funding, hiring or expansion. Not proof of more travel.',
-  insufficient_evidence: 'Key facts are missing.',
+  travel_potential: 'Job ads or pages say staff travel for work. Doesn’t show how much they spend.',
+  growth_opportunity: 'Funding, hiring or expansion. Growth isn’t proof of travel spend.',
+  insufficient_evidence: 'Key facts are missing. Missing isn’t the same as “doesn’t travel”.',
 
   // Severity
   material: 'Strong: can change the tier.',

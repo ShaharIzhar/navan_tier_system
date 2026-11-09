@@ -120,7 +120,7 @@ def build_day0_flags(
             ["Only local field travel found (driving, home visits, mileage).",
              *[f"“{e.claim}”" for e in local_only[:2]]],
             [e.id for e in local_only],
-            ["Local field travel rarely creates bookable travel (flights, hotels, rail), which is what GBV measures."],
+            ["Local driving rarely means flights or hotels."],
         ))
     if bookable:
         hosts = independent_hosts(bookable)
@@ -139,7 +139,6 @@ def build_day0_flags(
             unc.append("Some sources do not say what kind of travel is involved.")
         if len(hosts) < 2:
             unc.append("Only one independent source.")
-        unc.append("Travel indicators do not tell us annual travel spend.")
         if applied == 1:
             # Tier 1 already has a dedicated AE and account manager: travel evidence is informational.
             severity = "low"
@@ -170,8 +169,7 @@ def build_day0_flags(
             reasons.append(near)
         flags.append(_flag("growth_opportunity", "moderate" if near else "low", reasons,
                            [e.id for e in s.growth],
-                           ["Company growth is not evidence of higher travel spend (GBV).",
-                            "Several articles about the same announcement count as one signal."]))
+                           []))
 
     # --- Insufficient Evidence -----------------------------------------------
     insufficient: list[str] = []
@@ -185,8 +183,7 @@ def build_day0_flags(
         if len(searched) >= 3 and len(nf) / len(searched) >= 0.6:
             insufficient.append(f"Research found nothing usable for {len(nf)} of {len(searched)} fields.")
     if insufficient:
-        flags.append(_flag("insufficient_evidence", "low", insufficient,
-                           uncertainty=["Missing information is not evidence that the company does not travel."]))
+        flags.append(_flag("insufficient_evidence", "low", insufficient))
 
     # --- Tier Mismatch (standard rules) ------------------------------------------
     if baseline.tier is not None and applied is not None and baseline.tier != applied and not override_in_effect:

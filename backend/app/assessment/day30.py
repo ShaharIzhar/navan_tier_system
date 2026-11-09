@@ -56,8 +56,8 @@ def evaluate_day30(
 
     if applied_tier == 3 and material:
         out["flags"].append(_day30_flag("tier_mismatch", "material",
-            [f"Observed activity ({summary}) is high for a Tier 3 account."], [caveat]))
-        out["flags"].append(_day30_flag("travel_potential", "moderate", [f"Observed Navan activity: {summary}."], [caveat]))
+            [f"Observed activity ({summary}) is high for a Tier 3 account."], []))
+        out["flags"].append(_day30_flag("travel_potential", "moderate", [f"Observed Navan activity: {summary}."], []))
         out["proposal"] = {
             "proposal_type": "evidence_override", "from_tier": 3, "proposed_tier": 2,
             "title": "Day 30 activity suggests Tier 3 → Tier 2 support",
@@ -68,8 +68,8 @@ def evaluate_day30(
         out["comparison"] = "strengthens" if positive_prior else "new_signal"
     elif applied_tier == 2 and tier1_candidate:
         out["flags"].append(_day30_flag("tier_mismatch", "material",
-            [f"Observed activity ({summary}) is at the level this policy treats as a Tier 1 candidate."], [caveat]))
-        out["flags"].append(_day30_flag("travel_potential", "moderate", [f"Observed Navan activity: {summary}."], [caveat]))
+            [f"Observed activity ({summary}) is at the level this policy treats as a Tier 1 candidate."], []))
+        out["flags"].append(_day30_flag("travel_potential", "moderate", [f"Observed Navan activity: {summary}."], []))
         out["proposal"] = {
             "proposal_type": "evidence_override", "from_tier": 2, "proposed_tier": 1,
             "title": "Day 30 activity suggests Tier 2 → Tier 1 support",
@@ -85,11 +85,11 @@ def evaluate_day30(
         growing = t >= config.DAY30_MATERIAL_TREND_PCT
         out["flags"].append(_day30_flag("travel_potential", "moderate" if growing else "low",
             [f"Observed Navan activity: {summary}. Consistent with the current Tier {applied_tier} support level"
-             + (" and still growing." if growing else ".")], [caveat]))
+             + (" and still growing." if growing else ".")], []))
         out["comparison"] = "strengthens" if positive_prior else "consistent"
     elif not weak and not declining and t >= config.DAY30_MATERIAL_TREND_PCT:
         out["flags"].append(_day30_flag("growth_opportunity", "moderate",
-            [f"Early activity is growing ({summary}), though volume is still below the review threshold."], [caveat]))
+            [f"Early activity is growing ({summary}), though volume is still below the review threshold."], []))
         out["comparison"] = "strengthens" if positive_prior else "new_signal"
     else:
         if positive_prior:
