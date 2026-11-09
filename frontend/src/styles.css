@@ -346,3 +346,12 @@ th.num .sort-btn { flex-direction: row-reverse; }
 .company-logo { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--border); background: #fff; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; }
 .company-logo .site-icon { width: 18px; height: 18px; background: transparent; border-radius: 3px; }
 .company-logo .site-icon.globe { width: 18px; height: 18px; }
+
+/* ---------- Multi-select filters ---------- */
+.multi { position: relative; }
+.multi-btn { text-align: left; }
+.multi-pop { position: absolute; top: calc(100% + 6px); left: 0; min-width: 200px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 10px 28px rgba(16, 24, 40, 0.14); padding: 6px; z-index: 30; display: flex; flex-direction: column; }
+.multi-opt { flex-direction: row; align-items: center; gap: 8px; padding: 7px 8px; border-radius: 6px; font-size: 13px; color: var(--text); cursor: pointer; }
+.multi-opt:hover { background: var(--surface-2); }
+.multi-opt input { margin: 0; accent-color: var(--accent); }
+.multi-clear { align-self: flex-start; margin: 4px 8px 2px; }

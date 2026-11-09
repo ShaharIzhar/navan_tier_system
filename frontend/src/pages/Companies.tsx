@@ -3,6 +3,7 @@ import { api } from '../api'
 import ProspectTable from '../components/ProspectTable'
 import { ErrorBox, Icon, Spinner, useAsync } from '../components/ui'
 import { useConfirm } from '../components/confirm'
+import MultiSelect from '../components/MultiSelect'
 
 const FLAG_OPTIONS: Record<string, string> = {
   tier_mismatch: 'Tier Mismatch',
@@ -15,22 +16,25 @@ const FLAG_OPTIONS: Record<string, string> = {
 export default function Companies() {
   const { data, error, loading, reload } = useAsync(api.prospects, [])
   const [q, setQ] = useState('')
-  const [tier, setTier] = useState('')
-  const [flag, setFlag] = useState('')
-  const [attention, setAttention] = useState('')
-  const [research, setResearch] = useState('')
+  const [tier, setTier] = useState<string[]>([])
+  const [flag, setFlag] = useState<string[]>([])
+  const [attention, setAttention] = useState<string[]>([])
+  const [research, setResearch] = useState<string[]>([])
   const [busy, setBusy] = useState(false)
   const confirm = useConfirm()
 
   const rows = useMemo(() => {
     const term = q.trim().toLowerCase()
+    const researchState = (r: { research_status: string }) =>
+      ['ok', 'partial'].includes(r.research_status) ? 'researched' : r.research_status
+    // Any ticked value within a filter; all filters together.
     return (data ?? []).filter(
       (r) =>
         (!term || r.company_name.toLowerCase().includes(term) || r.domain.includes(term) || r.id.toLowerCase().includes(term)) &&
-        (!tier || String(r.applied_tier) === tier) &&
-        (!flag || r.flags.includes(flag)) &&
-        (!attention || (r.attention ?? 'none') === attention) &&
-        (!research || (research === 'researched' ? ['ok', 'partial'].includes(r.research_status) : r.research_status === research)),
+        (!tier.length || tier.includes(String(r.applied_tier))) &&
+        (!flag.length || flag.some((f) => r.flags.includes(f))) &&
+        (!attention.length || attention.includes(r.attention ?? 'none')) &&
+        (!research.length || research.includes(researchState(r))),
     )
   }, [data, q, tier, flag, attention, research])
 
@@ -74,34 +78,18 @@ export default function Companies() {
             <Icon name="search" />
             <input type="search" placeholder="Search companies" value={q} onChange={(e) => setQ(e.target.value)} aria-label="Search" />
           </label>
-          <select className={`pill-select${tier ? ' on' : ''}`} value={tier} onChange={(e) => setTier(e.target.value)} aria-label="Tier filter">
-            <option value="">Tier: All</option>
-            <option value="1">Tier 1</option>
-            <option value="2">Tier 2</option>
-            <option value="3">Tier 3</option>
-          </select>
-          <select className={`pill-select${flag ? ' on' : ''}`} value={flag} onChange={(e) => setFlag(e.target.value)} aria-label="Flag filter">
-            <option value="">Flag: Any</option>
-            {Object.entries(FLAG_OPTIONS).map(([k, v]) => (
-              <option key={k} value={k}>{v}</option>
-            ))}
-          </select>
-          <select className={`pill-select${attention ? ' on' : ''}`} value={attention} onChange={(e) => setAttention(e.target.value)} aria-label="Attention filter">
-            <option value="">Attention: Any</option>
-            <option value="review_now">Review Now</option>
-            <option value="review_suggested">Review Suggested</option>
-            <option value="monitor">Monitor</option>
-            <option value="none">No action</option>
-          </select>
-          <select className={`pill-select${research ? ' on' : ''}`} value={research} onChange={(e) => setResearch(e.target.value)} aria-label="Research filter">
-            <option value="">Research: Any</option>
-            <option value="researched">Researched</option>
-            <option value="not_researched">Not researched</option>
-            <option value="failed">Failed</option>
-          </select>
-          {(q || tier || flag || attention || research) && (
-            <button className="more" onClick={() => { setQ(''); setTier(''); setFlag(''); setAttention(''); setResearch('') }}>Clear</button>
-          )}
+          <MultiSelect label="Tier" selected={tier} onChange={setTier} shortLabels={{ 1: '1', 2: '2', 3: '3' }}
+            options={[{ value: '1', label: 'Tier 1' }, { value: '2', label: 'Tier 2' }, { value: '3', label: 'Tier 3' }]} />
+          <MultiSelect label="Flag" allLabel="Any" selected={flag} onChange={setFlag}
+            options={Object.entries(FLAG_OPTIONS).map(([value, label]) => ({ value, label }))} />
+          <MultiSelect label="Attention" allLabel="Any" selected={attention} onChange={setAttention}
+            options={[{ value: 'review_now', label: 'Review Now' }, { value: 'review_suggested', label: 'Review Suggested' },
+              { value: 'monitor', label: 'Monitor' }, { value: 'none', label: 'No action' }]} />
+          <MultiSelect label="Research" allLabel="Any" selected={research} onChange={setResearch}
+            options={[{ value: 'researched', label: 'Researched' }, { value: 'not_researched', label: 'Not researched' }, { value: 'failed', label: 'Failed' }]} />
+          {(q || tier.length || flag.length || attention.length || research.length) ? (
+            <button className="more" onClick={() => { setQ(''); setTier([]); setFlag([]); setAttention([]); setResearch([]) }}>Clear</button>
+          ) : null}
           <span className="muted small filters-count">{rows.length} of {data?.length ?? 0}</span>
         </div>
         {loading && !data ? <div className="empty"><Spinner /></div> : <ProspectTable rows={rows} />}

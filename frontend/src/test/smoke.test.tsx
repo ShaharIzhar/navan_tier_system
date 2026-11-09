@@ -364,3 +364,25 @@ describe('Evidence rows', () => {
     expect(open).toHaveBeenCalledWith('https://builtin.com/x', '_blank', 'noopener,noreferrer')
   })
 })
+
+describe('Multi-select filters', () => {
+  it('filters by several tiers at once', async () => {
+    const { default: Companies } = await import('../pages/Companies')
+    mockFetch({
+      '/api/prospects': [
+        row({ id: 'P-1', company_name: 'One', applied_tier: 1, suggestion: null }),
+        row({ id: 'P-2', company_name: 'Two', applied_tier: 2, suggestion: null }),
+        row({ id: 'P-3', company_name: 'Three', applied_tier: 3, suggestion: null }),
+      ],
+    })
+    render(<MemoryRouter><Companies /></MemoryRouter>)
+    await screen.findByText('One')
+    await userEvent.click(screen.getByRole('button', { name: 'Tier filter' }))
+    await userEvent.click(screen.getByRole('checkbox', { name: 'Tier 1' }))
+    await userEvent.click(screen.getByRole('checkbox', { name: 'Tier 3' }))
+    expect(screen.getByRole('button', { name: 'Tier filter' })).toHaveTextContent('Tier: 1, 3')
+    expect(screen.getByText('One')).toBeInTheDocument()
+    expect(screen.getByText('Three')).toBeInTheDocument()
+    expect(screen.queryByText('Two')).not.toBeInTheDocument()
+  })
+})
