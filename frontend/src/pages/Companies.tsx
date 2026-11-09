@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { api } from '../api'
 import ProspectTable from '../components/ProspectTable'
-import { ErrorBox, Spinner, useAsync } from '../components/ui'
+import { ErrorBox, Icon, Spinner, useAsync } from '../components/ui'
 import { useConfirm } from '../components/confirm'
 
 const FLAG_OPTIONS: Record<string, string> = {
@@ -70,32 +70,39 @@ export default function Companies() {
       <ErrorBox error={error} />
       <div className="card">
         <div className="filters">
-          <input type="search" placeholder="Search company, domain or ID" value={q} onChange={(e) => setQ(e.target.value)} aria-label="Search" />
-          <select value={tier} onChange={(e) => setTier(e.target.value)} aria-label="Tier filter">
-            <option value="">All tiers</option>
+          <label className="search-box">
+            <Icon name="search" />
+            <input type="search" placeholder="Search companies" value={q} onChange={(e) => setQ(e.target.value)} aria-label="Search" />
+          </label>
+          <select className={`pill-select${tier ? ' on' : ''}`} value={tier} onChange={(e) => setTier(e.target.value)} aria-label="Tier filter">
+            <option value="">Tier: All</option>
             <option value="1">Tier 1</option>
             <option value="2">Tier 2</option>
             <option value="3">Tier 3</option>
           </select>
-          <select value={flag} onChange={(e) => setFlag(e.target.value)} aria-label="Flag filter">
-            <option value="">Any reason flag</option>
+          <select className={`pill-select${flag ? ' on' : ''}`} value={flag} onChange={(e) => setFlag(e.target.value)} aria-label="Flag filter">
+            <option value="">Flag: Any</option>
             {Object.entries(FLAG_OPTIONS).map(([k, v]) => (
               <option key={k} value={k}>{v}</option>
             ))}
           </select>
-          <select value={attention} onChange={(e) => setAttention(e.target.value)} aria-label="Attention filter">
-            <option value="">Any attention</option>
+          <select className={`pill-select${attention ? ' on' : ''}`} value={attention} onChange={(e) => setAttention(e.target.value)} aria-label="Attention filter">
+            <option value="">Attention: Any</option>
             <option value="review_now">Review Now</option>
             <option value="review_suggested">Review Suggested</option>
             <option value="monitor">Monitor</option>
             <option value="none">No action</option>
           </select>
-          <select value={research} onChange={(e) => setResearch(e.target.value)} aria-label="Research filter">
-            <option value="">Any research status</option>
+          <select className={`pill-select${research ? ' on' : ''}`} value={research} onChange={(e) => setResearch(e.target.value)} aria-label="Research filter">
+            <option value="">Research: Any</option>
             <option value="researched">Researched</option>
             <option value="not_researched">Not researched</option>
-            <option value="failed">Research failed</option>
+            <option value="failed">Failed</option>
           </select>
+          {(q || tier || flag || attention || research) && (
+            <button className="more" onClick={() => { setQ(''); setTier(''); setFlag(''); setAttention(''); setResearch('') }}>Clear</button>
+          )}
+          <span className="muted small filters-count">{rows.length} of {data?.length ?? 0}</span>
         </div>
         {loading && !data ? <div className="empty"><Spinner /></div> : <ProspectTable rows={rows} />}
       </div>

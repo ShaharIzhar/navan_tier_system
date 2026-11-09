@@ -172,8 +172,6 @@ label.inline { flex-direction: row; align-items: center; gap: 6px; }
 .modal { background: var(--surface); border-radius: 10px; width: 520px; max-width: 100%; max-height: 90vh; overflow: auto; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2); }
 .modal .card-head { position: sticky; top: 0; background: var(--surface); }
 details > summary { cursor: pointer; color: var(--accent); font-size: 12px; margin-top: 6px; }
-.filters { display: flex; gap: 8px; flex-wrap: wrap; padding: 12px 14px; border-bottom: 1px solid var(--border); }
-.filters input[type='search'] { min-width: 240px; }
 .banner { margin-bottom: 16px; }
 
 @media (max-width: 1000px) {
@@ -281,3 +279,14 @@ th.num .sort-btn { flex-direction: row-reverse; }
 .tier-change { gap: 8px; }
 .btn-icon { flex-shrink: 0; opacity: 0.8; }
 .hint:has(button) { border-bottom: none; }
+
+/* ---------- Filter bar ---------- */
+.filters { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; padding: 10px 14px; border-bottom: 1px solid var(--border); }
+.search-box { flex: 1 1 260px; max-width: 380px; display: flex; flex-direction: row; align-items: center; gap: 6px; height: 32px; padding: 0 10px; border: 1px solid var(--border-strong); border-radius: 8px; background: var(--surface); color: var(--text-3); }
+.search-box:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.search-box input { border: none; outline: none; padding: 0; height: 100%; flex: 1; background: transparent; font-size: 13px; color: var(--text); }
+.pill-select { appearance: none; -webkit-appearance: none; height: 32px; padding: 0 28px 0 12px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface-2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%237a8294' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 11px center; font-size: 13px; color: var(--text-2); cursor: pointer; }
+.pill-select:hover { border-color: var(--border-strong); }
+.pill-select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.pill-select.on { background-color: var(--accent-soft); border-color: #cdd3fa; color: var(--accent); font-weight: 550; }
+.filters-count { margin-left: auto; }
