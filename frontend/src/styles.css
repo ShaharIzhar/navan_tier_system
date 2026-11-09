@@ -242,7 +242,7 @@ details > summary { cursor: pointer; color: var(--accent); font-size: 12px; marg
 .clamp { display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; }
 
 /* ---------- AI judge ---------- */
-.judge { border-left: 4px solid var(--violet); background: linear-gradient(90deg, var(--violet-soft), var(--surface) 60%); padding: 14px 18px; }
+.judge { border: 1.5px solid #c9b6f2; background: var(--surface); padding: 14px 18px; }
 .judge-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
 .judge-mark { color: var(--violet); font-size: 15px; }
 .judge-title { font-size: 12px; font-weight: 650; letter-spacing: 0.05em; text-transform: uppercase; color: var(--violet); }
