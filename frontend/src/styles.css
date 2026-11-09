@@ -359,3 +359,4 @@ th.num .sort-btn { flex-direction: row-reverse; }
 .company-logo.large .site-icon, .company-logo.large .site-icon.globe { width: 22px; height: 22px; }
 .modal.wide { width: min(1100px, 96vw); max-height: 92vh; }
 .modal.wide .card-pad { padding: 20px 24px; background: var(--bg); }
+.done-icon { display: inline-flex; color: var(--green); }

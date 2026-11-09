@@ -174,7 +174,7 @@ export function hostOf(url: string | null | undefined) {
 }
 
 /** Small line icons for buttons (same size and weight everywhere). */
-export function Icon({ name, size = 14 }: { name: 'edit' | 'refresh' | 'search' | 'people' | 'traveler' | 'ticket' | 'trash'; size?: number }) {
+export function Icon({ name, size = 14 }: { name: 'edit' | 'refresh' | 'search' | 'people' | 'traveler' | 'ticket' | 'trash' | 'check'; size?: number }) {
   const paths: Record<string, string> = {
     edit: 'M3 13.5V16h2.5l7.4-7.4-2.5-2.5L3 13.5zM14.7 6.8a.7.7 0 0 0 0-1l-1.5-1.5a.7.7 0 0 0-1 0l-1.2 1.2 2.5 2.5 1.2-1.2z',
     refresh: 'M15 9a6 6 0 1 1-1.8-4.3M15 3.5v3.7h-3.7',
@@ -183,6 +183,7 @@ export function Icon({ name, size = 14 }: { name: 'edit' | 'refresh' | 'search' 
     traveler: 'M3 6.5h12v8.5H3zM6.5 6.5V4.2c0-.4.3-.7.7-.7h3.6c.4 0 .7.3.7.7v2.3M6.5 9.5v3M11.5 9.5v3',
     ticket: 'M2.5 6V4.5h13V6a1.8 1.8 0 0 0 0 3.6v1.9h-13V9.6a1.8 1.8 0 0 0 0-3.6zM11 4.5v7',
     trash: 'M3 5h12M7 5V3h4v2M5 5l.8 10h6.4L13 5',
+    check: 'M9 16A7 7 0 1 0 9 2a7 7 0 0 0 0 14zM6 9.2l2 2 4-4.2',
   }
   const filled = name === 'edit'
   return (

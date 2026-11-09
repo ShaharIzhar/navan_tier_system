@@ -249,7 +249,7 @@ export default function CompanyDetail() {
                 {busy === 'research' ? <Spinner /> : <Icon name="refresh" />} {okRun ? 'Re-run' : 'Run research'}
               </button>
               <Hint text={deepDone ? 'Deep Research already done for this company.' : g('deep_research')} align="right">
-                <button className="small" disabled={!!busy || !okRun || !!progress || deepDone} onClick={runDeep}><Icon name="search" /> Deep Research…</button>
+                <button className="small" disabled={!!busy || !okRun || !!progress || deepDone} onClick={runDeep}>{deepDone ? <span className="done-icon"><Icon name="check" /></span> : <Icon name="search" />} Deep Research{deepDone ? '' : '…'}</button>
               </Hint>
             </>
           }
