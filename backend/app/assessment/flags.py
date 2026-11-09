@@ -19,7 +19,7 @@ FLAG_LABELS = {
     "insufficient_evidence": "Insufficient Evidence",
 }
 # Display/priority order for picking the primary flag.
-FLAG_ORDER = ["tier_mismatch", "data_conflict", "travel_potential", "growth_opportunity", "insufficient_evidence"]
+FLAG_ORDER = ["tier_mismatch", "data_conflict", "growth_opportunity", "travel_potential", "insufficient_evidence"]
 SEVERITY_RANK = {"material": 3, "moderate": 2, "low": 1}
 
 ROUTING_FIELDS = {"employee_count", "travel_indicators"}
