@@ -1,4 +1,4 @@
-import { useState, type ReactNode, type SyntheticEvent } from 'react'
+import { useEffect, useState, type ReactNode, type SyntheticEvent } from 'react'
 
 type Align = 'center' | 'left' | 'right'
 
@@ -63,8 +63,10 @@ function readOpen(id: string, fallback: boolean) {
 
 /** Titled, collapsible card. Remembers open/closed per section. */
 export function Section({
-  id, title, info, summary, actions, defaultOpen = true, children, flush = false,
+  id, title, info, summary, actions, defaultOpen = true, children, flush = false, openSignal,
 }: {
+  /** Changing this value opens the section (e.g. when jumping to evidence inside it). */
+  openSignal?: unknown
   id: string
   title: string
   info?: string
@@ -75,6 +77,9 @@ export function Section({
   flush?: boolean
 }) {
   const [open, setOpen] = useState(() => readOpen(id, defaultOpen))
+  useEffect(() => {
+    if (openSignal) setOpen(true)
+  }, [openSignal])
   const toggle = () => {
     setOpen((o) => {
       try {

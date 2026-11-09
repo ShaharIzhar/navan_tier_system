@@ -1,0 +1,284 @@
+{
+  "case": "P-021-standard",
+  "prompt_version": "v4",
+  "model": "claude-haiku-5-5",
+  "started_at": "2026-11-09T09:06:28.173362+00:00",
+  "usage": {
+    "input_tokens": 69896,
+    "output_tokens": 8245,
+    "web_searches": 4,
+    "llm_calls": 1,
+    "approx_cost_usd": 0.05111
+  },
+  "stop_reason": "end_turn",
+  "search_errors": [],
+  "search_queries": [
+    "Balfour Beatty construction infrastructure company profile",
+    "Balfour Beatty annual report employees headcount 2025",
+    "Balfour Beatty half year results 2026 order book",
+    "Balfour Beatty hiring recruitment 2026 news"
+  ],
+  "search_results": [
+    {
+      "url": "https://www.bloomberg.com/profile/company/9894873Z:US",
+      "title": "Balfour Beatty Infrastructure Inc - Company Profile and News - Bloomberg Markets",
+      "page_age": null
+    },
+    {
+      "url": "https://www.globaldata.com/company-profile/balfour-beatty-plc/",
+      "title": "Balfour Beatty Plc Company Profile - Balfour Beatty Plc Overview - GlobalData",
+      "page_age": "1976 days ago"
+    },
+    {
+      "url": "https://uk.linkedin.com/company/balfour-beatty-plc",
+      "title": "Balfour Beatty plc",
+      "page_age": null
+    },
+    {
+      "url": "https://www.zoominfo.com/c/balfour-beatty-inc/344657454",
+      "title": "Balfour Beatty - Overview, News & Similar companies",
+      "page_age": "40 days ago"
+    },
+    {
+      "url": "https://www.linkedin.com/company/balfour-beatty-us",
+      "title": "Balfour Beatty US",
+      "page_age": "12 days ago"
+    },
+    {
+      "url": "https://www.balfourbeatty.com/media-centre/latest/engineering-news-record-names-balfour-beatty-us-southeast-contractor-of-the-year/",
+      "title": "Engineering News-Record Names Balfour Beatty US Southeast Contractor of the Year",
+      "page_age": "4171 days ago"
+    },
+    {
+      "url": "https://www.forbes.com/companies/balfour-beatty/",
+      "title": "Balfour Beatty",
+      "page_age": "783 days ago"
+    },
+    {
+      "url": "https://grokipedia.com/page/balfour_beatty_infrastructure_inc",
+      "title": "Balfour Beatty Infrastructure, Inc.",
+      "page_age": null
+    },
+    {
+      "url": "https://www.dnb.com/business-directory/company-profiles.balfour_beatty_management_inc.1a548ed4a998b11495582953bd48b564.html",
+      "title": "company profiles.balfour beatty management inc.1a548ed4a998b11495582953bd48b564",
+      "page_age": null
+    },
+    {
+      "url": "https://www.reveliolabs.com/companies/balfour-beatty-communitie/employees",
+      "title": "Balfour Beatty Communitie Number of Employees 2026",
+      "page_age": "70 days ago"
+    },
+    {
+      "url": "https://www.reveliolabs.com/companies/balfour-beatty/employees",
+      "title": "Balfour Beatty Number of Employees 2026",
+      "page_age": "70 days ago"
+    },
+    {
+      "url": "https://www.marketscreener.com/news/balfour-beatty-2025-annual-report-and-accounts-ce7e51dcdf8cf126",
+      "title": "Balfour Beatty : 2025 Annual Report and Accounts",
+      "page_age": "221 days ago"
+    },
+    {
+      "url": "https://www.reveliolabs.com/companies/balfour-beatty-construction/employees/",
+      "title": "How many employees work at Balfour Beatty Construction?",
+      "page_age": "339 days ago"
+    },
+    {
+      "url": "https://www.balfourbeatty.com/media/0immhyhv/balfour-beatty-plc-annual-report-and-accounts-2025.pdf",
+      "title": "Annual Report and Accounts 2025 Building New Futures",
+      "page_age": null
+    },
+    {
+      "url": "https://www.balfourbeatty.com/media-centre/latest/notice-of-2025-agm-forms-of-proxy-and-annual-report-and-accounts/",
+      "title": "Balfour Beatty Notice of 2025 AGM, Forms of Proxy and Annual Report and Accounts",
+      "page_age": "585 days ago"
+    },
+    {
+      "url": "https://stockanalysis.com/quote/lon/BBY/employees/",
+      "title": "Balfour Beatty (LON:BBY) Number of Employees",
+      "page_age": null
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Balfour_Beatty",
+      "title": "Balfour Beatty",
+      "page_age": null
+    },
+    {
+      "url": "https://tracenable.com/company/balfour-beatty/employee-count",
+      "title": "Balfour Beatty - Employee Count: Workforce & Employee Totals",
+      "page_age": null
+    },
+    {
+      "url": "https://www.balfourbeatty.com/media-centre/latest/balfour-beatty-2026-half-year-results/",
+      "title": "Balfour Beatty 2026 half year results",
+      "page_age": "89 days ago"
+    },
+    {
+      "url": "https://www.investegate.co.uk/announcement/rns/balfour-beatty--bby/balfour-beatty-2026-half-year-results/9716718",
+      "title": "BALFOUR BEATTY 2026 HALF YEAR RESULTS",
+      "page_age": "89 days ago"
+    },
+    {
+      "url": "https://www.tradingview.com/news/reuters.com,2026-08-12:newsml_RSL2659Qa:0-reg-balfour-beatty-plc-balfour-beatty-2026-half-year-results/",
+      "title": "REG - Balfour Beatty PLC - BALFOUR BEATTY 2026 HALF YEAR RESULTS — TradingView News",
+      "page_age": "89 days ago"
+    },
+    {
+      "url": "https://www.balfourbeatty.com/media/vutb1pzc/hy26-press-release-final.pdf",
+      "title": "1 BALFOUR BEATTY PLC RESULTS FOR THE HALF YEAR ENDED 26 JUNE 2026",
+      "page_age": "89 days ago"
+    },
+    {
+      "url": "https://www.investing.com/news/company-news/balfour-beatty-h1-2026-slides-profit-surges-42-guidance-raised-93CH-4854021",
+      "title": "Balfour Beatty H1 2026 slides: profit surges 42%, guidance raised By Investing.com",
+      "page_age": "88 days ago"
+    },
+    {
+      "url": "https://www.directorstalkinterviews.com/wp-content/uploads/2026/08/balfour-beatty-2026-half-year-results-presentation-with-appendix-aug-26.pdf",
+      "title": "2026 half year results presentation 12 August 2026 Hinkley Point C, UK",
+      "page_age": "100 days ago"
+    },
+    {
+      "url": "https://joshthompson.co.uk/investing/balfour-beatty-half-year-results-2026-guidance-us-profits/",
+      "title": "Balfour Beatty half-year results 2026: guidance rises as US profits recover",
+      "page_age": null
+    },
+    {
+      "url": "https://kalkine.co.uk/news/industrials/balfour-beatty-shares-jump-8-as-profit-guidance-rises-and-229-billion-order-book-strengthens-growth-outlook",
+      "title": "Balfour Beatty Shares Jump 8% as Profit Guidance Rises and £22.9 Billion Order Book Strengthens Growth Outlook",
+      "page_age": "88 days ago"
+    },
+    {
+      "url": "https://piqmarkets.com/story/balfour-beatty-raises-profit-forecasts-amid-sector-challenge",
+      "title": "Balfour Beatty raises profit forecasts amid sector challenges",
+      "page_age": "89 days ago"
+    },
+    {
+      "url": "https://www.shropshirestar.com/business/balfour-beatty-in-recruitment-drive-9161477",
+      "title": "Balfour Beatty in recruitment drive",
+      "page_age": "46 days ago"
+    },
+    {
+      "url": "https://projectscot.com/2026/09/balfour-beatty-commits-to-major-uk-recruitment-drive/",
+      "title": "Balfour Beatty commits to major UK recruitment drive",
+      "page_age": "46 days ago"
+    },
+    {
+      "url": "https://www.newcivilengineer.com/latest/balfour-beatty-to-add-2000-uk-jobs-as-infrastructure-work-ramps-up-25-09-2026/",
+      "title": "Balfour Beatty to add 2,000 UK jobs as infrastructure work ramps up",
+      "page_age": "44 days ago"
+    },
+    {
+      "url": "https://www.buildnews.co.uk/balfour-beatty-to-add-2000-uk-jobs-as-infrastructure-pipeline-grows/",
+      "title": "Balfour Beatty to add 2,000 UK jobs as infrastructure pipeline grows - Build News",
+      "page_age": "44 days ago"
+    },
+    {
+      "url": "https://kalkinemedia.com/uk/stocks/infrastructure-and-real-estate/why-is-balfour-beatty-lsebby-hiring-thousands-more-workers-while-its-shares-hover-near-a-yearly-high",
+      "title": "Why Is Balfour Beatty (LSE:BBY) Hiring Thousands More Workers While Its Shares Hover Near A Yearly High?",
+      "page_age": "41 days ago"
+    },
+    {
+      "url": "https://www.sustainableconstruction-now.com/article/550154/balfour-beatty-recruitment-drive-to-add-2000-employees-in-next-two-years",
+      "title": "Balfour Beatty recruitment drive to add 2,000 employees in next two years",
+      "page_age": "46 days ago"
+    },
+    {
+      "url": "https://www.theworkersunion.com/2026/09/24/2000-new-uk-jobs-as-balfour-beatty-launches-major-infrastructure-recruitment-drive/",
+      "title": "2,000 new UK jobs as Balfour Beatty launches major infrastructure recruitment drive",
+      "page_age": "46 days ago"
+    },
+    {
+      "url": "https://www.ad-hoc-news.de/boerse/news/corporate-news/balfour-beatty-stock-rises-as-order-book-supports-hiring-plans/70166595",
+      "title": "Balfour Beatty stock rises as order book supports hiring plans",
+      "page_age": "46 days ago"
+    },
+    {
+      "url": "https://www.ad-hoc-news.de/boerse/news/corporate-news/balfour-beatty-plans-2-000-uk-jobs-balfour-beatty-stock-loses-1-35-percent/70233515",
+      "title": "Balfour Beatty plans 2,000 UK jobs. Balfour Beatty stock loses 1.35 percent.",
+      "page_age": "34 days ago"
+    }
+  ],
+  "system_prompt": "You are a company research assistant for a B2B sales team at a business-travel platform. You research companies using web search and report what public sources say.\n\nRules:\n- Use only information from your web search results. Do not use prior knowledge.\n- Every finding must cite the URL of the search result it came from.\n- If you cannot find information for a field, mark it not_found. Do not guess.\n- If sources disagree, mark the field conflicting and describe the conflict.\n- Separate facts stated by a source (observed) from your own inferences (inferred).\n- Do not estimate travel spend or GBV.\n- Do not give confidence percentages.\n- Respond with a single JSON object and nothing else.\n- Several pages repeating the same figure or announcement are one source, not several.\n- Treat data aggregators (LinkedIn, ZoomInfo, PitchBook, Crunchbase, Tracxn, Dealroom and similar) as estimates.",
+  "user_prompt": "Research this company:\nCompany name: Balfour Beatty\nWebsite domain: balfourbeatty.com\n\nCover ONLY these fields:\n- industry_business_model: Industry and business model\n- geographic_footprint: Locations and geographic footprint\n- employee_count: Employee count\n- funding_financial: Funding and financial developments\n- hiring_trends: Hiring and workforce trends\n\nSearch plan (you have a small number of searches; use them in this order):\n1. The company's own website and basic profile (what it does, where it operates).\n2. Headcount: the company's own statements, annual reports or company registry filings first, then other sources.\n3. Recent funding and hiring news.\n\nsignal_type meanings:\n- indirect_growth: growth signals (funding, new offices, hiring growth, international expansion)\n- direct_travel: a source explicitly states that employees travel for work. Use it only if you come across it; do not spend searches on it.\n- descriptive: everything else\n\ntravel_scope: only for direct_travel findings (business_travel, local_field_travel or unclear); null otherwise.\n\nEmployee count rules:\n- Put a number in value_number ONLY when the source states one headcount (e.g. \"53 employees\", \"about 26,000 employees\").\n- For a band or range (e.g. \"11-50\", \"51-200\", \"fewer than 25\", \"over 700\"), set value_number to null and keep the band in the claim.\n- Include the \"as of\" date in published_date when the source gives one.\n\nConflict rules:\n- Report a conflict only when sources disagree about the same fact for the same period in a way that changes the conclusion (for example, one source says 40 staff and another says 400).\n- Different estimates from different databases, or figures from different dates, are normal. Describe them in the field summary, not as a conflict, and use status \"found\".\n\nReturn JSON in exactly this shape, with one entry in \"fields\" for each field listed above:\n{\n  \"company_identity_confirmed\": true,\n  \"identity_note\": \"How you confirmed the sources describe the company at this domain\",\n  \"fields\": [\n    {\n      \"field\": \"employee_count\",\n      \"status\": \"found | not_found | conflicting | not_applicable\",\n      \"summary\": \"One-sentence plain-English summary of what the sources say\",\n      \"findings\": [\n        {\n          \"claim\": \"Exact fact taken from the source\",\n          \"value_number\": 120,\n          \"signal_type\": \"direct_travel | indirect_growth | descriptive\",\n          \"observation\": \"observed | inferred\",\n          \"travel_scope\": \"business_travel | local_field_travel | unclear (direct_travel only, else null)\",\n          \"source_url\": \"URL returned by your web search\",\n          \"source_title\": \"Page title\",\n          \"publisher\": \"Site or organisation\",\n          \"published_date\": \"YYYY-MM-DD, YYYY-MM, YYYY, or null\"\n        }\n      ]\n    }\n  ],\n  \"conflicts\": [\n    {\n      \"field\": \"employee_count\",\n      \"description\": \"...\",\n      \"source_urls\": [\n        \"...\"\n      ]\n    }\n  ],\n  \"summary\": \"2-3 sentence summary for a salesperson\",\n  \"research_limitations\": [\n    \"What could not be found or verified\"\n  ]\n}\n",
+  "raw_text": "```json\n{\n  \"company_identity_confirmed\": true,\n  \"identity_note\": \"The balfourbeatty.com domain hosts Balfour Beatty plc press releases and its 2025 Annual Report, and third-party profiles (Wikipedia, GlobalData, Forbes) describe the same UK-listed group. Several US-entity profiles (Balfour Beatty Infrastructure Inc, Balfour Beatty US, Balfour Beatty Construction, Balfour Beatty Communities) are separate subsidiaries and were not used for group-level figures.\",\n  \"fields\": [\n    {\n      \"field\": \"industry_business_model\",\n      \"status\": \"found\",\n      \"summary\": \"Balfour Beatty plc is an international infrastructure group in construction, support services and infrastructure investments, and its order book is largely in government, education and residential work.\",\n      \"findings\": [\n        {\n          \"claim\": \"The group is described as a leading international infrastructure group that finances, develops, builds, maintains and operates infrastructure.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.balfourbeatty.com/media/0immhyhv/balfour-beatty-plc-annual-report-and-accounts-2025.pdf\",\n          \"source_title\": \"Annual Report and Accounts 2025 Building New Futures\",\n          \"publisher\": \"Balfour Beatty plc\",\n          \"published_date\": \"2026\"\n        },\n        {\n          \"claim\": \"Wikipedia lists the industry as infrastructure professional services, construction services, support services and infrastructure investments, with 1909 as the founding year.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://en.wikipedia.org/wiki/Balfour_Beatty\",\n          \"source_title\": \"Balfour Beatty\",\n          \"publisher\": \"Wikipedia\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"GlobalData states the company's main activities are construction services, support services and infrastructure investments, and that it invests in real estate such as military housing and student accommodation.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.globaldata.com/company-profile/balfour-beatty-plc/\",\n          \"source_title\": \"Balfour Beatty Plc Company Profile - Balfour Beatty Plc Overview - GlobalData\",\n          \"publisher\": \"GlobalData\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"Order book breakdown at half-year 2026 shows government at 19%, education at 15% and residential at 8% as the largest subsectors, with data centres at 6%.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.investing.com/news/company-news/balfour-beatty-h1-2026-slides-profit-surges-42-guidance-raised-93CH-4854021\",\n          \"source_title\": \"Balfour Beatty H1 2026 slides: profit surges 42%, guidance raised\",\n          \"publisher\": \"Investing.com\",\n          \"published_date\": \"2026-08-12\"\n        },\n        {\n          \"claim\": \"Balfour Beatty sold its 50% stake in Gammon Construction to Jardine Matheson Holdings in October 2026, per GlobalData's activity log.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.globaldata.com/company-profile/balfour-beatty-plc/\",\n          \"source_title\": \"Balfour Beatty Plc Company Profile - Balfour Beatty Plc Overview - GlobalData\",\n          \"publisher\": \"GlobalData\",\n          \"published_date\": null\n        }\n      ]\n    },\n    {\n      \"field\": \"geographic_footprint\",\n      \"status\": \"found\",\n      \"summary\": \"The group operates mainly in the UK, US and Hong Kong, with the UK as its largest workforce base, and its US construction arm is headquartered in Atlanta.\",\n      \"findings\": [\n        {\n          \"claim\": \"Wikipedia says the company is active across the UK, US and Hong Kong and is headquartered in London.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://en.wikipedia.org/wiki/Balfour_Beatty\",\n          \"source_title\": \"Balfour Beatty\",\n          \"publisher\": \"Wikipedia\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"GlobalData says the company's infrastructure and building markets are in the UK, US and Hong Kong.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.globaldata.com/company-profile/balfour-beatty-plc/\",\n          \"source_title\": \"Balfour Beatty Plc Company Profile - Balfour Beatty Plc Overview - GlobalData\",\n          \"publisher\": \"GlobalData\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"The 2025 annual report says 70 US colleagues joined the group in that year, indicating ongoing US hiring.\",\n          \"value_number\": 70,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.balfourbeatty.com/media/0immhyhv/balfour-beatty-plc-annual-report-and-accounts-2025.pdf\",\n          \"source_title\": \"Annual Report and Accounts 2025 Building New Futures\",\n          \"publisher\": \"Balfour Beatty plc\",\n          \"published_date\": \"2026\"\n        },\n        {\n          \"claim\": \"The US subsidiary Balfour Beatty Infrastructure is headquartered in Atlanta, with a regional office in Wilmington, NC.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.balfourbeatty.com/media-centre/latest/engineering-news-record-names-balfour-beatty-us-southeast-contractor-of-the-year/\",\n          \"source_title\": \"Engineering News-Record Names Balfour Beatty US Southeast Contractor of the Year\",\n          \"publisher\": \"Balfour Beatty\",\n          \"published_date\": null\n        }\n      ]\n    },\n    {\n      \"field\": \"employee_count\",\n      \"status\": \"found\",\n      \"summary\": \"The company's own 2025 annual report gives a group headcount of 26,000, while aggregator and workforce-data estimates for the same period range from about 25,700 to 26,100.\",\n      \"findings\": [\n        {\n          \"claim\": \"The 2025 Annual Report and Accounts lists the group's number of employees as 26,000.\",\n          \"value_number\": 26000,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.balfourbeatty.com/media/0immhyhv/balfour-beatty-plc-annual-report-and-accounts-2025.pdf\",\n          \"source_title\": \"Annual Report and Accounts 2025 Building New Futures\",\n          \"publisher\": \"Balfour Beatty plc\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"The company's website-linked 2025 annual report summary describes the group as having 26,000 employees, matching the annual report headcount.\",\n          \"value_number\": 26000,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.marketscreener.com/news/balfour-beatty-2025-annual-report-and-accounts-ce7e51dcdf8cf126\",\n          \"source_title\": \"Balfour Beatty : 2025 Annual Report and Accounts\",\n          \"publisher\": \"MarketScreener\",\n          \"published_date\": null\n        },\n        {\n          \"claim\": \"S&P Global Market Intelligence data via StockAnalysis puts the headcount at 25,667 as of 31 December 2025, a figure that is an estimate from a data provider.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://stockanalysis.com/quote/lon/BBY/employees/\",\n          \"source_title\": \"Balfour Beatty (LON:BBY) Number of Employees\",\n          \"publisher\": \"StockAnalysis\",\n          \"published_date\": \"2025-12-31\"\n        },\n        {\n          \"claim\": \"Revelio Labs workforce data estimates about 26,148 employees as of March 2026.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.reveliolabs.com/companies/balfour-beatty/employees\",\n          \"source_title\": \"Balfour Beatty Number of Employees 2026\",\n          \"publisher\": \"Revelio Labs\",\n          \"published_date\": \"2026-03\"\n        },\n        {\n          \"claim\": \"LinkedIn lists the company size as 10,001+ employees for the UK parent, a band rather than a headcount.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://uk.linkedin.com/company/balfour-beatty-plc\",\n          \"source_title\": \"Balfour Beatty plc\",\n          \"publisher\": \"LinkedIn\",\n          \"published_date\": null\n        }\n      ]\n    },\n    {\n      \"field\": \"funding_financial\",\n      \"status\": \"found\",\n      \"summary\": \"Balfour Beatty reported strong first-half 2026 results, raised full-year guidance, and holds a £22.9 billion order book with net cash of £1.7 billion, and it is running a share buyback programme.\",\n      \"findings\": [\n        {\n          \"claim\": \"The 2026 half-year results show a £22.9 billion order book, up from £22.7 billion at the 2025 year end, and an increased half-year dividend of 4.7 pence.\",\n          \"value_number\": null,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.balfourbeatty.com/media-centre/latest/balfour-beatty-2026-half-year-results/\",\n          \"source_title\": \"Balfour Beatty 2026 half year results\",\n          \"publisher\": \"Balfour Beatty plc\",\n          \"published_date\": \"2026-08-12\"\n        },\n        {\n          \"claim\": \"The first-half 2026 underlying profit from operations rose to £119 million from £77 million, and the company raised full-year guidance.\",\n          \"value_number\": null,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.investegate.co.uk/announcement/rns/balfour-beatty--bby/balfour-beatty-2026-half-year-results/9716718\",\n          \"source_title\": \"BALFOUR BEATTY 2026 HALF YEAR RESULTS\",\n          \"publisher\": \"Investegate\",\n          \"published_date\": \"2026-08-12\"\n        },\n        {\n          \"claim\": \"Net cash rose to £1,708 million at the end of the first half of 2026, up from £1,446 million at the end of 2025.\",\n          \"value_number\": null,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.investing.com/news/company-news/balfour-beatty-h1-2026-slides-profit-surges-42-guidance-raised-93CH-4854021\",\n          \"source_title\": \"Balfour Beatty H1 2026 slides: profit surges 42%, guidance raised\",\n          \"publisher\": \"Investing.com\",\n          \"published_date\": \"2026-08-12\"\n        },\n        {\n          \"claim\": \"The company has a £200 million share buyback for 2026, with about £102 million completed in the first half.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.tradingview.com/news/reuters.com,2026-08-12:newsml_RSL2659Qa:0-reg-balfour-beatty-plc-balfour-beatty-2026-half-year-results/\",\n          \"source_title\": \"REG - Balfour Beatty PLC - BALFOUR BEATTY 2026 HALF YEAR RESULTS — TradingView News\",\n          \"publisher\": \"TradingView (RNS reproduction)\",\n          \"published_date\": \"2026-08-12\"\n        },\n        {\n          \"claim\": \"The company contracted around $350 million of new data centre orders in the half and was awarded roughly $1 billion of additional work expected to enter the order book over the next 12 months.\",\n          \"value_number\": null,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://joshthompson.co.uk/investing/balfour-beatty-half-year-results-2026-guidance-us-profits/\",\n          \"source_title\": \"Balfour Beatty half-year results 2026: guidance rises as US profits recover\",\n          \"publisher\": \"Josh Thompson (investing commentary)\",\n          \"published_date\": \"2026-08-12\"\n        },\n        {\n          \"claim\": \"Balfour Beatty announced a GBP 10 million strategic investment in Pi Labs' Fund IV, a venture fund focused on built-environment technology, in July 2026.\",\n          \"value_number\": null,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.globaldata.com/company-profile/balfour-beatty-plc/\",\n          \"source_title\": \"Balfour Beatty Plc Company Profile - Balfour Beatty Plc Overview - GlobalData\",\n          \"publisher\": \"GlobalData\",\n          \"published_date\": \"2026-07\"\n        }\n      ]\n    },\n    {\n      \"field\": \"hiring_trends\",\n      \"status\": \"found\",\n      \"summary\": \"Balfour Beatty announced in September 2026 plans to grow its UK workforce from about 14,000 to 16,000 over two years, with roughly 1,000 early-career roles, after UK headcount rose from 12,200 at the end of 2023.\",\n      \"findings\": [\n        {\n          \"claim\": \"The company plans to increase its UK workforce from approximately 14,000 to 16,000 over the next two years.\",\n          \"value_number\": null,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://projectscot.com/2026/09/balfour-beatty-commits-to-major-uk-recruitment-drive/\",\n          \"source_title\": \"Balfour Beatty commits to major UK recruitment drive\",\n          \"publisher\": \"Project Scotland\",\n          \"published_date\": \"2026-09-23\"\n        },\n        {\n          \"claim\": \"Around half of the planned roughly 2,000 new positions, about 1,000, are expected through apprenticeships, graduate programmes, internships and trainee roles.\",\n          \"value_number\": null,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.newcivilengineer.com/latest/balfour-beatty-to-add-2000-uk-jobs-as-infrastructure-work-ramps-up-25-09-2026/\",\n          \"source_title\": \"Balfour Beatty to add 2,000 UK jobs as infrastructure work ramps up\",\n          \"publisher\": \"New Civil Engineer\",\n          \"published_date\": \"2026-09-25\"\n        },\n        {\n          \"claim\": \"The UK workforce grew from about 12,200 at the end of 2023 to around 14,000 at the end of 2025.\",\n          \"value_number\": null,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.buildnews.co.uk/balfour-beatty-to-add-2000-uk-jobs-as-infrastructure-pipeline-grows/\",\n          \"source_title\": \"Balfour Beatty to add 2,000 UK jobs as infrastructure pipeline grows - Build News\",\n          \"publisher\": \"Build News\",\n          \"published_date\": \"2026-09-25\"\n        },\n        {\n          \"claim\": \"The hiring plan is linked to UK power transmission, which recorded 24% revenue growth in the first half of 2026 and holds a £2.1 billion order book.\",\n          \"value_number\": null,\n          \"signal_type\": \"indirect_growth\",\n          \"observation\": \"inferred\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://www.sustainableconstruction-now.com/article/550154/balfour-beatty-recruitment-drive-to-add-2000-employees-in-next-two-years\",\n          \"source_title\": \"Balfour Beatty recruitment drive to add 2,000 employees in next two years\",\n          \"publisher\": \"Construction Management\",\n          \"published_date\": \"2026-09-23\"\n        },\n        {\n          \"claim\": \"Apprentices, graduates, interns and trainees already make up about 9% of the UK workforce.\",\n          \"value_number\": null,\n          \"signal_type\": \"descriptive\",\n          \"observation\": \"observed\",\n          \"travel_scope\": null,\n          \"source_url\": \"https://projectscot.com/2026/09/balfour-beatty-commits-to-major-uk-recruitment-drive/\",\n          \"source_title\": \"Balfour Beatty commits to major UK recruitment drive\",\n          \"publisher\": \"Project Scotland\",\n          \"published_date\": \"2026-09-23\"\n        }\n      ]\n    }\n  ],\n  \"conflicts\": [],\n  \"summary\": \"Balfour Beatty is a UK-headquartered infrastructure group with about 26,000 employees, operating mainly in the UK, US and Hong Kong. It is a strong near-term prospect: H1 2026 profit rose, the order book is £22.9 billion, and it announced plans in September 2026 to grow its UK workforce by about 2,000 people.\",\n  \"research_limitations\": [\n    \"The annual report's headcount is a rounded figure (26,000). Third-party estimates for the same period differ slightly (25,667 from S&P data via StockAnalysis; 26,148 from Revelio Labs), which reflects different dates and methods rather than a conflict.\",\n    \"The 2025 annual report's exact publication date was not confirmed, so published_date for that report is left as a year only or null.\",\n    \"The hiring announcement's 2,000 jobs are UK-specific; no group-wide hiring figure was found. The UK headcount figures come from press coverage and were not checked against the company's own filing.\",\n    \"Several US subsidiary profiles (Balfour Beatty Infrastructure Inc, Balfour Beatty US, Balfour Beatty Construction, Balfour Beatty Communities) show different headcounts, but these are separate legal entities and were excluded from group-level findings.\",\n    \"No direct evidence of employee business travel was found, and no travel spend or GBV estimate was made, per the research scope.\",\n    \"Funding is not applicable in the venture sense; the financial findings relate to public-company results, buybacks and investments, and the company's bond or debt financing was not researched.\",\n    \"The company's own website pages on its corporate structure, offices, and full list of locations were not retrieved. Geographic footprint relies on third-party descriptions for the Hong Kong presence.\"\n  ]\n}\n```",
+  "analysis": {
+    "parse_ok": true,
+    "raw_employee_values_before_guard": [
+      {
+        "value": 26000.0,
+        "claim": "The 2025 Annual Report and Accounts lists the group's number of employees as 26,000."
+      },
+      {
+        "value": 26000.0,
+        "claim": "The company's website-linked 2025 annual report summary describes the group as having 26,000 employees, matching the annual report headcount."
+      },
+      {
+        "value": null,
+        "claim": "S&P Global Market Intelligence data via StockAnalysis puts the headcount at 25,667 as of 31 December 2025, a figure that is an estimate from a data provider."
+      },
+      {
+        "value": null,
+        "claim": "Revelio Labs workforce data estimates about 26,148 employees as of March 2026."
+      },
+      {
+        "value": null,
+        "claim": "LinkedIn lists the company size as 10,001+ employees for the UK parent, a band rather than a headcount."
+      }
+    ],
+    "band_guard_changes": [],
+    "field_statuses": {
+      "industry_business_model": "found",
+      "geographic_footprint": "found",
+      "employee_count": "found",
+      "funding_financial": "found",
+      "hiring_trends": "found"
+    },
+    "findings_kept": 25,
+    "findings_dropped": [],
+    "employee_values": [
+      {
+        "value": 26000.0,
+        "claim": "The 2025 Annual Report and Accounts lists the group's number of employees as 26,000.",
+        "url": "https://www.balfourbeatty.com/media/0immhyhv/balfour-beatty-plc-annual-report-and-accounts-2025.pdf",
+        "reliability": "primary",
+        "date": null
+      },
+      {
+        "value": 26000.0,
+        "claim": "The company's website-linked 2025 annual report summary describes the group as having 26,000 employees, matching the annual report headcount.",
+        "url": "https://www.marketscreener.com/news/balfour-beatty-2025-annual-report-and-accounts-ce7e51dcdf8cf126",
+        "reliability": "secondary",
+        "date": null
+      },
+      {
+        "value": null,
+        "claim": "S&P Global Market Intelligence data via StockAnalysis puts the headcount at 25,667 as of 31 December 2025, a figure that is an estimate from a data provider.",
+        "url": "https://stockanalysis.com/quote/lon/BBY/employees/",
+        "reliability": "secondary",
+        "date": "2025-12-31"
+      },
+      {
+        "value": null,
+        "claim": "Revelio Labs workforce data estimates about 26,148 employees as of March 2026.",
+        "url": "https://www.reveliolabs.com/companies/balfour-beatty/employees",
+        "reliability": "secondary",
+        "date": "2026-03"
+      },
+      {
+        "value": null,
+        "claim": "LinkedIn lists the company size as 10,001+ employees for the UK parent, a band rather than a headcount.",
+        "url": "https://uk.linkedin.com/company/balfour-beatty-plc",
+        "reliability": "aggregator",
+        "date": null
+      }
+    ],
+    "travel_findings": [],
+    "conflicts": [],
+    "identity": [
+      true,
+      "The balfourbeatty.com domain hosts Balfour Beatty plc press releases and its 2025 Annual Report, and third-party profiles (Wikipedia, GlobalData, Forbes) describe the same UK-listed group. Several US-entity profiles (Balfour Beatty Infrastructure Inc, Balfour Beatty US, Balfour Beatty Construction, Balfour Beatty Communities) are separate subsidiaries and were not used for group-level figures."
+    ]
+  }
+}

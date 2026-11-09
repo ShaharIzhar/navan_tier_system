@@ -1,9 +1,11 @@
+import { useState } from 'react'
 import type { Evidence } from '../api'
 import { CompanySiteBadge, ReliabilityChip, hostOf, isCompanySite, when } from './ui'
 
 const TRUST: Record<string, number> = { primary: 0, manual_verified: 1, secondary: 2, manual_unverified: 3, aggregator: 4, synthetic: 5 }
 
-export default function EvidenceList({ items, onWithdraw, companyDomain }: { items: Evidence[]; onWithdraw?: (e: Evidence) => void; companyDomain?: string }) {
+export default function EvidenceList({ items, onWithdraw, companyDomain, highlightId }: { items: Evidence[]; onWithdraw?: (e: Evidence) => void; companyDomain?: string; highlightId?: number | null }) {
+  const [showOlder, setShowOlder] = useState(false)
   if (!items.length) return <div className="empty small">No evidence recorded for this field.</div>
   const rank = (e: Evidence) => [
     e.superseded_by ? 1 : 0,
@@ -14,12 +16,15 @@ export default function EvidenceList({ items, onWithdraw, companyDomain }: { ite
     const a = rank(x), b = rank(y)
     return a[0] - b[0] || a[1] - b[1] || a[2] - b[2]
   })
+  const current = sorted.filter((e) => !e.superseded_by)
+  const older = sorted.filter((e) => e.superseded_by)
   return (
     <div>
-      {sorted.map((e) => {
+      {current.length === 0 && <div className="empty small">No current evidence for this field.</div>}
+      {[...current, ...(showOlder ? older : [])].map((e) => {
         const superseded = !!e.superseded_by
         return (
-          <div key={e.id} className={`evidence-item${superseded ? ' superseded' : ''}`}>
+          <div key={e.id} id={`ev-${e.id}`} className={`evidence-item${superseded ? ' superseded' : ''}${highlightId === e.id ? ' highlight' : ''}`}>
             <div className="spread">
               <div>{e.claim}</div>
               {onWithdraw && !superseded && (e.origin === 'human' || e.origin === 'synthetic_test') && (
@@ -63,6 +68,13 @@ export default function EvidenceList({ items, onWithdraw, companyDomain }: { ite
           </div>
         )
       })}
+      {older.length > 0 && (
+        <div className="evidence-item">
+          <button className="more" onClick={() => setShowOlder(!showOlder)}>
+            {showOlder ? 'Hide older findings' : `Show ${older.length} older finding${older.length > 1 ? 's' : ''} (replaced by newer research)`}
+          </button>
+        </div>
+      )}
     </div>
   )
 }

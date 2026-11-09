@@ -22,7 +22,8 @@ All company names and domains are real. All customer values (reported GBV, emplo
    - *What should I do next?* One recommended action.
    - *What would change things?* Add a corrected value (rules rerun instantly, no AI call), run Deep Research, or wait for Day 30 activity.
 3. **Tier review.** Opens with an **AI judge**: one sentence on why the change is proposed, how well the evidence supports it, and the main doubt (advisory only; numbers checked against the evidence). Then a pull-request-style page: current tier → proposed tier, why, evidence, conflicts, previous assessments, and **Approve / Reject / Request more information**. Every decision is logged.
-4. **Reports.** Flags, review outcomes, research gaps, cost, citation validation, candidate false positives and negatives, and 17 live scenario checks.
+4. **Verified data.** Every fact the research took from a company's own website, with links.
+5. **Reports.** Flags, review outcomes, research gaps, cost, citation validation, candidate false positives and negatives, and 17 live scenario checks.
 
 ## Quick start
 
@@ -53,8 +54,8 @@ The CSV in `data/prospects.csv` is imported automatically on first start. Every 
 **Tests**
 
 ```bash
-cd backend && .venv/bin/python -m pytest -q     # 84 tests
-cd frontend && npm test                          # 5 smoke tests
+cd backend && .venv/bin/python -m pytest -q     # 87 tests
+cd frontend && npm test                          # 6 smoke tests
 ```
 
 ### A 5-minute demo
@@ -100,6 +101,7 @@ Edge cases:
 ### 2. Research (AI)
 
 - **Model:** Claude Haiku 5.5 with Anthropic's server-side web search, at most 5 searches per standard run.
+- **Standard research (prompt v4)** covers the routing basics: industry, locations, employees, funding, hiring. **Deep Research** covers all 8 fields, adding travel requirements, recent expansion and support complexity. Fields a run didn't cover show **Not searched**.
 - **Fields:** industry and business model, geographic footprint, employee count, hiring trends, **direct travel indicators**, funding, expansion, support complexity.
 - **Output:** structured findings, each with source URL, title, publisher, date, `observed`/`inferred`, and signal type (`direct_travel`, `indirect_growth`, `descriptive`).
 - **Inputs:** the prompt contains only the company name and domain. It never contains reported GBV or Day 30 data.
@@ -244,7 +246,7 @@ backend/app/
   reviews/service.py       approve / reject / request info + audit
   enrichment.py            manual values, synthetic test evidence
   api/routes.py            FastAPI endpoints
-backend/tests/             84 pytest tests
+backend/tests/             87 pytest tests
 backend/scripts/prompt_experiment.py   reproduces the LLM experiments
 frontend/src/pages/        ReviewQueue, Companies, CompanyDetail, TierReview, Reviews, Reports
 docs/                      flowchart, llm_experiments (+ raw outputs), evaluation, cases

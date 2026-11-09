@@ -17,7 +17,6 @@ from pathlib import Path
 from .schema import RESEARCH_FIELDS
 
 PROMPTS_DIR = Path(__file__).resolve().parents[2] / "prompts"
-_FIELD_LIST = "\n".join(f"- {k}: {v}" for k, v in RESEARCH_FIELDS.items())
 
 
 def manifest() -> dict:
@@ -41,11 +40,21 @@ def research_versions() -> list[str]:
     return list(manifest()["research"]["versions"])
 
 
+def standard_fields(version: str | None = None) -> list[str]:
+    """Fields a standard-research prompt version covers (all 8 unless the manifest narrows it)."""
+    spec = manifest()["research"]["versions"][version or current_version()]
+    return spec.get("fields") or list(RESEARCH_FIELDS)
+
+
+def _field_list(fields: list[str]) -> str:
+    return "\n".join(f"- {k}: {RESEARCH_FIELDS[k]}" for k in fields)
+
+
 def build_standard_prompt(company_name: str, domain: str, version: str | None = None) -> tuple[str, str, str]:
     """Return (version, system, user). Only Day 0 inputs are allowed here: name + domain."""
     v = version or current_version()
     spec = manifest()["research"]["versions"][v]
-    user = read(spec["user"]).format(company_name=company_name, domain=domain, fields=_FIELD_LIST,
+    user = read(spec["user"]).format(company_name=company_name, domain=domain, fields=_field_list(standard_fields(v)),
                                      shape=_shape(spec["shape"]))
     return v, read(spec["system"]), user
 

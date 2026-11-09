@@ -187,3 +187,38 @@ describe('Company website source', () => {
     expect(checks[0].closest('.badge')?.textContent).toContain('160')
   })
 })
+
+describe('Figure to evidence', () => {
+  it('clicking a research figure opens the field and highlights the finding', async () => {
+    const a = {
+      ...assessment,
+      coverage: { ...assessment.coverage, employee_count: { status: 'found', summary: null, run_id: 1, evidence_count: 1, manual: false, synthetic: false } },
+      accepted_values: {
+        ...assessment.accepted_values,
+        employee_sources: [
+          { value: 155, label: 'Enrichment estimate (dataset)', origin: 'dataset', reliability: 'enrichment', as_of: null, evidence_id: null, stale: false },
+          { value: 53, label: 'Built In London', origin: 'ai_research', reliability: 'secondary', as_of: null, evidence_id: 7, stale: false, url: 'https://builtinlondon.uk/x' },
+        ],
+      },
+    }
+    const ev = { id: 7, run_id: 1, field: 'employee_count', claim: 'Built In London lists 53 employees.', value_number: 53, signal_type: 'descriptive',
+      observation: 'observed', travel_scope: null, source_title: 'Built In', source_url: 'https://builtinlondon.uk/x', publisher: null, published_date: null,
+      retrieved_at: null, reliability: 'secondary', origin: 'ai_research', is_stale: false, accepted_for_reassessment: false, entered_by: null,
+      note: null, superseded_by: null, created_at: '2026-11-08T10:00:00' }
+    mockFetch({
+      '/api/prospects/P-007': {
+        prospect: row({}), assessment: a, history: [], proposals: [], research_runs: [], evidence: [ev],
+        day30: { received: false, exists: false }, day30_pending: false, audit: [],
+      },
+    })
+    Element.prototype.scrollIntoView = vi.fn()
+    render(
+      <MemoryRouter initialEntries={['/companies/P-007']}>
+        <Routes><Route path="/companies/:id" element={<CompanyDetail />} /></Routes>
+      </MemoryRouter>,
+    )
+    await userEvent.click(await screen.findByRole('button', { name: 'Show evidence for 53' }))
+    const item = await screen.findByText('Built In London lists 53 employees.')
+    expect(item.closest('.evidence-item')).toHaveClass('highlight')
+  })
+})

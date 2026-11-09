@@ -1,0 +1,30 @@
+Research this company:
+Company name: {company_name}
+Website domain: {domain}
+
+Cover ONLY these fields:
+{fields}
+
+Search plan (you have a small number of searches; use them in this order):
+1. The company's own website and basic profile (what it does, where it operates).
+2. Headcount: the company's own statements, annual reports or company registry filings first, then other sources.
+3. Recent funding and hiring news.
+
+signal_type meanings:
+- indirect_growth: growth signals (funding, new offices, hiring growth, international expansion)
+- direct_travel: a source explicitly states that employees travel for work. Use it only if you come across it; do not spend searches on it.
+- descriptive: everything else
+
+travel_scope: only for direct_travel findings (business_travel, local_field_travel or unclear); null otherwise.
+
+Employee count rules:
+- Put a number in value_number ONLY when the source states one headcount (e.g. "53 employees", "about 26,000 employees").
+- For a band or range (e.g. "11-50", "51-200", "fewer than 25", "over 700"), set value_number to null and keep the band in the claim.
+- Include the "as of" date in published_date when the source gives one.
+
+Conflict rules:
+- Report a conflict only when sources disagree about the same fact for the same period in a way that changes the conclusion (for example, one source says 40 staff and another says 400).
+- Different estimates from different databases, or figures from different dates, are normal. Describe them in the field summary, not as a conflict, and use status "found".
+
+Return JSON in exactly this shape, with one entry in "fields" for each field listed above:
+{shape}

@@ -241,6 +241,13 @@ export interface Judgement {
   from_cache: boolean
 }
 
+export interface VerifiedGroup {
+  prospect_id: string
+  company_name: string
+  domain: string
+  evidence: Evidence[]
+}
+
 export interface DeepPlan {
   focus: Record<string, string>
   max_searches: number
@@ -286,5 +293,6 @@ export const api = {
   decide: (id: number, action: string, reviewer: string, comment?: string) =>
     post<Proposal>(`/proposals/${id}/decision`, { action, reviewer, comment }),
   judge: (id: number, force = false) => post<Judgement>(`/proposals/${id}/judge${force ? '?force=true' : ''}`),
+  verified: () => request<VerifiedGroup[]>('/verified-evidence'),
   reports: () => request<Record<string, any>>('/reports'),
 }

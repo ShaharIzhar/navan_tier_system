@@ -82,28 +82,28 @@ def run_standard_research(
 
 
 def deep_research_plan(session: Session, prospect_id: str) -> dict:
-    """What Deep Research would target, shown to the user before they confirm."""
+    """What Deep Research would target, shown to the user before they confirm. Always all 8 fields."""
     from ..assessment.engine import latest_assessment
 
     a = latest_assessment(session, prospect_id)
     coverage = (a.coverage if a else None) or {}
-    focus: dict[str, str] = {}
-    for f, v in coverage.items():
-        if v["status"] in ("not_found", "conflicting", "stale", "not_searched"):
-            focus[f] = {"not_found": "not found in standard research",
-                        "conflicting": "sources disagree",
-                        "stale": "evidence may be out of date",
-                        "not_searched": "not researched yet"}[v["status"]]
-    # Routing-relevant fields are always worth a second look.
-    focus.setdefault("employee_count", "decides Tier 2 eligibility; cross-check with independent sources")
-    focus.setdefault("travel_indicators", "direct travel evidence carries the most weight")
+    why_by_status = {
+        "not_searched": "not covered by standard research",
+        "not_found": "nothing found yet",
+        "conflicting": "sources disagree",
+        "stale": "evidence may be out of date",
+        "found": "look for stronger or more recent sources",
+        "not_applicable": "re-check",
+    }
+    focus = {f: why_by_status.get((coverage.get(f) or {}).get("status", "not_searched"), "re-check")
+             for f in RESEARCH_FIELDS}
     est_max = (config.DEEP_MAX_SEARCHES * config.PRICE_PER_WEB_SEARCH
                + 60_000 / 1e6 * config.PRICE_INPUT_PER_MTOK + 8_000 / 1e6 * config.PRICE_OUTPUT_PER_MTOK)
     return {
         "focus": focus,
         "max_searches": config.DEEP_MAX_SEARCHES,
         "estimated_max_cost_usd": round(est_max, 3),
-        "note": "Deep Research is an additional paid research operation. Existing evidence is reused and kept.",
+        "note": "Deep Research is an additional paid research operation covering all fields. Existing evidence is reused and kept.",
     }
 
 
@@ -235,14 +235,20 @@ def _fail(session: Session, run: ResearchRun, message: str) -> ResearchRun:
 def _store_evidence(session, prospect, run, output: ResearchOutput, kind, focus) -> None:
     cutoff = run.research_cutoff
     reported = {fr.field for fr in output.fields}
-    fields_in_scope = list(RESEARCH_FIELDS) if kind == "standard" else (focus or list(reported))
+    if kind == "standard":
+        # Only the fields this prompt version covers; the rest stay "Not searched".
+        known = run.prompt_version in prompts.research_versions()
+        fields_in_scope = prompts.standard_fields(run.prompt_version) if known else list(RESEARCH_FIELDS)
+    else:
+        fields_in_scope = focus or list(reported)
 
     if kind == "standard":
         # A fresh standard run supersedes earlier standard-run evidence (kept, not deleted).
         old = session.exec(select(Evidence).where(Evidence.prospect_id == prospect.id,
                                                   Evidence.origin == "ai_research",
                                                   Evidence.superseded_by == None))  # noqa: E711
-        old_rows = [e for e in old if e.run_id != run.id and _run_kind(session, e.run_id) == "standard"]
+        old_rows = [e for e in old if e.run_id != run.id and e.field in fields_in_scope
+                    and _run_kind(session, e.run_id) == "standard"]
     else:
         # A new Deep Research pass supersedes earlier Deep Research evidence for the same fields.
         # Standard-run evidence is kept as is.

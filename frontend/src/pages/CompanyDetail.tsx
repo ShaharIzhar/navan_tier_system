@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { api, type Assessment, type DeepPlan, type Flag, type ProspectDetail } from '../api'
 import EvidenceList from '../components/EvidenceList'
@@ -34,6 +34,16 @@ export default function CompanyDetail() {
   const [notice, setNotice] = useState<string | null>(null)
   const [deepOpen, setDeepOpen] = useState(false)
   const [openField, setOpenField] = useState<string | null>(null)
+  const [highlight, setHighlight] = useState<{ id: number; at: number } | null>(null)
+  useEffect(() => {
+    if (!highlight) return
+    const t = setTimeout(() => document.getElementById(`ev-${highlight.id}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 60)
+    return () => clearTimeout(t)
+  }, [highlight])
+  const showEvidence = (field: string, evidenceId: number) => {
+    setOpenField(field)
+    setHighlight({ id: evidenceId, at: Date.now() })
+  }
 
   if (loading && !data) return <div className="empty"><Spinner /></div>
   if (error || !data) return <ErrorBox error={error ?? 'Not found'} />
@@ -146,7 +156,7 @@ export default function CompanyDetail() {
                   <td className="muted small">— <Info text="Travel spend is not public, so GBV cannot be researched." /></td>
                   <td></td>
                 </tr>
-                <EmployeeRow data={data} reviewer={reviewer} onSaved={saved} />
+                <EmployeeRow data={data} reviewer={reviewer} onSaved={saved} onShowEvidence={(id) => showEvidence('employee_count', id)} />
                 {a.accepted_values.headcount_history.length >= 2 && (
                   <tr>
                     <td className="vlabel">Headcount trend</td>
@@ -173,6 +183,7 @@ export default function CompanyDetail() {
         {/* Research */}
         <Section
           id="research"
+          openSignal={highlight?.at}
           title="Public research"
           info="AI research with web search. Each field shows whether something was found. Click a field to see its sources or add your own finding."
           summary={
@@ -217,6 +228,11 @@ export default function CompanyDetail() {
             </div>
           )}
           {okRun?.summary && <div className="section-body small text-2"><Clamp text={okRun.summary} /></div>}
+          {a && okRun && Object.values(a.coverage).some((c) => c.status === 'not_searched') && (
+            <div className="section-body small muted" style={{ paddingTop: 0 }}>
+              Fields marked “Not searched” are covered by Deep Research. Not searched does not mean nothing exists.
+            </div>
+          )}
           {a && (
             <div className="coverage-grid" style={{ borderTop: '1px solid var(--border)' }}>
               {Object.entries(a.coverage).map(([field, c]) => (
@@ -245,6 +261,7 @@ export default function CompanyDetail() {
               </div>
               <EvidenceList
                 companyDomain={p.domain}
+                highlightId={highlight?.id}
                 items={data.evidence.filter((e) => e.field === openField)}
                 onWithdraw={(e) => run('withdraw', () => api.withdraw(e.id, reviewer || 'user', 'Withdrawn from company page'))}
               />
@@ -303,7 +320,7 @@ export default function CompanyDetail() {
 }
 
 /** Employee row with inline correction. */
-function EmployeeRow({ data, reviewer, onSaved }: { data: ProspectDetail; reviewer: string; onSaved: (b: Assessment | null, a: Assessment) => void }) {
+function EmployeeRow({ data, reviewer, onSaved, onShowEvidence }: { data: ProspectDetail; reviewer: string; onSaved: (b: Assessment | null, a: Assessment) => void; onShowEvidence: (evidenceId: number) => void }) {
   const a = data.assessment!
   const [editing, setEditing] = useState(false)
   const [value, setValue] = useState('')
@@ -339,7 +356,13 @@ function EmployeeRow({ data, reviewer, onSaved }: { data: ProspectDetail; review
         <td className="vlabel">Employees</td>
         <td>
           <Hint text={usedSource ? sourceText(usedSource) : 'No employee count from any source yet.'}>
-            <strong className="vbig">{a.accepted_values.employees == null ? 'unknown' : num(a.accepted_values.employees)}</strong>
+            {usedSource?.evidence_id ? (
+              <button type="button" className="value-link" onClick={() => onShowEvidence(usedSource.evidence_id!)}>
+                <strong className="vbig">{num(a.accepted_values.employees)}</strong>
+              </button>
+            ) : (
+              <strong className="vbig">{a.accepted_values.employees == null ? 'unknown' : num(a.accepted_values.employees)}</strong>
+            )}
           </Hint>{' '}
           <span className="muted small">{a.accepted_values.employee_source ?? 'no estimate'}</span>
         </td>
@@ -350,10 +373,15 @@ function EmployeeRow({ data, reviewer, onSaved }: { data: ProspectDetail; review
             <span className="row" style={{ gap: 6 }}>
               {found.map((s, i) => (
                 <Hint key={i} text={sourceText(s)}>
-                  <span className={`badge rel rel-${s.company_site ? 'primary own-site' : s.reliability}`}>
+                  <button
+                    type="button"
+                    className={`badge rel rel-${s.company_site ? 'primary own-site' : s.reliability} chip-link`}
+                    onClick={() => s.evidence_id && onShowEvidence(s.evidence_id)}
+                    aria-label={`Show evidence for ${num(s.value)}`}
+                  >
                     {num(s.value)}
                     {s.company_site && <CompanySiteBadge domain={hostOf(s.url) ?? data.prospect.domain} date={s.as_of} plain />}
-                  </span>
+                  </button>
                 </Hint>
               ))}
             </span>

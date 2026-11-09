@@ -112,7 +112,7 @@ def test_growth_without_travel_is_not_travel_potential(session, fake_llm):
         "recent_expansion": ("found", [finding("Opened New York office", u2, signal="indirect_growth")]),
     })
     fake_llm(llm_result(text, [u1, u2]))
-    rs.run_standard_research(session, "P-002")
+    rs.run_standard_research(session, "P-002", prompt_version="v3")
     a = latest_assessment(session, "P-002")
     assert "growth_opportunity" in flag_types(a)
     assert "travel_potential" not in flag_types(a) and "tier_mismatch" not in flag_types(a)
@@ -136,7 +136,7 @@ def test_strong_travel_evidence_on_tier3_creates_override_proposal(session, fake
         finding("Field service engineers travel to customer sites across the UK", u1, signal="direct_travel"),
         finding("Installation teams work on-site nationwide", u2, signal="direct_travel")])})
     fake_llm(llm_result(text, [u1, u2]))
-    rs.run_standard_research(session, "P-033")
+    rs.run_standard_research(session, "P-033", prompt_version="v3")
     a = latest_assessment(session, "P-033")
     assert flag(a, "travel_potential")["severity"] == "material"
     p = session.exec(select(TierProposal).where(TierProposal.prospect_id == "P-033")).one()
@@ -159,7 +159,11 @@ def test_missing_public_info_is_insufficient_evidence_not_negative(session, fake
     f = flag(a, "insufficient_evidence")
     assert any("not evidence that the company does not travel" in u for u in f["uncertainty"])
     assert a.attention == "monitor"
-    assert all(v["status"] == "not_found" for v in a.coverage.values())
+    # Standard v4 covers 5 fields; the other 3 stay "Not searched", never "Not found".
+    from app.research import prompts
+    covered = set(prompts.standard_fields())
+    assert all(v["status"] == "not_found" for f, v in a.coverage.items() if f in covered)
+    assert all(v["status"] == "not_searched" for f, v in a.coverage.items() if f not in covered)
 
 
 # --- Reviews -----------------------------------------------------------------------------
@@ -299,7 +303,7 @@ def test_travel_on_tier1_is_informational(session, fake_llm):
         finding("Roles marked Remote-Friendly (Travel-Required)", u1, signal="direct_travel"),
         finding("Role requires 25-50% travel to customer sites", u2, signal="direct_travel")])})
     fake_llm(llm_result(text, [u1, u2]))
-    rs.run_standard_research(session, "P-041")
+    rs.run_standard_research(session, "P-041", prompt_version="v3")
     a = latest_assessment(session, "P-041")
     assert flag(a, "travel_potential")["severity"] == "low"
     assert a.attention == "monitor"
@@ -324,7 +328,7 @@ def test_local_field_travel_does_not_create_override(session, fake_llm):
         ft("Community nurse role with car allowance and mileage", u1, "local_field_travel"),
         ft("Nurses travel to patients' homes", u2, "local_field_travel")])})
     fake_llm(llm_result(text, [u1, u2]))
-    rs.run_standard_research(session, "P-033")
+    rs.run_standard_research(session, "P-033", prompt_version="v3")
     a = latest_assessment(session, "P-033")
     assert flag(a, "travel_potential")["severity"] == "low"
     assert not session.exec(select(TierProposal).where(TierProposal.prospect_id == "P-033")).all()
@@ -333,7 +337,7 @@ def test_local_field_travel_does_not_create_override(session, fake_llm):
         ft("Engineers travel to customer sites across Europe", u1, "business_travel"),
         ft("Sales role with 40% travel", u3, "unclear")])})
     fake_llm(llm_result(text2, [u1, u3]))
-    rs.run_standard_research(session, "P-033", force=True)
+    rs.run_standard_research(session, "P-033", force=True, prompt_version="v3")
     a = latest_assessment(session, "P-033")
     assert flag(a, "travel_potential")["severity"] == "material"
     assert session.exec(select(TierProposal).where(TierProposal.prospect_id == "P-033")).one().proposed_tier == 2
@@ -364,3 +368,36 @@ def test_headcount_trend_only_compares_the_same_source(session, fake_llm):
     fake_llm(llm_result(text, [u1, u2]))
     rs.run_standard_research(session, "P-025")
     assert latest_assessment(session, "P-025").accepted_values["headcount_history"] == []
+
+
+
+def test_standard_v4_covers_five_fields_and_deep_covers_all(session, fake_llm):
+    from app.research import prompts
+
+    assert prompts.standard_fields("v4") == ["industry_business_model", "geographic_footprint", "employee_count",
+                                             "funding_financial", "hiring_trends"]
+    _, _, user = prompts.build_standard_prompt("Acme", "acme.com", "v4")
+    assert "travel_indicators:" not in user and "employee_count:" in user
+    u = "https://news.example.com/a"
+    text = research_json({"industry_business_model": ("found", [finding("Makes widgets", u)]),
+                          "travel_indicators": ("found", [finding("Staff travel weekly", u, signal="direct_travel")])})
+    fake_llm(llm_result(text, [u]))
+    rs.run_standard_research(session, "P-033", prompt_version="v4")
+    a = latest_assessment(session, "P-033")
+    assert a.coverage["industry_business_model"]["status"] == "found"
+    assert a.coverage["travel_indicators"]["status"] == "not_searched"  # out of scope: ignored, not "not found"
+    assert "travel_potential" not in flag_types(a)
+    plan = rs.deep_research_plan(session, "P-033")
+    assert set(plan["focus"]) == set(prompts.RESEARCH_FIELDS)
+    assert plan["focus"]["travel_indicators"] == "not covered by standard research"
+
+
+def test_standard_rerun_keeps_evidence_for_fields_it_does_not_cover(session, fake_llm):
+    u = "https://jobs.example.com/x"
+    v3 = research_json({"travel_indicators": ("found", [finding("Engineers travel to client sites", u, signal="direct_travel")])})
+    v4 = research_json({"industry_business_model": ("found", [finding("Makes widgets", u)])})
+    fake_llm(llm_result(v3, [u]), llm_result(v4, [u]))
+    rs.run_standard_research(session, "P-033", prompt_version="v3")
+    rs.run_standard_research(session, "P-033", force=True, prompt_version="v4")
+    travel = session.exec(select(Evidence).where(Evidence.prospect_id == "P-033", Evidence.field == "travel_indicators")).all()
+    assert travel and all(e.superseded_by is None for e in travel)

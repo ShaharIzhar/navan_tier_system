@@ -213,3 +213,21 @@ Live result on proposal #1 (IMU Biosciences, Tier 2 → Tier 3):
 | judge-v2 | "Downgrade: Tier 2 rests on an enrichment headcount of 155; aggregator sources show 25 and 53 employees, and GBV is $48,000, so the rules give Tier 3." | The prompt now requires the shape "rests on X → evidence shows Y → so the rules give Tier Z". The reason is readable in one pass |
 
 Both rated it `partial`: the change relies on aggregator estimates. Tests: `backend/tests/test_judge.py` covers caching, ungrounded numbers, failure handling, and rerunning when evidence changes.
+
+
+## 11. Narrower standard research (v4) and all-field Deep Research
+
+**Product decision:** standard research now covers only the basics that matter for routing: industry, locations, employees, funding and hiring. Travel requirements, recent expansion and support complexity move to Deep Research, which now always targets all 8 fields.
+
+**What changed:**
+- **Prompt:** new `research_v4.*.txt` with a 5-field list and a search plan that spends one search on headcount (company statements, annual reports, registry filings). Company-stated rounded figures ("about 26,000") now count as a headcount; ranges still don't. v1–v3 are unchanged and reproducible.
+- **Coverage:** each prompt version declares its fields in `manifest.json`. Fields outside a run's scope stay **Not searched**, never "Not found". A standard re-run only replaces evidence for the fields it covers.
+
+**Live check (8–9 Nov 2026):**
+
+| Case | Searches | Cost | Result |
+|---|---|---|---|
+| P-007 IMU | 3, including "IMU Biosciences employees headcount Companies House" | $0.038 | 5 fields returned; headcount bands kept as text, exact figures 25 / 53 / 77 |
+| P-021 Balfour Beatty | 4, including "Balfour Beatty annual report employees headcount 2025" | $0.051 | 26,000 from the 2025 annual report, classified as a company source |
+
+**Trade-off, stated plainly:** direct travel requirements were the strongest signal for Travel Potential and the Tier 3 → Tier 2 travel override. With v4 they're only found when someone runs Deep Research, so a standard-only assessment can't raise Travel Potential. The UI says "Not searched" for those fields and notes that Deep Research covers them.

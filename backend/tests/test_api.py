@@ -58,3 +58,19 @@ def test_day30_details_hidden_until_received(session):
         c.post("/api/prospects/P-002/day30/release")
         d = c.get("/api/prospects/P-002").json()
         assert d["day30"]["travelers"] == 6 and d["assessment"]["stage"] == "day30"
+
+
+def test_verified_evidence_lists_only_company_website_findings(session, fake_llm):
+    from app.research import service as rs
+
+    from .conftest import finding, llm_result, research_json
+
+    own, other = "https://www.balfourbeatty.com/about-us/", "https://tracxn.com/d/balfour"
+    fake_llm(llm_result(research_json({"employee_count": ("found", [
+        finding("The company has 26,000 employees.", own), finding("Tracxn: 14,941 employees", other, value=14941)])}),
+        [own, other]))
+    rs.run_standard_research(session, "P-021")
+    with TestClient(app) as c:
+        rows = c.get("/api/verified-evidence").json()
+    assert [r["prospect_id"] for r in rows] == ["P-021"]
+    assert [e["source_url"] for e in rows[0]["evidence"]] == [own]

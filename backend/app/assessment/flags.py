@@ -182,7 +182,7 @@ def build_day0_flags(
     if s.research_ran:
         searched = [v for v in s.coverage.values() if v["status"] != "not_searched"]
         nf = [v for v in searched if v["status"] == "not_found"]
-        if searched and len(nf) >= 5:
+        if len(searched) >= 3 and len(nf) / len(searched) >= 0.6:
             insufficient.append(f"Research found nothing usable for {len(nf)} of {len(searched)} fields.")
     if insufficient:
         flags.append(_flag("insufficient_evidence", "low", insufficient,

@@ -155,6 +155,25 @@ def list_prospects(session: Session = Depends(get_session)):
     return rows
 
 
+@router.get("/verified-evidence")
+def verified_evidence(session: Session = Depends(get_session)):
+    """Every current research finding whose source is the company's own website, grouped by company."""
+    from ..research.evidence import host_of
+
+    out = []
+    for p in session.exec(select(Prospect).order_by(Prospect.id)):
+        d = p.domain.lower().removeprefix("www.")
+        rows = [
+            e for e in session.exec(select(Evidence).where(Evidence.prospect_id == p.id, Evidence.origin == "ai_research",
+                                                           Evidence.superseded_by == None))  # noqa: E711
+            if (h := host_of(e.source_url)) and (h == d or h.endswith("." + d))
+        ]
+        if rows:
+            out.append({"prospect_id": p.id, "company_name": p.company_name, "domain": p.domain,
+                        "evidence": [_evidence_dict(e) for e in rows]})
+    return out
+
+
 @router.get("/prospects/{prospect_id}")
 def get_prospect(prospect_id: str, session: Session = Depends(get_session)):
     p = session.get(Prospect, prospect_id)

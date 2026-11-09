@@ -258,3 +258,10 @@ table.values td { padding: 14px 16px; }
 .verified { color: #1d7bf2; display: inline-flex; align-items: center; cursor: help; }
 .own-site { display: inline-flex; align-items: center; gap: 4px; }
 .hint:has(.verified) { border-bottom: none; }
+
+/* ---------- Jump from a figure to its evidence ---------- */
+.chip-link { border: 1px solid transparent; cursor: pointer; font: inherit; font-size: 12px; font-weight: 500; }
+.chip-link:hover:not(:disabled) { border-color: var(--accent); filter: none; }
+.value-link { border: none; background: none; padding: 0; cursor: pointer; color: inherit; }
+.value-link:hover:not(:disabled) { background: none; text-decoration: underline; }
+.evidence-item.highlight { background: #fff8db; box-shadow: inset 3px 0 0 #e3b341; transition: background 0.4s; }

@@ -9,6 +9,7 @@ import CompanyDetail from './pages/CompanyDetail'
 import TierReview from './pages/TierReview'
 import Reviews from './pages/Reviews'
 import Reports from './pages/Reports'
+import Verified from './pages/Verified'
 
 export default function App() {
   const [reviewer, setReviewer] = useReviewer()
@@ -27,6 +28,7 @@ export default function App() {
         <NavLink to="/" end className="navlink">Review queue</NavLink>
         <NavLink to="/companies" className="navlink">All companies</NavLink>
         <NavLink to="/reviews" className="navlink">Tier reviews</NavLink>
+        <NavLink to="/verified" className="navlink">Verified data</NavLink>
         <NavLink to="/reports" className="navlink">Reports</NavLink>
         <div className="sidebar-foot">
           <label style={{ color: '#8b93a7' }}>
@@ -58,6 +60,7 @@ export default function App() {
           <Route path="/companies/:id" element={<CompanyDetail />} />
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/reviews/:id" element={<TierReview />} />
+          <Route path="/verified" element={<Verified />} />
           <Route path="/reports" element={<Reports />} />
         </Routes>
       </main>

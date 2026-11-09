@@ -103,15 +103,16 @@ export function isCompanySite(url: string | null | undefined, companyDomain: str
 
 /** One-line description of where a figure came from, for hover tooltips. */
 export function sourceText(s: { label: string; origin: string; reliability: string; as_of?: string | null; stale?: boolean; url?: string | null; company_site?: boolean }) {
-  const where = s.origin === 'dataset' ? 'Enrichment estimate from the signup dataset (fictional scenario value).' : `Source: ${s.label}.`
-  const parts = [where]
+  if (s.origin === 'dataset') return 'Enrichment estimate from the signup dataset (fictional scenario value).'
+  const name = s.label.replace(/\s*\([^)]*\)\s*/g, ' ').trim() // drop the AI's own "(aggregator estimate)" notes
   const host = hostOf(s.url)
-  if (host && !s.label.includes(host)) parts.push(host)
+  const parts = [`Source: ${name}${host && !name.includes(host) ? ` · ${host}` : ''}.`]
   if (s.as_of) parts.push(`Dated ${s.as_of}.`)
   if (s.company_site) parts.push("From the company's own website: usually the most trustworthy source.")
-  else if (s.origin !== 'dataset' && RELIABILITY_LABELS[s.reliability]) parts.push(`${RELIABILITY_LABELS[s.reliability]}.`)
+  else if (RELIABILITY_LABELS[s.reliability]) parts.push(`${RELIABILITY_LABELS[s.reliability]}.`)
   if (s.stale) parts.push('Stale (older than 18 months).')
-  return parts.filter(Boolean).join(' ')
+  if (s.origin !== 'dataset') parts.push('Click to see the evidence.')
+  return parts.join(' ')
 }
 
 /** Blue verified check for figures that come from the company's own website. */
