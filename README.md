@@ -67,7 +67,7 @@ cd frontend && npm test                          # 3 smoke tests
 
 ## How it works
 
-See the full chart with decision notes in [`docs/flowchart.md`](docs/flowchart.md).
+See the full chart with decision notes in [`docs/flowchart.md`](docs/flowchart.md), or open [`docs/business-logic.excalidraw`](docs/business-logic.excalidraw) at [excalidraw.com](https://excalidraw.com) (menu → Open) for an editable diagram of the business logic.
 
 ```mermaid
 flowchart LR
