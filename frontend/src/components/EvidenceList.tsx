@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import type { Evidence } from '../api'
 import { Hint } from './Section'
-import { CompanySiteBadge, ReliabilityChip, hostOf, isCompanySite } from './ui'
+import { CompanySiteBadge, ReliabilityChip, SiteIcon, hostOf, isCompanySite } from './ui'
 
 const TRUST: Record<string, number> = { primary: 0, manual_verified: 1, secondary: 2, manual_unverified: 3, aggregator: 4, synthetic: 5 }
 
@@ -51,7 +51,10 @@ export default function EvidenceList({ items, onWithdraw, companyDomain, highlig
               {e.is_stale && <span className="badge st-stale">Old</span>}
               {e.source_url ? (
                 <Hint text={[e.source_title, hostOf(e.source_url), e.published_date].filter(Boolean).join(' · ')}>
-                  <a href={e.source_url} target="_blank" rel="noreferrer">{e.source_title || hostOf(e.source_url)}</a>
+                  <a className="source-link" href={e.source_url} target="_blank" rel="noreferrer">
+                    <SiteIcon url={e.source_url} />
+                    <span>{e.source_title || hostOf(e.source_url)}</span>
+                  </a>
                 </Hint>
               ) : (
                 <span>{e.origin === 'human' ? `Added by ${e.entered_by}` : e.publisher}</span>

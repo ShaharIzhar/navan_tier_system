@@ -316,3 +316,9 @@ th.num .sort-btn { flex-direction: row-reverse; }
 
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .calc-row { display: flex; gap: 24px; font-size: 13px; color: var(--text-2); padding: 10px 12px; background: var(--surface-2); border-radius: 8px; }
+
+/* ---------- Source links with site logos ---------- */
+.hint:has(a) { border-bottom: none; }
+.source-link { display: inline-flex; align-items: center; gap: 6px; }
+.site-icon { width: 16px; height: 16px; border-radius: 4px; flex-shrink: 0; background: var(--surface-2); object-fit: contain; }
+.site-icon.letter { display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: var(--text-3); }

@@ -182,6 +182,18 @@ export function Icon({ name, size = 14 }: { name: 'edit' | 'refresh' | 'search' 
   )
 }
 
+/** Small site logo for a source link. Falls back to a letter badge if the site has no icon. */
+export function SiteIcon({ url }: { url: string | null | undefined }) {
+  const host = hostOf(url)
+  const [failed, setFailed] = useState(false)
+  if (!host) return null
+  if (failed) return <span className="site-icon letter" aria-hidden>{host[0].toUpperCase()}</span>
+  return (
+    <img className="site-icon" src={`https://icons.duckduckgo.com/ip3/${host}.ico`} alt="" width={16} height={16}
+      loading="lazy" referrerPolicy="no-referrer" onError={() => setFailed(true)} />
+  )
+}
+
 export function Spinner() {
   return <span className="spinner" aria-label="loading" />
 }
