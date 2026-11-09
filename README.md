@@ -13,16 +13,19 @@ All company names and domains are real. All customer values (reported GBV, emplo
 
 ## What a salesperson sees
 
-1. **Review queue.** Companies sorted into **Review Now**, **Review Suggested** and **Monitor**, ordered by impact, evidence strength and actionability.
-2. **Company page.** It answers six questions in order:
-   - *What did the company report?* GBV and headcount, and the tier the standard rules give.
-   - *What did independent research find?* Each of 8 research fields shows Found / Not found / Not searched / Conflicting / Stale / Not applicable, and expands to show sources.
-   - *What is missing or conflicting?*
-   - *Why was it flagged?* Each reason flag lists its evidence and its uncertainty.
-   - *What should I do next?* One recommended action.
-   - *What would change things?* Add a corrected value (rules rerun instantly, no AI call), run Deep Research, or wait for Day 30 activity.
-3. **Tier review.** Opens with an **AI judge**: one sentence on why the change is proposed, how well the evidence supports it, and the main doubt (advisory only; numbers checked against the evidence). Then a pull-request-style page: current tier → proposed tier, why, evidence, conflicts, previous assessments, and **Approve / Reject / Request more information**. Every decision is logged.
-4. **Reports (next version).** The dashboard UI is not in this version. The data behind it is already available from `GET /api/reports`: flags, review outcomes, research gaps, cost, citation validation, candidate false positives and negatives, and 17 scenario checks.
+1. **Review queue.** Companies sorted into **Review Now**, **Review Suggested** and **Monitor**, ordered by impact, evidence strength and actionability. Each row shows the company logo, tier (with a ↑/↓ arrow when a change is suggested), reported GBV, employees, the main flag reason and attention. Every table can be sorted.
+2. **All companies.** Search plus multi-select filters (tier, flag, attention, research status), so you can pick several values at once.
+3. **Company page.** Short, collapsible sections with hover tooltips instead of long text:
+   - **Values:** what the tier rules use (reported GBV, employees) next to what research found. Hover a figure to see its source (website domain, page title, date). Click it to jump to the evidence. Figures from the company's own website get a blue check and are listed first. Any value can be corrected in place (rules rerun instantly, no AI call).
+   - **Why it was flagged:** flags always in the same order (Tier Mismatch → Data Conflict → Growth Opportunity → Travel Potential → Insufficient Evidence). Each one lists its reasons and, under **Keep in mind**, any caveat specific to this company (for example "only one independent source"). General caveats, such as "growth isn't proof of travel spend", sit in the flag's tooltip.
+   - **Research:** field-by-field coverage and sources. Clicking anywhere on a finding opens the source page. **Re-run** and **Deep Research** buttons (Deep Research runs in the background with a progress bar, and is turned off once it has run).
+   - **Day 30 activity:** travelers, bookings and trend, with **Update** and **Remove** (see section 6).
+   - **Tier change:** each proposal as one line: "↑ Upgrade to Tier 1", the main reason, the type, the status and a **Review →** button. Past proposals are folded away.
+4. **Tier review.** Opens with an **AI judge**: one sentence on why the change is proposed, how well the evidence supports it, and the main doubt (advisory only; numbers checked against the evidence). Then a pull-request-style page: current tier → proposed tier, the values behind it, flags, evidence, **Keep in mind**, and **Approve / Reject / Request more information**. Tier changes and other important actions ask for confirmation. Every decision is logged.
+
+The signed-in name (top right, "Employee 23" by default) is recorded in the audit trail; click it to change it. Salespeople never see costs or token counts, and prompts are not shown in the UI.
+
+A **Reports** dashboard is planned for the next version. Its data is already available from `GET /api/reports`: flags, review outcomes, research gaps, cost, citation validation, candidate false positives and negatives, and 17 scenario checks.
 
 ## Quick start
 
@@ -41,7 +44,7 @@ npm install
 npm run dev                    # http://localhost:5173
 ```
 
-The CSV in `data/prospects.csv` is imported automatically on first start. Every company gets a rules-only assessment straight away. Enter your name under **Acting as** in the sidebar, because it's recorded in the audit trail.
+The CSV in `data/prospects.csv` is imported automatically on first start. Every company gets a rules-only assessment straight away. Set your name via the user menu (top right), because it's recorded in the audit trail.
 
 **No API key? It still works (demo mode).** With no `ANTHROPIC_API_KEY`, the backend replays **recorded real Claude runs** from `data/demo_snapshot.json`: the 10 demo companies researched live on 8 November 2026, plus the AI judge summary.
 - Replays go through the same validation, evidence storage and rules as live research, so flags, proposals and the queue match the live result.
@@ -53,14 +56,14 @@ The CSV in `data/prospects.csv` is imported automatically on first start. Every 
 **Tests**
 
 ```bash
-cd backend && .venv/bin/python -m pytest -q     # 89 tests
-cd frontend && npm test                          # 10 smoke tests
+cd backend && .venv/bin/python -m pytest -q     # 91 tests
+cd frontend && npm test                          # 14 smoke tests
 ```
 
 ### A 5-minute demo
 
 1. **Day 0 conflict (IMU Biosciences, P-007).** Open the company. It is Tier 2 *only* because the enrichment says 155 employees ($48K GBV). Public research finds 25 (PitchBook) and 53 (Built In) employees, plus an 11-50 LinkedIn band. The two straddle 150, so the system raises a **material Data Conflict** and a Tier 2 → Tier 3 standard-rule proposal. Open the review and reject or approve it with a comment.
-2. **Manual enrichment, no AI.** On Quantum Motion (P-011, headcount missing, provisional Tier 3), click *Add or correct a value* and enter 180 employees. The before/after diff shows baseline Tier 2 and a new proposal. 0 AI calls are made, and the applied tier doesn't change until someone approves.
+2. **Manual enrichment, no AI.** On Quantum Motion (P-011, headcount missing, provisional Tier 3), click **Edit** on Employees and enter 180. The before/after diff shows baseline Tier 2 and a new proposal. 0 AI calls are made, and the applied tier doesn't change until someone approves.
 3. **Day 30.** On *All companies*, click **Receive all Day 30 activity**. NexGen Cloud, Greyparrot and Puttshack get Tier 2 → Tier 1 *evidence-based override* proposals. Each company's Day 0 assessment stays unchanged in its history.
 4. **Restart the backend.** All decisions, evidence and audit events are still there (SQLite).
 
@@ -109,7 +112,7 @@ The AI's output is not trusted as-is:
 
 | Check | What happens |
 |---|---|
-| JSON schema (Pydantic) | One repair retry without web search, then the run is marked failed with the raw text kept |
+| JSON schema (Pydantic) | One repair retry without web search, then the run is marked failed with the raw text kept. The closing summary line is optional, because long Deep Research answers sometimes leave it out |
 | Citation check | Findings whose URL wasn't among the search results returned in that run are dropped and logged |
 | Headcount bands | "51-200" or "fewer than 25" can't be used as an exact number (cleared deterministically) |
 | Dates | Evidence older than 18 months is marked **Stale**. Evidence dated after the research run is dropped |
@@ -121,8 +124,9 @@ The AI's output is not trusted as-is:
 **Cost controls:**
 - Results are cached per company and prompt version.
 - Standard research runs only for a configured demo set of 10 companies, or when someone clicks it.
-- **Deep Research** runs only after a confirmation dialog showing its targeted fields and maximum cost. It reuses existing evidence as context and adds new evidence without deleting old evidence.
-- Each run records tokens, searches and an approximate cost.
+- **Deep Research** runs only after a confirmation dialog explaining what it will do. It reuses existing evidence as context and adds new evidence without deleting old evidence. Once it has run, the button is turned off and it's no longer suggested.
+- Each run records tokens, searches and an approximate cost for the team running the tool (not shown to salespeople).
+- A failed run whose search results were saved can be re-checked later without a new AI call (`reprocess_run`), e.g. after a validation fix.
 
 ### 3. Reason flags (deterministic, may be several)
 
@@ -130,8 +134,8 @@ The AI's output is not trusted as-is:
 |---|---|---|
 | **Data Conflict** | Employee figures fall on both sides of 150 (**material** if GBV < $100K, because then headcount decides the tier), or differ by more than 50%. A verified manual value downgrades it to "resolved" | Differences in non-routing fields such as funding totals |
 | **Travel Potential** | A source *states* employees travel for work (job ad, field or client-site work). **Material** with 2+ independent sources. Informational only on Tier 1 | Aggregator-only, inferred, or **local field travel** (home visits, mileage), which doesn't create bookable travel |
-| **Growth Opportunity** | 2+ independent growth signals (funding, expansion, hiring, international footprint). Multiple articles on one announcement count once | — always carries "growth is not evidence of higher GBV" |
-| **Insufficient Evidence** | Headcount unknown and nothing found, invalid GBV, or research found nothing in 5+ of 8 fields | — states "missing info is not evidence of no travel" |
+| **Growth Opportunity** | 2+ independent growth signals (funding, expansion, hiring, international footprint). Multiple articles on one announcement count once | — never drives a tier change; its tooltip says "growth isn't proof of travel spend" |
+| **Insufficient Evidence** | Headcount unknown and nothing found, invalid GBV, or research found nothing in 5+ of 8 fields | — its tooltip says "missing isn't the same as 'doesn't travel'" |
 | **Tier Mismatch** | The standard rules (with accepted values) give a different tier, research headcount would change the tier, strong direct travel evidence on a Tier 3, or material Day 30 activity | Informational flags alone |
 
 ### 4. Attention, proposals and reviews
@@ -149,7 +153,7 @@ How attention is assigned:
 
 How proposals are made:
 - Only Tier Mismatch creates a proposal. Proposals are typed as **standard-rule correction** or **evidence-based override**.
-- They are deduplicated per target tier. A proposal a reviewer rejected is not raised again unless new evidence appears. A proposal the latest evidence no longer supports is marked *superseded*.
+- They are deduplicated per target tier. A proposal a reviewer rejected is not raised again unless new evidence appears. A proposal the latest evidence no longer supports is marked **No longer needed**.
 - **Approve** changes the applied tier and keeps the original and previous tier. Approving a research-headcount correction also records that headcount as reviewer-accepted, so the rules stay consistent. Approving an override is logged as a policy override.
 - **Reject** requires a reason.
 - **Request more information** keeps the proposal open.
@@ -165,8 +169,9 @@ A Growth employee can set employee count, a direct travel requirement, funding, 
 
 ### 6. Day 30 reassessment
 
-Day 30 numbers can be **updated** (travelers, plus bookings for days 1–15 and 16–30; the total and trend are calculated) or **removed** (the company goes back to its signup assessment, and any tier change suggested from the activity is withdrawn). Both ask for confirmation and are logged.
-
+Day 30 numbers can be **updated** or **removed**. Both ask for confirmation and are logged:
+- **Update:** travelers, bookings in 30 days, and optional free-text remarks. The booking trend is calculated by the server from the previous bookings to the new ones (318 → 400 = ↑26%), so it always matches the numbers; the dialog previews it. The first arrival from the dataset keeps the file's own trend (days 16–30 vs days 1–15). The trend's tooltip says which comparison is shown.
+- **Remove:** the company goes back to its signup assessment, and any tier change suggested from the activity is withdrawn.
 
 Day 30 activity is imported into a separate table and stays *unreceived* until released, so it can't influence signup routing. When it arrives:
 1. A new rules-only assessment compares it with the latest Day 0 assessment, and says whether the activity *strengthens*, *weakens* or is *consistent with* it.
@@ -234,12 +239,14 @@ See [`docs/evaluation.md`](docs/evaluation.md). It covers how false positives, f
 - Company identity is confirmed by the model (for example, via company numbers) but not independently verified.
 - The policy thresholds are not calibrated, and no real outcome data exists to calibrate them.
 - 30 days of bookings cannot estimate annual GBV.
-- No authentication: "Acting as" is a name field for the audit trail.
+- No authentication: the name in the user menu is only used for the audit trail.
+- Company logos come from Google's favicon service (only the domain is sent); sites without one show a globe.
+- With standard research narrowed to 5 fields (v4), travel requirements are only found by Deep Research, so a standard-only assessment can't raise Travel Potential.
 
 ## Project structure
 
 ```
-backend/prompts/           every AI prompt as a plain file (research v1–v3, deep, repair, judge)
+backend/prompts/           every AI prompt as a plain file (research v1–v4, deep, repair, judge)
                            + manifest.json (active version). Edits apply on the next AI call.
 backend/app/
   rules/baseline.py        Navan tier rules
@@ -250,9 +257,9 @@ backend/app/
   reviews/service.py       approve / reject / request info + audit
   enrichment.py            manual values, synthetic test evidence
   api/routes.py            FastAPI endpoints
-backend/tests/             89 pytest tests
+backend/tests/             91 pytest tests
 backend/scripts/prompt_experiment.py   reproduces the LLM experiments
-frontend/src/pages/        ReviewQueue, Companies, CompanyDetail, TierReview, Reviews
+frontend/src/pages/        ReviewQueue, Companies, CompanyDetail, TierReview, Reviews (14 Vitest smoke tests)
 docs/                      flowchart, llm_experiments (+ raw outputs), evaluation, cases
 ```
 
@@ -267,8 +274,8 @@ Stack: FastAPI, SQLModel/SQLite, Pydantic, the Anthropic Python SDK, React + Typ
 ## Changing a prompt
 
 All prompts are plain text files in `backend/prompts/`, registered in `backend/prompts/manifest.json`.
-1. Copy the latest version, e.g. `research_v3.user.txt` → `research_v4.user.txt` (and `.system.txt`). Edit the copy.
-2. Add `v4` under `research.versions` in the manifest and set `"active": "v4"`. Or try it without editing the manifest: `RESEARCH_PROMPT_VERSION=v4` in `backend/.env`.
-3. Run `cd backend && .venv/bin/python -m scripts.prompt_experiment --version v4 --cases P-007 P-025` and compare `docs/experiments/v4/` with earlier versions.
+1. Copy the latest version, e.g. `research_v4.user.txt` → `research_v5.user.txt` (and `.system.txt`). Edit the copy.
+2. Add `v5` under `research.versions` in the manifest and set `"active": "v5"`. Or try it without editing the manifest: `RESEARCH_PROMPT_VERSION=v5` in `backend/.env`.
+3. Run `cd backend && .venv/bin/python -m scripts.prompt_experiment --version v5 --cases P-007 P-025` and compare `docs/experiments/v5/` with earlier versions.
 
 Placeholders in `{braces}` are filled by code. The cache is tied to the version, so a new version triggers fresh research. Don't edit a version that has already been run: `tests/test_prompts.py` checks that old versions still match the prompts sent in the saved experiments.

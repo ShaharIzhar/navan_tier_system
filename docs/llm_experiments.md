@@ -231,3 +231,18 @@ Both rated it `partial`: the change relies on aggregator estimates. Tests: `back
 | P-021 Balfour Beatty | 4, including "Balfour Beatty annual report employees headcount 2025" | $0.051 | 26,000 from the 2025 annual report, classified as a company source |
 
 **Trade-off, stated plainly:** direct travel requirements were the strongest signal for Travel Potential and the Tier 3 → Tier 2 travel override. With v4 they're only found when someone runs Deep Research, so a standard-only assessment can't raise Travel Potential. The UI says "Not searched" for those fields and notes that Deep Research covers them.
+
+## 12. Deep Research failure on long answers (9 November 2026)
+
+- **Observed:** three Deep Research runs in a row on NexGen Cloud (runs #38–#40) failed with `Schema validation failed: summary: Field required`.
+- **Cause:**
+  - Deep Research covers all 8 fields, so the answer is long (about 60K characters).
+  - The model's first answer had a JSON syntax error.
+  - The repair answer was valid JSON with all findings and conflicts, but it left out the closing one-line `summary`.
+  - The schema required that line, so the whole run, and every finding in it, was thrown away.
+- **Fix:**
+  - `summary` is now optional. No rule or decision uses it; it's display text only.
+  - A failed run whose search results were saved can now be re-checked with `reprocess_run`, without a new AI call. The re-check uses whichever stored answer (original or repair) is valid JSON.
+  - Run #40 was recovered this way at no cost: 41 findings across all 8 fields, all citations re-checked against the search results returned in that run.
+- **Test:** `test_research_output_without_summary_is_accepted`.
+- **Lesson:** a missing nice-to-have field shouldn't throw away findings that passed citation checks. Only fields the rules depend on should be required.

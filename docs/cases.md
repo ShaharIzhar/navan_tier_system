@@ -2,7 +2,9 @@
 
 **Author:** Shahar Izhar
 
-**How these were produced.** All 10 demo companies were researched live with prompt v3 (Claude Haiku 5.5 + web search). Every source below is a URL that the search tool actually returned in that run; the app drops any other URL automatically.
+**How these were produced.** All 10 demo companies were researched live with prompt v3 (Claude Haiku 5.5 + web search).
+
+> **Version note:** these cases come from the v3 runs (all 8 fields in standard research). Standard research is now v4 (5 fields: industry, locations, employees, funding, hiring), and travel requirements, expansion and support complexity come from Deep Research. The rules are unchanged; a company's travel findings now appear after Deep Research instead of standard research. See [`llm_experiments.md` §11](llm_experiments.md). Every source below is a URL that the search tool actually returned in that run; the app drops any other URL automatically.
 
 **Data caveats.**
 - Reported GBV, employee estimates, tiers and Day 30 activity are **fictional scenario values**.
@@ -59,7 +61,7 @@ The "Outcome" column is the Day 0 assessment, i.e. before any Day 30 data arrive
 
   The figures straddle 150 and GBV is under $100K, so this is a **material conflict**. Because the research sources disagree among themselves, there is **no proposal**. The system recommends confirming the figure and suggests Deep Research instead.
 - **Travel:** the only travel evidence is community nurse adverts for home visits, for example [NHS Jobs E0393-24-0010](https://www.jobs.nhs.uk/candidate/jobadvert/E0393-24-0010). They mention a car allowance and mileage. Prompt v3 labels this `local_field_travel`, which doesn't count as bookable business travel.
-- **Correction history:** an earlier run (before v3) turned these adverts into a Tier 3 → Tier 2 override proposal. Another earlier proposal relied on a median of conflicting aggregator figures. Both are kept in the audit trail as *superseded*. See [`llm_experiments.md` §9](llm_experiments.md).
+- **Correction history:** an earlier run (before v3) turned these adverts into a Tier 3 → Tier 2 override proposal. Another earlier proposal relied on a median of conflicting aggregator figures. Both are kept in the audit trail as *No longer needed* (superseded). See [`llm_experiments.md` §9](llm_experiments.md).
 
 ## P-009 NexGen Cloud: travel evidence found by a targeted search
 
