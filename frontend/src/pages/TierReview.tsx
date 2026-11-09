@@ -139,7 +139,7 @@ export default function TierReview({ proposalId, embedded = false, onChanged }: 
                   <FlagChip label={f.label} severity={f.severity} explain={f.reasons.slice(1).join(' ') || undefined} /> {f.reasons[0]}
                 </li>
               ))}
-              {missing.length > 0 && <li className="muted">Gaps: {missing.map(([k]) => k.replace(/_/g, ' ')).join(', ')}</li>}
+              {missing.length > 0 && <li>Gaps:{missing.map(([k]) => k.replace(/_/g, ' ')).join(', ')}</li>}
             </ul>
           </Section>
 
