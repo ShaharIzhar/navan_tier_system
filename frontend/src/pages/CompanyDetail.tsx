@@ -6,7 +6,7 @@ import { Suggestion, TierArrow } from '../components/ProspectTable'
 import { useConfirm } from '../components/confirm'
 import { Clamp, Hint, Info, Section } from '../components/Section'
 import {
-  AttentionBadge, CompanySiteBadge, ErrorBox, FIELD_LABELS, FlagChip, Spinner, StatusChip, TierBadge, hostOf, sourceText,
+  AttentionBadge, CompanySiteBadge, ErrorBox, FIELD_LABELS, FlagChip, Icon, Spinner, StatusChip, TierBadge, hostOf, sourceText,
   TrendArrow, num, usd, useAsync, useReviewer, when,
 } from '../components/ui'
 import { g } from '../glossary'
@@ -204,10 +204,10 @@ export default function CompanyDetail() {
                   if (ok) run('research', () => api.research(p.id, !!okRun, reviewer || 'user'))
                 }}
               >
-                {busy === 'research' && <Spinner />} {okRun ? 'Re-run' : 'Run research'}
+                {busy === 'research' ? <Spinner /> : <Icon name="refresh" />} {okRun ? 'Re-run' : 'Run research'}
               </button>
               <Hint text={g('deep_research')} align="right">
-                <button className="small" disabled={!!busy || !okRun} onClick={runDeep}>Deep Research…</button>
+                <button className="small" disabled={!!busy || !okRun} onClick={runDeep}><Icon name="search" /> Deep Research…</button>
               </Hint>
             </>
           }
@@ -405,7 +405,7 @@ function EmployeeRow({ data, reviewer, onSaved, onShowEvidence }: { data: Prospe
           )}
         </td>
         <td className="vedit">
-          {!editing && <button className="small" onClick={() => setEditing(true)} aria-label="Edit employees">✎ Edit</button>}
+          {!editing && <button className="small" onClick={() => setEditing(true)} aria-label="Edit employees"><Icon name="edit" /> Edit</button>}
         </td>
       </tr>
       {editing && (

@@ -279,3 +279,5 @@ th.num .sort-btn { flex-direction: row-reverse; }
 .suggest-link { text-decoration: none; display: inline-flex; }
 .suggest-link:hover { text-decoration: none; }
 .tier-change { gap: 8px; }
+.btn-icon { flex-shrink: 0; opacity: 0.8; }
+.hint:has(button) { border-bottom: none; }

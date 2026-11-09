@@ -168,6 +168,22 @@ export function hostOf(url: string | null | undefined) {
   }
 }
 
+/** Small line icons for buttons (same size and weight everywhere). */
+export function Icon({ name }: { name: 'edit' | 'refresh' | 'search' }) {
+  const paths: Record<string, string> = {
+    edit: 'M3 13.5V16h2.5l7.4-7.4-2.5-2.5L3 13.5zM14.7 6.8a.7.7 0 0 0 0-1l-1.5-1.5a.7.7 0 0 0-1 0l-1.2 1.2 2.5 2.5 1.2-1.2z',
+    refresh: 'M15 9a6 6 0 1 1-1.8-4.3M15 3.5v3.7h-3.7',
+    search: 'M8.5 14a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM16 16l-3.6-3.6',
+  }
+  const filled = name === 'edit'
+  return (
+    <svg className="btn-icon" viewBox="0 0 18 18" width="14" height="14" aria-hidden>
+      <path d={paths[name]} fill={filled ? 'currentColor' : 'none'} stroke={filled ? 'none' : 'currentColor'}
+        strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
 export function Spinner() {
   return <span className="spinner" aria-label="loading" />
 }
