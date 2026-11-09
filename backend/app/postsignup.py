@@ -35,7 +35,7 @@ def release_all(session: Session, actor: str = "system") -> list[str]:
 
 
 def update_day30(session: Session, prospect_id: str, travelers: int, bookings: int, trend_pct: float | None,
-                 actor: str) -> Assessment:
+                 actor: str, remarks: str | None = None) -> Assessment:
     """Correct the 30-day activity numbers (e.g. from an updated export). Marks them received and reruns the rules."""
     act = session.exec(select(PostSignupActivity).where(PostSignupActivity.prospect_id == prospect_id)).first()
     if act is None:
@@ -43,13 +43,15 @@ def update_day30(session: Session, prospect_id: str, travelers: int, bookings: i
     if travelers < 0 or bookings < 0:
         raise ValueError("Travelers and bookings can’t be negative.")
     before = {"travelers": act.travelers, "bookings": act.bookings, "trend_pct": act.trend_pct,
-              "received": act.released_at is not None}
+              "remarks": act.remarks, "received": act.released_at is not None}
     act.travelers, act.bookings, act.trend_pct, act.parse_ok = travelers, bookings, trend_pct, True
+    act.remarks = (remarks or "").strip() or None
     act.released_at = act.released_at or utcnow()
     session.add(act)
     audit.record(session, entity_type="activity", entity_id=act.id, prospect_id=prospect_id, actor=actor,
                  action="day30_activity_updated",
-                 details={"before": before, "after": {"travelers": travelers, "bookings": bookings, "trend_pct": trend_pct}})
+                 details={"before": before, "after": {"travelers": travelers, "bookings": bookings,
+                                                     "trend_pct": trend_pct, "remarks": act.remarks}})
     session.commit()
     return reassess(session, prospect_id, trigger="day30", actor=actor)
 
@@ -65,6 +67,7 @@ def remove_day30(session: Session, prospect_id: str, actor: str) -> Assessment:
     if act.raw_text and act.raw_text != "(entered manually)":
         parsed = parse_activity(act.raw_text)
         act.travelers, act.bookings, act.trend_pct = parsed.travelers, parsed.bookings, parsed.trend_pct
+        act.remarks = None
         act.released_at = None
         session.add(act)
     else:

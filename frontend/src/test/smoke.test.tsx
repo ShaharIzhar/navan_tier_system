@@ -315,3 +315,29 @@ describe('Confirmations', () => {
     await waitFor(() => expect(calls.some((c) => c.url.endsWith('/enrichment'))).toBe(true))
   })
 })
+
+describe('Day 30 editing', () => {
+  it('opens the update dialog even when the section is collapsed, and expands it', async () => {
+    localStorage.setItem('ngi.section.day30', '0') // collapsed
+    const calls = mockFetch({
+      '/api/prospects/P-007/day30': assessment,
+      '/api/prospects/P-007': {
+        prospect: row({}), assessment, history: [], proposals: [], research_runs: [], evidence: [],
+        day30: { received: true, travelers: 19, bookings: 57, trend_pct: 62, remarks: null }, day30_pending: false, audit: [],
+      },
+    })
+    render(
+      <MemoryRouter initialEntries={['/companies/P-007']}>
+        <Routes><Route path="/companies/:id" element={<CompanyDetail />} /></Routes>
+      </MemoryRouter>,
+    )
+    await userEvent.click(await screen.findByRole('button', { name: /Update/ }))
+    const dialog = await screen.findByRole('dialog', { name: 'Update Day 30 data' })
+    expect(screen.getByText('travelers')).toBeInTheDocument() // section expanded
+    await userEvent.type(within(dialog).getByLabelText('Remarks'), 'From finance export')
+    await userEvent.click(within(dialog).getByRole('button', { name: 'Save' }))
+    await waitFor(() => expect(calls.some((c) => c.url === '/api/prospects/P-007/day30')).toBe(true))
+    const body = JSON.parse(String(calls.find((c) => c.url === '/api/prospects/P-007/day30')!.init!.body))
+    expect(body).toMatchObject({ travelers: 19, bookings: 57, trend_pct: 62, remarks: 'From finance export' })
+  })
+})

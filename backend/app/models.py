@@ -43,6 +43,7 @@ class PostSignupActivity(SQLModel, table=True):
     bookings: Optional[int] = None
     trend_pct: Optional[float] = None  # second half vs first half of the 30 days
     parse_ok: bool = True
+    remarks: Optional[str] = None  # free-text note added by a person when updating the numbers
     released_at: Optional[datetime] = None  # None = not yet "received" by the system
 
 

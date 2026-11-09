@@ -407,8 +407,10 @@ def test_update_and_remove_day30_data(session):
     from app.postsignup import remove_day30, update_day30
 
     day0 = latest_assessment(session, "P-002")
-    a = update_day30(session, "P-002", travelers=50, bookings=200, trend_pct=30, actor="Sam")
+    a = update_day30(session, "P-002", travelers=50, bookings=200, trend_pct=30, actor="Sam", remarks="From the finance export")
     assert a.stage == "day30" and a.day30["travelers"] == 50
+    act0 = session.exec(select(PostSignupActivity).where(PostSignupActivity.prospect_id == "P-002")).one()
+    assert act0.remarks == "From the finance export"
     p = session.exec(select(TierProposal).where(TierProposal.prospect_id == "P-002", TierProposal.status == "open")).one()
     assert (p.from_tier, p.proposed_tier) == (3, 2)
     assert session.exec(select(AuditEvent).where(AuditEvent.action == "day30_activity_updated")).one()

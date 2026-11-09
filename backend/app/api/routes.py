@@ -199,7 +199,7 @@ def get_prospect(prospect_id: str, session: Session = Depends(get_session)):
             {"received": act.released_at is not None,
              "released_at": act.released_at.isoformat() if act.released_at else None,
              **({"raw_text": act.raw_text, "travelers": act.travelers, "bookings": act.bookings,
-                 "trend_pct": act.trend_pct} if act.released_at else {})}
+                 "trend_pct": act.trend_pct, "remarks": act.remarks} if act.released_at else {})}
             if act else {"received": False, "exists": False}
         ),
         "day30_pending": bool(act and act.released_at is None),
@@ -341,6 +341,7 @@ class Day30Update(BaseModel):
     travelers: int
     bookings: int
     trend_pct: Optional[float] = None
+    remarks: Optional[str] = None
     actor: str = "user"
 
 
@@ -349,7 +350,7 @@ def put_day30(prospect_id: str, body: Day30Update, session: Session = Depends(ge
     if session.get(Prospect, prospect_id) is None:
         raise HTTPException(404, "Prospect not found")
     try:
-        return _assessment_dict(update_day30(session, prospect_id, body.travelers, body.bookings, body.trend_pct, body.actor))
+        return _assessment_dict(update_day30(session, prospect_id, body.travelers, body.bookings, body.trend_pct, body.actor, body.remarks))
     except ValueError as err:
         raise HTTPException(400, str(err))
 

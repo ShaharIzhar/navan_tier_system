@@ -575,23 +575,34 @@ function Day30Section({ data, busy, onRelease, onSave, onRemove }: {
   data: ProspectDetail
   busy: string | null
   onRelease: () => void
-  onSave: (v: { travelers: number; bookings: number; trend_pct: number | null }) => void
+  onSave: (v: { travelers: number; bookings: number; trend_pct: number | null; remarks?: string }) => void
   onRemove: () => void
 }) {
   const d = data.day30
   const day30 = data.assessment?.day30
   const [editing, setEditing] = useState(false)
+  const [openSignal, setOpenSignal] = useState<number | null>(null)
+  const startEdit = () => {
+    setOpenSignal(Date.now()) // expand the section too
+    setEditing(true)
+  }
+  // Rendered outside the section so it works even when the section is collapsed.
   const editor = editing && (
     <Day30Editor
-      initial={d.received ? { travelers: d.travelers ?? 0, bookings: d.bookings ?? 0, trend_pct: d.trend_pct ?? null } : null}
+      initial={d.received ? { travelers: d.travelers ?? 0, bookings: d.bookings ?? 0, remarks: d.remarks ?? '' } : null}
       onClose={() => setEditing(false)}
-      onSave={(v) => { setEditing(false); onSave(v) }}
+      onSave={(v) => {
+        setEditing(false)
+        onSave({ ...v, trend_pct: d.received ? d.trend_pct ?? null : null })
+      }}
     />
   )
   if (!d.received) {
     return (
+      <>
       <Section
         id="day30"
+        openSignal={openSignal}
         title="Day 30 activity"
         info={g('day30')}
         summary={data.day30_pending ? 'not received yet' : 'no data'}
@@ -602,25 +613,28 @@ function Day30Section({ data, busy, onRelease, onSave, onRemove }: {
                 {busy === 'day30' && <Spinner />} Receive Day 30 data
               </button>
             )}
-            <button className="small" disabled={!!busy} onClick={() => setEditing(true)}><Icon name="edit" /> {data.day30_pending ? 'Enter numbers' : 'Add Day 30 data'}</button>
+            <button className="small" disabled={!!busy} onClick={startEdit}><Icon name="edit" /> {data.day30_pending ? 'Enter numbers' : 'Add Day 30 data'}</button>
           </>
         }
         defaultOpen={false}
       >
         <p className="small muted">{data.day30_pending ? 'Waiting for the first 30 days of activity.' : 'No 30-day activity yet. Missing activity doesn’t mean no travel.'}</p>
-        {editor}
       </Section>
+      {editor}
+      </>
     )
   }
   return (
+    <>
     <Section
       id="day30"
+      openSignal={openSignal}
       title="Day 30 activity"
       info={g('day30')}
       summary={day30 ? COMPARISON[day30.comparison] ?? day30.comparison : undefined}
       actions={
         <>
-          <button className="small" disabled={!!busy} onClick={() => setEditing(true)}><Icon name="edit" /> Update</button>
+          <button className="small" disabled={!!busy} onClick={startEdit}><Icon name="edit" /> Update</button>
           <button className="small danger" disabled={!!busy} onClick={onRemove}><Icon name="trash" /> Remove</button>
         </>
       }
@@ -637,53 +651,41 @@ function Day30Section({ data, busy, onRelease, onSave, onRemove }: {
           <div className="l">booking trend <Info text="Second half of the month vs. the first." /></div>
         </div>
       </div>
+      {d.remarks && <p className="day30-remarks"><span>Remarks</span>{d.remarks}</p>}
       {day30?.notes.length ? <p className="small muted" style={{ marginTop: 10 }}>{day30.notes.join(' ')}</p> : null}
-      {editor}
     </Section>
+    {editor}
+    </>
   )
 }
 
 function Day30Editor({ initial, onClose, onSave }: {
-  initial: { travelers: number; bookings: number; trend_pct: number | null } | null
+  initial: { travelers: number; bookings: number; remarks: string } | null
   onClose: () => void
-  onSave: (v: { travelers: number; bookings: number; trend_pct: number | null }) => void
+  onSave: (v: { travelers: number; bookings: number; remarks?: string }) => void
 }) {
-  // Split the existing total into the two halves of the month so the trend can be recalculated.
-  const split = (() => {
-    if (!initial) return { first: '', second: '' }
-    const t = initial.trend_pct ?? 0
-    const first = Math.round(initial.bookings / (2 + t / 100))
-    return { first: String(first), second: String(initial.bookings - first) }
-  })()
   const [travelers, setTravelers] = useState(initial ? String(initial.travelers) : '')
-  const [first, setFirst] = useState(split.first)
-  const [second, setSecond] = useState(split.second)
+  const [bookings, setBookings] = useState(initial ? String(initial.bookings) : '')
+  const [remarks, setRemarks] = useState(initial?.remarks ?? '')
   const isNum = (v: string) => /^\d+$/.test(v.trim())
-  const valid = isNum(travelers) && isNum(first) && isNum(second)
-  const f = Number(first), sec = Number(second)
-  const total = valid ? f + sec : null
-  const trend = valid && f > 0 ? Math.round(((sec - f) / f) * 100) : null
+  const valid = isNum(travelers) && isNum(bookings)
   return (
     <Modal title={initial ? 'Update Day 30 data' : 'Add Day 30 data'} onClose={onClose}>
       <div className="stack" style={{ gap: 12 }}>
-        <label><span className="row" style={{ gap: 8 }}><Icon name="traveler" size={20} /> Travelers</span>
-          <input inputMode="numeric" value={travelers} onChange={(e) => setTravelers(e.target.value)} aria-label="Travelers" />
-        </label>
         <div className="form-row">
-          <label><span className="row" style={{ gap: 8 }}><Icon name="ticket" size={20} /> Bookings, days 1–15</span>
-            <input inputMode="numeric" value={first} onChange={(e) => setFirst(e.target.value)} aria-label="Bookings days 1-15" />
+          <label><span className="row" style={{ gap: 8 }}><Icon name="traveler" size={20} /> Travelers</span>
+            <input autoFocus inputMode="numeric" value={travelers} onChange={(e) => setTravelers(e.target.value)} aria-label="Travelers" />
           </label>
-          <label><span className="row" style={{ gap: 8 }}><Icon name="ticket" size={20} /> Bookings, days 16–30</span>
-            <input inputMode="numeric" value={second} onChange={(e) => setSecond(e.target.value)} aria-label="Bookings days 16-30" />
+          <label><span className="row" style={{ gap: 8 }}><Icon name="ticket" size={20} /> Bookings in 30 days</span>
+            <input inputMode="numeric" value={bookings} onChange={(e) => setBookings(e.target.value)} aria-label="Bookings in 30 days" />
           </label>
         </div>
-        <div className="calc-row">
-          <span>Total bookings <strong>{total == null ? '—' : num(total)}</strong></span>
-          <span>Trend {trend == null ? <strong>—</strong> : <TrendArrow pct={trend} />}</span>
-        </div>
+        <label>Remarks (optional)
+          <textarea rows={4} placeholder="Anything worth knowing about these numbers" value={remarks} onChange={(e) => setRemarks(e.target.value)} aria-label="Remarks" />
+        </label>
         <div className="row" style={{ justifyContent: 'flex-end' }}>
           <button onClick={onClose}>Cancel</button>
-          <button className="primary" disabled={!valid} onClick={() => onSave({ travelers: Number(travelers), bookings: total ?? 0, trend_pct: trend })}>
+          <button className="primary" disabled={!valid} onClick={() => onSave({ travelers: Number(travelers), bookings: Number(bookings), remarks })}>
             Save
           </button>
         </div>

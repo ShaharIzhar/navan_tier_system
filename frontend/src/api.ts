@@ -204,7 +204,7 @@ export interface ProspectDetail {
   evidence: Evidence[]
   research_runs: ResearchRun[]
   proposals: Proposal[]
-  day30: { received: boolean; exists?: boolean; released_at?: string | null; raw_text?: string; travelers?: number; bookings?: number; trend_pct?: number }
+  day30: { received: boolean; exists?: boolean; released_at?: string | null; raw_text?: string; travelers?: number; bookings?: number; trend_pct?: number; remarks?: string | null }
   day30_pending: boolean
   audit: AuditRow[]
 }
@@ -275,7 +275,7 @@ export const api = {
     post<{ before: Assessment | null; after: Assessment; llm_calls: number }>(`/prospects/${id}/enrichment`, body),
   withdraw: (evidenceId: number, actor: string, reason: string) => post<Evidence>(`/evidence/${evidenceId}/withdraw`, { actor, reason }),
   releaseDay30: (id: string) => post<Assessment>(`/prospects/${id}/day30/release`),
-  updateDay30: (id: string, body: { travelers: number; bookings: number; trend_pct: number | null; actor: string }) =>
+  updateDay30: (id: string, body: { travelers: number; bookings: number; trend_pct: number | null; remarks?: string; actor: string }) =>
     request<Assessment>(`/prospects/${id}/day30`, { method: 'PUT', body: JSON.stringify(body) }),
   removeDay30: (id: string, actor: string) => request<Assessment>(`/prospects/${id}/day30?actor=${encodeURIComponent(actor)}`, { method: 'DELETE' }),
   activeResearch: (id: string) =>
