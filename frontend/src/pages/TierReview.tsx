@@ -7,7 +7,7 @@ import { TierArrow } from '../components/ProspectTable'
 import { useConfirm } from '../components/confirm'
 import { SUPPORT_LEVEL } from '../components/ui'
 import { Hint, Info, Section } from '../components/Section'
-import { AttentionBadge, ErrorBox, FlagChip, Spinner, TierBadge, sortFlags, sourceText, useAsync, useReviewer, when } from '../components/ui'
+import { AttentionBadge, CompanyLogo, ErrorBox, FlagChip, Spinner, TierBadge, sortFlags, sourceText, useAsync, useReviewer, when } from '../components/ui'
 import { g } from '../glossary'
 
 const ACTION_LABELS: Record<string, string> = {
@@ -75,6 +75,7 @@ export default function TierReview() {
       <div className="page-head">
         <div>
           <h1 className="row" style={{ gap: 10 }}>
+            <CompanyLogo domain={prospect.domain} large />
             {prospect.company_name}
             <span className="tier-change"><TierBadge tier={p.from_tier} /><TierArrow from={p.from_tier} to={p.proposed_tier} /></span>
           </h1>

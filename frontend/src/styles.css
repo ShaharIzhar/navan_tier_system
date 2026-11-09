@@ -355,3 +355,5 @@ th.num .sort-btn { flex-direction: row-reverse; }
 .multi-opt:hover { background: var(--surface-2); }
 .multi-opt input { margin: 0; accent-color: var(--accent); }
 .multi-clear { align-self: flex-start; margin: 4px 8px 2px; }
+.company-logo.large { width: 36px; height: 36px; }
+.company-logo.large .site-icon, .company-logo.large .site-icon.globe { width: 22px; height: 22px; }

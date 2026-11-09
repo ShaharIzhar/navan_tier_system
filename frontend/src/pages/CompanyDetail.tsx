@@ -6,7 +6,7 @@ import { Suggestion } from '../components/ProspectTable'
 import { useConfirm } from '../components/confirm'
 import { Clamp, Hint, Info, Section } from '../components/Section'
 import {
-  AttentionBadge, CompanySiteBadge, ErrorBox, FIELD_LABELS, FlagChip, Icon, Modal, Spinner, sortFlags, StatusChip, TierBadge, hostOf, sourceText,
+  AttentionBadge, CompanyLogo, CompanySiteBadge, ErrorBox, FIELD_LABELS, FlagChip, Icon, Modal, Spinner, sortFlags, StatusChip, TierBadge, hostOf, sourceText,
   TrendArrow, num, usd, useAsync, useReviewer, when,
 } from '../components/ui'
 import { g } from '../glossary'
@@ -132,6 +132,7 @@ export default function CompanyDetail() {
       <div className="page-head">
         <div>
           <h1 className="row" style={{ gap: 10 }}>
+            <CompanyLogo domain={p.domain} large />
             {p.company_name}
             <span className="tier-change">
               <TierBadge tier={p.applied_tier} />

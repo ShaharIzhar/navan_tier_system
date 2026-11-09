@@ -195,9 +195,9 @@ export function Icon({ name, size = 14 }: { name: 'edit' | 'refresh' | 'search' 
 
 /** Small site logo for a source link. Falls back to a globe if the site has no icon. */
 /** Company logo in a circle (tables). Falls back to a globe. */
-export function CompanyLogo({ domain }: { domain: string }) {
+export function CompanyLogo({ domain, large = false }: { domain: string; large?: boolean }) {
   return (
-    <span className="company-logo" aria-hidden>
+    <span className={`company-logo${large ? ' large' : ''}`} aria-hidden>
       <SiteIcon url={`https://${domain}`} />
     </span>
   )
