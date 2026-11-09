@@ -27,10 +27,10 @@ export default function ProspectTable({ rows, showAttention = true, empty }: { r
           </SortTh>
           <SortTh k="gbv" sort={sort} className="num">Reported GBV</SortTh>
           <SortTh k="employees" sort={sort} className="num">
-            Employees <Info text="From the signup data." align="right" />
+            Employees
           </SortTh>
           <SortTh k="reason" sort={sort}>
-            Main reason <Info text="The main reason it was flagged." />
+            Flag reason
           </SortTh>
           {showAttention && <SortTh k="attention" sort={sort}>Attention</SortTh>}
         </tr>

@@ -159,10 +159,17 @@ def build_signals(session: Session, prospect: Prospect) -> Signals:
         coverage[f]["synthetic"] = any(e.field == f and e.origin == "synthetic_test" for e in evidence)
     s.coverage = coverage
 
+    # Conflicts the research itself reported: only from the latest run of each kind, one per field
+    # (newest wins), so repeated runs don't stack near-identical notes.
+    latest_by_kind: dict[str, ResearchRun] = {}
     for r in runs:
         if r.status in ("ok", "partial") and r.parsed:
-            for c in r.parsed.get("conflicts", []) or []:
-                s.llm_conflicts.append({**c, "run_id": r.id})
+            latest_by_kind[r.kind] = r
+    by_field: dict[str, dict] = {}
+    for r in sorted(latest_by_kind.values(), key=lambda r: r.id):
+        for c in r.parsed.get("conflicts", []) or []:
+            by_field[c.get("field", "")] = {**c, "run_id": r.id}
+    s.llm_conflicts = list(by_field.values())
 
     # --- post-signup activity (only once "received") ---------------------------
     act = session.exec(select(PostSignupActivity).where(PostSignupActivity.prospect_id == prospect.id)).first()

@@ -133,6 +133,7 @@ export interface ResearchRun {
   id: number
   kind: 'standard' | 'deep'
   status: string
+  stage?: string
   replayed: boolean
   prompt_version: string
   model: string
@@ -274,6 +275,11 @@ export const api = {
     post<{ before: Assessment | null; after: Assessment; llm_calls: number }>(`/prospects/${id}/enrichment`, body),
   withdraw: (evidenceId: number, actor: string, reason: string) => post<Evidence>(`/evidence/${evidenceId}/withdraw`, { actor, reason }),
   releaseDay30: (id: string) => post<Assessment>(`/prospects/${id}/day30/release`),
+  updateDay30: (id: string, body: { travelers: number; bookings: number; trend_pct: number | null; actor: string }) =>
+    request<Assessment>(`/prospects/${id}/day30`, { method: 'PUT', body: JSON.stringify(body) }),
+  removeDay30: (id: string, actor: string) => request<Assessment>(`/prospects/${id}/day30?actor=${encodeURIComponent(actor)}`, { method: 'DELETE' }),
+  activeResearch: (id: string) =>
+    request<{ running: boolean; run?: ResearchRun; expected_seconds?: number; last?: ResearchRun | null }>(`/prospects/${id}/active-research`),
   releaseAllDay30: () => post<{ released: string[] }>('/day30/release-all'),
   proposals: (status?: string) => request<Proposal[]>(`/proposals${status ? `?status=${status}` : ''}`),
   proposal: (id: number) => request<ProposalDetail>(`/proposals/${id}`),

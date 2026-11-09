@@ -5,9 +5,9 @@ import { ErrorBox, Spinner, useAsync } from '../components/ui'
 import { Info } from '../components/Section'
 
 const TABS: { key: NonNullable<ProspectRow['attention']>; label: string; help: string }[] = [
-  { key: 'review_now', label: 'Review Now', help: 'Needs a decision now.' },
-  { key: 'review_suggested', label: 'Review Suggested', help: 'Worth a look, not urgent.' },
-  { key: 'monitor', label: 'Monitor', help: 'Keep an eye on it. No action yet.' },
+  { key: 'review_now', label: 'Review Now', help: 'needs attention now.' },
+  { key: 'review_suggested', label: 'Review Suggested', help: 'worth a look, not urgent.' },
+  { key: 'monitor', label: 'Monitor', help: 'keep an eye on it.' },
 ]
 
 export default function ReviewQueue() {
@@ -35,7 +35,7 @@ export default function ReviewQueue() {
             <span className="count">{data ? count(t.key) : '…'}</span>
           </button>
         ))}
-        <span style={{ marginLeft: 6 }}><Info text={current.help} /></span>
+        <span style={{ marginLeft: 6 }}><Info text={TABS.map((t) => `${t.label}: ${t.help}`).join('\n')} /></span>
       </div>
       <div className="card">
         {loading && !data ? (

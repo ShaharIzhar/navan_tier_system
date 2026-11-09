@@ -15,7 +15,7 @@ from ..db import get_session
 from ..enrichment import EnrichmentError, add_enrichment, add_synthetic_evidence, retract_evidence
 from ..models import (Assessment, AuditEvent, Evidence, PostSignupActivity, Prospect, ResearchRun,
                       ReviewDecision, TierProposal)
-from ..postsignup import release_all, release_day30
+from ..postsignup import release_all, release_day30, remove_day30, update_day30
 from ..research import service as research
 from ..research.schema import RESEARCH_FIELDS
 from ..reviews.service import ReviewError, decide
@@ -61,7 +61,7 @@ def _evidence_dict(e: Evidence) -> dict:
 
 def _run_dict(r: ResearchRun, include_raw: bool = False) -> dict:
     d = {
-        "id": r.id, "kind": r.kind, "status": r.status, "prompt_version": r.prompt_version, "model": r.model,
+        "id": r.id, "kind": r.kind, "status": r.status, "stage": r.stage, "prompt_version": r.prompt_version, "model": r.model,
         "replayed": r.replayed,
         "focus_fields": r.focus_fields, "started_at": r.started_at.isoformat(),
         "finished_at": r.finished_at.isoformat() if r.finished_at else None,
@@ -255,8 +255,19 @@ class DeepRequest(BaseModel):
 def post_deep(prospect_id: str, body: DeepRequest, session: Session = Depends(get_session)):
     if not body.confirm:
         raise HTTPException(400, "Deep Research is an additional paid operation and requires confirm=true.")
-    run = research.run_deep_research(session, prospect_id, body.focus_fields, actor=body.actor)
+    run, _ = research.start_deep_research(session, prospect_id, body.focus_fields, actor=body.actor)
     return _run_dict(run)
+
+
+@router.get("/prospects/{prospect_id}/active-research")
+def get_active_research(prospect_id: str, session: Session = Depends(get_session)):
+    """Progress of a running research job (polled by the company page)."""
+    r = research.active_run(session, prospect_id)
+    if r is None:
+        last = session.exec(select(ResearchRun).where(ResearchRun.prospect_id == prospect_id)
+                            .order_by(ResearchRun.id.desc())).first()
+        return {"running": False, "last": _run_dict(last) if last else None}
+    return {"running": True, "run": _run_dict(r), "expected_seconds": research.DEEP_EXPECTED_SECONDS}
 
 
 class EnrichmentRequest(BaseModel):
@@ -324,6 +335,31 @@ def post_release(prospect_id: str, session: Session = Depends(get_session)):
     if a is None:
         raise HTTPException(404, "No post-signup activity exists for this prospect.")
     return _assessment_dict(a)
+
+
+class Day30Update(BaseModel):
+    travelers: int
+    bookings: int
+    trend_pct: Optional[float] = None
+    actor: str = "user"
+
+
+@router.put("/prospects/{prospect_id}/day30")
+def put_day30(prospect_id: str, body: Day30Update, session: Session = Depends(get_session)):
+    if session.get(Prospect, prospect_id) is None:
+        raise HTTPException(404, "Prospect not found")
+    try:
+        return _assessment_dict(update_day30(session, prospect_id, body.travelers, body.bookings, body.trend_pct, body.actor))
+    except ValueError as err:
+        raise HTTPException(400, str(err))
+
+
+@router.delete("/prospects/{prospect_id}/day30")
+def delete_day30(prospect_id: str, actor: str = "user", session: Session = Depends(get_session)):
+    try:
+        return _assessment_dict(remove_day30(session, prospect_id, actor))
+    except ValueError as err:
+        raise HTTPException(400, str(err))
 
 
 @router.post("/day30/release-all")

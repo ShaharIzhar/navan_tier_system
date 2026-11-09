@@ -94,7 +94,9 @@ export function Section({
     <section className={`card section${open ? ' open' : ''}`}>
       <div className="section-head">
         <button className="section-toggle" onClick={toggle} aria-expanded={open}>
-          <span className="chev" aria-hidden>{open ? '▾' : '▸'}</span>
+          <svg className={`chev${open ? ' open' : ''}`} viewBox="0 0 16 16" width="16" height="16" aria-hidden>
+            <path d="M6 4l4 4-4 4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
           <h2>{title}</h2>
         </button>
         {info && <Info text={info} />}

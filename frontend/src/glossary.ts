@@ -11,7 +11,7 @@ export const GLOSSARY: Record<string, string> = {
   tier3: 'Tier 3: self-serve.',
 
   // Attention
-  review_now: 'Needs a decision now.',
+  review_now: 'Needs attention now.',
   review_suggested: 'Worth a look, not urgent.',
   monitor: 'Keep an eye on it.',
   no_action: 'Nothing to do.',

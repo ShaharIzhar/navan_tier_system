@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { api, type Judgement } from '../api'
 import { Info } from './Section'
-import { Spinner, useAsync, when } from './ui'
+import { Icon, Spinner, useAsync } from './ui'
 
 const SUPPORT: Record<string, { label: string; cls: string; hint: string }> = {
   strong: { label: 'Well supported', cls: 'st-found', hint: 'Solid evidence.' },
@@ -18,33 +18,24 @@ export default function JudgeCard({ proposalId }: { proposalId: number }) {
   return (
     <div className="card judge">
       <div className="judge-head">
-        <span className="judge-mark" aria-hidden>✦</span>
-        <span className="judge-title">AI judge</span>
-        <Info text="AI summary of this proposal. It can’t change anything; you decide." />
-        {j?.replayed && <span className="badge rel rel-synthetic" title="Recorded real Claude output replayed in demo mode">Recorded</span>}
-        {s && (
-          <span className={`badge ${s.cls}`} title={s.hint} style={{ marginLeft: 'auto' }}>{s.label}</span>
+        <span className="judge-title"><span aria-hidden>✦</span> AI summary</span>
+        <Info text="An AI read of this proposal. It can’t change anything; you decide." />
+        {s && <span className={`badge ${s.cls}`} title={s.hint} style={{ marginLeft: 'auto' }}>{s.label}</span>}
+        {j?.status === 'ok' && (
+          <button className="icon-btn" title="Refresh summary" aria-label="Refresh summary" disabled={loading} onClick={() => setForce((f) => f + 1)}>
+            {loading ? <Spinner /> : <Icon name="refresh" />}
+          </button>
         )}
       </div>
       {loading && !j ? (
         <p className="judge-text muted"><Spinner /> Reading the proposal…</p>
       ) : error || j?.status === 'failed' ? (
-        <p className="small muted">AI summary unavailable: {error ?? j?.error}. The evidence below is unaffected.</p>
+        <p className="small muted">Summary unavailable right now.</p>
       ) : j ? (
         <>
           <p className="judge-text">{j.summary}</p>
-          {j.main_doubt && (
-            <p className="judge-doubt"><span>Main doubt:</span> {j.main_doubt}</p>
-          )}
-          {j.grounded === false && (
-            <p className="callout warn small" style={{ marginTop: 8 }}>
-              Check this summary: it mentions {j.ungrounded_numbers?.join(', ')}, which is not in the evidence.
-            </p>
-          )}
-          <div className="judge-foot">
-            {j.model} · {when(j.created_at)}
-            <button className="more" disabled={loading} onClick={() => setForce((f) => f + 1)}>{loading ? 'Refreshing…' : 'Refresh'}</button>
-          </div>
+          {j.main_doubt && <p className="judge-doubt"><span>Watch out:</span> {j.main_doubt}</p>}
+          {j.grounded === false && <p className="judge-doubt"><span>Check:</span> mentions {j.ungrounded_numbers?.join(', ')}, which isn’t in the evidence.</p>}
         </>
       ) : null}
     </div>

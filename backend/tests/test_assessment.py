@@ -3,7 +3,7 @@ from sqlmodel import select
 
 from app.assessment.engine import latest_assessment, reassess
 from app.enrichment import EnrichmentError, add_enrichment, add_synthetic_evidence, retract_evidence
-from app.models import Assessment, AuditEvent, Evidence, Prospect, ReviewDecision, TierProposal
+from app.models import Assessment, AuditEvent, Evidence, PostSignupActivity, Prospect, ReviewDecision, TierProposal
 from app.postsignup import release_day30
 from app.research import service as rs
 from app.reviews.service import ReviewError, decide
@@ -401,3 +401,36 @@ def test_standard_rerun_keeps_evidence_for_fields_it_does_not_cover(session, fak
     rs.run_standard_research(session, "P-033", force=True, prompt_version="v4")
     travel = session.exec(select(Evidence).where(Evidence.prospect_id == "P-033", Evidence.field == "travel_indicators")).all()
     assert travel and all(e.superseded_by is None for e in travel)
+
+
+def test_update_and_remove_day30_data(session):
+    from app.postsignup import remove_day30, update_day30
+
+    day0 = latest_assessment(session, "P-002")
+    a = update_day30(session, "P-002", travelers=50, bookings=200, trend_pct=30, actor="Sam")
+    assert a.stage == "day30" and a.day30["travelers"] == 50
+    p = session.exec(select(TierProposal).where(TierProposal.prospect_id == "P-002", TierProposal.status == "open")).one()
+    assert (p.from_tier, p.proposed_tier) == (3, 2)
+    assert session.exec(select(AuditEvent).where(AuditEvent.action == "day30_activity_updated")).one()
+
+    a2 = remove_day30(session, "P-002", actor="Sam")
+    assert a2.stage == "day0" and a2.day30 is None
+    assert session.get(TierProposal, p.id).status == "superseded"
+    act = session.exec(select(PostSignupActivity).where(PostSignupActivity.prospect_id == "P-002")).one()
+    assert act.released_at is None and act.travelers == 6  # back to the original file values
+    assert session.get(Assessment, day0.id).stage == "day0"  # signup history untouched
+
+
+def test_research_conflict_notes_do_not_stack_across_runs(session, fake_llm):
+    """Live P-019: three runs each reported an employee-count conflict and the page showed three rows."""
+    u = "https://a.example.com/x"
+    def text(desc):
+        return research_json({"employee_count": ("conflicting", [finding("Bands differ", u)])},
+                             conflicts=[{"field": "employee_count", "description": desc, "source_urls": [u]}])
+    fake_llm(llm_result(text("first"), [u]), llm_result(text("second"), [u]), llm_result(text("third"), [u]))
+    rs.run_standard_research(session, "P-019")
+    rs.run_standard_research(session, "P-019", force=True)
+    rs.run_deep_research(session, "P-019")
+    a = latest_assessment(session, "P-019")
+    notes = [f for f in a.flags if f["type"] == "data_conflict" and "Research reported" in f["reasons"][0]]
+    assert len(notes) == 1 and "third" in notes[0]["reasons"][0]

@@ -79,7 +79,7 @@ export function FlagChip({ label, severity, explain }: { label: string; severity
   const text = explain ?? [g(FLAG_KEY[label]), severity ? g(severity) : ''].filter(Boolean).join(' ')
   return (
     <Hint text={text}>
-      <span className={`badge flag${severity ? ` sev-${severity}` : ''}`}>{label}</span>
+      <span className={`badge flag flag-${FLAG_KEY[label] ?? 'other'}`}>{label}</span>
     </Hint>
   )
 }
@@ -163,15 +163,19 @@ export function hostOf(url: string | null | undefined) {
 }
 
 /** Small line icons for buttons (same size and weight everywhere). */
-export function Icon({ name }: { name: 'edit' | 'refresh' | 'search' }) {
+export function Icon({ name, size = 14 }: { name: 'edit' | 'refresh' | 'search' | 'people' | 'traveler' | 'ticket' | 'trash'; size?: number }) {
   const paths: Record<string, string> = {
     edit: 'M3 13.5V16h2.5l7.4-7.4-2.5-2.5L3 13.5zM14.7 6.8a.7.7 0 0 0 0-1l-1.5-1.5a.7.7 0 0 0-1 0l-1.2 1.2 2.5 2.5 1.2-1.2z',
     refresh: 'M15 9a6 6 0 1 1-1.8-4.3M15 3.5v3.7h-3.7',
     search: 'M8.5 14a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM16 16l-3.6-3.6',
+    people: 'M6.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zM2 15c0-2.5 2-4.5 4.5-4.5S11 12.5 11 15M12 8.5a2 2 0 1 0 0-4M13 10.7c1.7.4 3 2 3 4.3',
+    traveler: 'M3 6.5h12v8.5H3zM6.5 6.5V4.2c0-.4.3-.7.7-.7h3.6c.4 0 .7.3.7.7v2.3M6.5 9.5v3M11.5 9.5v3',
+    ticket: 'M2.5 6V4.5h13V6a1.8 1.8 0 0 0 0 3.6v1.9h-13V9.6a1.8 1.8 0 0 0 0-3.6zM11 4.5v7',
+    trash: 'M3 5h12M7 5V3h4v2M5 5l.8 10h6.4L13 5',
   }
   const filled = name === 'edit'
   return (
-    <svg className="btn-icon" viewBox="0 0 18 18" width="14" height="14" aria-hidden>
+    <svg className="btn-icon" viewBox="0 0 18 18" width={size} height={size} aria-hidden>
       <path d={paths[name]} fill={filled ? 'currentColor' : 'none'} stroke={filled ? 'none' : 'currentColor'}
         strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
     </svg>

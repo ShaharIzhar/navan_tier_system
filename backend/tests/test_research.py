@@ -3,7 +3,7 @@ import pytest
 from sqlmodel import select
 
 from app.assessment.engine import latest_assessment
-from app.models import Evidence, PostSignupActivity
+from app.models import Evidence, PostSignupActivity, ResearchRun
 from app.research import prompts
 from app.research import service as rs
 from app.research.client import ResearchProviderError
@@ -136,7 +136,14 @@ def test_deep_research_requires_confirmation_and_reuses_evidence(session, fake_l
         plan = c.get("/api/prospects/P-007/deep-research/plan").json()
         assert "employee_count" in plan["focus"] and plan["max_searches"] > 0
         r = c.post("/api/prospects/P-007/deep-research", json={"confirm": True}).json()
-    assert r["kind"] == "deep" and r["status"] == "ok"
+        assert r["kind"] == "deep" and r["status"] == "running"  # runs in the background
+        import time
+        for _ in range(100):
+            prog = c.get("/api/prospects/P-007/active-research").json()
+            if not prog["running"]:
+                break
+            time.sleep(0.05)
+    assert prog["last"]["kind"] == "deep" and prog["last"]["status"] == "ok" and prog["last"]["stage"] == "done"
     assert "Biotech" in client.calls[1]["user"]  # existing evidence passed as context
     ev = session.exec(select(Evidence).where(Evidence.prospect_id == "P-007", Evidence.origin == "ai_research")).all()
     assert len(ev) == 2  # standard evidence kept alongside deep evidence
@@ -219,3 +226,33 @@ def test_reprocess_rebuilds_evidence_without_ai(session, fake_llm):
     assert len(client.calls) == 1  # no second AI call
     assert new.status == "ok" and new.llm_calls == 0 and new.approx_cost_usd == 0 and "Reprocessed" in new.error
     assert new.research_cutoff == first.research_cutoff
+
+
+
+def test_only_one_deep_research_runs_at_a_time_and_restart_cleans_up(session, fake_llm):
+    import threading
+
+    gate = threading.Event()
+    url = "https://x.example.com/p"
+
+    class SlowClient:
+        def complete(self, system, user, max_searches):
+            gate.wait(5)
+            return llm_result(research_json({"employee_count": ("found", [finding("53 staff", url, value=53)])}), [url])
+
+    rs.set_client_factory(lambda: SlowClient())
+    first, t = rs.start_deep_research(session, "P-007")
+    again, t2 = rs.start_deep_research(session, "P-007")
+    assert again.id == first.id and t2 is None  # no duplicate run
+    assert rs.active_run(session, "P-007").id == first.id
+    gate.set()
+    t.join(5)
+    session.expire_all()
+    done = session.get(ResearchRun, first.id)
+    assert done.status == "ok" and done.stage == "done"
+
+    stuck = ResearchRun(prospect_id="P-009", kind="deep", status="running", stage="searching")
+    session.add(stuck)
+    session.commit()
+    assert rs.mark_interrupted_runs(session) == 1
+    assert session.get(ResearchRun, stuck.id).status == "failed"

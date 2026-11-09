@@ -6,7 +6,7 @@ import { Suggestion, TierArrow } from '../components/ProspectTable'
 import { useConfirm } from '../components/confirm'
 import { Clamp, Hint, Info, Section } from '../components/Section'
 import {
-  AttentionBadge, CompanySiteBadge, ErrorBox, FIELD_LABELS, FlagChip, Icon, Spinner, StatusChip, TierBadge, hostOf, sourceText,
+  AttentionBadge, CompanySiteBadge, ErrorBox, FIELD_LABELS, FlagChip, Icon, Modal, Spinner, StatusChip, TierBadge, hostOf, sourceText,
   TrendArrow, num, usd, useAsync, useReviewer, when,
 } from '../components/ui'
 import { g } from '../glossary'
@@ -37,6 +37,39 @@ export default function CompanyDetail() {
   const confirm = useConfirm()
   const [openField, setOpenField] = useState<string | null>(null)
   const [highlight, setHighlight] = useState<{ id: number; at: number } | null>(null)
+  const [polling, setPolling] = useState<number | null>(null)
+  const [progress, setProgress] = useState<{ stage: string; startedAt: string; expected: number } | null>(null)
+  // Background research: poll while a run is in progress (also picks up runs started before you opened the page).
+  useEffect(() => {
+    let alive = true
+    let timer: ReturnType<typeof setTimeout>
+    const tick = async () => {
+      try {
+        const r = await api.activeResearch(id)
+        if (!alive) return
+        if (r.running && r.run) {
+          setProgress({ stage: r.run.stage ?? 'queued', startedAt: r.run.started_at, expected: r.expected_seconds ?? 90 })
+          timer = setTimeout(tick, 2000)
+        } else {
+          setProgress((prev) => {
+            if (prev) {
+              setNotice(r.last?.status === 'failed' ? `Deep Research failed: ${r.last.error ?? 'unknown error'}` : 'Deep Research finished. Findings updated.')
+              reload()
+            }
+            return null
+          })
+        }
+      } catch {
+        if (alive) timer = setTimeout(tick, 4000)
+      }
+    }
+    tick()
+    return () => {
+      alive = false
+      clearTimeout(timer)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id, polling])
   useEffect(() => {
     if (!highlight) return
     const t = setTimeout(() => document.getElementById(`ev-${highlight.id}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 60)
@@ -69,7 +102,13 @@ export default function CompanyDetail() {
       confirmLabel: 'Run Deep Research',
       body: <p>A more thorough search of all areas, including travel requirements and expansion. Takes up to two minutes. Current findings are kept.</p>,
     })
-    if (ok) run('deep', () => api.deepResearch(data.prospect.id, reviewer || 'user'))
+    if (!ok) return
+    try {
+      await api.deepResearch(data.prospect.id, reviewer || 'user')
+      setPolling(Date.now())
+    } catch (e) {
+      setActionError(String((e as Error).message))
+    }
   }
 
   const saved = (before: Assessment | null, after: Assessment) => {
@@ -207,7 +246,7 @@ export default function CompanyDetail() {
                 {busy === 'research' ? <Spinner /> : <Icon name="refresh" />} {okRun ? 'Re-run' : 'Run research'}
               </button>
               <Hint text={g('deep_research')} align="right">
-                <button className="small" disabled={!!busy || !okRun} onClick={runDeep}><Icon name="search" /> Deep Research…</button>
+                <button className="small" disabled={!!busy || !okRun || !!progress} onClick={runDeep}><Icon name="search" /> Deep Research…</button>
               </Hint>
             </>
           }
@@ -217,10 +256,17 @@ export default function CompanyDetail() {
           {lastRun?.status === 'failed' && (
             <div className="section-body"><div className="callout error small"><strong>Research failed:</strong> {lastRun.error}</div></div>
           )}
-          {a?.accepted_values.deep_research.suggested && (
+          {progress && (
             <div className="section-body" style={{ paddingBottom: 0 }}>
-              <div className="callout warn small">
-                Deep Research suggested <Info text={a.accepted_values.deep_research.reason} />
+              <ResearchProgress stage={progress.stage} startedAt={progress.startedAt} expected={progress.expected} />
+            </div>
+          )}
+          {!progress && a?.accepted_values.deep_research.suggested && (
+            <div className="section-body" style={{ paddingBottom: 0 }}>
+              <div className="suggest-note">
+                <span>Deep Research suggested</span>
+                <Info text={a.accepted_values.deep_research.reason} />
+                <button className="more" onClick={runDeep}>Run it</button>
               </div>
             </div>
           )}
@@ -232,7 +278,7 @@ export default function CompanyDetail() {
           )}
           {a && (
             <div className="coverage-grid" style={{ borderTop: '1px solid var(--border)' }}>
-              {Object.entries(a.coverage).map(([field, c]) => (
+              {Object.entries(a.coverage).sort(([x], [y]) => (x === 'employee_count' ? -1 : y === 'employee_count' ? 1 : 0)).map(([field, c]) => (
                 <div
                   key={field}
                   className={`coverage-item${openField === field ? ' open' : ''}`}
@@ -297,6 +343,16 @@ export default function CompanyDetail() {
             body: <p>Adds the company’s first 30 days on Navan. Strong activity may suggest a tier change for review. This can’t be undone.</p>,
           })
           if (ok) run('day30', () => api.releaseDay30(p.id))
+        }}
+        onSave={(v) => run('day30', () => api.updateDay30(p.id, { ...v, actor: reviewer || 'user' }))}
+        onRemove={async () => {
+          const ok = await confirm({
+            title: `Remove Day 30 data for ${p.company_name}?`,
+            confirmLabel: 'Remove',
+            tone: 'danger',
+            body: <p>The company goes back to its signup assessment. Any tier change suggested from this activity is withdrawn.</p>,
+          })
+          if (ok) run('day30', () => api.removeDay30(p.id, reviewer || 'user'))
         }} />
 
         {data.proposals.length > 0 && (
@@ -317,9 +373,6 @@ export default function CompanyDetail() {
         )}
       </div>
 
-      {busy === 'deep' && (
-        <div className="modal-backdrop"><div className="modal card-pad"><Spinner /> Running Deep Research… up to two minutes.</div></div>
-      )}
     </div>
   )
 }
@@ -370,7 +423,7 @@ function EmployeeRow({ data, reviewer, onSaved, onShowEvidence }: { data: Prospe
   return (
     <>
       <tr>
-        <td className="vlabel">Employees</td>
+        <td className="vlabel"><span className="row" style={{ gap: 8 }}><Icon name="people" size={18} /> Employees</span></td>
         <td>
           <Hint text={usedSource ? sourceText(usedSource) : 'No employee count from any source yet.'}>
             {usedSource?.evidence_id ? (
@@ -518,31 +571,44 @@ function HeadcountTrend({ history }: { history: { date: string; value: number; l
   )
 }
 
-function Day30Section({ data, busy, onRelease }: { data: ProspectDetail; busy: string | null; onRelease: () => void }) {
+function Day30Section({ data, busy, onRelease, onSave, onRemove }: {
+  data: ProspectDetail
+  busy: string | null
+  onRelease: () => void
+  onSave: (v: { travelers: number; bookings: number; trend_pct: number | null }) => void
+  onRemove: () => void
+}) {
   const d = data.day30
   const day30 = data.assessment?.day30
-  if (!d.received && !data.day30_pending) {
-    return (
-      <Section id="day30" title="Day 30 activity" info={g('day30')} summary="no data for this company" defaultOpen={false}>
-        <p className="small muted">No 30-day summary exists. Missing activity is not treated as zero travel.</p>
-      </Section>
-    )
-  }
+  const [editing, setEditing] = useState(false)
+  const editor = editing && (
+    <Day30Editor
+      initial={d.received ? { travelers: d.travelers ?? 0, bookings: d.bookings ?? 0, trend_pct: d.trend_pct ?? null } : null}
+      onClose={() => setEditing(false)}
+      onSave={(v) => { setEditing(false); onSave(v) }}
+    />
+  )
   if (!d.received) {
     return (
       <Section
         id="day30"
         title="Day 30 activity"
         info={g('day30')}
-        summary="not received yet"
+        summary={data.day30_pending ? 'not received yet' : 'no data'}
         actions={
-          <button className="small" disabled={!!busy} onClick={onRelease} title="Simulates the summary arriving and reruns the rules">
-            {busy === 'day30' && <Spinner />} Receive Day 30 data
-          </button>
+          <>
+            {data.day30_pending && (
+              <button className="small" disabled={!!busy} onClick={onRelease}>
+                {busy === 'day30' && <Spinner />} Receive Day 30 data
+              </button>
+            )}
+            <button className="small" disabled={!!busy} onClick={() => setEditing(true)}><Icon name="edit" /> {data.day30_pending ? 'Enter numbers' : 'Add Day 30 data'}</button>
+          </>
         }
         defaultOpen={false}
       >
-        <p className="small muted">The signup assessment uses no post-signup information.</p>
+        <p className="small muted">{data.day30_pending ? 'Waiting for the first 30 days of activity.' : 'No 30-day activity yet. Missing activity doesn’t mean no travel.'}</p>
+        {editor}
       </Section>
     )
   }
@@ -552,19 +618,106 @@ function Day30Section({ data, busy, onRelease }: { data: ProspectDetail; busy: s
       title="Day 30 activity"
       info={g('day30')}
       summary={day30 ? COMPARISON[day30.comparison] ?? day30.comparison : undefined}
+      actions={
+        <>
+          <button className="small" disabled={!!busy} onClick={() => setEditing(true)}><Icon name="edit" /> Update</button>
+          <button className="small danger" disabled={!!busy} onClick={onRemove}><Icon name="trash" /> Remove</button>
+        </>
+      }
     >
       <div className="grid-3">
-        <div className="stat" style={{ padding: 0 }}><div className="v">{num(d.travelers)}</div><div className="l">travelers</div></div>
-        <div className="stat" style={{ padding: 0 }}><div className="v">{num(d.bookings)}</div><div className="l">bookings</div></div>
+        <div className="stat" style={{ padding: 0 }}>
+          <div className="v row" style={{ gap: 10 }}><Icon name="traveler" size={24} />{num(d.travelers)}</div><div className="l">travelers</div>
+        </div>
+        <div className="stat" style={{ padding: 0 }}>
+          <div className="v row" style={{ gap: 10 }}><Icon name="ticket" size={24} />{num(d.bookings)}</div><div className="l">bookings</div>
+        </div>
         <div className="stat" style={{ padding: 0 }}>
           <div className="v"><TrendArrow pct={d.trend_pct} /></div>
-          <div className="l">
-            booking trend <Info text="Second half of the month vs. the first." />
-          </div>
+          <div className="l">booking trend <Info text="Second half of the month vs. the first." /></div>
         </div>
       </div>
       {day30?.notes.length ? <p className="small muted" style={{ marginTop: 10 }}>{day30.notes.join(' ')}</p> : null}
+      {editor}
     </Section>
+  )
+}
+
+function Day30Editor({ initial, onClose, onSave }: {
+  initial: { travelers: number; bookings: number; trend_pct: number | null } | null
+  onClose: () => void
+  onSave: (v: { travelers: number; bookings: number; trend_pct: number | null }) => void
+}) {
+  // Split the existing total into the two halves of the month so the trend can be recalculated.
+  const split = (() => {
+    if (!initial) return { first: '', second: '' }
+    const t = initial.trend_pct ?? 0
+    const first = Math.round(initial.bookings / (2 + t / 100))
+    return { first: String(first), second: String(initial.bookings - first) }
+  })()
+  const [travelers, setTravelers] = useState(initial ? String(initial.travelers) : '')
+  const [first, setFirst] = useState(split.first)
+  const [second, setSecond] = useState(split.second)
+  const isNum = (v: string) => /^\d+$/.test(v.trim())
+  const valid = isNum(travelers) && isNum(first) && isNum(second)
+  const f = Number(first), sec = Number(second)
+  const total = valid ? f + sec : null
+  const trend = valid && f > 0 ? Math.round(((sec - f) / f) * 100) : null
+  return (
+    <Modal title={initial ? 'Update Day 30 data' : 'Add Day 30 data'} onClose={onClose}>
+      <div className="stack" style={{ gap: 12 }}>
+        <label><span className="row" style={{ gap: 8 }}><Icon name="traveler" size={20} /> Travelers</span>
+          <input inputMode="numeric" value={travelers} onChange={(e) => setTravelers(e.target.value)} aria-label="Travelers" />
+        </label>
+        <div className="form-row">
+          <label><span className="row" style={{ gap: 8 }}><Icon name="ticket" size={20} /> Bookings, days 1–15</span>
+            <input inputMode="numeric" value={first} onChange={(e) => setFirst(e.target.value)} aria-label="Bookings days 1-15" />
+          </label>
+          <label><span className="row" style={{ gap: 8 }}><Icon name="ticket" size={20} /> Bookings, days 16–30</span>
+            <input inputMode="numeric" value={second} onChange={(e) => setSecond(e.target.value)} aria-label="Bookings days 16-30" />
+          </label>
+        </div>
+        <div className="calc-row">
+          <span>Total bookings <strong>{total == null ? '—' : num(total)}</strong></span>
+          <span>Trend {trend == null ? <strong>—</strong> : <TrendArrow pct={trend} />}</span>
+        </div>
+        <div className="row" style={{ justifyContent: 'flex-end' }}>
+          <button onClick={onClose}>Cancel</button>
+          <button className="primary" disabled={!valid} onClick={() => onSave({ travelers: Number(travelers), bookings: total ?? 0, trend_pct: trend })}>
+            Save
+          </button>
+        </div>
+      </div>
+    </Modal>
+  )
+}
+
+const STAGES: Record<string, string> = {
+  queued: 'Starting',
+  searching: 'Searching the web',
+  checking: 'Checking sources',
+  saving: 'Saving findings',
+}
+
+/** Progress for background research. The step is real; the bar is estimated from elapsed time. */
+function ResearchProgress({ stage, startedAt, expected }: { stage: string; startedAt: string; expected: number }) {
+  const [now, setNow] = useState(Date.now())
+  useEffect(() => {
+    const t = setInterval(() => setNow(Date.now()), 500)
+    return () => clearInterval(t)
+  }, [])
+  const start = new Date(startedAt.endsWith('Z') || startedAt.includes('+') ? startedAt : `${startedAt}Z`).getTime()
+  const elapsed = Math.max(0, (now - start) / 1000)
+  const pct = stage === 'saving' ? 96 : stage === 'checking' ? 90 : stage === 'queued' ? 4 : Math.min(85, 5 + (elapsed / expected) * 80)
+  return (
+    <div className="progress-box" role="status" aria-live="polite">
+      <div className="spread small">
+        <span className="row" style={{ gap: 6 }}><Spinner /> Deep Research: {STAGES[stage] ?? 'Working'}…</span>
+        <span className="muted">{Math.round(elapsed)}s</span>
+      </div>
+      <div className="progress"><span style={{ width: `${pct}%` }} /></div>
+      <p className="small muted">You can leave this page; it keeps running.</p>
+    </div>
   )
 }
 

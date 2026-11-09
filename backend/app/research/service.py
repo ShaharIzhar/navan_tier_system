@@ -108,7 +108,7 @@ def deep_research_plan(session: Session, prospect_id: str) -> dict:
 
 
 def run_deep_research(session: Session, prospect_id: str, focus_fields: Optional[list[str]] = None,
-                      actor: str = "user") -> ResearchRun:
+                      actor: str = "user", run_id: Optional[int] = None) -> ResearchRun:
     prospect = session.get(Prospect, prospect_id)
     if prospect is None:
         raise ValueError(f"Unknown prospect {prospect_id}")
@@ -124,12 +124,21 @@ def run_deep_research(session: Session, prospect_id: str, focus_fields: Optional
     ]
     system, user = prompts.build_deep_prompt(prospect.company_name, prospect.domain, focus, existing)
     return _execute(session, prospect, "deep", f"deep-{prompts.current_version()}", system, user,
-                    config.DEEP_MAX_SEARCHES, focus=list(focus), actor=actor)
+                    config.DEEP_MAX_SEARCHES, focus=list(focus), actor=actor,
+                    existing_run=session.get(ResearchRun, run_id) if run_id else None)
 
 
-def _execute(session, prospect, kind, version, system, user, max_searches, focus, actor, from_run=None) -> ResearchRun:
-    run = ResearchRun(prospect_id=prospect.id, kind=kind, prompt_version=version, model=config.RESEARCH_MODEL,
-                      focus_fields=focus)
+def _set_stage(session: Session, run: ResearchRun, stage: str) -> None:
+    run.stage = stage
+    session.add(run)
+    session.commit()
+
+
+def _execute(session, prospect, kind, version, system, user, max_searches, focus, actor, from_run=None,
+             existing_run: Optional[ResearchRun] = None) -> ResearchRun:
+    run = existing_run or ResearchRun(prospect_id=prospect.id, kind=kind, prompt_version=version,
+                                      model=config.RESEARCH_MODEL, focus_fields=focus)
+    run.prompt_version, run.focus_fields = version, focus
     if from_run is not None:  # reprocessing a stored run: keep its identity and research date
         run.model, run.replayed, run.research_cutoff = from_run.model, from_run.replayed, from_run.research_cutoff
     session.add(run)
@@ -153,7 +162,9 @@ def _execute(session, prospect, kind, version, system, user, max_searches, focus
                 run.prompt_version = rec["prompt_version"]
             session.add(run)
             session.commit()
+        _set_stage(session, run, "searching")
         result = client.complete(system, user, max_searches)
+        _set_stage(session, run, "checking")
     except ResearchProviderError as e:
         return _fail(session, run, str(e))
     except Exception as e:  # never let an unexpected provider error crash the request
@@ -198,7 +209,9 @@ def _execute(session, prospect, kind, version, system, user, max_searches, focus
     if not output.company_identity_confirmed:
         run.limitations = (run.limitations or []) + [f"Company identity not confirmed: {output.identity_note}"]
 
+    _set_stage(session, run, "saving")
     _store_evidence(session, prospect, run, output, kind, focus)
+    run.stage = "done"
     run.status = "partial" if (dropped or not output.company_identity_confirmed) else "ok"
     run.finished_at = utcnow()
     session.add(run)
@@ -222,6 +235,7 @@ def _apply_usage(run: ResearchRun, t: LLMResult) -> None:
 
 def _fail(session: Session, run: ResearchRun, message: str) -> ResearchRun:
     run.status = "failed"
+    run.stage = "failed"
     run.error = message
     run.finished_at = utcnow()
     session.add(run)
@@ -339,3 +353,56 @@ def reprocess_run(session: Session, run_id: int, actor: str = "system:reprocess"
     session.add(new)
     session.commit()
     return new
+
+
+# ---------------------------------------------------------------------------
+# Background Deep Research
+# ---------------------------------------------------------------------------
+DEEP_EXPECTED_SECONDS = 90  # typical duration, used only for the progress estimate
+
+
+def active_run(session: Session, prospect_id: str) -> Optional[ResearchRun]:
+    return session.exec(select(ResearchRun).where(ResearchRun.prospect_id == prospect_id,
+                                                  ResearchRun.status == "running")
+                        .order_by(ResearchRun.id.desc())).first()
+
+
+def start_deep_research(session: Session, prospect_id: str, focus_fields: Optional[list[str]] = None,
+                        actor: str = "user"):
+    """Start Deep Research in a background thread. Returns (run, thread). One running run per company."""
+    import threading
+
+    from ..db import get_engine
+
+    if session.get(Prospect, prospect_id) is None:
+        raise ValueError(f"Unknown prospect {prospect_id}")
+    running = active_run(session, prospect_id)
+    if running is not None:
+        return running, None
+    run = ResearchRun(prospect_id=prospect_id, kind="deep", status="running", stage="queued",
+                      model=config.RESEARCH_MODEL, focus_fields=focus_fields)
+    session.add(run)
+    session.commit()
+    session.refresh(run)
+    run_id = run.id
+
+    def work():
+        with Session(get_engine()) as s:
+            try:
+                run_deep_research(s, prospect_id, focus_fields, actor=actor, run_id=run_id)
+            except Exception as e:  # never leave a run stuck in "running"
+                r = s.get(ResearchRun, run_id)
+                if r is not None and r.status == "running":
+                    _fail(s, r, f"Deep Research stopped unexpectedly: {type(e).__name__}")
+
+    t = threading.Thread(target=work, name=f"deep-research-{prospect_id}", daemon=True)
+    t.start()
+    return run, t
+
+
+def mark_interrupted_runs(session: Session) -> int:
+    """On startup, runs still marked 'running' were cut off by a restart."""
+    stuck = list(session.exec(select(ResearchRun).where(ResearchRun.status == "running")))
+    for r in stuck:
+        _fail(session, r, "Interrupted by a server restart. Please run it again.")
+    return len(stuck)

@@ -64,6 +64,9 @@ async def lifespan(app: FastAPI):
     init_db()
     with Session(get_engine()) as session:
         bootstrap(session)
+        from .research.service import mark_interrupted_runs
+
+        mark_interrupted_runs(session)
         from .research.replay import provider_mode
 
         if provider_mode() == "replay":
