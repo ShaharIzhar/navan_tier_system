@@ -124,7 +124,7 @@ def run_case(client, label: str, system: str, user: str, max_searches: int, doma
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--version", default=prompts.CURRENT_VERSION)
+    ap.add_argument("--version", default=prompts.current_version())
     ap.add_argument("--cases", nargs="*", default=[])
     ap.add_argument("--conflict-test", nargs="*", default=[])
     args = ap.parse_args()

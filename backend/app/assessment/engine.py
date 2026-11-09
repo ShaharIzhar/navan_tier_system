@@ -14,7 +14,7 @@ from ..models import Assessment, Prospect, TierProposal
 from ..rules.baseline import calculate_baseline
 from . import attention as att
 from .day30 import evaluate_day30
-from .flags import FLAG_LABELS, build_day0_flags, near_threshold
+from .flags import build_day0_flags, near_threshold
 from .proposals import sync_proposals
 from .signals import build_signals
 
@@ -53,8 +53,7 @@ def reassess(session: Session, prospect_id: str, trigger: str, actor: str = "sys
             s.activity.travelers, s.activity.bookings, s.activity.trend_pct, prospect.applied_tier, prev_types
         )
         day30["compared_with_assessment_id"] = prev_day0.id if prev_day0 else None
-        for f in day30["flags"]:
-            flags.append({**f, "label": FLAG_LABELS[f["type"]]})
+        flags.extend(day30["flags"])
         if day30["proposal"]:
             candidates.append({**day30["proposal"], "evidence_ids": [], "basis": {"day30_activity_id": s.activity.id}})
 

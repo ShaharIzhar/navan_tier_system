@@ -5,7 +5,7 @@ from sqlmodel import select
 
 from app import config
 from app.assessment.engine import latest_assessment
-from app.models import Evidence, ResearchRun
+from app.models import Evidence
 from app.research import replay
 from app.research import service as rs
 

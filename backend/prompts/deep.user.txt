@@ -1,0 +1,13 @@
+Company name: {company_name}
+Website domain: {domain}
+
+Fields to investigate (and why):
+{focus}
+
+Existing evidence (already known; do not search for it again):
+{existing}
+
+For every direct_travel finding, set travel_scope: business_travel (flights, hotels, rail, overnight or out-of-region trips), local_field_travel (local driving, home visits, mileage or car allowance), or unclear.
+
+Return JSON in exactly this shape, including only the fields listed above:
+{shape}

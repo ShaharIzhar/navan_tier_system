@@ -9,6 +9,7 @@ from __future__ import annotations
 from typing import Optional
 
 from .. import config
+from .flags import _flag as make_flag
 
 
 def evaluate_day30(
@@ -54,9 +55,9 @@ def evaluate_day30(
     positive_prior = any(f in previous_flags for f in ("travel_potential", "growth_opportunity", "tier_mismatch"))
 
     if applied_tier == 3 and material:
-        out["flags"].append(_flag("tier_mismatch", "material",
+        out["flags"].append(_day30_flag("tier_mismatch", "material",
             [f"Observed activity ({summary}) is high for a Tier 3 account."], [caveat]))
-        out["flags"].append(_flag("travel_potential", "moderate", [f"Observed Navan activity: {summary}."], [caveat]))
+        out["flags"].append(_day30_flag("travel_potential", "moderate", [f"Observed Navan activity: {summary}."], [caveat]))
         out["proposal"] = {
             "proposal_type": "evidence_override", "from_tier": 3, "proposed_tier": 2,
             "title": "Day 30 activity suggests Tier 3 → Tier 2 support",
@@ -66,9 +67,9 @@ def evaluate_day30(
         }
         out["comparison"] = "strengthens" if positive_prior else "new_signal"
     elif applied_tier == 2 and tier1_candidate:
-        out["flags"].append(_flag("tier_mismatch", "material",
+        out["flags"].append(_day30_flag("tier_mismatch", "material",
             [f"Observed activity ({summary}) is at the level this policy treats as a Tier 1 candidate."], [caveat]))
-        out["flags"].append(_flag("travel_potential", "moderate", [f"Observed Navan activity: {summary}."], [caveat]))
+        out["flags"].append(_day30_flag("travel_potential", "moderate", [f"Observed Navan activity: {summary}."], [caveat]))
         out["proposal"] = {
             "proposal_type": "evidence_override", "from_tier": 2, "proposed_tier": 1,
             "title": "Day 30 activity suggests Tier 2 → Tier 1 support",
@@ -82,12 +83,12 @@ def evaluate_day30(
         out["notes"].append(f"Day 30 activity ({summary}) is consistent with Tier 1 support. No action needed.")
     elif material:
         growing = t >= config.DAY30_MATERIAL_TREND_PCT
-        out["flags"].append(_flag("travel_potential", "moderate" if growing else "low",
+        out["flags"].append(_day30_flag("travel_potential", "moderate" if growing else "low",
             [f"Observed Navan activity: {summary}. Consistent with the current Tier {applied_tier} support level"
              + (" and still growing." if growing else ".")], [caveat]))
         out["comparison"] = "strengthens" if positive_prior else "consistent"
     elif not weak and not declining and t >= config.DAY30_MATERIAL_TREND_PCT:
-        out["flags"].append(_flag("growth_opportunity", "moderate",
+        out["flags"].append(_day30_flag("growth_opportunity", "moderate",
             [f"Early activity is growing ({summary}), though volume is still below the review threshold."], [caveat]))
         out["comparison"] = "strengthens" if positive_prior else "new_signal"
     else:
@@ -102,6 +103,5 @@ def evaluate_day30(
     return out
 
 
-def _flag(ftype: str, severity: str, reasons: list[str], uncertainty: list[str]) -> dict:
-    return {"type": ftype, "severity": severity, "reasons": reasons, "evidence_ids": [],
-            "uncertainty": uncertainty, "stage": "day30"}
+def _day30_flag(ftype: str, severity: str, reasons: list[str], uncertainty: list[str]) -> dict:
+    return make_flag(ftype, severity, reasons, uncertainty=uncertainty, stage="day30")

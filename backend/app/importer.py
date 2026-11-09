@@ -11,7 +11,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional
 
-from sqlmodel import Session, select
+from sqlmodel import Session
 
 from . import audit
 from .models import PostSignupActivity, Prospect
@@ -141,7 +141,3 @@ def import_prospects(session: Session, path: Path) -> dict:
         created += 1
     session.commit()
     return {"created": created, "skipped_existing": skipped, "rows": len(rows)}
-
-
-def all_prospects(session: Session) -> list[Prospect]:
-    return list(session.exec(select(Prospect).order_by(Prospect.id)))

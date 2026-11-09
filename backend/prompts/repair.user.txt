@@ -1,0 +1,4 @@
+Your previous answer could not be used because it was not valid JSON for the required schema. Validation error:
+{error}
+
+Return ONLY the corrected JSON object, using the same findings and the same source URLs. Do not add new facts. Do not wrap it in markdown.

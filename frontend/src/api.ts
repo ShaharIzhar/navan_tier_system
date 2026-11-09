@@ -221,7 +221,6 @@ export interface Meta {
   research_fields: Record<string, string>
   flag_labels: Record<string, string>
   attention_labels: Record<string, string>
-  enrichment_fields: Record<string, { label: string; kind: string }>
   thresholds: Record<string, number>
 }
 
@@ -277,8 +276,6 @@ export const api = {
     post<ResearchRun>(`/prospects/${id}/deep-research`, { confirm: true, actor, focus_fields }),
   enrich: (id: string, body: { param: string; value: string; entered_by: string; source_url?: string; note?: string; verified: boolean; accepted: boolean }) =>
     post<{ before: Assessment | null; after: Assessment; llm_calls: number }>(`/prospects/${id}/enrichment`, body),
-  synthetic: (id: string, body: { field: string; claim: string; value_number?: number | null; signal_type: string; entered_by: string }) =>
-    post<Evidence>(`/prospects/${id}/synthetic-evidence`, body),
   withdraw: (evidenceId: number, actor: string, reason: string) => post<Evidence>(`/evidence/${evidenceId}/withdraw`, { actor, reason }),
   releaseDay30: (id: string) => post<Assessment>(`/prospects/${id}/day30/release`),
   releaseAllDay30: () => post<{ released: string[] }>('/day30/release-all'),
@@ -288,5 +285,4 @@ export const api = {
     post<Proposal>(`/proposals/${id}/decision`, { action, reviewer, comment }),
   judge: (id: number, force = false) => post<Judgement>(`/proposals/${id}/judge${force ? '?force=true' : ''}`),
   reports: () => request<Record<string, any>>('/reports'),
-  run: (id: number) => request<ResearchRun & { raw_text: string; searched_results: { url: string; title: string }[] }>(`/research-runs/${id}`),
 }

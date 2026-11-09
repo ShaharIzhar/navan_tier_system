@@ -53,8 +53,8 @@ The CSV in `data/prospects.csv` is imported automatically on first start. Every 
 **Tests**
 
 ```bash
-cd backend && .venv/bin/python -m pytest -q     # 74 tests
-cd frontend && npm test                          # 3 smoke tests
+cd backend && .venv/bin/python -m pytest -q     # 81 tests
+cd frontend && npm test                          # 4 smoke tests
 ```
 
 ### A 5-minute demo
@@ -233,16 +233,18 @@ See [`docs/evaluation.md`](docs/evaluation.md). It covers how false positives, f
 ## Project structure
 
 ```
+backend/prompts/           every AI prompt as a plain file (research v1–v3, deep, repair, judge)
+                           + manifest.json (active version). Edits apply on the next AI call.
 backend/app/
   rules/baseline.py        Navan tier rules
   importer.py              CSV import (Day 30 kept separate)
-  research/                prompts (versioned), client (Anthropic + web search),
+  research/                prompt loader, client (Anthropic + web search), judge, replay,
                            schema (Pydantic), evidence validation, service (cache, repair, storage)
   assessment/              signals → flags → attention → proposals; day30.py; engine.py (reassess, no LLM)
   reviews/service.py       approve / reject / request info + audit
   enrichment.py            manual values, synthetic test evidence
   api/routes.py            FastAPI endpoints
-backend/tests/             74 pytest tests
+backend/tests/             81 pytest tests
 backend/scripts/prompt_experiment.py   reproduces the LLM experiments
 frontend/src/pages/        ReviewQueue, Companies, CompanyDetail, TierReview, Reviews, Reports
 docs/                      flowchart, llm_experiments (+ raw outputs), evaluation, cases
@@ -255,3 +257,12 @@ Stack: FastAPI, SQLModel/SQLite, Pydantic, the Anthropic Python SDK, React + Typ
 - **Claude Code (Claude Opus 5.5)** helped build this submission: planning against the brief and PRD, writing the backend, frontend, tests and documentation, and running the live LLM experiments. I set the product decisions and reviewed the output.
 - **Claude Haiku 5.5 + Anthropic web search** is the research engine *inside* the application. Its real outputs are in `docs/experiments/`.
 - No other AI tools were used.
+
+## Changing a prompt
+
+All prompts are plain text files in `backend/prompts/`, registered in `backend/prompts/manifest.json`.
+1. Copy the latest version, e.g. `research_v3.user.txt` → `research_v4.user.txt` (and `.system.txt`). Edit the copy.
+2. Add `v4` under `research.versions` in the manifest and set `"active": "v4"`. Or try it without editing the manifest: `RESEARCH_PROMPT_VERSION=v4` in `backend/.env`.
+3. Run `cd backend && .venv/bin/python -m scripts.prompt_experiment --version v4 --cases P-007 P-025` and compare `docs/experiments/v4/` with earlier versions.
+
+Placeholders in `{braces}` are filled by code. The cache is tied to the version, so a new version triggers fresh research. Don't edit a version that has already been run: `tests/test_prompts.py` checks that old versions still match the prompts sent in the saved experiments.

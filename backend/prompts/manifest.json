@@ -1,0 +1,61 @@
+{
+  "_readme": "Prompt registry. Edit the .txt files to change a prompt; changes apply on the next AI call (no restart). To change behaviour safely, add a NEW version instead of editing an old one, then set 'active'. Placeholders in {braces} are filled by code; literal braces in judge.user.txt are doubled {{ }}.",
+  "research": {
+    "active": "v3",
+    "placeholders": [
+      "company_name",
+      "domain",
+      "fields",
+      "shape"
+    ],
+    "versions": {
+      "v1": {
+        "system": "research_v1.system.txt",
+        "user": "research_v1.user.txt",
+        "shape": "research_shape_v1.json",
+        "note": "First version."
+      },
+      "v2": {
+        "system": "research_v2.system.txt",
+        "user": "research_v2.user.txt",
+        "shape": "research_shape_v1.json",
+        "note": "Search plan with a dedicated travel search; headcount bands are not exact numbers; fewer false conflicts."
+      },
+      "v3": {
+        "system": "research_v3.system.txt",
+        "user": "research_v3.user.txt",
+        "shape": "research_shape_v3.json",
+        "note": "Labels every travel finding business_travel / local_field_travel / unclear."
+      }
+    }
+  },
+  "deep": {
+    "system": "deep.system.txt",
+    "user": "deep.user.txt",
+    "shape": "research_shape_v3.json",
+    "placeholders": [
+      "company_name",
+      "domain",
+      "focus",
+      "existing",
+      "shape"
+    ],
+    "note": "Deep Research: targeted second pass on missing or disputed fields."
+  },
+  "repair": {
+    "user": "repair.user.txt",
+    "placeholders": [
+      "error"
+    ],
+    "note": "Sent once when the AI's JSON fails validation."
+  },
+  "judge": {
+    "version": "judge-v2",
+    "system": "judge.system.txt",
+    "user": "judge.user.txt",
+    "placeholders": [
+      "facts"
+    ],
+    "note": "AI judge: one-sentence why, support level, main doubt. v2 requires 'rests on X, evidence shows Y, so Tier Z'."
+  }
+}

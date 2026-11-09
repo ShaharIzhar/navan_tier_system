@@ -29,7 +29,7 @@ The prompt contains only the company **name and domain**. It never contains the 
 
 ## 1. Original prompt (v1)
 
-Full text: `SYSTEM_V1` / `USER_V1` in [`backend/app/research/prompts.py`](../backend/app/research/prompts.py). The core of it:
+Full text: [`backend/prompts/research_v1.system.txt`](../backend/prompts/research_v1.system.txt) and [`research_v1.user.txt`](../backend/prompts/research_v1.user.txt). The core of it:
 
 ```text
 You are a company research assistant for a B2B sales team at a business-travel platform. ...
@@ -110,7 +110,7 @@ Running v1 on the three standard cases showed three problems. None were invented
 
 ## 6. Refinement (v2 prompt + two deterministic processing steps)
 
-**Prompt changes** (`SYSTEM_V2` / `USER_V2` in `prompts.py`):
+**Prompt changes** ([`backend/prompts/research_v2.*.txt`](../backend/prompts)):
 - **A search plan in priority order.** Step 2 is: *"Travel requirements: search for the company's job postings or careers page together with words like 'travel', 'client site', 'on-site', 'field'. This is the most important field for this research."*
 - **Employee rules:** *"Put a number in value_number ONLY when the source states one exact headcount … For a band or range … set value_number to null and keep the band in the claim."*
 - **Conflict rules:** *"Report a conflict only when sources disagree about the same fact for the same period in a way that changes the conclusion … Different estimates from different databases, or figures from different dates, are normal."*

@@ -49,7 +49,7 @@ def provider_status() -> dict:
         "web_search_tool": config.WEB_SEARCH_TOOL_TYPE,
         "standard_max_searches": config.STANDARD_MAX_SEARCHES,
         "deep_max_searches": config.DEEP_MAX_SEARCHES,
-        "prompt_version": prompts.CURRENT_VERSION,
+        "prompt_version": prompts.current_version(),
     }
 
 
@@ -123,7 +123,7 @@ def run_deep_research(session: Session, prospect_id: str, focus_fields: Optional
                                                       Evidence.origin == "ai_research"))
     ]
     system, user = prompts.build_deep_prompt(prospect.company_name, prospect.domain, focus, existing)
-    return _execute(session, prospect, "deep", f"deep-{prompts.CURRENT_VERSION}", system, user,
+    return _execute(session, prospect, "deep", f"deep-{prompts.current_version()}", system, user,
                     config.DEEP_MAX_SEARCHES, focus=list(focus), actor=actor)
 
 
@@ -171,7 +171,7 @@ def _execute(session, prospect, kind, version, system, user, max_searches, focus
         try:
             repair = client.complete(
                 "You fix JSON formatting. Return only a JSON object.",
-                f"Original answer:\n{result.text}\n\n" + prompts.REPAIR_PROMPT.format(error=str(first_error)),
+                f"Original answer:\n{result.text}\n\n" + prompts.repair_prompt(str(first_error)),
                 None,
             )
             totals.input_tokens += repair.input_tokens

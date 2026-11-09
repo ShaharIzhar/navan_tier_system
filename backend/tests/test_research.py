@@ -1,7 +1,8 @@
+import pytest
 from sqlmodel import select
 
 from app.assessment.engine import latest_assessment
-from app.models import Evidence, PostSignupActivity, ResearchRun
+from app.models import Evidence, PostSignupActivity
 from app.research import prompts
 from app.research import service as rs
 from app.research.client import ResearchProviderError
@@ -144,11 +145,8 @@ def test_extract_json_variants():
     assert extract_json('```json\n{"a": 1}\n```') == {"a": 1}
     assert extract_json('Sure! {"a": 2} hope that helps') == {"a": 2}
     for bad in ("", "no json", "[1,2]"):
-        try:
+        with pytest.raises(ParseError):
             extract_json(bad)
-            assert False
-        except ParseError:
-            pass
 
 
 def test_normalize_url():

@@ -1,0 +1,36 @@
+{
+  "company_identity_confirmed": true,
+  "identity_note": "How you confirmed the sources describe the company at this domain",
+  "fields": [
+    {
+      "field": "employee_count",
+      "status": "found | not_found | conflicting | not_applicable",
+      "summary": "One-sentence plain-English summary of what the sources say",
+      "findings": [
+        {
+          "claim": "Exact fact taken from the source",
+          "value_number": 120,
+          "signal_type": "direct_travel | indirect_growth | descriptive",
+          "observation": "observed | inferred",
+          "source_url": "URL returned by your web search",
+          "source_title": "Page title",
+          "publisher": "Site or organisation",
+          "published_date": "YYYY-MM-DD, YYYY-MM, YYYY, or null"
+        }
+      ]
+    }
+  ],
+  "conflicts": [
+    {
+      "field": "employee_count",
+      "description": "...",
+      "source_urls": [
+        "..."
+      ]
+    }
+  ],
+  "summary": "2-3 sentence summary for a salesperson",
+  "research_limitations": [
+    "What could not be found or verified"
+  ]
+}

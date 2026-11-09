@@ -1,0 +1,16 @@
+Research this company:
+Company name: {company_name}
+Website domain: {domain}
+
+Cover these fields:
+{fields}
+
+signal_type meanings:
+- direct_travel: direct evidence that employees travel for work (e.g. job ads requiring travel, field or client-site work, travelling sales teams)
+- indirect_growth: growth signals (funding, new offices, hiring growth, international expansion)
+- descriptive: everything else
+
+For employee_count findings, put the number in value_number.
+
+Return JSON in exactly this shape:
+{shape}

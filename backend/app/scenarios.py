@@ -48,7 +48,7 @@ def run_checks() -> list[dict]:
 
     s = _signals(30_000, [(20, "dataset", "enrichment")])
     s.prospect.applied_tier = 3
-    flags, cands = build_day0_flags(s, calculate_baseline(30_000, 20))
+    flags, _ = build_day0_flags(s, calculate_baseline(30_000, 20))
     check("No research evidence → no Travel Potential flag", False, any(f["type"] == "travel_potential" for f in flags))
 
     d = evaluate_day30(83, 318, 12, 2, [])

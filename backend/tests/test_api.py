@@ -1,7 +1,6 @@
 from fastapi.testclient import TestClient
-from sqlmodel import Session
 
-from app.db import get_engine, init_db
+from app.db import init_db
 from app.main import app
 
 

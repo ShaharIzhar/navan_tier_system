@@ -12,7 +12,7 @@ from ..assessment.attention import ATTENTION_LABELS, priority_label
 from ..assessment.engine import latest_assessment, reassess
 from ..assessment.flags import FLAG_LABELS
 from ..db import get_session
-from ..enrichment import ENRICHMENT_FIELDS, EnrichmentError, add_enrichment, add_synthetic_evidence, retract_evidence
+from ..enrichment import EnrichmentError, add_enrichment, add_synthetic_evidence, retract_evidence
 from ..models import (Assessment, AuditEvent, Evidence, PostSignupActivity, Prospect, ResearchRun,
                       ReviewDecision, TierProposal)
 from ..postsignup import release_all, release_day30
@@ -136,7 +136,6 @@ def meta():
         "research_fields": RESEARCH_FIELDS,
         "flag_labels": FLAG_LABELS,
         "attention_labels": ATTENTION_LABELS,
-        "enrichment_fields": {k: {"label": v["label"], "kind": v["kind"]} for k, v in ENRICHMENT_FIELDS.items()},
         "auto_research_ids": config.AUTO_RESEARCH_IDS,
         "thresholds": {
             "tier1_gbv": config.TIER1_GBV_MIN, "tier2_gbv": config.TIER2_GBV_MIN,

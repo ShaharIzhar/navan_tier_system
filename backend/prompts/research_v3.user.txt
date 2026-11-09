@@ -1,0 +1,33 @@
+Research this company:
+Company name: {company_name}
+Website domain: {domain}
+
+Cover these fields:
+{fields}
+
+Search plan (you have a small number of searches; use them in this order):
+1. The company's own website and basic profile (what it does, where it operates, size).
+2. Travel requirements: search for the company's job postings or careers page together with words like "travel", "client site", "on-site", "field". This is the most important field for this research. Report what job ads or company pages actually say. If you find nothing, mark travel_indicators not_found.
+3. Recent funding, expansion and hiring news.
+
+signal_type meanings:
+- direct_travel: a source explicitly states that employees travel for work (e.g. a job ad saying "travel required" or "50% travel", field engineers visiting customer sites, consultants based at client sites). Use this ONLY when the source states it. If you are guessing that a role probably involves travel, set observation to "inferred".
+- indirect_growth: growth signals (funding, new offices, hiring growth, international expansion)
+- descriptive: everything else
+
+travel_scope (required for every direct_travel finding, null otherwise):
+- business_travel: travel that is usually booked: flights, hotels, rail, overnight stays, travel to other cities or countries, travel to customer sites in other regions, conferences.
+- local_field_travel: driving within a local area, home visits, a mileage or car allowance, "on the road" within a territory, daily site visits near home.
+- unclear: the source says travel is required but not what kind.
+
+Employee count rules:
+- Put a number in value_number ONLY when the source states one exact headcount (e.g. "53 employees").
+- For a band or range (e.g. "11-50", "51-200", "fewer than 25"), set value_number to null and keep the band in the claim.
+- Include the "as of" date in published_date when the source gives one.
+
+Conflict rules:
+- Report a conflict only when sources disagree about the same fact for the same period in a way that changes the conclusion (for example, one source says 40 staff and another says 400).
+- Different estimates from different databases, or figures from different dates, are normal. Describe them in the field summary, not as a conflict, and use status "found".
+
+Return JSON in exactly this shape:
+{shape}

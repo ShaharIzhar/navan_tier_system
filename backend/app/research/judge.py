@@ -10,41 +10,17 @@ from __future__ import annotations
 import hashlib
 import json
 import re
-from typing import Literal, Optional
+from typing import Literal
 
 from pydantic import BaseModel, Field, ValidationError
 from sqlmodel import Session
 
 from .. import audit, config
 from ..models import Assessment, Evidence, Prospect, TierProposal, utcnow
+from . import prompts
 from . import service as research_service
 from .client import ResearchProviderError, estimate_cost
 from .evidence import ParseError, extract_json, host_of
-
-PROMPT_VERSION = "judge-v2"  # v2: must state the rule the evidence triggers (v1 listed facts without the "so")
-
-SYSTEM = """You review proposed account-tier changes for a B2B sales team at a business-travel company.
-You are given the facts behind one proposal. Use ONLY these facts. Do not add knowledge.
-Respond with a single JSON object and nothing else."""
-
-USER = """Tier rules: Tier 1 = annual GBV $500K+. Tier 2 = GBV $100K-$500K OR 150+ employees. Tier 3 = everything else.
-
-Facts about this proposal:
-{facts}
-
-Return JSON:
-{{
-  "summary": "ONE plain-English sentence, max 35 words, explaining why the tier change is proposed. Structure: what the current tier rests on, what the evidence shows instead, and so which tier the rules or evidence point to. Example shape: 'Downgrade: Tier 2 rests only on X; sources show Y, which is below Z, so the rules give Tier 3.' A salesperson must understand it in five seconds.",
-  "support": "strong | partial | weak  (how well the cited evidence supports the change)",
-  "main_doubt": "the single biggest reason it could be wrong, max 15 words"
-}}
-
-Rules:
-- Only use numbers that appear in the facts.
-- Say "downgrade" when the proposed tier number is higher (less support), "upgrade" when lower.
-- If evidence comes only from data aggregators, a synthetic test, or a single source, support cannot be "strong".
-- No confidence percentages."""
-
 
 class JudgeOutput(BaseModel):
     summary: str = Field(min_length=10, max_length=400)
@@ -124,17 +100,19 @@ def get_or_create_judgement(session: Session, proposal_id: int, force: bool = Fa
     h = facts_hash(facts)
     cached = p.judge or {}
     if (not force and cached.get("input_hash") == h and cached.get("status") == "ok"
-            and cached.get("prompt_version") == PROMPT_VERSION):
+            and cached.get("prompt_version") == prompts.judge_prompt("")[0]):
         return {**cached, "from_cache": True}
 
-    result: dict = {"input_hash": h, "prompt_version": PROMPT_VERSION, "model": config.RESEARCH_MODEL,
+    prompt_version = prompts.judge_prompt("")[0]
+    result: dict = {"input_hash": h, "prompt_version": prompt_version, "model": config.RESEARCH_MODEL,
                     "created_at": utcnow().isoformat()}
     try:
         client = research_service._client_factory()
         if getattr(client, "replayed", False):
             result["model"] = f"{config.RESEARCH_MODEL} (recorded)"
             result["replayed"] = True
-        res = client.complete(SYSTEM, USER.format(facts=json.dumps(facts, indent=1, default=str)), None)
+        _, system, user = prompts.judge_prompt(json.dumps(facts, indent=1, default=str))
+        res = client.complete(system, user, None)
         result["approx_cost_usd"] = estimate_cost(res.input_tokens, res.output_tokens, 0)
         out = JudgeOutput.model_validate(extract_json(res.text))
         bad = ungrounded_numbers(out.summary, facts)
