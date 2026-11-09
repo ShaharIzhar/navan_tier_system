@@ -44,6 +44,18 @@ def update_day30(session: Session, prospect_id: str, travelers: int, bookings: i
         raise ValueError("Travelers and bookings can’t be negative.")
     before = {"travelers": act.travelers, "bookings": act.bookings, "trend_pct": act.trend_pct,
               "remarks": act.remarks, "received": act.released_at is not None}
+    # Trend must match the numbers:
+    # - updating existing numbers -> change from the previous bookings to the new ones
+    # - first arrival of the file's numbers -> keep the file's own trend (days 16-30 vs 1-15)
+    # - first manual entry -> whatever was supplied (usually none)
+    previous = act.bookings if act.released_at is not None else None
+    from_file = act.raw_text not in (None, "", "(entered manually)")
+    if previous:
+        trend_pct, act.trend_basis = round((bookings - previous) / previous * 100, 1), "vs_previous"
+    elif from_file and trend_pct is None:
+        trend_pct, act.trend_basis = act.trend_pct, "within_month"
+    else:
+        act.trend_basis = "manual" if trend_pct is not None else None
     act.travelers, act.bookings, act.trend_pct, act.parse_ok = travelers, bookings, trend_pct, True
     act.remarks = (remarks or "").strip() or None
     act.released_at = act.released_at or utcnow()
@@ -68,6 +80,7 @@ def remove_day30(session: Session, prospect_id: str, actor: str) -> Assessment:
         parsed = parse_activity(act.raw_text)
         act.travelers, act.bookings, act.trend_pct = parsed.travelers, parsed.bookings, parsed.trend_pct
         act.remarks = None
+        act.trend_basis = "within_month"
         act.released_at = None
         session.add(act)
     else:

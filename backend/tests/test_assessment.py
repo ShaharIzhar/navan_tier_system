@@ -436,3 +436,16 @@ def test_research_conflict_notes_do_not_stack_across_runs(session, fake_llm):
     a = latest_assessment(session, "P-019")
     notes = [f for f in a.flags if f["type"] == "data_conflict" and "Research reported" in f["reasons"][0]]
     assert len(notes) == 1 and "third" in notes[0]["reasons"][0]
+
+
+
+def test_day30_update_trend_follows_previous_and_new_numbers(session):
+    from app.postsignup import release_day30, update_day30
+
+    release_day30(session, "P-009")  # file values: 318 bookings, +12% within the month
+    update_day30(session, "P-009", travelers=90, bookings=400, trend_pct=None, actor="Sam")
+    act = session.exec(select(PostSignupActivity).where(PostSignupActivity.prospect_id == "P-009")).one()
+    assert act.trend_pct == 25.8 and act.trend_basis == "vs_previous"  # (400-318)/318
+    update_day30(session, "P-009", travelers=90, bookings=300, trend_pct=99, actor="Sam")  # client value ignored
+    session.refresh(act)
+    assert act.trend_pct == -25.0 and act.trend_basis == "vs_previous"

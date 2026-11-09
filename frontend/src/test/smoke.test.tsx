@@ -341,3 +341,11 @@ describe('Day 30 editing', () => {
     expect(body).toMatchObject({ travelers: 19, bookings: 57, trend_pct: 62, remarks: 'From finance export' })
   })
 })
+
+describe('Flag order', () => {
+  it('always lists flags in the same order by type', async () => {
+    const { sortFlags } = await import('../components/ui')
+    const out = sortFlags([{ type: 'growth_opportunity' }, { type: 'insufficient_evidence' }, { type: 'tier_mismatch' }, { type: 'data_conflict' }, { type: 'travel_potential' }])
+    expect(out.map((f) => f.type)).toEqual(['tier_mismatch', 'data_conflict', 'travel_potential', 'growth_opportunity', 'insufficient_evidence'])
+  })
+})

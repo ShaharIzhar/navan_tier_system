@@ -6,7 +6,7 @@ import { Suggestion, TierArrow } from '../components/ProspectTable'
 import { useConfirm } from '../components/confirm'
 import { Clamp, Hint, Info, Section } from '../components/Section'
 import {
-  AttentionBadge, CompanySiteBadge, ErrorBox, FIELD_LABELS, FlagChip, Icon, Modal, Spinner, StatusChip, TierBadge, hostOf, sourceText,
+  AttentionBadge, CompanySiteBadge, ErrorBox, FIELD_LABELS, FlagChip, Icon, Modal, Spinner, sortFlags, StatusChip, TierBadge, hostOf, sourceText,
   TrendArrow, num, usd, useAsync, useReviewer, when,
 } from '../components/ui'
 import { g } from '../glossary'
@@ -206,7 +206,7 @@ export default function CompanyDetail() {
             info="Why this company stands out."
             summary={a.flags.length ? `${a.flags.length} flag${a.flags.length > 1 ? 's' : ''}` : 'none'}
           >
-            {a.flags.length === 0 ? <p className="muted small">No flags.</p> : a.flags.map((f, i) => <FlagRow key={i} f={f} />)}
+            {a.flags.length === 0 ? <p className="muted small">No flags.</p> : sortFlags(a.flags).map((f, i) => <FlagRow key={i} f={f} />)}
           </Section>
         )}
 
@@ -648,7 +648,7 @@ function Day30Section({ data, busy, onRelease, onSave, onRemove }: {
         </div>
         <div className="stat" style={{ padding: 0 }}>
           <div className="v"><TrendArrow pct={d.trend_pct} /></div>
-          <div className="l">booking trend <Info text="Second half of the month vs. the first." /></div>
+          <div className="l">booking trend <Info text={d.trend_basis === 'vs_previous' ? 'Change from the previous numbers to the latest update.' : 'Days 16–30 vs. days 1–15.'} /></div>
         </div>
       </div>
       {d.remarks && <p className="day30-remarks"><span>Remarks</span>{d.remarks}</p>}
@@ -680,6 +680,12 @@ function Day30Editor({ initial, onClose, onSave }: {
             <input inputMode="numeric" value={bookings} onChange={(e) => setBookings(e.target.value)} aria-label="Bookings in 30 days" />
           </label>
         </div>
+        {initial && initial.bookings > 0 && valid && (
+          <div className="calc-row">
+            <span>Trend vs previous ({num(initial.bookings)} bookings)</span>
+            <TrendArrow pct={Math.round(((Number(bookings) - initial.bookings) / initial.bookings) * 1000) / 10} />
+          </div>
+        )}
         <label>Remarks (optional)
           <textarea rows={4} placeholder="Anything worth knowing about these numbers" value={remarks} onChange={(e) => setRemarks(e.target.value)} aria-label="Remarks" />
         </label>

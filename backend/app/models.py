@@ -44,6 +44,8 @@ class PostSignupActivity(SQLModel, table=True):
     trend_pct: Optional[float] = None  # second half vs first half of the 30 days
     parse_ok: bool = True
     remarks: Optional[str] = None  # free-text note added by a person when updating the numbers
+    # within_month = days 16-30 vs days 1-15 (from the file); vs_previous = new bookings vs the numbers before the update
+    trend_basis: Optional[str] = "within_month"
     released_at: Optional[datetime] = None  # None = not yet "received" by the system
 
 

@@ -3,6 +3,13 @@ import type { Attention } from '../api'
 import { g } from '../glossary'
 import { Hint } from './Section'
 
+/** Flags always listed in the same order, by type. */
+export const FLAG_ORDER = ['tier_mismatch', 'data_conflict', 'travel_potential', 'growth_opportunity', 'insufficient_evidence']
+export function sortFlags<T extends { type: string }>(flags: T[]): T[] {
+  const rank = (t: string) => { const i = FLAG_ORDER.indexOf(t); return i === -1 ? 99 : i }
+  return [...flags].sort((a, b) => rank(a.type) - rank(b.type))
+}
+
 export const SUPPORT_LEVEL: Record<number, string> = {
   1: 'dedicated AE and account manager',
   2: 'AE for launch and adoption',

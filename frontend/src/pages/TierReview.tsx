@@ -7,7 +7,7 @@ import { TierArrow } from '../components/ProspectTable'
 import { useConfirm } from '../components/confirm'
 import { SUPPORT_LEVEL } from '../components/ui'
 import { Hint, Info, Section } from '../components/Section'
-import { AttentionBadge, ErrorBox, FlagChip, Spinner, TierBadge, sourceText, useAsync, useReviewer, when } from '../components/ui'
+import { AttentionBadge, ErrorBox, FlagChip, Spinner, TierBadge, sortFlags, sourceText, useAsync, useReviewer, when } from '../components/ui'
 import { g } from '../glossary'
 
 const ACTION_LABELS: Record<string, string> = {
@@ -100,7 +100,7 @@ export default function TierReview() {
             </ul>
             {cur && cur.flags.length > 0 && (
               <div className="row" style={{ marginTop: 10 }}>
-                {cur.flags.map((f, i) => <FlagChip key={i} label={f.label} severity={f.severity} />)}
+                {sortFlags(cur.flags).map((f, i) => <FlagChip key={i} label={f.label} severity={f.severity} />)}
               </div>
             )}
           </Section>

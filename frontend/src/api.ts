@@ -204,7 +204,7 @@ export interface ProspectDetail {
   evidence: Evidence[]
   research_runs: ResearchRun[]
   proposals: Proposal[]
-  day30: { received: boolean; exists?: boolean; released_at?: string | null; raw_text?: string; travelers?: number; bookings?: number; trend_pct?: number; remarks?: string | null }
+  day30: { received: boolean; exists?: boolean; released_at?: string | null; raw_text?: string; travelers?: number; bookings?: number; trend_pct?: number; trend_basis?: string | null; remarks?: string | null }
   day30_pending: boolean
   audit: AuditRow[]
 }

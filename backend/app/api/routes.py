@@ -199,7 +199,7 @@ def get_prospect(prospect_id: str, session: Session = Depends(get_session)):
             {"received": act.released_at is not None,
              "released_at": act.released_at.isoformat() if act.released_at else None,
              **({"raw_text": act.raw_text, "travelers": act.travelers, "bookings": act.bookings,
-                 "trend_pct": act.trend_pct, "remarks": act.remarks} if act.released_at else {})}
+                 "trend_pct": act.trend_pct, "trend_basis": act.trend_basis, "remarks": act.remarks} if act.released_at else {})}
             if act else {"received": False, "exists": False}
         ),
         "day30_pending": bool(act and act.released_at is None),
