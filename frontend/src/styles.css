@@ -406,3 +406,9 @@ input, select, textarea { border-radius: 10px; }
 .search-box { border-radius: 999px; }
 .tier.t2 { border-color: #ddccfb; }
 .pill-select.on, .callout.action { border-color: #ddccfb; }
+
+/* Links stay blue (purple reads as "already visited") */
+:root { --link: #1f5fd6; }
+a, a:visited, .more, details > summary, button.ghost { color: var(--link); }
+.navlink, .navlink:visited { color: var(--text-2); }
+.navlink.active { color: var(--accent); }
