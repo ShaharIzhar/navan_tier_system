@@ -3,7 +3,6 @@ import { api, type ProspectRow } from '../api'
 import ProspectTable from '../components/ProspectTable'
 import { ErrorBox, Spinner, useAsync } from '../components/ui'
 import { Info } from '../components/Section'
-import { g } from '../glossary'
 
 const TABS: { key: NonNullable<ProspectRow['attention']>; label: string; help: string }[] = [
   { key: 'review_now', label: 'Review Now', help: 'Needs a decision now.' },
@@ -25,9 +24,7 @@ export default function ReviewQueue() {
       <div className="page-head">
         <div>
           <h1>Review queue</h1>
-          <p className="small">
-            Companies that need a look, most important first. <Info text={g('priority')} />
-          </p>
+          <p className="small">Companies that need a look.</p>
         </div>
       </div>
       <ErrorBox error={error} />
