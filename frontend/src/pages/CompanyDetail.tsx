@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { api, type Assessment, type DeepPlan, type Flag, type ProspectDetail } from '../api'
 import EvidenceList from '../components/EvidenceList'
+import { Suggestion } from '../components/ProspectTable'
 import { Clamp, Hint, Info, Section } from '../components/Section'
 import {
   AttentionBadge, CompanySiteBadge, ErrorBox, FIELD_LABELS, FlagChip, Modal, Spinner, StatusChip, TierBadge, hostOf, sourceText,
@@ -116,12 +117,11 @@ export default function CompanyDetail() {
         <div className="card">
           <div className="hero hero-tight">
             <div>
-              <div className="label">Applied tier <Info text={g('applied_tier')} align="left" /></div>
-              <TierBadge tier={p.applied_tier} />
-            </div>
-            <div>
-              <div className="label">Rules say <Info text={a ? `${g('baseline_tier')} ${a.baseline.basis}` : g('baseline_tier')} /></div>
-              <TierBadge tier={a?.baseline.tier} provisional={a?.baseline.provisional} />
+              <div className="label">Tier <Info text={`${g('applied_tier')} An arrow shows a tier change waiting for review.`} align="left" /></div>
+              <span className="row" style={{ gap: 6, flexWrap: 'nowrap' }}>
+                <TierBadge tier={p.applied_tier} />
+                {p.suggestion && <Suggestion s={p.suggestion} />}
+              </span>
             </div>
             {a && (
               <div className="next-step">

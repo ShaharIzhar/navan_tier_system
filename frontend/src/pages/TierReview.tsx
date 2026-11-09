@@ -167,8 +167,6 @@ export default function TierReview() {
             <dl className="kv">
               <dt className="row">Original <Info text={g('original_tier')} align="left" /></dt><dd><TierBadge tier={prospect.original_tier} /></dd>
               <dt className="row">Applied now <Info text={g('applied_tier')} align="left" /></dt><dd><TierBadge tier={prospect.applied_tier} /></dd>
-              <dt className="row">Rules say <Info text={cur ? `${g('baseline_tier')} ${cur.baseline.basis}` : g('baseline_tier')} align="left" /></dt>
-              <dd><TierBadge tier={cur?.baseline.tier} provisional={cur?.baseline.provisional} /></dd>
               <dt>Reported GBV</dt>
               <dd>
                 <Hint text="Reported by the company at signup (fictional scenario value)." align="right">

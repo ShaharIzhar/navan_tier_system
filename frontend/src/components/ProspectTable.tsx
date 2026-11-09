@@ -68,7 +68,7 @@ export default function ProspectTable({ rows, showAttention = true, empty }: { r
   )
 }
 
-function Suggestion({ s }: { s: NonNullable<ProspectRow['suggestion']> }) {
+export function Suggestion({ s }: { s: NonNullable<ProspectRow['suggestion']> }) {
   const up = s.to_tier < (s.from_tier ?? 3) // lower tier number = more support
   const text = `${up ? 'Suggested upgrade' : 'Suggested downgrade'} to Tier ${s.to_tier}: ${s.title}.${s.status === 'needs_info' ? ' Waiting for more information.' : ' Awaiting review.'} Click to open the review.`
   return (

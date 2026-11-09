@@ -244,7 +244,7 @@ details > summary { cursor: pointer; color: var(--accent); font-size: 12px; marg
 
 /* ---------- Single-column company page ---------- */
 .single { max-width: 980px; }
-.hero-tight { grid-template-columns: auto auto 1fr; gap: 28px; }
+.hero-tight { grid-template-columns: auto 1fr; gap: 28px; }
 .hero-tight .next-step { margin: 0; }
 table.values td { padding: 14px 16px; }
 .vlabel { color: var(--text-2); width: 140px; }
