@@ -386,3 +386,25 @@ describe('Multi-select filters', () => {
     expect(screen.queryByText('Two')).not.toBeInTheDocument()
   })
 })
+
+describe('Multi-select clear', () => {
+  it('Clear unticks everything, then ticking picks values', async () => {
+    const { default: Companies } = await import('../pages/Companies')
+    mockFetch({
+      '/api/prospects': [
+        row({ id: 'P-1', company_name: 'One', applied_tier: 1, suggestion: null }),
+        row({ id: 'P-2', company_name: 'Two', applied_tier: 2, suggestion: null }),
+      ],
+    })
+    render(<MemoryRouter><Companies /></MemoryRouter>)
+    await screen.findByText('One')
+    await userEvent.click(screen.getByRole('button', { name: 'Tier filter' }))
+    await userEvent.click(screen.getByRole('button', { name: 'Clear' }))
+    expect(screen.getByRole('checkbox', { name: 'Tier 1' })).not.toBeChecked()
+    expect(screen.getByRole('button', { name: 'Tier filter' })).toHaveTextContent('Tier: None')
+    await userEvent.click(screen.getByRole('checkbox', { name: 'Tier 2' }))
+    expect(screen.getByRole('button', { name: 'Tier filter' })).toHaveTextContent('Tier: 2')
+    expect(screen.getByText('Two')).toBeInTheDocument()
+    expect(screen.queryByText('One')).not.toBeInTheDocument()
+  })
+})

@@ -2,6 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 
 export type Option = { value: string; label: string }
 
+/** Selection value meaning "nothing ticked". Never matches a real value, so the filter shows no rows. */
+export const NONE = '__none__'
+
 /** Pill-style filter with a checkbox list. Empty selection = no filter ("All"). */
 export default function MultiSelect({ label, options, selected, onChange, allLabel = 'All', shortLabels }: {
   label: string
@@ -26,16 +29,17 @@ export default function MultiSelect({ label, options, selected, onChange, allLab
     }
   }, [open])
 
-  const names = selected.map((v) => shortLabels?.[v] ?? options.find((o) => o.value === v)?.label ?? v)
-  const summary = selected.length === 0 ? allLabel : selected.length === 1 || shortLabels ? names.join(', ') : `${selected.length} selected`
-  // Empty selection means "all", so every box shows as ticked. Unticking narrows the filter;
-  // ticking everything again (or unticking the last one) goes back to "all".
+  // [] = all ticked (no filter). [NONE] = nothing ticked (shows no rows). Otherwise the ticked values.
   const all = options.map((o) => o.value)
+  const none = selected.length === 1 && selected[0] === NONE
+  const names = selected.map((v) => shortLabels?.[v] ?? options.find((o) => o.value === v)?.label ?? v)
+  const summary = selected.length === 0 ? allLabel : none ? 'None'
+    : selected.length === 1 || shortLabels ? names.join(', ') : `${selected.length} selected`
   const isChecked = (v: string) => selected.length === 0 || selected.includes(v)
   const toggle = (v: string) => {
-    const current = selected.length === 0 ? all : selected
+    const current = selected.length === 0 ? all : none ? [] : selected
     const next = current.includes(v) ? current.filter((x) => x !== v) : [...current, v]
-    onChange(next.length === 0 || next.length === all.length ? [] : all.filter((x) => next.includes(x)))
+    onChange(next.length === 0 ? [NONE] : next.length === all.length ? [] : all.filter((x) => next.includes(x)))
   }
 
   return (
@@ -52,9 +56,10 @@ export default function MultiSelect({ label, options, selected, onChange, allLab
               <span>{o.label}</span>
             </label>
           ))}
-          {selected.length > 0 && (
-            <button type="button" className="more multi-clear" onClick={() => onChange([])}>Select all</button>
-          )}
+          <div className="multi-actions">
+            <button type="button" className="more" disabled={selected.length === 0} onClick={() => onChange([])}>Select all</button>
+            <button type="button" className="more" disabled={none} onClick={() => onChange([NONE])}>Clear</button>
+          </div>
         </div>
       )}
     </div>
