@@ -10,7 +10,7 @@ from typing import Optional
 from sqlmodel import Session, select
 
 from .. import audit
-from ..models import Assessment, Prospect, TierProposal
+from ..models import Assessment, Prospect, ResearchRun, TierProposal
 from ..rules.baseline import calculate_baseline
 from . import attention as att
 from .day30 import evaluate_day30
@@ -91,7 +91,9 @@ def reassess(session: Session, prospect_id: str, trigger: str, actor: str = "sys
         if coverage["employee_count"]["status"] in ("found", "stale"):
             coverage["employee_count"]["status"] = "conflicting"
 
-    deep = suggest_deep_research(flags, coverage, baseline.provisional, bool(proposal_ids), s.research_ran)
+    deep_done = session.exec(select(ResearchRun).where(ResearchRun.prospect_id == prospect_id, ResearchRun.kind == "deep",
+                                                       ResearchRun.status.in_(("ok", "partial")))).first() is not None
+    deep = suggest_deep_research(flags, coverage, baseline.provisional, bool(proposal_ids), s.research_ran, deep_done)
 
     assessment.flags = flags
     assessment.attention = attention
@@ -135,7 +137,9 @@ def reassess(session: Session, prospect_id: str, trigger: str, actor: str = "sys
     return assessment
 
 
-def suggest_deep_research(flags, coverage, provisional, has_proposal, research_ran) -> dict:
+def suggest_deep_research(flags, coverage, provisional, has_proposal, research_ran, deep_done=False) -> dict:
+    if deep_done:
+        return {"suggested": False, "reason": "Deep Research already done.", "done": True}
     if not research_ran:
         return {"suggested": False, "reason": "Run standard research first."}
     if any(f["type"] == "data_conflict" and f["severity"] == "material" for f in flags):

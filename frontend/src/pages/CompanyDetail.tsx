@@ -120,6 +120,7 @@ export default function CompanyDetail() {
   const { prospect: p, assessment: a } = data
   const lastRun = data.research_runs[0]
   const okRun = data.research_runs.find((r) => r.status === 'ok' || r.status === 'partial')
+  const deepDone = data.research_runs.some((r) => r.kind === 'deep' && (r.status === 'ok' || r.status === 'partial'))
   const hasSynthetic = data.evidence.some((e) => e.origin === 'synthetic_test' && !e.superseded_by)
   const coverage = Object.values(a?.coverage ?? {})
   const covFound = coverage.filter((c) => c.status === 'found').length
@@ -245,8 +246,8 @@ export default function CompanyDetail() {
               >
                 {busy === 'research' ? <Spinner /> : <Icon name="refresh" />} {okRun ? 'Re-run' : 'Run research'}
               </button>
-              <Hint text={g('deep_research')} align="right">
-                <button className="small" disabled={!!busy || !okRun || !!progress} onClick={runDeep}><Icon name="search" /> Deep Research…</button>
+              <Hint text={deepDone ? 'Deep Research already done for this company.' : g('deep_research')} align="right">
+                <button className="small" disabled={!!busy || !okRun || !!progress || deepDone} onClick={runDeep}><Icon name="search" /> Deep Research…</button>
               </Hint>
             </>
           }
@@ -261,7 +262,7 @@ export default function CompanyDetail() {
               <ResearchProgress stage={progress.stage} startedAt={progress.startedAt} expected={progress.expected} />
             </div>
           )}
-          {!progress && a?.accepted_values.deep_research.suggested && (
+          {!progress && !deepDone && a?.accepted_values.deep_research.suggested && (
             <div className="section-body" style={{ paddingBottom: 0 }}>
               <div className="suggest-note">
                 <span>Deep Research suggested</span>
