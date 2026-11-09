@@ -361,3 +361,48 @@ th.num .sort-btn { flex-direction: row-reverse; }
 .modal.wide { width: min(1100px, 96vw); max-height: 92vh; }
 .modal.wide .card-pad { padding: 20px 24px; background: var(--bg); }
 .done-icon { display: inline-flex; color: var(--green); }
+
+/* ===================================================================
+   Navan look (kept simple): light lavender page, white rounded cards,
+   violet accent, deep-indigo pill buttons, light sidebar.
+   =================================================================== */
+:root {
+  --bg: #f6f5fb;
+  --surface-2: #f3f1f9;
+  --border: #e8e5f0;
+  --border-strong: #d6d1e4;
+  --text: #170f2e;
+  --text-2: #4b4560;
+  --text-3: #7c7691;
+  --accent: #7b2ff2;          /* violet */
+  --accent-soft: #f3ecfe;
+  --ink: #2a0d6b;             /* deep indigo for primary buttons */
+  --radius: 16px;
+  --shadow: 0 2px 10px rgba(42, 13, 107, 0.05);
+}
+h1 { font-size: 24px; letter-spacing: -0.02em; }
+
+/* Sidebar: white, violet active pill */
+.sidebar { background: var(--surface); color: var(--text-2); border-right: 1px solid var(--border); }
+.brand { color: var(--text); font-weight: 750; font-size: 16px; letter-spacing: -0.01em; }
+.brand small { color: var(--text-3); }
+.navlink { color: var(--text-2); border-radius: 999px; padding: 9px 14px; font-weight: 500; }
+.navlink:hover { background: var(--surface-2); }
+.navlink.active { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+
+/* Cards and dialogs */
+.card { border-color: var(--border); }
+.modal { border-radius: 20px; }
+.callout { border-radius: 12px; }
+
+/* Buttons: pills; primary = deep indigo, hover violet */
+button { border-radius: 999px; padding: 7px 16px; }
+button.small { padding: 4px 12px; }
+button.primary { background: var(--ink); border-color: var(--ink); }
+button.primary:hover:not(:disabled) { background: var(--accent); border-color: var(--accent); }
+button.ghost, button.icon-btn { border-radius: 8px; }
+.tab { border-radius: 0; }
+input, select, textarea { border-radius: 10px; }
+.search-box { border-radius: 999px; }
+.tier.t2 { border-color: #ddccfb; }
+.pill-select.on, .callout.action { border-color: #ddccfb; }
