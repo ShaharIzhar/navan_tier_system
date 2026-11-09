@@ -758,7 +758,7 @@ function ResearchProgress({ stage, startedAt, expected }: { stage: string; start
     <div className="progress-box" role="status" aria-live="polite">
       <div className="spread small">
         <span className="row" style={{ gap: 6 }}><Spinner /> Deep Research: {STAGES[stage] ?? 'Working'}…</span>
-        <span className="muted">{Math.round(elapsed)}s</span>
+        <span className="muted" title="Estimated">{Math.round(pct)}%</span>
       </div>
       <div className="progress"><span style={{ width: `${pct}%` }} /></div>
       <p className="small muted">You can leave this page; it keeps running.</p>
