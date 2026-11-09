@@ -182,12 +182,22 @@ export function Icon({ name, size = 14 }: { name: 'edit' | 'refresh' | 'search' 
   )
 }
 
-/** Small site logo for a source link. Falls back to a letter badge if the site has no icon. */
+/** Small site logo for a source link. Falls back to a globe if the site has no icon. */
 export function SiteIcon({ url }: { url: string | null | undefined }) {
   const host = hostOf(url)
   const [failed, setFailed] = useState(false)
   if (!host) return null
-  if (failed) return <span className="site-icon letter" aria-hidden>{host[0].toUpperCase()}</span>
+  if (failed) {
+    return (
+      <span className="site-icon globe" aria-hidden>
+        <svg viewBox="0 0 16 16" width="12" height="12">
+          <circle cx="8" cy="8" r="6.2" fill="none" stroke="currentColor" strokeWidth="1.3" />
+          <path d="M1.8 8h12.4M8 1.8c1.8 1.7 2.7 3.8 2.7 6.2S9.8 12.5 8 14.2C6.2 12.5 5.3 10.4 5.3 8S6.2 3.5 8 1.8z"
+            fill="none" stroke="currentColor" strokeWidth="1.3" />
+        </svg>
+      </span>
+    )
+  }
   return (
     <img className="site-icon" src={`https://icons.duckduckgo.com/ip3/${host}.ico`} alt="" width={16} height={16}
       loading="lazy" referrerPolicy="no-referrer" onError={() => setFailed(true)} />
