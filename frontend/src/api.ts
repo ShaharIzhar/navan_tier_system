@@ -224,6 +224,20 @@ export interface Meta {
   thresholds: Record<string, number>
 }
 
+export interface Judgement {
+  status: 'ok' | 'failed'
+  summary?: string
+  support?: 'strong' | 'partial' | 'weak'
+  main_doubt?: string
+  grounded?: boolean
+  ungrounded_numbers?: string[]
+  error?: string
+  model: string
+  created_at: string
+  approx_cost_usd?: number
+  from_cache: boolean
+}
+
 export interface DeepPlan {
   focus: Record<string, string>
   max_searches: number
@@ -270,6 +284,7 @@ export const api = {
   proposal: (id: number) => request<ProposalDetail>(`/proposals/${id}`),
   decide: (id: number, action: string, reviewer: string, comment?: string) =>
     post<Proposal>(`/proposals/${id}/decision`, { action, reviewer, comment }),
+  judge: (id: number, force = false) => post<Judgement>(`/proposals/${id}/judge${force ? '?force=true' : ''}`),
   reports: () => request<Record<string, any>>('/reports'),
   run: (id: number) => request<ResearchRun & { raw_text: string; searched_results: { url: string; title: string }[] }>(`/research-runs/${id}`),
 }

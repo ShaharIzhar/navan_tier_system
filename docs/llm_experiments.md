@@ -187,3 +187,24 @@ After v2, I ran the full app on 10 companies. Live research, then the determinis
 - Reports → "Unsupported recommendations" lists the superseded aggregator-only proposal. The check catches a real historical error, not a planted one.
 
 **A versioning mistake, caught and fixed.** When adding `travel_scope`, I first changed the JSON shape that every prompt version shared, so a "v2" rerun was quietly getting part of v3. I noticed because that run returned `travel_scope` values. Now each version has its own frozen shape, and I checked that rebuilding the v1, v2 and v3 prompts gives **byte-identical** text to the prompts stored in the saved experiment files. I then deleted the contaminated file and reran a clean v2.
+
+## 10. AI judge on the review page (summary only)
+
+The tier review page opens with an **AI judge** card. Claude Haiku reads only that proposal's facts (reasons, cited evidence with source reliability, open uncertainties, employee figures, GBV) and returns three things:
+- one sentence explaining *why* the proposal exists,
+- a categorical support level (`strong` / `partial` / `weak`),
+- the main doubt.
+
+It runs with no web search and changes nothing. Safeguards:
+- **Grounding check:** a deterministic check flags any number in the sentence that doesn't appear in the facts.
+- **Caching:** results are cached per proposal and rerun only when the facts or the prompt version change.
+- **Cost:** about $0.0005 per call.
+
+Live result on proposal #1 (IMU Biosciences, Tier 2 → Tier 3):
+
+| Prompt | Output | Observation |
+|---|---|---|
+| judge-v1 | "Proposed downgrade from Tier 2 to Tier 3: current tier rests on an enrichment headcount of 155, while reported GBV is $48,000 and aggregators list 25 and 53 employees." | Accurate and grounded, but it lists facts without the conclusion. The reader still has to work out *why* that means Tier 3 |
+| judge-v2 | "Downgrade: Tier 2 rests on an enrichment headcount of 155; aggregator sources show 25 and 53 employees, and GBV is $48,000, so the rules give Tier 3." | The prompt now requires the shape "rests on X → evidence shows Y → so the rules give Tier Z". The reason is readable in one pass |
+
+Both rated it `partial`: the change relies on aggregator estimates. Tests: `backend/tests/test_judge.py` covers caching, ungrounded numbers, failure handling, and rerunning when evidence changes.

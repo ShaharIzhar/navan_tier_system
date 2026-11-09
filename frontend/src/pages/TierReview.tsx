@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { api } from '../api'
 import EvidenceList from '../components/EvidenceList'
+import JudgeCard from '../components/JudgeCard'
 import { Hint, Info, Section } from '../components/Section'
 import { AttentionBadge, ErrorBox, FlagChip, Spinner, TierBadge, TRIGGER_LABELS, useAsync, useReviewer, when } from '../components/ui'
 import { g } from '../glossary'
@@ -72,6 +73,8 @@ export default function TierReview() {
 
       <div className="detail-layout">
         <div className="stack">
+          <JudgeCard proposalId={p.id} />
+
           <Section id="rv-why" title="Why" info="The reasons this proposal was created." summary={p.title}>
             <ul className="reasons" style={{ marginTop: 0 }}>
               {p.rationale.map((r, i) => <li key={i}>{r}</li>)}

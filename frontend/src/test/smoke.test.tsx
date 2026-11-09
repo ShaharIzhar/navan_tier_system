@@ -100,6 +100,7 @@ describe('Tier review', () => {
   it('requires a comment to reject and posts the decision', async () => {
     const calls = mockFetch({
       '/api/proposals/9/decision': { ...proposal, status: 'rejected' },
+      '/api/proposals/9/judge': { status: 'ok', summary: 'Downgrade: Tier 2 rests only on 155 employees; sources say 90.', support: 'weak', main_doubt: 'The 90 figure is synthetic', grounded: true, model: 'claude-haiku-5-5', created_at: '2026-11-09T08:00:00', from_cache: false },
       '/api/proposals/9': {
         proposal, prospect: row({}), evidence: [], assessment_at_creation: assessment, current_assessment: assessment,
         linked_assessments: [], history: [], decisions: [], audit: [],
@@ -110,6 +111,8 @@ describe('Tier review', () => {
         <Routes><Route path="/reviews/:id" element={<TierReview />} /></Routes>
       </MemoryRouter>,
     )
+    expect(await screen.findByText(/Tier 2 rests only on 155 employees/)).toBeInTheDocument()
+    expect(screen.getByText('Weakly supported')).toBeInTheDocument()
     const reject = await screen.findByRole('button', { name: 'Reject' })
     expect(reject).toBeDisabled()
     expect(screen.getByRole('button', { name: /Approve Tier 3/ })).toBeEnabled()

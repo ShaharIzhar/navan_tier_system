@@ -377,6 +377,15 @@ def get_proposal(proposal_id: int, session: Session = Depends(get_session)):
     }
 
 
+@router.post("/proposals/{proposal_id}/judge")
+def post_judge(proposal_id: int, force: bool = False, session: Session = Depends(get_session)):
+    from ..research.judge import get_or_create_judgement
+
+    if session.get(TierProposal, proposal_id) is None:
+        raise HTTPException(404, "Proposal not found")
+    return get_or_create_judgement(session, proposal_id, force=force, actor="user")
+
+
 class DecisionRequest(BaseModel):
     action: str
     reviewer: str

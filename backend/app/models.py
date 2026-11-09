@@ -143,6 +143,7 @@ class TierProposal(SQLModel, table=True):
     evidence_ids: Optional[list] = json_col()
     uncertainties: Optional[list] = json_col()
     linked_assessment_ids: Optional[list] = json_col()
+    judge: Optional[dict] = json_col()  # cached AI judge summary (advisory only)
     status: str = "open"  # open | needs_info | approved | rejected | superseded
     created_at: datetime = Field(default_factory=utcnow)
     updated_at: datetime = Field(default_factory=utcnow)
