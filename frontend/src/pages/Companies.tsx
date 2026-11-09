@@ -13,6 +13,8 @@ const FLAG_OPTIONS: Record<string, string> = {
   insufficient_evidence: 'Insufficient Evidence',
 }
 
+const ATTENTION_ORDER: Record<string, number> = { review_now: 0, review_suggested: 1, monitor: 2, none: 3 }
+
 export default function Companies() {
   const { data, error, loading, reload } = useAsync(api.prospects, [])
   const [q, setQ] = useState('')
@@ -36,6 +38,9 @@ export default function Companies() {
         (!attention.length || attention.includes(r.attention ?? 'none')) &&
         (!research.length || research.includes(researchState(r))),
     )
+      // Default order: Review Now → Review Suggested → Monitor → no action, most important first in each.
+      .sort((a, b) => (ATTENTION_ORDER[a.attention ?? 'none'] ?? 3) - (ATTENTION_ORDER[b.attention ?? 'none'] ?? 3)
+        || b.priority_score - a.priority_score || a.id.localeCompare(b.id))
   }, [data, q, tier, flag, attention, research])
 
   const pendingDay30 = (data ?? []).length > 0
