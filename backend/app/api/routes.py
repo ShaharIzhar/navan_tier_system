@@ -12,7 +12,8 @@ from ..assessment.attention import ATTENTION_LABELS, priority_label
 from ..assessment.engine import latest_assessment, reassess
 from ..assessment.flags import FLAG_LABELS
 from ..db import get_session
-from ..enrichment import ENRICHMENT_FIELDS, EnrichmentError, add_enrichment, add_synthetic_evidence, retract_evidence
+from ..enrichment import (ENRICHMENT_FIELDS, EnrichmentError, add_enrichment, add_synthetic_evidence,
+                          resolve_employee_conflict, retract_evidence)
 from ..models import (Assessment, AuditEvent, Evidence, PostSignupActivity, Prospect, ResearchRun,
                       ReviewDecision, TierProposal)
 from ..postsignup import release_all, release_day30
@@ -262,6 +263,26 @@ def post_enrichment(prospect_id: str, body: EnrichmentRequest, session: Session 
     try:
         e, after, before = add_enrichment(session, prospect_id, body.param, body.value, body.entered_by,
                                           body.source_url, body.note, body.verified, body.accepted)
+    except EnrichmentError as err:
+        raise HTTPException(400, str(err))
+    return {"evidence": _evidence_dict(e), "before": _assessment_dict(before), "after": _assessment_dict(after),
+            "llm_calls": 0}
+
+
+class ResolveRequest(BaseModel):
+    value: int
+    reviewer: str
+    choice: str  # keep_current | use_source | custom
+    source_url: Optional[str] = None
+    source_label: Optional[str] = None
+    note: Optional[str] = None
+
+
+@router.post("/prospects/{prospect_id}/resolve-employee-conflict")
+def post_resolve(prospect_id: str, body: ResolveRequest, session: Session = Depends(get_session)):
+    try:
+        e, after, before = resolve_employee_conflict(session, prospect_id, body.value, body.reviewer, body.choice,
+                                                     body.source_url, body.source_label, body.note)
     except EnrichmentError as err:
         raise HTTPException(400, str(err))
     return {"evidence": _evidence_dict(e), "before": _assessment_dict(before), "after": _assessment_dict(after),

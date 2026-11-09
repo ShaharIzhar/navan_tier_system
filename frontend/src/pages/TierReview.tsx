@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { api } from '../api'
+import { Diff, proposalDiff } from '../components/Diff'
 import EvidenceList from '../components/EvidenceList'
 import { Hint, Info, Section } from '../components/Section'
 import { AttentionBadge, ErrorBox, FlagChip, Spinner, TierBadge, TRIGGER_LABELS, useAsync, useReviewer, when } from '../components/ui'
@@ -72,6 +73,10 @@ export default function TierReview() {
 
       <div className="detail-layout">
         <div className="stack">
+          <Section id="rv-changes" title="Changes" info="What approving would change. − is the current state, + is the proposed state." summary={`Tier ${p.from_tier} → Tier ${p.proposed_tier}`} flush>
+            <div className="section-body"><Diff lines={proposalDiff(p, cur)} /></div>
+          </Section>
+
           <Section id="rv-why" title="Why" info="The reasons this proposal was created." summary={p.title}>
             <ul className="reasons" style={{ marginTop: 0 }}>
               {p.rationale.map((r, i) => <li key={i}>{r}</li>)}

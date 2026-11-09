@@ -206,7 +206,10 @@ def build_day0_flags(
 
     # Research-implied tier: what the standard rules would say if research headcount were accepted.
     rv = s.research_employee_value
-    if rv is not None and rv != s.accepted_employees and applied is not None:
+    # Once a person has settled the headcount (verified value), research figures no longer
+    # generate headcount proposals; they stay visible as evidence only.
+    settled = s.accepted_employee is not None and s.accepted_employee.reliability == "manual_verified"
+    if rv is not None and rv != s.accepted_employees and applied is not None and not settled:
         rb = calculate_baseline(s.gbv, rv)
         r_srcs: list[EmployeeSource] = s.research_employee_sources
         fresh_vals = [x.value for x in r_srcs if not x.stale] or [x.value for x in r_srcs]

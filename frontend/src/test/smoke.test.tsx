@@ -122,3 +122,29 @@ describe('Tier review', () => {
     expect(within(document.body).getByText('Standard-rule correction')).toBeInTheDocument()
   })
 })
+
+describe('Decision panel', () => {
+  it('lets a reviewer keep the current employee count in one click', async () => {
+    const conflictAssessment = {
+      ...assessment,
+      flags: [{ ...assessment.flags[0], reasons: ['Employee counts disagree across 150, and that decides Tier 2 (reported GBV is under $100K).', 'Sources: ...'] }],
+    }
+    const calls = mockFetch({
+      '/api/prospects/P-007/resolve-employee-conflict': { before: null, after: assessment, llm_calls: 0 },
+      '/api/prospects/P-007': {
+        prospect: row({}), assessment: conflictAssessment, history: [], proposals: [], research_runs: [], evidence: [],
+        day30: { received: false, exists: false }, day30_pending: false, audit: [],
+      },
+    })
+    render(
+      <MemoryRouter initialEntries={['/companies/P-007']}>
+        <Routes><Route path="/companies/:id" element={<CompanyDetail />} /></Routes>
+      </MemoryRouter>,
+    )
+    expect(await screen.findByText('Decision needed')).toBeInTheDocument()
+    await userEvent.click(screen.getByRole('button', { name: /Keep current/ }))
+    await waitFor(() => expect(calls.some((c) => c.url === '/api/prospects/P-007/resolve-employee-conflict')).toBe(true))
+    const body = JSON.parse(String(calls.find((c) => c.url.endsWith('resolve-employee-conflict'))!.init!.body))
+    expect(body).toMatchObject({ value: 155, choice: 'keep_current', reviewer: 'Sam' })
+  })
+})

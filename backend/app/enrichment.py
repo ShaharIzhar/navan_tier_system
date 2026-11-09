@@ -122,3 +122,47 @@ def retract_evidence(session: Session, evidence_id: int, actor: str, reason: str
     session.commit()
     reassess(session, e.prospect_id, trigger="manual_enrichment", actor=actor)
     return e
+
+
+def resolve_employee_conflict(
+    session: Session, prospect_id: str, value: int, reviewer: str, choice: str,
+    source_url: Optional[str] = None, source_label: Optional[str] = None, note: Optional[str] = None,
+) -> tuple[Evidence, Assessment, Optional[Assessment]]:
+    """A reviewer settles a disputed headcount by picking one of the competing values (or their own).
+
+    Recorded as a verified human decision: it is an explicit choice between sourced options, so it
+    is treated like a verified manual value. Original evidence is untouched.
+    """
+    reviewer = (reviewer or "").strip()
+    if not reviewer:
+        raise EnrichmentError("Your name is required for the audit trail.")
+    if value is None or value < 0 or int(value) != value:
+        raise EnrichmentError("Employee count must be a non-negative whole number.")
+    if choice not in ("keep_current", "use_source", "custom"):
+        raise EnrichmentError("Unknown choice.")
+    if session.get(Prospect, prospect_id) is None:
+        raise EnrichmentError("Unknown prospect.")
+    from .assessment.engine import latest_assessment
+
+    before = latest_assessment(session, prospect_id)
+    what = {"keep_current": "kept the current value", "use_source": f"chose {source_label or 'a research source'}",
+            "custom": "entered their own value"}[choice]
+    e = Evidence(
+        prospect_id=prospect_id, field="employee_count",
+        claim=f"Employee count {int(value):,} confirmed by {reviewer} ({what}).",
+        value_number=float(value), signal_type="descriptive", observation="observed",
+        source_url=source_url, publisher=source_label or "Reviewer decision",
+        reliability="manual_verified", origin="human", accepted_for_reassessment=True,
+        entered_by=reviewer, note=note,
+    )
+    session.add(e)
+    session.flush()
+    audit.record(session, entity_type="evidence", entity_id=e.id, prospect_id=prospect_id, actor=reviewer,
+                 action="conflict_resolved",
+                 details={"field": "employee_count", "value": int(value), "choice": choice,
+                          "source": source_label, "source_url": source_url, "note": note,
+                          "previous_accepted_employees": (before.accepted_values or {}).get("employees") if before else None})
+    session.commit()
+    after = reassess(session, prospect_id, trigger="manual_enrichment", actor=reviewer)
+    session.refresh(e)
+    return e, after, before
