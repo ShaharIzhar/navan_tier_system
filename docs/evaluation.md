@@ -1,5 +1,7 @@
 # Evaluation framework
 
+> **Note:** the Reports dashboard is planned for the next version. Everything referenced below as "Reports → …" is already computed by the backend and available from `GET /api/reports`.
+
 **Author:** Shahar Izhar
 
 This page explains how to tell whether Navan Growth Intelligence is reliable and useful. It separates what the prototype can show today from what needs real outcomes. The dataset is fictional and has no verified tier outcomes, so **no accuracy number is reported anywhere in this project**.
@@ -50,7 +52,7 @@ These are proposals or flags that:
 
 The scenario checks show that the rules behave as specified. They say nothing about predictive accuracy.
 
-- **17 in-app scenario checks** run on every Reports page load. They cover tier boundaries, missing and invalid inputs, conflicts across the 150-employee threshold, verified manual values resolving a conflict, and Day 30 thresholds and the "weakens" comparison.
+- **17 scenario checks** run on every call to `GET /api/reports` (shown in the planned Reports dashboard). They cover tier boundaries, missing and invalid inputs, conflicts across the 150-employee threshold, verified manual values resolving a conflict, and Day 30 thresholds and the "weakens" comparison.
 - **65 backend pytest tests and 3 frontend smoke tests** cover the following (see `backend/tests/`):
   - malformed LLM output, which is repaired once and otherwise fails visibly
   - timeouts and a missing API key

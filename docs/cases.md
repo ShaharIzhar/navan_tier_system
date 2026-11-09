@@ -10,7 +10,7 @@
 
 **Totals for the demo set:**
 - About **$0.04 per standard research run**, including web search fees.
-- About **$0.88 overall**, including the experiments' reruns (Reports → Research usage).
+- About **$0.88 overall**, including the experiments' reruns (from `GET /api/reports` → research cost).
 
 The "Outcome" column is the Day 0 assessment, i.e. before any Day 30 data arrives.
 

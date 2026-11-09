@@ -86,13 +86,12 @@ describe('Company detail', () => {
         <Routes><Route path="/companies/:id" element={<CompanyDetail />} /></Routes>
       </MemoryRouter>,
     )
-    expect(await screen.findByRole('heading', { name: 'IMU Biosciences' })).toBeInTheDocument()
+    expect(await screen.findByRole('heading', { name: /IMU Biosciences/ })).toBeInTheDocument()
     expect(screen.getByText(/SYNTHETIC test observation/, { selector: 'strong' })).toBeInTheDocument()
     expect(screen.getAllByText('Data Conflict').length).toBeGreaterThan(0)
     expect(screen.getByText('Conflicting')).toBeInTheDocument()
     expect(screen.getByText('Not found')).toBeInTheDocument()
     expect(screen.getByText(/Deep Research suggested/)).toBeInTheDocument()
-    expect(screen.getByText(/Open review #9/)).toBeInTheDocument()
   })
 })
 
@@ -181,7 +180,7 @@ describe('Company website source', () => {
         <Routes><Route path="/companies/:id" element={<CompanyDetail />} /></Routes>
       </MemoryRouter>,
     )
-    await screen.findByRole('heading', { name: 'IMU Biosciences' })
+    await screen.findByRole('heading', { name: /IMU Biosciences/ })
     const checks = screen.getAllByLabelText("From the company's own website")
     expect(checks).toHaveLength(1)
     expect(checks[0].closest('.badge')?.textContent).toContain('160')
@@ -243,5 +242,19 @@ describe('Companies table', () => {
     await userEvent.click(screen.getByRole('button', { name: /Reported GBV/ }))
     await userEvent.click(screen.getByRole('button', { name: /Reported GBV/ }))
     expect(names()).toEqual(['Alpha', 'Beta']) // GBV descending: 90K first
+  })
+})
+
+describe('User menu', () => {
+  it('defaults to Employee 23 and can be renamed', async () => {
+    const { default: UserMenu } = await import('../components/UserMenu')
+    localStorage.clear()
+    render(<UserMenu />)
+    await userEvent.click(screen.getByRole('button', { name: /Employee 23/ }))
+    const input = screen.getByLabelText('Your name')
+    await userEvent.clear(input)
+    await userEvent.type(input, 'Dana Levi{Enter}')
+    expect(screen.getByRole('button', { name: /Dana Levi/ })).toHaveTextContent('DL')
+    expect(localStorage.getItem('ngi.reviewer')).toBe('Dana Levi')
   })
 })

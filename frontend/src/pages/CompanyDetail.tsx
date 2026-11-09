@@ -71,7 +71,6 @@ export default function CompanyDetail() {
   const { prospect: p, assessment: a } = data
   const lastRun = data.research_runs[0]
   const okRun = data.research_runs.find((r) => r.status === 'ok' || r.status === 'partial')
-  const unresolved = data.proposals.filter((x) => x.status === 'open' || x.status === 'needs_info')
   const hasSynthetic = data.evidence.some((e) => e.origin === 'synthetic_test' && !e.superseded_by)
   const coverage = Object.values(a?.coverage ?? {})
   const covFound = coverage.filter((c) => c.status === 'found').length
@@ -82,7 +81,13 @@ export default function CompanyDetail() {
       <div className="crumb"><Link to="/companies">All companies</Link> / {p.id}</div>
       <div className="page-head">
         <div>
-          <h1>{p.company_name}</h1>
+          <h1 className="row" style={{ gap: 10 }}>
+            {p.company_name}
+            <span className="tier-change">
+              <TierBadge tier={p.applied_tier} />
+              {p.suggestion && <Suggestion s={p.suggestion} />}
+            </span>
+          </h1>
           <p className="small">
             <a href={`https://${p.domain}`} target="_blank" rel="noreferrer">{p.domain}</a> · {p.id} ·{' '}
             <Hint text={a?.stage === 'day30' ? g('day30') : 'Assessed with signup-time information only.'}>
@@ -113,30 +118,6 @@ export default function CompanyDetail() {
       )}
 
       <div className="stack">
-        {/* Tiers + next step */}
-        <div className="card">
-          <div className="hero hero-tight">
-            <div>
-              <div className="label">Tier <Info text={`${g('applied_tier')} An arrow shows a tier change waiting for review.`} align="left" /></div>
-              <span className="row" style={{ gap: 6, flexWrap: 'nowrap' }}>
-                <TierBadge tier={p.applied_tier} />
-                {p.suggestion && <Suggestion s={p.suggestion} />}
-              </span>
-            </div>
-            {a && (
-              <div className="next-step">
-                <strong>Next step</strong>
-                <span>{a.recommended_action}</span>
-                {unresolved.map((x) => (
-                  <Link key={x.id} to={`/reviews/${x.id}`} style={{ marginLeft: 'auto', whiteSpace: 'nowrap' }}>
-                    Open review #{x.id} →
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-
         {/* Values */}
         {a && (
           <Section id="values" title="Values" info="The numbers the tier rules use, next to what public research found. Click Edit to correct a value; the rules rerun instantly with no AI call." flush>
@@ -409,7 +390,7 @@ function EmployeeRow({ data, reviewer, onSaved, onShowEvidence }: { data: Prospe
               </button>
               <button className="small" onClick={() => { setEditing(false); setErr(null) }}>Cancel</button>
             </div>
-            {!reviewer && <p className="small muted" style={{ marginTop: 6 }}>Enter your name under “Acting as” in the sidebar to save.</p>}
+            {!reviewer && <p className="small muted" style={{ marginTop: 6 }}>Set your name (top right) to save.</p>}
             {err && <div className="callout error small" style={{ marginTop: 6 }}>{err}</div>}
           </td>
         </tr>
@@ -457,7 +438,7 @@ function AddFinding({ prospectId, field, reviewer, onSaved }: { prospectId: stri
         </button>
         <button className="small" onClick={() => setOpen(false)}>Cancel</button>
       </div>
-      {!reviewer && <p className="small muted">Enter your name under “Acting as” in the sidebar to save.</p>}
+      {!reviewer && <p className="small muted">Set your name (top right) to save.</p>}
       {err && <div className="callout error small">{err}</div>}
     </div>
   )

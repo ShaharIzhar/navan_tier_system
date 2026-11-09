@@ -191,13 +191,14 @@ export function Modal({ title, onClose, children }: { title: string; onClose: ()
 }
 
 const REVIEWER_KEY = 'ngi.reviewer'
+const DEFAULT_REVIEWER = 'Employee 23' // placeholder identity for the prototype (no login)
 
 export function useReviewer(): [string, (v: string) => void] {
   const read = () => {
     try {
-      return localStorage.getItem(REVIEWER_KEY) ?? ''
+      return localStorage.getItem(REVIEWER_KEY) || DEFAULT_REVIEWER
     } catch {
-      return ''
+      return DEFAULT_REVIEWER
     }
   }
   const [name, setName] = useState(read)

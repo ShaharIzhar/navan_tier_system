@@ -22,7 +22,7 @@ All company names and domains are real. All customer values (reported GBV, emplo
    - *What should I do next?* One recommended action.
    - *What would change things?* Add a corrected value (rules rerun instantly, no AI call), run Deep Research, or wait for Day 30 activity.
 3. **Tier review.** Opens with an **AI judge**: one sentence on why the change is proposed, how well the evidence supports it, and the main doubt (advisory only; numbers checked against the evidence). Then a pull-request-style page: current tier → proposed tier, why, evidence, conflicts, previous assessments, and **Approve / Reject / Request more information**. Every decision is logged.
-4. **Reports.** Flags, review outcomes, research gaps, cost, citation validation, candidate false positives and negatives, and 17 live scenario checks.
+4. **Reports (next version).** The dashboard UI is not in this version. The data behind it is already available from `GET /api/reports`: flags, review outcomes, research gaps, cost, citation validation, candidate false positives and negatives, and 17 scenario checks.
 
 ## Quick start
 
@@ -247,7 +247,7 @@ backend/app/
   api/routes.py            FastAPI endpoints
 backend/tests/             86 pytest tests
 backend/scripts/prompt_experiment.py   reproduces the LLM experiments
-frontend/src/pages/        ReviewQueue, Companies, CompanyDetail, TierReview, Reviews, Reports
+frontend/src/pages/        ReviewQueue, Companies, CompanyDetail, TierReview, Reviews
 docs/                      flowchart, llm_experiments (+ raw outputs), evaluation, cases
 ```
 

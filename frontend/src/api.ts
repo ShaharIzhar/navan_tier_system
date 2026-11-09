@@ -287,5 +287,4 @@ export const api = {
   decide: (id: number, action: string, reviewer: string, comment?: string) =>
     post<Proposal>(`/proposals/${id}/decision`, { action, reviewer, comment }),
   judge: (id: number, force = false) => post<Judgement>(`/proposals/${id}/judge${force ? '?force=true' : ''}`),
-  reports: () => request<Record<string, any>>('/reports'),
 }

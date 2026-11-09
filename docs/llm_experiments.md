@@ -189,7 +189,7 @@ Fixes 7 and 8 were applied to the stored runs with `scripts/reprocess_runs.py`. 
 - Both wrong Bionical proposals were automatically marked **superseded**, with audit events. They remain visible in history.
 - Bionical stays in Review Now for the genuine reason: its headcount is disputed and decides the tier.
 - Greyparrot and NexGen keep their Travel Potential flags.
-- Reports → "Unsupported recommendations" lists the superseded aggregator-only proposal. The check catches a real historical error, not a planted one.
+- The reports API (`GET /api/reports` → unsupported recommendations) lists the superseded aggregator-only proposal. The check catches a real historical error, not a planted one.
 
 **A versioning mistake, caught and fixed.** When adding `travel_scope`, I first changed the JSON shape that every prompt version shared, so a "v2" rerun was quietly getting part of v3. I noticed because that run returned `travel_scope` values. Now each version has its own frozen shape, and I checked that rebuilding the v1, v2 and v3 prompts gives **byte-identical** text to the prompts stored in the saved experiment files. I then deleted the contaminated file and reran a clean v2.
 

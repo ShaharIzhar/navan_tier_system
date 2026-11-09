@@ -135,7 +135,7 @@ export default function TierReview() {
               </ul>
             )}
             <div className="section-body stack" style={{ borderTop: data.decisions.length ? '1px solid var(--border)' : undefined }}>
-              {!reviewer && <div className="callout warn small">Enter your name under “Acting as” in the sidebar.</div>}
+              {!reviewer && <div className="callout warn small">Set your name (top right) to review.</div>}
               <textarea placeholder={unresolved ? 'Comment' : 'Add a comment'} value={comment} onChange={(e) => setComment(e.target.value)} aria-label="Review comment" />
               <div className="row">
                 {unresolved && (
