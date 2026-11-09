@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { api, type Assessment, type Flag, type ProspectDetail } from '../api'
 import EvidenceList from '../components/EvidenceList'
-import { Suggestion, TierArrow } from '../components/ProspectTable'
+import { Suggestion } from '../components/ProspectTable'
 import { useConfirm } from '../components/confirm'
 import { Clamp, Hint, Info, Section } from '../components/Section'
 import {
@@ -355,22 +355,7 @@ export default function CompanyDetail() {
           if (ok) run('day30', () => api.removeDay30(p.id, reviewer || 'user'))
         }} />
 
-        {data.proposals.length > 0 && (
-          <Section id="proposals" title="Tier proposals" info="Tier changes need a person’s approval." summary={`${data.proposals.length}`} flush>
-            <ul className="timeline">
-              {data.proposals.map((x) => (
-                <li key={x.id} className="spread">
-                  <span className="row">
-                    <TierBadge tier={x.from_tier} /> <TierArrow from={x.from_tier} to={x.proposed_tier} />
-                    <Link to={`/reviews/${x.id}`}>#{x.id}</Link>
-                    <Info text={`${x.title}. ${g(x.proposal_type)}`} />
-                  </span>
-                  <span className={`status-pill${x.status === 'open' ? ' awaiting' : ''}`}>{x.status_label}</span>
-                </li>
-              ))}
-            </ul>
-          </Section>
-        )}
+        {data.proposals.length > 0 && <TierChanges proposals={data.proposals} />}
       </div>
 
     </div>
@@ -697,6 +682,49 @@ function Day30Editor({ initial, onClose, onSave }: {
         </div>
       </div>
     </Modal>
+  )
+}
+
+/** Readable list of tier changes: open ones first, past ones folded away. */
+function TierChanges({ proposals }: { proposals: ProspectDetail['proposals'] }) {
+  const nav = useNavigate()
+  const [showPast, setShowPast] = useState(false)
+  const open = proposals.filter((p) => p.status === 'open' || p.status === 'needs_info')
+  const past = proposals.filter((p) => !(p.status === 'open' || p.status === 'needs_info'))
+  const rows = [...open, ...(showPast || open.length === 0 ? past : [])]
+  return (
+    <Section id="proposals" title="Tier change" info="Suggested tier changes. Nothing changes until someone approves."
+      summary={open.length ? `${open.length} waiting for review` : 'none open'} flush>
+      {rows.map((p) => {
+        const up = p.proposed_tier < (p.from_tier ?? 3)
+        const why = (p.rationale[0] ?? p.title)
+          .replace(/^Observed activity:\s*/i, '')
+          .replace(/\s*\((?:data )?aggregator[^)]*\)/gi, '') // drop the AI's own "(data aggregator; estimate)" notes
+          .replace(/\.$/, '')
+        const isOpen = p.status === 'open' || p.status === 'needs_info'
+        return (
+          <div key={p.id} className={`change-row${isOpen ? '' : ' past'}`} role="link" tabIndex={0}
+            onClick={() => nav(`/reviews/${p.id}`)} onKeyDown={(e) => e.key === 'Enter' && nav(`/reviews/${p.id}`)}>
+            <span className={`change-what ${up ? 'up' : 'down'}`}>
+              {up ? '↑' : '↓'} {up ? 'Upgrade' : 'Downgrade'} to Tier {p.proposed_tier}
+            </span>
+            <span className="change-why">{why}</span>
+            <Hint text={g(p.proposal_type)}>
+              <span className="change-type">{p.proposal_type === 'evidence_override' ? 'Override' : 'Rule correction'}</span>
+            </Hint>
+            <span className={`status-pill${p.status === 'open' ? ' awaiting' : ''}`}>{p.status_label}</span>
+            {isOpen ? <button className="small primary" onClick={(e) => { e.stopPropagation(); nav(`/reviews/${p.id}`) }}>Review →</button> : <span />}
+          </div>
+        )
+      })}
+      {open.length > 0 && past.length > 0 && (
+        <div className="change-row more-row">
+          <button className="more" onClick={() => setShowPast(!showPast)}>
+            {showPast ? 'Hide past proposals' : `Show ${past.length} past proposal${past.length > 1 ? 's' : ''}`}
+          </button>
+        </div>
+      )}
+    </Section>
   )
 }
 

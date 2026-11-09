@@ -11,7 +11,7 @@ const FILTERS = [
   { key: 'unresolved', label: 'Unresolved' },
   { key: 'approved', label: 'Approved' },
   { key: 'rejected', label: 'Rejected' },
-  { key: 'superseded', label: 'Superseded' },
+  { key: 'superseded', label: 'No longer needed' },
   { key: 'all', label: 'All' },
 ]
 

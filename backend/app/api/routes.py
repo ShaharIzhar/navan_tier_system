@@ -24,7 +24,7 @@ router = APIRouter(prefix="/api")
 
 REVIEW_STATUS_LABELS = {
     "open": "Awaiting review", "needs_info": "Needs info", "approved": "Approved",
-    "rejected": "Rejected", "superseded": "Superseded",
+    "rejected": "Rejected", "superseded": "No longer needed",
 }
 
 
