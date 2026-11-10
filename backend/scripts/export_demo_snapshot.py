@@ -16,7 +16,8 @@ from sqlmodel import Session, select  # noqa: E402
 
 from app import config  # noqa: E402
 from app.db import get_engine, init_db  # noqa: E402
-from app.models import Prospect, ResearchRun, TierProposal  # noqa: E402
+from app.models import Prospect, TierProposal  # noqa: E402
+from scripts._runs import latest_successful_runs  # noqa: E402
 
 OUT = config.REPO_DIR / "data" / "demo_snapshot.json"
 
@@ -24,11 +25,7 @@ OUT = config.REPO_DIR / "data" / "demo_snapshot.json"
 def main() -> None:
     init_db()
     with Session(get_engine()) as s:
-        latest: dict[tuple[str, str], ResearchRun] = {}
-        for r in s.exec(select(ResearchRun).where(ResearchRun.status.in_(("ok", "partial"))).order_by(ResearchRun.id)):
-            if "--- repair attempt ---" in (r.raw_text or ""):
-                continue  # keep the snapshot to single-call runs
-            latest[(r.prospect_id, r.kind)] = r
+        latest = latest_successful_runs(s, skip_repaired=True)  # keep the snapshot to single-call runs
         runs = []
         for (pid, kind), r in sorted(latest.items()):
             p = s.get(Prospect, pid)

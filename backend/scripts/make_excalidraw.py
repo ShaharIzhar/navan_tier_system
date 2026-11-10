@@ -1,4 +1,4 @@
-"""Generate docs/business-logic.excalidraw (Navan Growth Intelligence business logic)."""
+"""Generate a first draft of docs/business-logic.excalidraw. The committed file has since been edited by hand in Excalidraw, so do not regenerate over it (Navan Growth Intelligence business logic)."""
 import json
 import random
 import sys

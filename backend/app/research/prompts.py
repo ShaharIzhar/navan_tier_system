@@ -5,7 +5,7 @@ can be read and updated without touching Python. Files are read on every call: a
 the next AI call, no restart needed.
 
 There is one live prompt per task. Its label (manifest "version", e.g. "v4") is stored on every
-research run for caching and history. Earlier versions are archived in docs/experiments/prompts/
+research run for caching and history. Earlier versions are archived in docs/llm_experiments/prompts/
 and are never loaded by the app.
 """
 from __future__ import annotations

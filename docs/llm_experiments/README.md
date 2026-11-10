@@ -2,7 +2,7 @@
 
 **Author:** Shahar Izhar · **Model:** Claude Haiku 5.5 (`claude-haiku-5-5`) with Anthropic's server-side web search tool (`web_search_20250305`) · **Run on:** 8 November 2026
 
-Everything below comes from real API runs. The raw, unedited outputs are saved in [`docs/experiments/v1/`](experiments/v1), [`v2/`](experiments/v2) and [`v3/`](experiments/v3). Sections 1–8 cover v1 → v2; section 9 covers the second iteration (v3), driven by errors found in live app runs. Each file holds:
+Everything below comes from real API runs. The raw, unedited outputs are saved in [`runs/v1/`](runs/v1), [`v2/`](runs/v2) and [`v3/`](runs/v3). Sections 1–8 cover v1 → v2; section 9 covers the second iteration (v3), driven by errors found in live app runs. Each file holds:
 - the exact system and user prompt
 - the model's raw text
 - every search result URL the tool returned
@@ -15,7 +15,7 @@ To run the live prompt on cases (from `backend/`):
 python -m scripts.prompt_experiment --cases P-007 P-033 P-009 --conflict-test P-007
 ```
 
-The v1–v3 runs below were made with the archived prompts in [`experiments/prompts/`](experiments/prompts/README.md); the app no longer loads them.
+The v1–v3 runs below were made with the archived prompts in [`prompts/`](prompts/README.md); the app no longer loads them.
 
 ## What the LLM is (and is not) used for
 
@@ -30,7 +30,7 @@ The prompt contains only the company **name and domain**. It never contains the 
 
 ## 1. Original prompt (v1)
 
-Full text: [`experiments/prompts/research_v1.system.txt`](experiments/prompts/research_v1.system.txt) and [`research_v1.user.txt`](experiments/prompts/research_v1.user.txt). The core of it:
+Full text: [`prompts/research_v1.system.txt`](prompts/research_v1.system.txt) and [`research_v1.user.txt`](prompts/research_v1.user.txt). The core of it:
 
 ```text
 You are a company research assistant for a B2B sales team at a business-travel platform. ...
@@ -111,7 +111,7 @@ Running v1 on the three standard cases showed three problems. None were invented
 
 ## 6. Refinement (v2 prompt + two deterministic processing steps)
 
-**Prompt changes** ([`experiments/prompts/research_v2.*.txt`](experiments/prompts)):
+**Prompt changes** ([`prompts/research_v2.*.txt`](prompts)):
 - **A search plan in priority order.** Step 2 is: *"Travel requirements: search for the company's job postings or careers page together with words like 'travel', 'client site', 'on-site', 'field'. This is the most important field for this research."*
 - **Employee rules:** *"Put a number in value_number ONLY when the source states one exact headcount … For a band or range … set value_number to null and keep the band in the claim."*
 - **Conflict rules:** *"Report a conflict only when sources disagree about the same fact for the same period in a way that changes the conclusion … Different estimates from different databases, or figures from different dates, are normal."*
@@ -158,11 +158,11 @@ v1 did not log its queries, so a direct query comparison isn't possible. The imp
 - **Similar company names.** The Moorside travel search returned a different company with a similar name. The model ignored it this time, but nothing enforces that; findings are trusted only because the model confirms identity, and that confirmation isn't independently checked.
 - **Job ads are a snapshot.** A posting found today says nothing about last year, and finding no travel ad is not evidence of no travel.
 - **Prompt length and cost.** Search results make up most of the input tokens (45–80K per run). At Haiku 5.5 prices, a standard run costs about $0.04–0.06, most of it web search fees.
-- **Small sample.** These are 4 cases × 2 versions, enough to find and fix failure modes but not to measure accuracy. See [`evaluation.md`](evaluation.md).
+- **Small sample.** These are 4 cases × 2 versions, enough to find and fix failure modes but not to measure accuracy. See [`evaluation.md`](../evaluation.md).
 
 ## 9. Second iteration: error analysis on live application runs (v3)
 
-After v2, I ran the full app on 10 companies. Live research, then the deterministic rules. The point was to find errors that only appear end to end. Each error was handled with the loop from [`evaluation.md`](evaluation.md): identify the error, inspect the evidence, classify the cause, fix the right component, add a regression test, and rerun.
+After v2, I ran the full app on 10 companies. Live research, then the deterministic rules. The point was to find errors that only appear end to end. Each error was handled with the loop from [`evaluation.md`](../evaluation.md): identify the error, inspect the evidence, classify the cause, fix the right component, add a regression test, and rerun.
 
 | # | Error observed in the live app | Cause | Fix | Regression test |
 |---|---|---|---|---|
@@ -178,7 +178,7 @@ After v2, I ran the full app on 10 companies. Live research, then the determinis
 
 Fixes 7 and 8 were applied to the stored runs with `scripts/reprocess_runs.py`. It re-validates each saved raw AI response with the current rules: no new AI call, no cost.
 
-**v2 vs v3 on Bionical's job ads.** Same standard prompt structure, same day. Raw files: `experiments/v2/P-025-standard.json` and `experiments/v3/P-025-standard.json`.
+**v2 vs v3 on Bionical's job ads.** Same standard prompt structure, same day. Raw files: `runs/v2/P-025-standard.json` and `runs/v3/P-025-standard.json`.
 
 | | v2 | v3 |
 |---|---|---|

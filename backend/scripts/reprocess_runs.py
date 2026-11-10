@@ -9,19 +9,17 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from sqlmodel import Session, select  # noqa: E402
+from sqlmodel import Session  # noqa: E402
 
 from app.db import get_engine, init_db  # noqa: E402
-from app.models import ResearchRun  # noqa: E402
 from app.research.service import reprocess_run  # noqa: E402
+from scripts._runs import latest_successful_runs  # noqa: E402
 
 
 def main() -> None:
     init_db()
     with Session(get_engine()) as s:
-        latest: dict[tuple[str, str], ResearchRun] = {}
-        for r in s.exec(select(ResearchRun).where(ResearchRun.status.in_(("ok", "partial"))).order_by(ResearchRun.id)):
-            latest[(r.prospect_id, r.kind)] = r
+        latest = latest_successful_runs(s)
         for kind in ("standard", "deep"):
             for (pid, k), r in sorted(latest.items()):
                 if k == kind:

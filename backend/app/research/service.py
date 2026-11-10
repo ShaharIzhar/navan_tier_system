@@ -259,21 +259,13 @@ def _store_evidence(session, prospect, run, output: ResearchOutput, kind, focus)
     else:
         fields_in_scope = focus or list(reported)
 
-    if kind == "standard":
-        # A fresh standard run supersedes earlier standard-run evidence (kept, not deleted).
-        old = session.exec(select(Evidence).where(Evidence.prospect_id == prospect.id,
-                                                  Evidence.origin == "ai_research",
-                                                  Evidence.superseded_by == None))  # noqa: E711
-        old_rows = [e for e in old if e.run_id != run.id and e.field in fields_in_scope
-                    and _run_kind(session, e.run_id) == "standard"]
-    else:
-        # A new Deep Research pass supersedes earlier Deep Research evidence for the same fields.
-        # Standard-run evidence is kept as is.
-        old = session.exec(select(Evidence).where(Evidence.prospect_id == prospect.id,
-                                                  Evidence.origin == "ai_research",
-                                                  Evidence.superseded_by == None))  # noqa: E711
-        old_rows = [e for e in old if e.run_id != run.id and e.field in fields_in_scope
-                    and _run_kind(session, e.run_id) == "deep"]
+    # A new run supersedes earlier evidence from runs of the same kind for the fields it covers
+    # (kept, not deleted). A Deep Research pass leaves standard-run evidence as is, and vice versa.
+    old = session.exec(select(Evidence).where(Evidence.prospect_id == prospect.id,
+                                              Evidence.origin == "ai_research",
+                                              Evidence.superseded_by == None))  # noqa: E711
+    old_rows = [e for e in old if e.run_id != run.id and e.field in fields_in_scope
+                and _run_kind(session, e.run_id) == kind]
 
     for fr in output.fields:
         if fr.field not in fields_in_scope:

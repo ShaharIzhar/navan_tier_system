@@ -1,19 +1,12 @@
-import { useEffect, useRef, useState } from 'react'
-import { useReviewer } from './ui'
+import { useCallback, useState } from 'react'
+import { useDismiss, useReviewer } from './ui'
 
 /** Top-right user badge. The name is recorded on every decision and correction (audit trail). */
 export default function UserMenu() {
   const [name, setName] = useReviewer()
   const [open, setOpen] = useState(false)
   const [draft, setDraft] = useState(name)
-  const ref = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (!open) return
-    const close = (e: MouseEvent) => ref.current && !ref.current.contains(e.target as Node) && setOpen(false)
-    document.addEventListener('mousedown', close)
-    return () => document.removeEventListener('mousedown', close)
-  }, [open])
+  const ref = useDismiss(open, useCallback(() => setOpen(false), []))
 
   const initials = name.split(/\s+/).filter(Boolean).map((w) => w[0]).join('').slice(0, 2).toUpperCase() || '?'
   const save = () => {

@@ -1,4 +1,4 @@
-"""The archived prompt versions (docs/experiments/prompts) must still reproduce exactly what was sent in the
+"""The archived prompt versions (docs/llm_experiments/prompts) must still reproduce exactly what was sent in the
 saved experiment runs, and the app must load only the live prompt."""
 import json
 from pathlib import Path
@@ -8,7 +8,7 @@ import pytest
 from app.research import prompts
 from app.research.schema import RESEARCH_FIELDS
 
-DOCS = Path(__file__).resolve().parents[2] / "docs" / "experiments"
+DOCS = Path(__file__).resolve().parents[2] / "docs" / "llm_experiments"
 ARCHIVE = DOCS / "prompts"
 SHAPE = {"v1": "research_shape_v1.json", "v2": "research_shape_v1.json", "v3": "research_shape_v3.json"}
 CASES = [("v1", "P-007-standard", "IMU Biosciences", "imubiosciences.com"),
@@ -28,7 +28,7 @@ def _archived_prompt(version: str, name: str, domain: str) -> tuple[str, str]:
 
 @pytest.mark.parametrize("version,case,name,domain", CASES)
 def test_archived_prompts_match_saved_runs(version, case, name, domain):
-    saved = json.loads((DOCS / version / f"{case}.json").read_text())
+    saved = json.loads((DOCS / "runs" / version / f"{case}.json").read_text())
     system, user = _archived_prompt(version, name, domain)
     assert system == saved["system_prompt"]
     assert user == saved["user_prompt"]

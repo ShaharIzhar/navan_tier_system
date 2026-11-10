@@ -1,5 +1,5 @@
 {
-  "_readme": "The prompts the app sends. One live prompt per task; edit the .txt files to change it (applies on the next AI call, no restart). 'version' is the label stored on each research run, used for caching and history: bump it when the prompt meaningfully changes. Earlier versions and how they were refined: docs/experiments/prompts/ and docs/llm_experiments.md. Placeholders in {braces} are filled by code; literal braces in judge.user.txt are doubled {{ }}.",
+  "_readme": "The prompts the app sends. One live prompt per task; edit the .txt files to change it (applies on the next AI call, no restart). 'version' is the label stored on each research run, used for caching and history: bump it when the prompt meaningfully changes. Earlier versions and how they were refined: docs/llm_experiments/. Placeholders in {braces} are filled by code; literal braces in judge.user.txt are doubled {{ }}.",
   "research": {
     "version": "v4",
     "system": "research.system.txt",

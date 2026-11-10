@@ -4,8 +4,8 @@ Usage (from backend/):
     .venv/bin/python -m scripts.prompt_experiment --version v1 --cases P-007 P-033
     .venv/bin/python -m scripts.prompt_experiment --version v1 --conflict-test P-007
 
-Outputs go to docs/experiments/<version>/<case>.json, so they can be quoted in
-docs/llm_experiments.md. This does not touch the application database.
+Outputs go to docs/llm_experiments/runs/<version>/<case>.json, so they can be quoted in
+docs/llm_experiments/README.md. This does not touch the application database.
 """
 from __future__ import annotations
 
@@ -24,7 +24,7 @@ from app.research.client import AnthropicResearchClient, ResearchProviderError, 
 from app.research.evidence import (ParseError, classify_reliability, clear_band_headcounts, parse_research_output,
                                    validate_citations)  # noqa: E402
 
-OUT = config.REPO_DIR / "docs" / "experiments"
+OUT = config.REPO_DIR / "docs" / "llm_experiments"
 
 SYNTHETIC_CONFLICT = [
     {
@@ -112,7 +112,7 @@ def run_case(client, label: str, system: str, user: str, max_searches: int, doma
             "raw_text": res.text,
             "analysis": analyse(res.text, res.search_results, domain),
         }
-    dest = OUT / version
+    dest = OUT / "runs" / version
     dest.mkdir(parents=True, exist_ok=True)
     path = dest / f"{label}.json"
     path.write_text(json.dumps(record, indent=2, ensure_ascii=False))

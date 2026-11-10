@@ -11,5 +11,5 @@ versions, kept as the record of how the prompt was tested and refined. Nothing i
 | v4 (live) | Standard research narrowed to 5 routing basics; travel moves to Deep Research | Cost and focus |
 
 `manifest_history.json` is the manifest as it was with every version registered. Raw AI answers per
-version are in `../v1` to `../v4`; the story is in `../../llm_experiments.md`. `backend/tests/test_prompts.py`
+version are in `../runs/v1` to `../runs/v4`; the story is in `../README.md`. `backend/tests/test_prompts.py`
 checks these files still reproduce the prompts sent in those saved runs.

@@ -1,6 +1,6 @@
 # Evaluation framework
 
-> **Note:** the Reports dashboard is planned for the next version. Everything referenced below as "Reports → …" is already computed by the backend and available from `GET /api/reports`.
+> **Note:** there is no Reports page in the UI yet. Everything referenced below as "`/api/reports` → …" is already computed by the backend and returned by `GET /api/reports`; the section names are the keys in that response.
 
 **Author:** Shahar Izhar
 
@@ -24,7 +24,7 @@ A flag or proposal is a false positive when a documented review finds it unneces
 - **Precision among reviewed cases** = proposals judged correct ÷ proposals reviewed. Each rejection needs a reason, so rejection reasons can be grouped.
 - **False-positive rate by flag type** (Travel Potential, Data Conflict, …), to see which rule is noisy.
 - **Unnecessary review time**: minutes spent on proposals that were rejected.
-- **In the prototype:** Reports → "Possible false positives" lists rejected proposals. A rejection is a candidate false positive for error analysis, *not* ground truth. A reviewer can be wrong.
+- **In the prototype:** `/api/reports` → `review_outcomes` lists rejected proposals. A rejection is a candidate false positive for error analysis, *not* ground truth. A reviewer can be wrong.
 
 ### False negatives (missed flags)
 A false negative is a meaningful opportunity or tier mismatch that the system did not flag.
@@ -32,19 +32,19 @@ A false negative is a meaningful opportunity or tier mismatch that the system di
 - **Recall** = real opportunities flagged ÷ all real opportunities. This **cannot** be measured from reviewed cases alone, because those are all flagged by definition. It needs a labelled sample that includes companies the system did not flag. Plan: each month, a Growth reviewer labels a random sample of unflagged companies, stratified by tier and by how much public information exists.
 - **Missed high-value opportunities**: unflagged companies that later reached Tier 1 GBV.
 - **Misses broken down by** industry, company size, and source availability (for example, small UK private firms have little public data).
-- **In the prototype:** Reports → "Possible false negatives" compares each Day 0 assessment with the company's Day 30 activity *after the fact*. Example: strong activity with no Day 0 flag is labelled "possible miss". Day 30 data is never used for the signup decision. The comparison is a weak proxy, because booking counts are not GBV.
+- **In the prototype:** `/api/reports` → `retrospective_day30` compares each Day 0 assessment with the company's Day 30 activity *after the fact*. Example: strong activity with no Day 0 flag is labelled "possible miss". Day 30 data is never used for the signup decision. The comparison is a weak proxy, because booking counts are not GBV.
 
 ### Unsupported actions
 These are proposals or flags that:
-- have no cited evidence (Reports → "Unsupported recommendations").
+- have no cited evidence (`/api/reports` → `unsupported_recommendations`).
 - rely only on aggregator, synthetic, or inferred evidence (same report).
-- cite a URL that the search tool did not actually return. These citations are removed automatically before storage, and Reports → "Citation validation" counts them.
+- cite a URL that the search tool did not actually return. These citations are removed automatically before storage, and `/api/reports` → `citation_validation` counts them.
 - treat an inference as a fact. The LLM must label each finding `observed` or `inferred`, and inferred travel evidence never triggers Travel Potential.
 - go against the baseline rules without a documented reason. Every override is typed `evidence_override`, carries its rationale, and is logged as a policy override when approved.
 
 ### Operational metrics (available now)
-- Research completeness: the status of each field across researched companies (Reports → "Missing and conflicting research").
-- Research cost per company, plus web searches and LLM calls (Reports → "Research usage").
+- Research completeness: the status of each field across researched companies (`/api/reports` → `missing_data`).
+- Research cost per company, plus web searches and LLM calls (`/api/reports` → `research_cost`).
 - Review turnaround time: from proposal creation to decision (timestamps stored).
 - Approval and rejection patterns, broken down by proposal type.
 
@@ -52,7 +52,7 @@ These are proposals or flags that:
 
 The scenario checks show that the rules behave as specified. They say nothing about predictive accuracy.
 
-- **17 scenario checks** run on every call to `GET /api/reports` (shown in the planned Reports dashboard). They cover tier boundaries, missing and invalid inputs, conflicts across the 150-employee threshold, verified manual values resolving a conflict, and Day 30 thresholds and the "weakens" comparison.
+- **17 scenario checks** run on every call to `GET /api/reports` (`scenario_checks` in the response). They cover tier boundaries, missing and invalid inputs, conflicts across the 150-employee threshold, verified manual values resolving a conflict, and Day 30 thresholds and the "weakens" comparison.
 - **65 backend pytest tests and 3 frontend smoke tests** cover the following (see `backend/tests/`):
   - malformed LLM output, which is repaired once and otherwise fails visibly
   - timeouts and a missing API key
@@ -79,11 +79,11 @@ For each error found in review or in outcomes:
    - *Decision policy*: a threshold or rule was wrong.
 4. **Fix the right component:**
    - Retrieval → search scope or Deep Research targeting.
-   - Extraction → prompt version (prompts are versioned and kept; see `docs/llm_experiments.md`) or post-processing.
+   - Extraction → prompt version (prompts are versioned and kept; see `docs/llm_experiments/`) or post-processing.
    - Policy → the thresholds in `backend/app/config.py`.
 5. **Rerun the original case and add a regression test** (a pytest case, or a scenario check for policy errors).
 
-This loop has already been run on live data. Section 9 of [`llm_experiments.md`](llm_experiments.md) lists six errors found in end-to-end runs on 10 real companies. Each entry gives its cause class, fix and regression test. Example: home-visit nursing ads were counted as business travel. The cause was extraction granularity, fixed with prompt v3's `travel_scope` and a rule change.
+This loop has already been run on live data. Section 9 of [`llm_experiments.md`](llm_experiments/README.md) lists six errors found in end-to-end runs on 10 real companies. Each entry gives its cause class, fix and regression test. Example: home-visit nursing ads were counted as business travel. The cause was extraction granularity, fixed with prompt v3's `travel_scope` and a rule change.
 
 Reviewer approval alone is never used as a measure of accuracy.
 

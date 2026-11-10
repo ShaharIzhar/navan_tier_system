@@ -79,6 +79,11 @@ def _run_dict(r: ResearchRun, include_raw: bool = False) -> dict:
     return d
 
 
+def _audit_dict(e) -> dict:
+    return {"id": e.id, "entity_type": e.entity_type, "entity_id": e.entity_id, "action": e.action,
+            "actor": e.actor, "details": e.details, "created_at": e.created_at.isoformat()}
+
+
 def _proposal_dict(p: TierProposal) -> dict:
     return {
         "id": p.id, "prospect_id": p.prospect_id, "assessment_id": p.assessment_id, "stage": p.stage,
@@ -202,11 +207,7 @@ def get_prospect(prospect_id: str, session: Session = Depends(get_session)):
             if act else {"received": False, "exists": False}
         ),
         "day30_pending": bool(act and act.released_at is None),
-        "audit": [
-            {"id": e.id, "entity_type": e.entity_type, "entity_id": e.entity_id, "action": e.action,
-             "actor": e.actor, "details": e.details, "created_at": e.created_at.isoformat()}
-            for e in audit_rows
-        ],
+        "audit": [_audit_dict(e) for e in audit_rows],
     }
 
 
@@ -418,11 +419,7 @@ def get_proposal(proposal_id: int, session: Session = Depends(get_session)):
              "tier_before": d.tier_before, "tier_after": d.tier_after, "created_at": d.created_at.isoformat()}
             for d in decisions
         ],
-        "audit": [
-            {"id": e.id, "entity_type": e.entity_type, "entity_id": e.entity_id, "action": e.action,
-             "actor": e.actor, "details": e.details, "created_at": e.created_at.isoformat()}
-            for e in audit_rows
-        ],
+        "audit": [_audit_dict(e) for e in audit_rows],
     }
 
 

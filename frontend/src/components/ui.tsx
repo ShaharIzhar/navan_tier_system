@@ -269,6 +269,23 @@ export function Modal({ title, onClose, children, wide = false, actions }: {
 const REVIEWER_KEY = 'ngi.reviewer'
 const DEFAULT_REVIEWER = 'Employee 23' // placeholder identity for the prototype (no login)
 
+/** Closes a pop-up when the user clicks outside it or presses Escape. Attach the returned ref to the pop-up's wrapper. */
+export function useDismiss(open: boolean, close: () => void) {
+  const ref = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if (!open) return
+    const onClick = (e: MouseEvent) => ref.current && !ref.current.contains(e.target as Node) && close()
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && close()
+    document.addEventListener('mousedown', onClick)
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('mousedown', onClick)
+      document.removeEventListener('keydown', onKey)
+    }
+  }, [open, close])
+  return ref
+}
+
 export function useReviewer(): [string, (v: string) => void] {
   const read = () => {
     try {

@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useState } from 'react'
+import { useDismiss } from './ui'
 
 export type Option = { value: string; label: string }
 
@@ -16,18 +17,7 @@ export default function MultiSelect({ label, options, selected, onChange, allLab
   shortLabels?: Record<string, string>
 }) {
   const [open, setOpen] = useState(false)
-  const ref = useRef<HTMLDivElement>(null)
-  useEffect(() => {
-    if (!open) return
-    const close = (e: MouseEvent) => ref.current && !ref.current.contains(e.target as Node) && setOpen(false)
-    const esc = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false)
-    document.addEventListener('mousedown', close)
-    document.addEventListener('keydown', esc)
-    return () => {
-      document.removeEventListener('mousedown', close)
-      document.removeEventListener('keydown', esc)
-    }
-  }, [open])
+  const ref = useDismiss(open, useCallback(() => setOpen(false), []))
 
   // [] = all ticked (no filter). [NONE] = nothing ticked (shows no rows). Otherwise the ticked values.
   const all = options.map((o) => o.value)
