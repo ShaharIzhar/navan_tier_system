@@ -57,14 +57,10 @@ cd frontend && npm test
 
 ## Screenshots
 
-**All companies:** tiers, flags and attention levels, with a proposed tier change.
+<p>
+  <a href="docs/screenshots/companies.png"><img src="docs/screenshots/companies.png" width="32%" alt="All companies"></a>
+  <a href="docs/screenshots/company.png"><img src="docs/screenshots/company.png" width="32%" alt="Company page"></a>
+  <a href="docs/screenshots/tier-review.png"><img src="docs/screenshots/tier-review.png" width="32%" alt="Tier review"></a>
+</p>
 
-![All companies](docs/screenshots/companies.png)
-
-**Company page:** values used by the rules next to what research found, flags with reasons, research coverage and Day 30 activity.
-
-![Company page](docs/screenshots/company.png)
-
-**Tier review:** AI summary, reasons, evidence with sources and the decision history.
-
-![Tier review](docs/screenshots/tier-review.png)
+All companies · Company page · Tier review (click to enlarge)
