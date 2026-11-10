@@ -1,6 +1,6 @@
 # LLM prompt testing and refinement
 
-**Author:** Shahar Izhar · **Model:** Claude Haiku 5.5 (`claude-haiku-5-5`) with Anthropic's server-side web search tool (`web_search_20250305`) · **Run on:** 8 November 2026
+**Model:** Claude Haiku 5.5 (`claude-haiku-5-5`) with Anthropic's server-side web search tool (`web_search_20250305`) · **Run on:** 8 November 2026
 
 Everything below comes from real API runs. The raw, unedited outputs are saved in [`runs/v1/`](runs/v1), [`v2/`](runs/v2) and [`v3/`](runs/v3). Sections 1–8 cover v1 → v2; section 9 covers the second iteration (v3), driven by errors found in live app runs. Each file holds:
 - the exact system and user prompt

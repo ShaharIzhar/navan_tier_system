@@ -1,7 +1,5 @@
 # Representative cases (live research, 8 November 2026)
 
-**Author:** Shahar Izhar
-
 **How these were produced.** All 10 demo companies were researched live with prompt v3 (Claude Haiku 5.5 + web search).
 
 > **Version note:** these cases come from the v3 runs (all 8 fields in standard research). Standard research is now v4 (5 fields: industry, locations, employees, funding, hiring), and travel requirements, expansion and support complexity come from Deep Research. The rules are unchanged; a company's travel findings now appear after Deep Research instead of standard research. See [`llm_experiments.md` §11](llm_experiments/README.md). Every source below is a URL that the search tool actually returned in that run; the app drops any other URL automatically.

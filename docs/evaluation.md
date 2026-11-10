@@ -2,8 +2,6 @@
 
 > **Note:** there is no Reports page in the UI yet. Everything referenced below as "`/api/reports` → …" is already computed by the backend and returned by `GET /api/reports`; the section names are the keys in that response.
 
-**Author:** Shahar Izhar
-
 This page explains how to tell whether Navan Growth Intelligence is reliable and useful. It separates what the prototype can show today from what needs real outcomes. The dataset is fictional and has no verified tier outcomes, so **no accuracy number is reported anywhere in this project**.
 
 ## 1. What "right" means

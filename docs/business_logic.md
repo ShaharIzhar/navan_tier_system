@@ -5,8 +5,6 @@ Only the baseline tier thresholds come from the assignment. Everything else here
 attention levels, staleness, Day 30 thresholds) is a **prototype policy**: configurable in
 `backend/app/config.py`, not calibrated against real outcomes.
 
-The submitted flowchart is [`business-logic.excalidraw`](business-logic.excalidraw). The diagram below is a text version that renders on GitHub.
-
 ## Flow at a glance
 
 Blue = deterministic code, purple = AI (LLM + web search), green = human decision. Nothing on the AI path can change a tier.
