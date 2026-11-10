@@ -2,34 +2,46 @@
 
 An internal tool that researches company travel potential, flags cases needing attention, and lets a salesperson review proposed support-tier changes.
 
-**AI gathers evidence. Code applies rules. Humans approve tier changes.**
+Requires Python 3.11+ and Node 20+. Both options use two terminals and open at **http://localhost:5173**.
 
-Company names and domains are real. GBV, signup employee estimates, tiers and Day 30 activity are **fictional exercise data**.
-
-## Run locally
-
-Requires Python 3.11+ and Node 20+. Run these from the repository root in two separate terminals:
+## Option 1: Demo (no API key)
 
 ```bash
-# Terminal 1: backend
-cd backend
+git clone https://github.com/ShaharIzhar/navan_tier_system.git
+cd navan_tier_system/backend
 python3 -m venv .venv
 .venv/bin/pip install -r requirements.txt
 .venv/bin/uvicorn app.main:app --port 8000
 ```
 
 ```bash
-# Terminal 2: frontend
+# second terminal, from the navan_tier_system folder
 cd frontend
 npm install
 npm run dev
 ```
 
-Open **http://localhost:5173**.
+A fresh database loads recorded real research for 16 companies, plus example reviews and Day 30 activity. Recordings are labelled **Recorded** and go through the same validation and rules as live research. Some recordings use earlier prompt versions. **Demo mode** shows at the bottom of the sidebar.
 
-**No API key needed for the demo.** A fresh database loads recorded real research for 16 companies, including the cases in the accompanying paper, plus example reviews and Day 30 activity. Recordings are labelled **Recorded** and pass through the same validation and rules as live research. Some recordings use earlier prompt versions; the paper's evaluation describes the assessments reviewed at that time.
+## Option 2: Live research (with an Anthropic API key)
 
-**For live research:** copy `backend/.env.example` to `backend/.env`, set `ANTHROPIC_API_KEY`, then restart the backend. Live research uses Anthropic API credit. Existing demo data remains. Other settings are documented in `.env.example`.
+```bash
+git clone https://github.com/ShaharIzhar/navan_tier_system.git
+cd navan_tier_system/backend
+python3 -m venv .venv
+.venv/bin/pip install -r requirements.txt
+cp .env.example .env            # then set ANTHROPIC_API_KEY=... in backend/.env
+.venv/bin/uvicorn app.main:app --port 8000
+```
+
+```bash
+# second terminal, from the navan_tier_system folder
+cd frontend
+npm install
+npm run dev
+```
+
+Research then calls Claude Haiku with web search, which uses Anthropic API credit. If you ran the demo first, delete `backend/navan_growth.db` before starting to begin with a clean database. Other settings are in `backend/.env.example`.
 
 ## Try the demo
 
