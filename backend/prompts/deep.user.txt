@@ -1,6 +1,9 @@
 Company name: {company_name}
 Website domain: {domain}
 
+Signup inputs (what the company or our data provider reported at signup):
+{signup}
+
 Fields to investigate (and why):
 {focus}
 

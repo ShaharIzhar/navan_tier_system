@@ -59,11 +59,12 @@ def build_standard_prompt(company_name: str, domain: str, version: str | None = 
     return v, read(spec["system"]), user
 
 
-def build_deep_prompt(company_name: str, domain: str, focus: dict[str, str], existing: list[dict]) -> tuple[str, str]:
+def build_deep_prompt(company_name: str, domain: str, focus: dict[str, str], existing: list[dict],
+                      signup: str = "(not provided)") -> tuple[str, str]:
     spec = manifest()["deep"]
     focus_txt = "\n".join(f"- {f} ({RESEARCH_FIELDS.get(f, f)}): {why}" for f, why in focus.items())
     existing_txt = json.dumps(existing, indent=1)[:12000] if existing else "(none)"
-    user = read(spec["user"]).format(company_name=company_name, domain=domain, focus=focus_txt,
+    user = read(spec["user"]).format(company_name=company_name, domain=domain, signup=signup, focus=focus_txt,
                                      existing=existing_txt, shape=_shape(spec["shape"]))
     return read(spec["system"]), user
 

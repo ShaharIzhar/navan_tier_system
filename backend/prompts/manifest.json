@@ -49,11 +49,12 @@
     "placeholders": [
       "company_name",
       "domain",
+      "signup",
       "focus",
       "existing",
       "shape"
     ],
-    "note": "Deep Research: comprehensive second pass over all 8 fields, reusing what is already known.",
+    "note": "Deep Research: comprehensive second pass over all 8 fields, reusing what is already known. Compares signup inputs with public research (source dates, estimates, different entities) and separates explicit business-travel requirements from indirect growth signals.",
     "fields": "all"
   },
   "repair": {

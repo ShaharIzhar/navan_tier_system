@@ -122,7 +122,12 @@ def run_deep_research(session: Session, prospect_id: str, focus_fields: Optional
                                                       Evidence.superseded_by == None,  # noqa: E711
                                                       Evidence.origin == "ai_research"))
     ]
-    system, user = prompts.build_deep_prompt(prospect.company_name, prospect.domain, focus, existing)
+    # Day 0 inputs only (never Day 30 activity).
+    signup = "\n".join([
+        f"- Reported annual GBV: ${prospect.entered_gbv_usd:,.0f}" if prospect.entered_gbv_usd is not None else "- Reported annual GBV: not given",
+        f"- Employee estimate from data provider (ZoomInfo): {prospect.zi_employees:,}" if prospect.zi_employees else "- Employee estimate from data provider: none",
+    ])
+    system, user = prompts.build_deep_prompt(prospect.company_name, prospect.domain, focus, existing, signup)
     return _execute(session, prospect, "deep", f"deep-{prompts.current_version()}", system, user,
                     config.DEEP_MAX_SEARCHES, focus=list(focus), actor=actor,
                     existing_run=session.get(ResearchRun, run_id) if run_id else None)
