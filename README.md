@@ -57,11 +57,21 @@ cd frontend && npm test
 
 ## Screenshots
 
-<p align="center">
-  <a href="docs/screenshots/companies.png"><img src="docs/screenshots/companies.png" width="66%" alt="All companies"></a>
-</p>
-<p align="center">
-  <a href="docs/screenshots/company.png"><img src="docs/screenshots/company.png" width="40%" alt="Company page"></a>
-  <a href="docs/screenshots/tier-review.png"><img src="docs/screenshots/tier-review.png" width="40%" alt="Tier review"></a>
-</p>
-<p align="center">All companies · Company page · Tier review (click to enlarge)</p>
+<table>
+  <tr>
+    <td colspan="2" align="center">
+      <a href="docs/screenshots/companies.png"><img src="docs/screenshots/companies.png" width="75%" alt="All companies"></a><br>
+      <b>All companies:</b> every prospect with its tier, flags and attention level, including proposed tier changes.
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center" valign="top">
+      <a href="docs/screenshots/company.png"><img src="docs/screenshots/company.png" alt="Company page"></a><br>
+      <b>Company page:</b> values used by the rules next to what research found, with flags, sources and Day 30 activity.
+    </td>
+    <td width="50%" align="center" valign="top">
+      <a href="docs/screenshots/tier-review.png"><img src="docs/screenshots/tier-review.png" alt="Tier review"></a><br>
+      <b>Tier review:</b> AI summary, evidence and caveats, with the reviewer's decision recorded in the history.
+    </td>
+  </tr>
+</table>
