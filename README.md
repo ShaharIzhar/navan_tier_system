@@ -57,10 +57,11 @@ cd frontend && npm test
 
 ## Screenshots
 
-<p>
-  <a href="docs/screenshots/companies.png"><img src="docs/screenshots/companies.png" width="32%" alt="All companies"></a>
-  <a href="docs/screenshots/company.png"><img src="docs/screenshots/company.png" width="32%" alt="Company page"></a>
-  <a href="docs/screenshots/tier-review.png"><img src="docs/screenshots/tier-review.png" width="32%" alt="Tier review"></a>
+<p align="center">
+  <a href="docs/screenshots/companies.png"><img src="docs/screenshots/companies.png" width="66%" alt="All companies"></a>
 </p>
-
-All companies · Company page · Tier review (click to enlarge)
+<p align="center">
+  <a href="docs/screenshots/company.png"><img src="docs/screenshots/company.png" width="40%" alt="Company page"></a>
+  <a href="docs/screenshots/tier-review.png"><img src="docs/screenshots/tier-review.png" width="40%" alt="Tier review"></a>
+</p>
+<p align="center">All companies · Company page · Tier review (click to enlarge)</p>
