@@ -19,36 +19,63 @@ This repository is one of three complementary deliverables:
 
 ## What a salesperson sees
 
+- **All companies** (the start page): every prospect with its tier, flags and attention level, with search and filters.
 - **Review queue:** companies grouped into Review Now, Review Suggested and Monitor, most important first.
 - **Company page:** the values the tier rules use next to what research found, the flags and their reasons, sources, Day 30 activity, and any suggested tier change.
 - **Tier review:** a pull-request-style page with an AI summary (advisory only), the evidence and caveats, and Approve / Reject / Comment. Every decision is logged with the reviewer's name.
 
 ## Quick start
 
-Requirements: Python 3.11+ and Node 20+.
+Requirements: Python 3.11+ and Node 20+. Pick one of the two options. Both use two terminals: the backend on port 8000 and the frontend on http://localhost:5173.
+
+### Option A: demo, no API key
+
+Nothing to configure. The app replays recorded real Claude runs, so you don't need an Anthropic account.
 
 ```bash
-# 1. Backend
+# Terminal 1: backend
 cd backend
 python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
-cp .env.example .env          # optional: add ANTHROPIC_API_KEY for live research
 .venv/bin/uvicorn app.main:app --port 8000
 
-# 2. Frontend (new terminal)
+# Terminal 2: frontend
 cd frontend
 npm install
-npm run dev                    # http://localhost:5173
+npm run dev                    # open http://localhost:5173
 ```
 
-On first start the backend imports `data/prospects.csv` and gives every company a rules-only assessment. Set your name in the user menu (top right); it is recorded in the audit trail.
+The sidebar shows **Demo mode** at the bottom. On first start the backend fills a fresh database so every screen has something to show:
+- **Research for 16 companies** (P-001, P-002, P-007, P-009, P-010, P-012, P-018, P-019, P-021, P-025, P-026, P-028, P-030, P-032, P-033, P-041), replayed from `data/demo_snapshot.json`. Seven of them also have Deep Research, including IMU Biosciences.
+- **Two tier proposals** backed by that research. IMU Biosciences (Tier 2 → Tier 3) is left open for you. Retail Merchant Services (Tier 3 → Tier 2) is already approved by a reviewer named *Demo reviewer (seeded)*, so an applied tier change is visible.
+- **Day 30 activity received for 5 companies.** The other 5 wait for you to click **Receive all Day 30 activity**.
+- **Recorded AI summaries** for both proposals.
 
-### Demo mode (no API key)
+Notes on demo mode:
+- Replays go through the same validation, evidence storage and rules as live research, and are labelled **Recorded**.
+- Ten of the standard-research recordings were made with the earlier v3 prompt (all 8 fields), so they can show travel findings that live v4 research leaves to Deep Research. The other six use the current v4 prompt.
+- Researching any other company shows a message asking for an API key.
+- To start the demo again from scratch, stop the backend and delete `backend/navan_growth.db`.
 
-Without `ANTHROPIC_API_KEY`, the backend replays **recorded real Claude runs** from `data/demo_snapshot.json` for 10 companies (P-002, P-007, P-009, P-018, P-019, P-021, P-025, P-030, P-033, P-041) and one recorded AI summary.
-- The recordings were made with the earlier v3 research prompt (all 8 fields in standard research), so replayed standard research can show travel findings that live v4 research leaves to Deep Research.
-- Replays go through the same validation, evidence storage and rules as live research.
-- Replayed items are labelled **Recorded** and a banner shows that demo mode is on.
-- Other companies show an error if you click research; add a key to research them live.
+### Option B: live research, with your own API key
+
+Same steps, plus a key. Research then calls Claude Haiku 5.5 with web search, which uses your Anthropic API credit.
+
+```bash
+# Terminal 1: backend
+cd backend
+python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+cp .env.example .env           # then set ANTHROPIC_API_KEY=... in backend/.env
+.venv/bin/uvicorn app.main:app --port 8000
+
+# Terminal 2: frontend
+cd frontend
+npm install
+npm run dev                    # open http://localhost:5173
+```
+
+With a key, the database starts with rules-only assessments and no research. Click **Run standard research** on any company, or set `AUTO_RESEARCH_ON_IMPORT=true` to research the 16 demo companies on start. Never commit `backend/.env` (it is gitignored). If you ran the demo first, delete `backend/navan_growth.db` to start clean.
+
+In both options, set your name in the user menu (top right); it is recorded in the audit trail.
 
 ### Configuration
 
@@ -58,7 +85,7 @@ Set in `backend/.env` (see `backend/.env.example`):
 |---|---|---|
 | `ANTHROPIC_API_KEY` | empty | Enables live research (Claude Haiku 5.5 with web search) |
 | `DEMO_REPLAY` | `true` | Replays recordings when there is no key |
-| `AUTO_RESEARCH_ON_IMPORT` | `false` | With a key, researches the 10 demo companies on start |
+| `AUTO_RESEARCH_ON_IMPORT` | `false` | With a key, researches the 16 demo companies on start |
 | `RESEARCH_MODEL` | `claude-haiku-5-5` | Research model |
 
 Policy thresholds live in `backend/app/config.py`.
@@ -72,12 +99,13 @@ cd frontend && npm test
 
 ## A short walkthrough
 
-These steps work in demo mode on a fresh database.
+These steps work in demo mode (Option A) on a fresh database.
 
 1. **Conflicting headcount (IMU Biosciences, P-007).** It is Tier 2 only because the enrichment says 155 employees (GBV $48K). Research finds 25 (PitchBook) and 53 (Built In), plus an 11–50 LinkedIn band. The figures straddle 150, so the system raises a material Data Conflict and proposes Tier 2 → Tier 3. Open the review and approve or reject it.
-2. **Manual value, no AI (Quantum Motion, P-011).** Headcount is missing, so it is a provisional Tier 3. Edit Employees to 180: the rules rerun with 0 AI calls and propose Tier 3 → Tier 2. The applied tier changes only if someone approves.
-3. **Day 30 activity.** On *All companies*, click **Receive all Day 30 activity**. Strong activity on Tier 2 companies (for example NexGen Cloud, Puttshack) shows as Travel Potential (Review Suggested). It never proposes Tier 1. The Day 0 assessment stays unchanged in each company's history.
-4. **Restart the backend.** Decisions, evidence and audit events persist (SQLite).
+2. **An approved change (Retail Merchant Services, P-026).** It shows *T2 (was T3)*: reported GBV is $18K, but research estimates of 176 to 333 employees meet the 150-employee rule. Its tier review shows the seeded approval in the decision history.
+3. **Manual value, no AI (Quantum Motion, P-011).** Headcount is missing, so it is a provisional Tier 3. Edit Employees to 180: the rules rerun with 0 AI calls and propose Tier 3 → Tier 2. The applied tier changes only if someone approves.
+4. **Day 30 activity.** NexGen Cloud and Greyparrot already show strong activity as Travel Potential (Review Suggested), and Bionical's decline is recorded as weakening its signup signal. On *All companies*, click **Receive all Day 30 activity** for the rest (for example Puttshack). Day 30 never proposes Tier 1, and the Day 0 assessment stays unchanged in each company's history.
+5. **Restart the backend.** Decisions, evidence and audit events persist (SQLite).
 
 ## How it works (overview)
 
@@ -95,7 +123,7 @@ All prompts are plain text files in [`backend/prompts/`](backend/prompts/). Ther
 
 | Task | Files | When it runs | What it gets | What it returns |
 |---|---|---|---|---|
-| Standard research (v4) | `research.system.txt`, `research.user.txt` | When someone clicks it (or for the 10 demo companies on start, if `AUTO_RESEARCH_ON_IMPORT` is on) | Company name and domain | Findings with sources for 5 routing fields: industry, locations, employees, funding, hiring |
+| Standard research (v4) | `research.system.txt`, `research.user.txt` | When someone clicks it (or for the 16 demo companies on start, if `AUTO_RESEARCH_ON_IMPORT` is on) | Company name and domain | Findings with sources for 5 routing fields: industry, locations, employees, funding, hiring |
 | Deep Research | `deep.system.txt`, `deep.user.txt` | Only on request, after a confirmation | Name, domain, signup inputs, what is already known | Findings for all 8 fields, including travel requirements, with gaps and conflicts explained |
 | JSON repair | `repair.user.txt` | Once, if the AI's answer fails validation | The validation error | The same answer as valid JSON |
 | AI summary (judge-v4) | `judge.system.txt`, `judge.user.txt` | When a tier review page opens (cached) | The proposal's facts | One-sentence reason, support level, main doubt (advisory only) |

@@ -44,12 +44,12 @@ PRICE_OUTPUT_PER_MTOK = float(os.getenv("PRICE_OUTPUT_PER_MTOK", "0.50"))
 PRICE_PER_WEB_SEARCH = float(os.getenv("PRICE_PER_WEB_SEARCH", "0.01"))  # $10 / 1,000
 
 # Companies that get automatic standard research on import (cost control).
-# The six PRD priority cases plus four contrasting ones.
+# The six PRD priority cases plus ten contrasting ones. Also the demo-mode recording set.
 AUTO_RESEARCH_IDS = [
     s.strip()
     for s in os.getenv(
         "AUTO_RESEARCH_IDS",
-        "P-002,P-007,P-009,P-018,P-030,P-033,P-019,P-021,P-025,P-041",
+        "P-001,P-002,P-007,P-009,P-010,P-012,P-018,P-019,P-021,P-025,P-026,P-028,P-030,P-032,P-033,P-041",
     ).split(",")
     if s.strip()
 ]

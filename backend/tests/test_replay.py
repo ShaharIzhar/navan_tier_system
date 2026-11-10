@@ -64,3 +64,36 @@ def test_committed_snapshot_is_valid_and_has_no_secrets():
     for r in snap["runs"]:
         parse_research_output(r["raw_text"])  # every recording still parses with the current schema
         assert r["search_results"], r["prospect_id"]
+
+
+def test_fresh_demo_database_is_seeded_once_with_real_recordings(session, monkeypatch):
+    """A fresh no-key database: every recording replays, the seed approves one real proposal and
+    receives some Day 30 activity, IMU stays open for the reviewer, and recorded AI summaries pass
+    the number check against the demo's own facts."""
+    from app.demo_seed import DAY30_RECEIVED, DEMO_REVIEWER, seed_demo
+    from app.main import _replay_recordings
+    from app.models import PostSignupActivity, Prospect, ReviewDecision, TierProposal
+    from app.research.judge import build_facts, get_or_create_judgement
+
+    monkeypatch.setattr(config, "ANTHROPIC_API_KEY", "")
+    monkeypatch.setattr(config, "DEMO_REPLAY", True)
+    rs.set_client_factory(rs._default_client)
+    assert replay.provider_mode() == "replay"
+
+    _replay_recordings(session)
+    assert seed_demo(session) is True
+    assert seed_demo(session) is False  # only once
+
+    researched = {e.prospect_id for e in session.exec(select(Evidence))}
+    assert len(researched) >= 10
+    assert session.get(Prospect, "P-026").applied_tier == 2
+    decision = session.exec(select(ReviewDecision)).one()
+    assert decision.reviewer == DEMO_REVIEWER and decision.action == "approve"
+    imu = session.exec(select(TierProposal).where(TierProposal.prospect_id == "P-007")).one()
+    assert imu.status == "open"
+    received = {a.prospect_id for a in session.exec(select(PostSignupActivity)) if a.released_at}
+    assert received == set(DAY30_RECEIVED)
+
+    for tp in session.exec(select(TierProposal)):
+        j = get_or_create_judgement(session, tp.id)
+        assert j["status"] == "ok" and j["replayed"] and j["grounded"], (tp.prospect_id, j["summary"], j["ungrounded_numbers"], build_facts(session, tp))

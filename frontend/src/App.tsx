@@ -1,8 +1,7 @@
-import { NavLink, Route, Routes } from 'react-router-dom'
+import { Navigate, NavLink, Route, Routes } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { api, type Meta } from './api'
 import UserMenu from './components/UserMenu'
-import { Info } from './components/Section'
 import ReviewQueue from './pages/ReviewQueue'
 import Companies from './pages/Companies'
 import CompanyDetail from './pages/CompanyDetail'
@@ -22,26 +21,27 @@ export default function App() {
           Navan Growth Intelligence
           <small>Prospect tier review · prototype</small>
         </div>
-        <NavLink to="/" end className="navlink">Review queue</NavLink>
         <NavLink to="/companies" className="navlink">All companies</NavLink>
+        <NavLink to="/queue" className="navlink">Review queue</NavLink>
         <NavLink to="/reviews" className="navlink">Tier reviews</NavLink>
-      </nav>
-      <main className="main">
-        <div className="topbar"><UserMenu /></div>
         {meta?.provider.mode === 'replay' && (
-          <div className="callout synthetic banner small row">
-            <strong>Demo mode</strong> · no API key, so research shows <strong>recorded</strong> real Claude runs (8 Nov 2026).
-            <Info text="Shows saved research from 8 Nov. Add an API key for live research." />
+          <div className="sidebar-mode demo small" role="status">
+            <strong>Demo mode</strong>
+            <span>No API key. Research shows recorded real runs for {meta.provider.recorded_companies?.length ?? 0} companies.</span>
           </div>
         )}
         {meta?.provider.mode === 'off' && (
-          <div className="callout warn banner small row">
-            Live research is off (no API key).
-            <Info text="Everything else still works." />
+          <div className="sidebar-mode off small" role="status">
+            <strong>Live research off</strong>
+            <span>No API key. Everything else still works.</span>
           </div>
         )}
+      </nav>
+      <main className="main">
+        <div className="topbar"><UserMenu /></div>
         <Routes>
-          <Route path="/" element={<ReviewQueue />} />
+          <Route path="/" element={<Navigate to="/companies" replace />} />
+          <Route path="/queue" element={<ReviewQueue />} />
           <Route path="/companies" element={<Companies />} />
           <Route path="/companies/:id" element={<CompanyDetail />} />
           <Route path="/reviews" element={<Reviews />} />

@@ -85,7 +85,7 @@ The AI's output is not trusted as-is:
 
 **Cost controls:**
 - Results are cached per company and prompt version label.
-- Standard research runs only for a configured demo set of 10 companies, or when someone clicks it.
+- Standard research runs only for a configured demo set of 16 companies, or when someone clicks it.
 - **Deep Research** runs only after a confirmation dialog explaining what it will do. It reuses existing evidence as context and adds new evidence without deleting old evidence. Once it has run, the button is turned off and it's no longer suggested.
 - Each run records tokens, searches and an approximate cost for the team running the tool (not shown to salespeople).
 - A failed run whose search results were saved can be re-checked later without a new AI call (`reprocess_run`), e.g. after a validation fix.
@@ -151,4 +151,4 @@ Day 30 results on the 10 dataset rows are in [`cases.md`](cases.md#day-30-result
 | Day 30 data is "received" by clicking a button | Simulates arrival; the CSV contains it from the start |
 | Research headcount never silently replaces enrichment | A disagreement becomes a conflict and a proposal for a human |
 | Priority = impact → evidence strength → actionability | Shown as High/Medium/Low, never as a probability or dollar figure |
-| Auto-research covers 10 demo companies | Keeps API cost bounded. `AUTO_RESEARCH_ON_IMPORT=true` researches the demo set on start, and any company can be researched with one click |
+| Auto-research covers 16 demo companies | Keeps API cost bounded. `AUTO_RESEARCH_ON_IMPORT=true` researches the demo set on start, and any company can be researched with one click |

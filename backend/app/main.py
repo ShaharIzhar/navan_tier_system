@@ -71,6 +71,9 @@ async def lifespan(app: FastAPI):
 
         if provider_mode() == "replay":
             _replay_recordings(session)
+            from .demo_seed import seed_demo
+
+            seed_demo(session)
     if config.AUTO_RESEARCH_ON_IMPORT and config.ANTHROPIC_API_KEY:
         threading.Thread(target=_auto_research, daemon=True).start()
     yield

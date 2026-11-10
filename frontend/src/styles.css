@@ -418,3 +418,10 @@ a, a:visited, .more, details > summary, button.ghost { color: var(--link); }
 /* After the pill-button theme: keep the title's hit area square-ish so the focus ring never cuts the text. */
 button.section-toggle { border-radius: 8px; padding: 2px 8px 2px 4px; margin: -2px -8px -2px -4px; }
 button.section-toggle:focus-visible { outline: 2px solid var(--link); outline-offset: 0; }
+
+/* Demo / research-off notice pinned to the bottom of the sidebar */
+.sidebar-mode { margin-top: auto; display: flex; flex-direction: column; gap: 4px; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--border); line-height: 1.4; }
+.sidebar-mode strong { font-size: 13px; }
+.sidebar-mode.demo { background: var(--violet-soft); border-color: #d8c9f6; color: #4a2a91; }
+.sidebar-mode.off { background: var(--amber-soft); border-color: #f3d39b; color: #6b3d00; }
+@media (max-width: 1000px) { .sidebar-mode { margin-top: 8px; flex: 1 1 100%; align-self: flex-start; } }
