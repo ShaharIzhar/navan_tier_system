@@ -43,15 +43,6 @@ npm run dev
 
 Research then calls Claude Haiku with web search, which uses Anthropic API credit. If you ran the demo first, delete `backend/navan_growth.db` before starting to begin with a clean database. Other settings are in `backend/.env.example`.
 
-## Try the demo
-
-- **IMU Biosciences (P-007):** inspect conflicting headcounts and approve, reject or comment on the proposed downgrade.
-- **Retail Merchant Services (P-026):** inspect a seeded approval and its decision history.
-- **Quantum Motion (P-011):** edit employee count to 180; rules reassess immediately without an AI call. Tier changes still require approval.
-- **Day 30:** use **Receive all Day 30 activity** to reassess remaining cases. Signup assessments stay in history; booking counts do not establish annual GBV.
-
-Set your reviewer name in the top-right user menu. Decisions and evidence persist in SQLite.
-
 ## Tests
 
 Run each command from the repository root in a separate terminal:
@@ -63,14 +54,3 @@ cd backend && .venv/bin/python -m pytest -q
 ```bash
 cd frontend && npm test
 ```
-
-## Submission and documentation
-
-The accompanying **research and AI integration paper** covers the hypothesis, manual cases, prompt/output examples and initial evaluation.
-
-- [Business rules and flowchart](docs/business_logic.md)
-- [AI prompts](backend/prompts/) · [Experiments and refinement](docs/llm_experiments/README.md)
-- [Evaluation framework](docs/evaluation.md) · [Research cases](docs/cases.md)
-- [Developer guide](docs/developer_guide.md)
-
-**Stack:** FastAPI, SQLModel/SQLite, React, TypeScript and Anthropic web search.
