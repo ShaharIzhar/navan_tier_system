@@ -1,8 +1,5 @@
 # Navan Growth Intelligence
 
-**Author:** Shahar Izhar
-**Submission for:** Navan, Full-Stack Software Engineer, Growth AI Solutions (home assignment)
-
 An internal Growth tool that checks whether a newly signed-up company's support tier fits its business-travel potential, explains why, and lets a person decide what to do.
 
 **AI gathers evidence. Code applies the rules. Humans approve tier changes.**
