@@ -5,7 +5,7 @@ Facts about this proposal:
 
 Return JSON:
 {{
-  "summary": "ONE plain-English sentence, max 35 words, explaining WHY the tier change is proposed. Start with 'Upgrade:' or 'Downgrade:'. Then: what the evidence in 'basis' shows, and why that points to the proposed tier. Signup example: 'Downgrade: Tier 2 rests only on X; sources show Y, which is below Z, so the rules give Tier 3.' Day 30 example: 'Upgrade: N travelers and M bookings in the first 30 days is above the policy's K-traveler Tier 1 level, though reported GBV is under $500K.' A salesperson must understand it in five seconds.",
+  "summary": "ONE plain-English sentence, max 35 words, explaining WHY the tier change is proposed. Start with 'Upgrade:' or 'Downgrade:'. Then: what the evidence in 'basis' shows, and why that points to the proposed tier. Signup example: 'Downgrade: Tier 2 rests only on X; sources show Y, which is below Z, so the rules give Tier 3.' Day 30 example: 'Upgrade: N travelers and M bookings in the first 30 days is above the policy's K-traveler level for more than Tier 3 support, though reported GBV is under $100K.' A salesperson must understand it in five seconds.",
   "support": "strong | partial | weak  (how well the cited evidence supports the change)",
   "main_doubt": "the single biggest reason it could be wrong, max 15 words"
 }}

@@ -29,7 +29,6 @@ def evaluate_day30(
         "bookings": bookings,
         "trend_pct": trend_pct,
         "material": False,
-        "tier1_candidate": False,
         "weak": False,
         "declining": False,
         "comparison": "neutral",
@@ -45,10 +44,9 @@ def evaluate_day30(
     material = travelers >= config.DAY30_MATERIAL_TRAVELERS or (
         bookings >= config.DAY30_MATERIAL_BOOKINGS and t >= config.DAY30_MATERIAL_TREND_PCT
     )
-    tier1_candidate = travelers >= config.DAY30_TIER1_CANDIDATE_TRAVELERS
     weak = travelers <= config.DAY30_WEAK_TRAVELERS
     declining = trend_pct is not None and trend_pct < 0
-    out.update(material=material, tier1_candidate=tier1_candidate, weak=weak, declining=declining)
+    out.update(material=material, weak=weak, declining=declining)
 
     summary = f"{travelers} travelers and {bookings} bookings in the first 30 days"
     if trend_pct is not None:
@@ -75,27 +73,16 @@ def evaluate_day30(
             "uncertainties": [caveat],
         }
         out["comparison"] = "strengthens" if positive_prior else "new_signal"
-    elif applied_tier == 2 and tier1_candidate:
-        out["flags"].append(_day30_flag("tier_mismatch", "material",
-            [f"Observed activity ({summary}) is at the level this policy treats as a Tier 1 candidate."], []))
-        out["flags"].append(_day30_flag("travel_potential", "moderate", [f"Observed Navan activity: {summary}."], []))
-        out["proposal"] = {
-            "proposal_type": "evidence_override", "from_tier": 2, "proposed_tier": 1,
-            "title": "Day 30 activity suggests Tier 2 → Tier 1 support",
-            "rationale": [f"{summary[0].upper()}{summary[1:]}.",
-                          f"{travelers} travelers is above the {config.DAY30_TIER1_CANDIDATE_TRAVELERS}+ this policy treats as Tier 1-level activity.",
-                          f"Reported GBV{gbv_txt} is below Tier 1's $500K, so this is an exception to the standard rule. A person decides."],
-            "uncertainties": [caveat],
-        }
-        out["comparison"] = "strengthens" if positive_prior else "new_signal"
     elif material and applied_tier == 1:
         out["comparison"] = "consistent"
         out["notes"].append(f"Day 30 activity ({summary}) is consistent with Tier 1 support. No action needed.")
     elif material:
         growing = t >= config.DAY30_MATERIAL_TREND_PCT
-        out["flags"].append(_day30_flag("travel_potential", "moderate" if growing else "low",
+        out["flags"].append(_day30_flag("travel_potential", "moderate" if growing or applied_tier == 2 else "low",
             [f"Observed Navan activity: {summary}. Consistent with the current Tier {applied_tier} support level"
-             + (" and still growing." if growing else ".")], []))
+             + (" and still growing." if growing else ".")]
+            + ([f"Tier 1 depends on reported GBV ($500K+); booking counts can't show that, so no tier change is suggested."]
+               if applied_tier == 2 else []), []))
         out["comparison"] = "strengthens" if positive_prior else "consistent"
     elif not weak and not declining and t >= config.DAY30_MATERIAL_TREND_PCT:
         out["flags"].append(_day30_flag("growth_opportunity", "moderate",

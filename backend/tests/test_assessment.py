@@ -4,7 +4,7 @@ from sqlmodel import select
 from app.assessment.engine import latest_assessment, reassess
 from app.enrichment import EnrichmentError, add_enrichment, add_synthetic_evidence, retract_evidence
 from app.models import Assessment, AuditEvent, Evidence, PostSignupActivity, Prospect, ReviewDecision, TierProposal
-from app.postsignup import release_day30
+from app.postsignup import update_day30, release_day30
 from app.research import service as rs
 from app.reviews.service import ReviewError, decide
 
@@ -239,8 +239,9 @@ def test_day30_does_not_rewrite_day0(session):
     again = session.get(Assessment, day0.id)
     assert (again.id, again.flags, again.attention, again.baseline) == snapshot
     assert a.day30["compared_with_assessment_id"] == day0.id
-    p = session.exec(select(TierProposal).where(TierProposal.prospect_id == "P-018")).one()
-    assert (p.proposal_type, p.stage, p.proposed_tier) == ("evidence_override", "day30", 1)
+    # Day 30 never proposes Tier 1: strong activity on Tier 2 is a flag, not a tier change.
+    assert not session.exec(select(TierProposal).where(TierProposal.prospect_id == "P-018")).all()
+    assert any(f["type"] == "travel_potential" for f in a.flags)
     assert a.accepted_values["gbv_usd"] == 395000  # bookings never become GBV
 
 
@@ -250,17 +251,19 @@ def test_day30_not_used_before_release(session):
     assert not session.exec(select(TierProposal).where(TierProposal.prospect_id == "P-009")).all()
 
 
-def test_day30_release_is_idempotent(session):
-    release_day30(session, "P-009")
-    release_day30(session, "P-009")
-    assert len(session.exec(select(TierProposal).where(TierProposal.prospect_id == "P-009")).all()) == 1
+def test_day30_reassessment_does_not_duplicate_proposals(session):
+    update_day30(session, "P-002", 20, 50, None, "Sam")  # material activity on a Tier 3 company
+    reassess(session, "P-002", trigger="day30")
+    reassess(session, "P-002", trigger="day30")
+    props = session.exec(select(TierProposal).where(TierProposal.prospect_id == "P-002")).all()
+    assert [(p.proposed_tier, p.status) for p in props] == [(2, "open")]
 
 
 def test_day30_outcomes_on_all_rows(session):
     expected = {
         "P-002": ("review_suggested", None), "P-004": ("monitor", None), "P-007": ("review_suggested", None),
-        "P-009": ("review_now", 1), "P-014": (None, None), "P-015": ("monitor", None),
-        "P-018": ("review_now", 1), "P-021": (None, None), "P-025": (None, None), "P-028": ("review_now", 1),
+        "P-009": ("review_suggested", None), "P-014": (None, None), "P-015": ("monitor", None),
+        "P-018": ("review_suggested", None), "P-021": (None, None), "P-025": (None, None), "P-028": ("review_suggested", None),
     }
     for pid, (attention, tier) in expected.items():
         a = release_day30(session, pid)
@@ -271,12 +274,12 @@ def test_day30_outcomes_on_all_rows(session):
 
 
 def test_approved_override_is_not_reverted_by_rules(session):
-    release_day30(session, "P-009")
-    p = session.exec(select(TierProposal).where(TierProposal.prospect_id == "P-009")).one()
-    decide(session, p.id, "approve", "Sam", "Activity supports dedicated AE")
-    reassess(session, "P-009", trigger="manual")
-    assert session.get(Prospect, "P-009").applied_tier == 1
-    assert len(session.exec(select(TierProposal).where(TierProposal.prospect_id == "P-009")).all()) == 1
+    update_day30(session, "P-002", 20, 50, None, "Sam")
+    p = session.exec(select(TierProposal).where(TierProposal.prospect_id == "P-002")).one()
+    decide(session, p.id, "approve", "Sam", "Activity supports more support")
+    reassess(session, "P-002", trigger="manual")
+    assert session.get(Prospect, "P-002").applied_tier == 2
+    assert len(session.exec(select(TierProposal).where(TierProposal.prospect_id == "P-002")).all()) == 1
 
 
 # --- Regressions found by live-research error analysis --------------------------------

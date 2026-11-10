@@ -68,7 +68,7 @@ The "Outcome" column is the Day 0 assessment, i.e. before any Day 30 data arrive
 - **Travel:** a [Deployment Lead posting](https://jobgether.com/offer/6a87c65fa55bd7e3ae1046f8-deployment-lead) requires "extensive global travel to deployment sites" (`business_travel`, observed). It is one posting, so it counts as **one independent source**. That gives a moderate Travel Potential flag: Review Suggested, with no proposal.
 - **Headcount:** research gives 79–117 ([Built In](https://builtin.com/company/nexgen-cloud), [PitchBook](https://pitchbook.com/profiles/company/459299-44)) against 280 from enrichment. GBV of $460K already sets Tier 2, so the conflict is *moderate*.
 - **Growth:** USD.AI GPU financing of [$106M](https://usd.ai/blog/usdai-106m-nexgen-cloud-finland-gpu-financing) (October 2026). The near-threshold GBV makes the growth signal *moderate*, but the system states that growth is not evidence of GBV.
-- **Day 30, for comparison only:** 83 travelers produce a Tier 2 → Tier 1 *evidence-based override* proposal.
+- **Day 30, for comparison only:** 83 travelers give a Travel Potential flag. Day 30 never proposes Tier 1, because Tier 1 depends on reported GBV and booking counts aren't dollars.
 
 ## P-018 Greyparrot: strong travel evidence, but the tier is already right
 

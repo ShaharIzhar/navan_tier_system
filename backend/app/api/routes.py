@@ -155,7 +155,6 @@ def meta():
             "day30_material_travelers": config.DAY30_MATERIAL_TRAVELERS,
             "day30_material_bookings": config.DAY30_MATERIAL_BOOKINGS,
             "day30_material_trend_pct": config.DAY30_MATERIAL_TREND_PCT,
-            "day30_tier1_candidate_travelers": config.DAY30_TIER1_CANDIDATE_TRAVELERS,
             "stale_after_days": config.STALE_AFTER_DAYS,
         },
     }

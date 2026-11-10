@@ -96,4 +96,4 @@ Reviewer approval alone is never used as a measure of accuracy.
 | Calibration of Day 30 thresholds | 10 fictional activity rows; 30 days is not a year |
 | Value of each signal type | Needs outcomes to compare against |
 
-The policy thresholds (Day 30 travelers ≥ 15, ≥ 40 for a Tier 1 candidate, "near threshold" = within 15% of a GBV cut-off, and so on) are **prototype hypotheses**. They are not validated values. They live in `backend/app/config.py`, and the goal is to calibrate them once outcome data exists.
+The policy thresholds (Day 30 travelers ≥ 15, "near threshold" = within 15% of a GBV cut-off, and so on) are **prototype hypotheses**. They are not validated values. They live in `backend/app/config.py`, and the goal is to calibrate them once outcome data exists.

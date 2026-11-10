@@ -63,8 +63,8 @@ def build_facts(session: Session, p: TierProposal) -> dict:
         facts["basis"] = "Day 30 Navan activity (first 30 days on the platform)"
         facts["day30_activity"] = {k: a.day30.get(k) for k in ("travelers", "bookings", "trend_pct")}
         facts["day30_policy"] = {
-            "travelers_for_tier1_level_activity": config.DAY30_TIER1_CANDIDATE_TRAVELERS,
             "travelers_for_more_than_tier3_activity": config.DAY30_MATERIAL_TRAVELERS,
+            "day30_never_proposes_tier1": True,
         }
         facts["note"] = "Booking counts are not dollar GBV."
     else:

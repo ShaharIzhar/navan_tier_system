@@ -52,7 +52,7 @@ def run_checks() -> list[dict]:
     check("No research evidence → no Travel Potential flag", False, any(f["type"] == "travel_potential" for f in flags))
 
     d = evaluate_day30(83, 318, 12, 2, [])
-    check("Day 30: 83 travelers on Tier 2 → Tier 1 override proposal", 1, (d["proposal"] or {}).get("proposed_tier"))
+    check("Day 30: 83 travelers on Tier 2 → no Tier 1 proposal (Tier 1 is GBV-only)", None, d["proposal"])
     d = evaluate_day30(19, 57, 62, 2, [])
     check("Day 30: 19 travelers on Tier 2 → no proposal", None, d["proposal"])
     d = evaluate_day30(20, 50, 30, 3, [])

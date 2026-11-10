@@ -65,12 +65,12 @@
     "note": "Sent once when the AI's JSON fails validation."
   },
   "judge": {
-    "version": "judge-v3",
+    "version": "judge-v4",
     "system": "judge.system.txt",
     "user": "judge.user.txt",
     "placeholders": [
       "facts"
     ],
-    "note": "AI judge: one-sentence why, support level, main doubt. v2 requires 'rests on X, evidence shows Y, so Tier Z'. v3 explains the case FOR the proposal from its basis (Day 30 activity vs signup evidence) and caps Day 30 support at partial."
+    "note": "AI judge: one-sentence why, support level, main doubt. v2 requires 'rests on X, evidence shows Y, so Tier Z'. v3 explains the case FOR the proposal from its basis (Day 30 activity vs signup evidence) and caps Day 30 support at partial. v4: Day 30 example is Tier 3 -> Tier 2 (Day 30 no longer proposes Tier 1)."
   }
 }

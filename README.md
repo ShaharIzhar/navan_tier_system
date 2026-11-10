@@ -64,7 +64,7 @@ cd frontend && npm test                          # 14 smoke tests
 
 1. **Day 0 conflict (IMU Biosciences, P-007).** Open the company. It is Tier 2 *only* because the enrichment says 155 employees ($48K GBV). Public research finds 25 (PitchBook) and 53 (Built In) employees, plus an 11-50 LinkedIn band. The two straddle 150, so the system raises a **material Data Conflict** and a Tier 2 → Tier 3 standard-rule proposal. Open the review and reject or approve it with a comment.
 2. **Manual enrichment, no AI.** On Quantum Motion (P-011, headcount missing, provisional Tier 3), click **Edit** on Employees and enter 180. The before/after diff shows baseline Tier 2 and a new proposal. 0 AI calls are made, and the applied tier doesn't change until someone approves.
-3. **Day 30.** On *All companies*, click **Receive all Day 30 activity**. NexGen Cloud, Greyparrot and Puttshack get Tier 2 → Tier 1 *evidence-based override* proposals. Each company's Day 0 assessment stays unchanged in its history.
+3. **Day 30.** On *All companies*, click **Receive all Day 30 activity**. Strong activity on Tier 2 companies (NexGen Cloud, Puttshack) shows as Travel Potential for review; it never proposes Tier 1. Each company's Day 0 assessment stays unchanged in its history.
 4. **Restart the backend.** All decisions, evidence and audit events are still there (SQLite).
 
 ---
@@ -175,16 +175,16 @@ Day 30 numbers can be **updated** or **removed**. Both ask for confirmation and 
 
 Day 30 activity is imported into a separate table and stays *unreceived* until released, so it can't influence signup routing. When it arrives:
 1. A new rules-only assessment compares it with the latest Day 0 assessment, and says whether the activity *strengthens*, *weakens* or is *consistent with* it.
-2. Activity is material at 15+ travelers, or 40+ bookings growing 25%+. 40+ travelers on a Tier 2 company makes it a Tier 1 candidate.
-3. Proposals are always evidence-based overrides, at most one tier up, because **booking counts are not dollars**.
+2. Activity is material at 15+ travelers, or 40+ bookings growing 25%+. Day 30 never proposes Tier 1: Tier 1 depends on reported GBV ($500K+), and booking counts can't show dollars. Strong activity on a Tier 2 company becomes a Travel Potential flag (Review Suggested).
+3. The only proposal Day 30 can make is Tier 3 → Tier 2, as an evidence-based override, because **booking counts are not dollars**.
 
 Results on the 10 dataset rows:
 
 | Company | Activity | Day 30 effect (verified in an end-to-end run) |
 |---|---|---|
-| NexGen Cloud (T2) | 83 travelers, 318 bookings, +12% | Tier 2 → Tier 1 override proposal, Review Now |
-| Greyparrot (T2) | 42 travelers, 151 bookings, +58% | Tier 2 → Tier 1 override proposal, Review Now |
-| Puttshack (T2) | 44 travelers, 140 bookings, +42% | Tier 2 → Tier 1 override proposal, Review Now |
+| NexGen Cloud (T2) | 83 travelers, 318 bookings, +12% | Travel Potential (Day 30), no proposal |
+| Greyparrot (T2) | 42 travelers, 151 bookings, +58% | Travel Potential (Day 30), no proposal |
+| Puttshack (T2) | 44 travelers, 140 bookings, +42% | Travel Potential (Day 30), no proposal |
 | IMU Biosciences (T2) | 19 travelers, 57 bookings, +62% | Travel Potential (Day 30), no new proposal; "strengthens" |
 | Attio (T3) | 6 travelers, 21 bookings, +80% | Growth Opportunity, Review Suggested (below the review threshold) |
 | Callosum, Metaview (T3) | 1–5 travelers, flat / −22% | Monitor |
