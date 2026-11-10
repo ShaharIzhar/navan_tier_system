@@ -52,13 +52,6 @@ cd backend && .venv/bin/python -m pytest -q
 cd frontend && npm test
 ```
 
-## Scope and limitations
-
-- Assignment tier rules: **Tier 1:** GBV ≥ $500K; **Tier 2:** GBV ≥ $100K or 150+ employees; **Tier 3:** otherwise. Missing or invalid inputs are handled separately.
-- Flagging, urgency and activity thresholds are **uncalibrated prototype policies**. No overall accuracy is claimed.
-- Public evidence can be incomplete, outdated or estimated. Missing information does not mean no travel. Standard research covers five fields; Deep Research adds travel indicators and other context.
-- No authentication or connection to Navan routing. Reviewer names are audit labels; approved changes apply only inside this prototype.
-
 ## Submission and documentation
 
 The accompanying **research and AI integration paper** covers the hypothesis, manual cases, prompt/output examples and initial evaluation.
@@ -69,7 +62,3 @@ The accompanying **research and AI integration paper** covers the hypothesis, ma
 - [Developer guide](docs/developer_guide.md)
 
 **Stack:** FastAPI, SQLModel/SQLite, React, TypeScript and Anthropic web search.
-
-## AI tools used
-
-NotebookLM and ChatGPT supported product research and PRD work; Claude Code supported implementation, tests and repository documentation; Claude Haiku powers in-app research; Codex assisted with the flowchart, document and evaluation discussions. I set the product decisions and reviewed the output. Manual case checks are described in the accompanying paper.
