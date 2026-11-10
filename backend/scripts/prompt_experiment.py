@@ -124,21 +124,20 @@ def run_case(client, label: str, system: str, user: str, max_searches: int, doma
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--version", default=prompts.current_version())
     ap.add_argument("--cases", nargs="*", default=[])
     ap.add_argument("--conflict-test", nargs="*", default=[])
     args = ap.parse_args()
     client = AnthropicResearchClient()
     for pid in args.cases:
         c = company(pid)
-        v, system, user = prompts.build_standard_prompt(c["company_name"], c["company_domain"], args.version)
+        v, system, user = prompts.build_standard_prompt(c["company_name"], c["company_domain"])
         run_case(client, f"{pid}-standard", system, user, config.STANDARD_MAX_SEARCHES, c["company_domain"], v)
     for pid in args.conflict_test:
         c = company(pid)
         focus = {"employee_count": "two inputs disagree across the 150-employee Tier 2 threshold (155 vs 90)"}
         system, user = prompts.build_deep_prompt(c["company_name"], c["company_domain"], focus, SYNTHETIC_CONFLICT)
         run_case(client, f"{pid}-conflict", system, user, config.STANDARD_MAX_SEARCHES, c["company_domain"],
-                 args.version)
+                 prompts.current_version())
 
 
 if __name__ == "__main__":

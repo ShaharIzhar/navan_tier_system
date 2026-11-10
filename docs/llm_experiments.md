@@ -9,12 +9,13 @@ Everything below comes from real API runs. The raw, unedited outputs are saved i
 - token and search usage
 - an automatic analysis
 
-To reproduce a run (from `backend/`):
+To run the live prompt on cases (from `backend/`):
 
 ```
-python -m scripts.prompt_experiment --version v2 --cases P-007 P-033 P-009 --conflict-test P-007
-python -m scripts.prompt_experiment --version v3 --cases P-025 P-018 P-009
+python -m scripts.prompt_experiment --cases P-007 P-033 P-009 --conflict-test P-007
 ```
+
+The v1–v3 runs below were made with the archived prompts in [`experiments/prompts/`](experiments/prompts/README.md); the app no longer loads them.
 
 ## What the LLM is (and is not) used for
 
@@ -29,7 +30,7 @@ The prompt contains only the company **name and domain**. It never contains the 
 
 ## 1. Original prompt (v1)
 
-Full text: [`backend/prompts/research_v1.system.txt`](../backend/prompts/research_v1.system.txt) and [`research_v1.user.txt`](../backend/prompts/research_v1.user.txt). The core of it:
+Full text: [`experiments/prompts/research_v1.system.txt`](experiments/prompts/research_v1.system.txt) and [`research_v1.user.txt`](experiments/prompts/research_v1.user.txt). The core of it:
 
 ```text
 You are a company research assistant for a B2B sales team at a business-travel platform. ...
@@ -110,7 +111,7 @@ Running v1 on the three standard cases showed three problems. None were invented
 
 ## 6. Refinement (v2 prompt + two deterministic processing steps)
 
-**Prompt changes** ([`backend/prompts/research_v2.*.txt`](../backend/prompts)):
+**Prompt changes** ([`experiments/prompts/research_v2.*.txt`](experiments/prompts)):
 - **A search plan in priority order.** Step 2 is: *"Travel requirements: search for the company's job postings or careers page together with words like 'travel', 'client site', 'on-site', 'field'. This is the most important field for this research."*
 - **Employee rules:** *"Put a number in value_number ONLY when the source states one exact headcount … For a band or range … set value_number to null and keep the band in the claim."*
 - **Conflict rules:** *"Report a conflict only when sources disagree about the same fact for the same period in a way that changes the conclusion … Different estimates from different databases, or figures from different dates, are normal."*
@@ -220,7 +221,7 @@ Both rated it `partial`: the change relies on aggregator estimates. Tests: `back
 **Product decision:** standard research now covers only the basics that matter for routing: industry, locations, employees, funding and hiring. Travel requirements, recent expansion and support complexity move to Deep Research, which now always targets all 8 fields.
 
 **What changed:**
-- **Prompt:** new `research_v4.*.txt` with a 5-field list and a search plan that spends one search on headcount (company statements, annual reports, registry filings). Company-stated rounded figures ("about 26,000") now count as a headcount; ranges still don't. v1–v3 are unchanged and reproducible.
+- **Prompt:** new `research_v4.*.txt` (now the live `backend/prompts/research.*.txt`) with a 5-field list and a search plan that spends one search on headcount (company statements, annual reports, registry filings). Company-stated rounded figures ("about 26,000") now count as a headcount; ranges still don't. v1–v3 are unchanged and reproducible.
 - **Coverage:** each prompt version declares its fields in `manifest.json`. Fields outside a run's scope stay **Not searched**, never "Not found". A standard re-run only replaces evidence for the fields it covers.
 
 **Live check (8–9 Nov 2026):**

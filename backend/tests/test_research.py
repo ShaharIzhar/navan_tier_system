@@ -43,7 +43,7 @@ def test_fabricated_citation_is_dropped(session, fake_llm):
         "industry_business_model": ("found", [finding("Biotech company", real)]),
     })
     fake_llm(llm_result(text, [real]))
-    run = rs.run_standard_research(session, "P-007", prompt_version="v3")
+    run = rs.run_deep_research(session, "P-007")
     assert run.status == "partial"
     assert len(run.dropped_findings) == 1 and "unsupported_citation" in run.dropped_findings[0]["reason"]
     a = latest_assessment(session, "P-007")
@@ -100,7 +100,7 @@ def test_stale_and_future_dates(session, fake_llm):
         "recent_expansion": ("found", [finding("Opens office", url, signal="indirect_growth", date="2099-01-01")]),
     })
     fake_llm(llm_result(text, [url]))
-    run = rs.run_standard_research(session, "P-018", prompt_version="v3")
+    run = rs.run_deep_research(session, "P-018")
     ev = session.exec(select(Evidence).where(Evidence.run_id == run.id)).all()
     assert len(ev) == 1 and ev[0].is_stale
     assert any("cutoff" in d["reason"] for d in run.dropped_findings)

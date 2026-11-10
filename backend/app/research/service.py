@@ -64,12 +64,11 @@ def find_cached_run(session: Session, prospect_id: str, kind: str, version: str)
 
 def run_standard_research(
     session: Session, prospect_id: str, force: bool = False, actor: str = "system",
-    prompt_version: Optional[str] = None,
 ) -> ResearchRun:
     prospect = session.get(Prospect, prospect_id)
     if prospect is None:
         raise ValueError(f"Unknown prospect {prospect_id}")
-    version, system, user = prompts.build_standard_prompt(prospect.company_name, prospect.domain, prompt_version)
+    version, system, user = prompts.build_standard_prompt(prospect.company_name, prospect.domain)
     if not force:
         cached = find_cached_run(session, prospect_id, "standard", version)
         if cached:
@@ -256,8 +255,7 @@ def _store_evidence(session, prospect, run, output: ResearchOutput, kind, focus)
     reported = {fr.field for fr in output.fields}
     if kind == "standard":
         # Only the fields this prompt version covers; the rest stay "Not searched".
-        known = run.prompt_version in prompts.research_versions()
-        fields_in_scope = prompts.standard_fields(run.prompt_version) if known else list(RESEARCH_FIELDS)
+        fields_in_scope = prompts.fields_for_run(run.prompt_version)
     else:
         fields_in_scope = focus or list(reported)
 

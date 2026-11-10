@@ -1,51 +1,29 @@
 {
-  "_readme": "Prompt registry. Edit the .txt files to change a prompt; changes apply on the next AI call (no restart). To change behaviour safely, add a NEW version instead of editing an old one, then set 'active'. Placeholders in {braces} are filled by code; literal braces in judge.user.txt are doubled {{ }}.",
+  "_readme": "The prompts the app sends. One live prompt per task; edit the .txt files to change it (applies on the next AI call, no restart). 'version' is the label stored on each research run, used for caching and history: bump it when the prompt meaningfully changes. Earlier versions and how they were refined: docs/experiments/prompts/ and docs/llm_experiments.md. Placeholders in {braces} are filled by code; literal braces in judge.user.txt are doubled {{ }}.",
   "research": {
-    "active": "v4",
+    "version": "v4",
+    "system": "research.system.txt",
+    "user": "research.user.txt",
+    "shape": "research_shape.json",
     "placeholders": [
       "company_name",
       "domain",
       "fields",
       "shape"
     ],
-    "versions": {
-      "v1": {
-        "system": "research_v1.system.txt",
-        "user": "research_v1.user.txt",
-        "shape": "research_shape_v1.json",
-        "note": "First version."
-      },
-      "v2": {
-        "system": "research_v2.system.txt",
-        "user": "research_v2.user.txt",
-        "shape": "research_shape_v1.json",
-        "note": "Search plan with a dedicated travel search; headcount bands are not exact numbers; fewer false conflicts."
-      },
-      "v3": {
-        "system": "research_v3.system.txt",
-        "user": "research_v3.user.txt",
-        "shape": "research_shape_v3.json",
-        "note": "Labels every travel finding business_travel / local_field_travel / unclear."
-      },
-      "v4": {
-        "system": "research_v4.system.txt",
-        "user": "research_v4.user.txt",
-        "shape": "research_shape_v3.json",
-        "fields": [
-          "industry_business_model",
-          "geographic_footprint",
-          "employee_count",
-          "funding_financial",
-          "hiring_trends"
-        ],
-        "note": "Standard research narrowed to the 5 routing-relevant basics (industry, locations, employees, funding, hiring). Travel, expansion and support complexity move to Deep Research. Company-stated rounded headcounts count as figures."
-      }
-    }
+    "fields": [
+      "industry_business_model",
+      "geographic_footprint",
+      "employee_count",
+      "funding_financial",
+      "hiring_trends"
+    ],
+    "note": "Standard research narrowed to the 5 routing-relevant basics (industry, locations, employees, funding, hiring). Travel, expansion and support complexity move to Deep Research. Company-stated rounded headcounts count as figures."
   },
   "deep": {
     "system": "deep.system.txt",
     "user": "deep.user.txt",
-    "shape": "research_shape_v3.json",
+    "shape": "research_shape.json",
     "placeholders": [
       "company_name",
       "domain",

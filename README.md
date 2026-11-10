@@ -273,9 +273,10 @@ Stack: FastAPI, SQLModel/SQLite, Pydantic, the Anthropic Python SDK, React + Typ
 
 ## Changing a prompt
 
-All prompts are plain text files in `backend/prompts/`, registered in `backend/prompts/manifest.json`.
-1. Copy the latest version, e.g. `research_v4.user.txt` → `research_v5.user.txt` (and `.system.txt`). Edit the copy.
-2. Add `v5` under `research.versions` in the manifest and set `"active": "v5"`. Or try it without editing the manifest: `RESEARCH_PROMPT_VERSION=v5` in `backend/.env`.
-3. Run `cd backend && .venv/bin/python -m scripts.prompt_experiment --version v5 --cases P-007 P-025` and compare `docs/experiments/v5/` with earlier versions.
+The app sends one live prompt per task. They are plain text files in `backend/prompts/` (`research.*`, `deep.*`, `judge.*`, `repair.user.txt`), described in `backend/prompts/manifest.json`.
+1. Before editing, copy the current research prompt into `docs/experiments/prompts/` as the next archived version (today's live prompt is archived there as `research_v4.*`).
+2. Edit `backend/prompts/research.*.txt` and bump `research.version` in the manifest (e.g. `v5`). The version is stored on every run, and the cache is tied to it, so a new version triggers fresh research.
+3. Run `cd backend && .venv/bin/python -m scripts.prompt_experiment --cases P-007 P-025` and compare `docs/experiments/v5/` with earlier versions.
+4. Regenerate the prompt snapshot on purpose: `.venv/bin/python -m tests.golden_prompts > tests/fixtures/prompt_golden.json`. Until you do, `tests/test_prompt_refactor.py` fails on any prompt change, so nothing changes by accident.
 
-Placeholders in `{braces}` are filled by code. The cache is tied to the version, so a new version triggers fresh research. Don't edit a version that has already been run: `tests/test_prompts.py` checks that old versions still match the prompts sent in the saved experiments.
+Placeholders in `{braces}` are filled by code. Earlier versions (v1–v3) and why each changed: [`docs/experiments/prompts/`](docs/experiments/prompts/README.md). `tests/test_prompts.py` checks they still reproduce the prompts sent in the saved experiments.
