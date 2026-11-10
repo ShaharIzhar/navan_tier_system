@@ -21,7 +21,7 @@ npm install
 npm run dev
 ```
 
-A fresh database loads recorded real research for 16 companies, plus example reviews and Day 30 activity. Recordings are labelled **Recorded** and go through the same validation and rules as live research. Some recordings use earlier prompt versions. **Demo mode** shows at the bottom of the sidebar.
+A database loads recorded real research for 16 companies, along with example reviews and Day 30 activity. Recordings are labelled **Recorded** and go through the same validation and rules as live research. Some recordings use earlier prompt versions. **Demo mode** shows at the bottom of the sidebar.
 
 ## Option 2: Live research (with an Anthropic API key)
 
