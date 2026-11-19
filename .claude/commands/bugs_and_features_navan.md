@@ -1,14 +1,16 @@
-Read the Apple Note titled "bugs and feature navan" using the Apple Notes MCP tool (`get_note_content` with note_name: "bugs and feature navan").
+Read the Apple Note titled "bugs and feature navan" with the Apple Notes MCP tool `mcp__apple-notes__get-note-markdown` (argument `title: "bugs and feature navan"`). Use this tool, not `get-note-content`: only the Markdown read shows which checklist items are ticked (`[x]`) and which are open (`[ ]`).
 
 If the note can't be found or read, say so and stop. Do not write or overwrite the file.
 
-**Only include open (unchecked) items — skip any items that are checked off/completed.**
+If the Markdown has no `[x]` / `[ ]` markers at all, the tool could not read checklist state (it needs Full Disk Access). Say so and stop without writing the file, because finished items can't be told apart from open ones.
+
+An **open item** is a checklist line marked `[ ]`. Skip every item marked `[x]` or `[X]`.
 
 Classify each open item into one of two categories:
 - **Bugs**: Issues, broken behavior, UI glitches, things that are malfunctioning or not working as expected.
 - **Features / Todos**: Enhancements, improvements, design requests, or new functionality to add.
 
-Then fully overwrite the file at:
+Then write the file at:
 `/Users/shaharizhar/Public/repos/navan_tier_system/bugs_and_todos.md`
 
 Use this exact format:

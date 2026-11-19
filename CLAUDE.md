@@ -17,11 +17,11 @@ Internal tool that checks whether a newly signed company is in the right support
 - `backend/app/research/`: Claude client, research service, evidence checks, AI judge
 - `backend/prompts/`: prompt text + `manifest.json` (bump the version when a prompt meaningfully changes)
 - `backend/app/reviews/service.py`: approve / reject / request info / comment
-- `backend/app/config.py`: all thresholds
+- `backend/app/config.py`: all thresholds, including the tier cut-offs (`TIER1_GBV_MIN`, `TIER2_GBV_MIN`, `TIER2_EMPLOYEES_MIN`)
 - `frontend/src/pages/`, `frontend/src/components/`, `frontend/src/api.ts`
 
 ## Rules
-- The AI never sets or changes a tier. Tier thresholds live only in `rules/baseline.py`.
+- The AI never sets or changes a tier. Tier cut-offs are defined only in `config.py`, and only `rules/baseline.py` turns them into a tier; never hardcode a cut-off anywhere else.
 - Only human approval changes the applied tier.
 - History is append-only: never delete or overwrite assessments, runs or evidence.
 - Every AI citation must come from the search results of that run; keep the code checks.
